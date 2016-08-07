@@ -1,0 +1,14 @@
+<resources>
+    <string name="str_recordbtn_state_normal">按住  说话</string>
+    <string name="str_recordbtn_state_recording">松开  结束</string>
+    <string name="str_recordbtn_state_want_cancel">松开手指，取消录音</string>
+    <string name="str_recordbtn_state_noSDcard">Sd卡不存在，无法录音</string>
+    <string name="str_recorddialog_too_short">录音时间太短</string>
+    <string name="str_recorddialog_recording">手指上滑，取消发送</string>
+    <string name="str_imgtxt_state_normal">按住说话</string>
+    <string name="str_imgtxt_state_recoding">松开结束</string>
+
+    <string name="title_activity_main">MainActivity</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="action_settings">Settings</string>
+</resources>

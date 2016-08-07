@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorPrimaryDark"
+    tools:context="com.lwk.familycontact.project.splash.SplashActivity">
+
+    <LinearLayout
+        android:id="@+id/ll_splash_content"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:gravity="center"
+        android:orientation="vertical">
+
+        <ImageView
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:src="@mipmap/ic_logo"/>
+
+        <TextView
+            android:id="@+id/tv_splash_version_name"
+            style="@style/FC_LargeTextStyle"
+            android:layout_gravity="center"
+            android:layout_marginTop="@dimen/spacing_normal"
+            android:text="@string/app_name"
+            android:textColor="@color/colorAccent"/>
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/tv_splash_author_desc"
+        style="@style/FC_SmallTextStyle"
+        android:layout_gravity="bottom|center_horizontal"
+        android:layout_marginBottom="@dimen/spacing_normal"
+        android:text="@string/AuthorDesc"
+        android:textColor="@color/colorAccent"/>
+
+</FrameLayout>

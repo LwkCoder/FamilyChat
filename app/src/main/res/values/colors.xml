@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">@color/deep_dark</color>
+    <color name="colorPrimaryDark">@color/deep_darker</color>
+    <color name="colorAccent">@color/deep_light</color>
+
+    <!--BottomNavigationBar-->
+    <color name="bnbActiveColor">@android:color/holo_blue_bright</color>
+    <color name="bnbInActiveColor">@color/colorAccent</color>
+    <color name="bnbBackgroudColor">@color/colorPrimary</color>
+
+</resources>

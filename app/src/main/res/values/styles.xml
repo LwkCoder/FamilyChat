@@ -1,0 +1,36 @@
+<resources>
+
+    <!-- Base application theme. -->
+    <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
+    </style>
+
+    <style name="FC_TextViewStyle">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:freezesText">true</item>
+    </style>
+
+    <style name="FC_SmallTextStyle" parent="FC_TextViewStyle">
+        <item name="android:textSize">@dimen/font_small</item>
+    </style>
+
+    <style name="FC_NormalTextStyle" parent="FC_TextViewStyle">
+        <item name="android:textSize">@dimen/font_normal</item>
+    </style>
+
+    <style name="FC_LargeTextStyle" parent="FC_TextViewStyle">
+        <item name="android:textSize">@dimen/font_large</item>
+    </style>
+
+    <style name="FC_LargerTextStyle" parent="FC_TextViewStyle">
+        <item name="android:textSize">@dimen/font_larger</item>
+    </style>
+
+    <style name="FC_HugeTextStyle" parent="FC_TextViewStyle">
+        <item name="android:textSize">@dimen/font_huge</item>
+    </style>
+
+</resources>

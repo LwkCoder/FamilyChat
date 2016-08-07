@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+    <RelativeLayout
+        android:id="@+id/rl_common_actionbar_parent"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:layout_alignParentTop="true">
+
+        <FrameLayout
+            android:id="@+id/ll_common_actionbar_left_container"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_alignParentLeft="true"
+            android:background="@drawable/bg_common_actionbar_menu_selector">
+
+            <LinearLayout
+                android:id="@+id/ll_common_actionbar_left_back"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_gravity="center"
+                android:layout_marginLeft="@dimen/common_actionbar_leftlayout_padding"
+                android:layout_marginRight="@dimen/common_actionbar_leftlayout_padding"
+                android:gravity="center_vertical"
+                android:minWidth="@dimen/dp_40"
+                android:orientation="horizontal"
+                android:visibility="gone">
+
+                <ImageView
+                    android:id="@+id/img_common_actionbar_back"
+                    android:layout_width="@dimen/common_actionbar_imgback_width"
+                    android:layout_height="@dimen/common_actionbar_imgback_height"
+                    android:src="@mipmap/icon_arrow_left"/>
+
+                <TextView
+                    android:id="@+id/tv_common_actionbar_back"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/dp_4"
+                    android:text="@string/back"
+                    android:textColor="@color/white_FFFFFF"
+                    android:textSize="@dimen/common_actionbar_tvback_size"/>
+            </LinearLayout>
+
+            <FrameLayout
+                android:id="@+id/fl_common_actionbar_left_other"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_gravity="center">
+
+                <TextView
+                    android:id="@+id/tv_common_actionbar_left_other"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginLeft="@dimen/common_actionbar_leftlayout_padding"
+                    android:layout_marginRight="@dimen/common_actionbar_leftlayout_padding"
+                    android:textColor="@color/white_FFFFFF"
+                    android:textSize="@dimen/common_actionbar_lefttv_size"
+                    android:visibility="gone"/>
+
+                <ImageView
+                    android:id="@+id/img_common_actionbar_left_other"
+                    android:layout_width="@dimen/common_actionbar_leftimg_width"
+                    android:layout_height="@dimen/common_actionbar_leftimg_height"
+                    android:layout_gravity="center"
+                    android:visibility="gone"/>
+            </FrameLayout>
+        </FrameLayout>
+
+        <TextView
+            android:id="@+id/tv_common_actionbar_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:textColor="@color/white_FFFFFF"
+            android:textSize="@dimen/common_actionbar_centertv"/>
+
+        <FrameLayout
+            android:id="@+id/fl_common_actionbar_right"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_alignParentRight="true"
+            android:background="@drawable/bg_common_actionbar_menu_selector">
+
+            <TextView
+                android:id="@+id/tv_common_actionbar_right"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginLeft="@dimen/common_actionbar_rightlayout_padding"
+                android:layout_marginRight="@dimen/common_actionbar_rightlayout_padding"
+                android:textColor="@color/white_FFFFFF"
+                android:textSize="@dimen/common_actionbar_righttv_size"
+                android:visibility="gone"/>
+
+            <ImageView
+                android:id="@+id/img_common_actionbar_right"
+                android:layout_width="@dimen/common_actionbar_rightimg_width"
+                android:layout_height="@dimen/common_actionbar_rightimg_height"
+                android:layout_gravity="center"
+                android:visibility="gone"/>
+        </FrameLayout>
+
+    </RelativeLayout>
+
+</RelativeLayout>

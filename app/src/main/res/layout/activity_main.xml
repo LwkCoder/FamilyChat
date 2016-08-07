@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fitsSystemWindows="true"
+    tools:context=".project.MainActivity">
+
+    <com.lib.base.widget.CommonActionBar
+        android:id="@+id/cab_main"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:background="@color/colorPrimary"/>
+
+    <LinearLayout
+        android:id="@+id/ll_main_container"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@+id/bnb_main"
+        android:layout_below="@+id/cab_main"
+        android:orientation="vertical"/>
+
+    <com.ashokvarma.bottomnavigation.BottomNavigationBar
+        android:id="@+id/bnb_main"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        app:bnbActiveColor="@color/bnbActiveColor"
+        app:bnbBackgroundColor="@color/bnbBackgroudColor"
+        app:bnbBackgroundStyle="background_style_static"
+        app:bnbInactiveColor="@color/bnbInActiveColor"
+        app:bnbMode="mode_fixed"/>
+
+</RelativeLayout>

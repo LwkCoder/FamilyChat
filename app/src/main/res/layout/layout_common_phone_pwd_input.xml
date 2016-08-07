@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              xmlns:flatui="http://schemas.android.com/apk/res-auto"
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:orientation="vertical">
+
+    <com.cengalabs.flatui.views.FlatEditText
+        android:id="@+id/fed_phone"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_48"
+        android:drawableLeft="@drawable/ic_phone"
+        android:drawablePadding="@dimen/spacing_small"
+        android:hint="@string/ed_hint_phone_input"
+        android:inputType="phone"
+        android:paddingLeft="@dimen/spacing_normal"
+        android:paddingRight="@dimen/spacing_normal"
+        android:textSize="@dimen/font_large"
+        flatui:fl_cornerRadius="1dp"
+        flatui:fl_borderWidth="1dp"
+        flatui:fl_fieldStyle="fl_transparent"
+        flatui:fl_theme="@array/deep"/>
+
+    <com.cengalabs.flatui.views.FlatEditText
+        android:id="@+id/fed_pwd"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_48"
+        android:layout_marginTop="@dimen/spacing_large"
+        android:drawableLeft="@drawable/ic_pwd"
+        android:drawablePadding="@dimen/spacing_small"
+        android:hint="@string/ed_hint_pwd_input"
+        android:inputType="textPassword"
+        android:paddingLeft="@dimen/spacing_normal"
+        android:paddingRight="@dimen/spacing_normal"
+        android:textSize="@dimen/font_large"
+        flatui:fl_cornerRadius="1dp"
+        flatui:fl_borderWidth="1dp"
+        flatui:fl_fieldStyle="fl_transparent"
+        flatui:fl_theme="@array/deep"/>
+
+</LinearLayout>
