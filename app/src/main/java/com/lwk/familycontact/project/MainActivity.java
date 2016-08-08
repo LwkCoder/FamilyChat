@@ -14,7 +14,7 @@ import com.lwk.familycontact.R;
 import com.lwk.familycontact.base.FCBaseActivity;
 import com.lwk.familycontact.project.contact.ContactFragment;
 import com.lwk.familycontact.project.conversation.fragment.ConversationFragment;
-import com.lwk.familycontact.project.setting.SettingFragment;
+import com.lwk.familycontact.project.dial.DialFragment;
 
 /**
  * MainActivity
@@ -29,7 +29,7 @@ public class MainActivity extends FCBaseActivity implements BottomNavigationBar.
     private Fragment mCurFragment;
     private ConversationFragment mFragment01;
     private ContactFragment mFragment02;
-    private SettingFragment mFragment03;
+    private DialFragment mFragment03;
 
     @Override
     protected int setContentViewId()
@@ -41,7 +41,6 @@ public class MainActivity extends FCBaseActivity implements BottomNavigationBar.
     protected void initUI()
     {
         mActionBar = findView(R.id.cab_main);
-        mActionBar.setTitleText("啦啦啦");
 
         mNavigationBar = findView(R.id.bnb_main);
         mBadge01 = createBadgeItem();
@@ -55,7 +54,7 @@ public class MainActivity extends FCBaseActivity implements BottomNavigationBar.
         mNavigationBar
                 .addItem(createBottomNavigationItem(R.drawable.ic_tab_conversation, R.string.label_main_tab01).setBadgeItem(mBadge01))
                 .addItem(createBottomNavigationItem(R.drawable.ic_tab_contact, R.string.label_main_tab02).setBadgeItem(mBadge02))
-                .addItem(createBottomNavigationItem(R.drawable.ic_tab_setting, R.string.label_main_tab03))
+                .addItem(createBottomNavigationItem(R.drawable.ic_tab_dial, R.string.label_main_tab03))
                 .initialise();
         mNavigationBar.setTabSelectedListener(this);
         //默认选中第一个tab
@@ -100,16 +99,19 @@ public class MainActivity extends FCBaseActivity implements BottomNavigationBar.
                 if (mFragment01 == null)
                     mFragment01 = ConversationFragment.newInstance();
                 checkFragment(mFragment01);
+                mActionBar.setTitleText(R.string.tv_main_actionbar_tab01);
                 break;
             case 1:
                 if (mFragment02 == null)
                     mFragment02 = ContactFragment.newInstance();
                 checkFragment(mFragment02);
+                mActionBar.setTitleText(R.string.tv_main_actionbar_tab02);
                 break;
             case 2:
                 if (mFragment03 == null)
-                    mFragment03 = SettingFragment.newInstance();
+                    mFragment03 = DialFragment.newInstance();
                 checkFragment(mFragment03);
+                mActionBar.setTitleText(R.string.tv_main_actionbar_tab03);
                 break;
         }
     }

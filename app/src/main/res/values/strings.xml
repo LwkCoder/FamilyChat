@@ -38,5 +38,8 @@
     <!--MainActivity-->
     <string name="label_main_tab01">会话</string>
     <string name="label_main_tab02">通讯录</string>
-    <string name="label_main_tab03">设置</string>
+    <string name="label_main_tab03">拨号</string>
+    <string name="tv_main_actionbar_tab01">会话列表</string>
+    <string name="tv_main_actionbar_tab02">通讯录</string>
+    <string name="tv_main_actionbar_tab03">拨号器</string>
 </resources>

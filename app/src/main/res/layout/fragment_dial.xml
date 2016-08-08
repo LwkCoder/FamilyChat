@@ -8,6 +8,6 @@
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
         android:layout_centerVertical="true"
-        android:text="设置"
+        android:text="拨号"
         android:textSize="50sp"/>
 </RelativeLayout>

@@ -1,4 +1,4 @@
-package com.lwk.familycontact.project.setting;
+package com.lwk.familycontact.project.dial;
 
 import android.os.Bundle;
 import android.view.View;
@@ -8,23 +8,23 @@ import com.lwk.familycontact.R;
 
 /**
  * Created by LWK
- * TODO 设置片段
+ * TODO 拨号器片段
  * 2016/8/2
  */
-public class SettingFragment extends BaseFragment
+public class DialFragment extends BaseFragment
 {
-    public static SettingFragment newInstance()
+    public static DialFragment newInstance()
     {
-        SettingFragment settingFragment = new SettingFragment();
+        DialFragment dialFragment = new DialFragment();
         Bundle bundle = new Bundle();
-        settingFragment.setArguments(bundle);
-        return settingFragment;
+        dialFragment.setArguments(bundle);
+        return dialFragment;
     }
 
     @Override
     protected int setRootLayoutId()
     {
-        return R.layout.fragment_setting;
+        return R.layout.fragment_dial;
     }
 
     @Override
