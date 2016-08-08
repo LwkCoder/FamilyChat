@@ -37,4 +37,5 @@ dependencies {
     compile project(':FlatUI')
     compile project(':RecordButton')
     compile project(':ComRcvAdapter')
+    compile 'com.belerweb:pinyin4j:2.5.1'
 }

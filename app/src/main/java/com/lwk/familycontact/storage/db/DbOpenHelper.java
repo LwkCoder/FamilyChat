@@ -6,7 +6,9 @@ import android.database.sqlite.SQLiteDatabase;
 import com.j256.ormlite.android.apptools.OrmLiteSqliteOpenHelper;
 import com.j256.ormlite.dao.Dao;
 import com.j256.ormlite.support.ConnectionSource;
+import com.j256.ormlite.table.TableUtils;
 import com.lib.base.log.KLog;
+import com.lwk.familycontact.storage.db.user.UserBean;
 
 import java.sql.SQLException;
 import java.util.HashMap;
@@ -42,7 +44,13 @@ public class DbOpenHelper extends OrmLiteSqliteOpenHelper
     @Override
     public void onCreate(SQLiteDatabase database, ConnectionSource connectionSource)
     {
-
+        try
+        {
+            TableUtils.createTable(connectionSource, UserBean.class);
+        } catch (SQLException e)
+        {
+            KLog.e("DbOpenHelper.onCreate() fail : " + e.toString());
+        }
     }
 
     @Override
