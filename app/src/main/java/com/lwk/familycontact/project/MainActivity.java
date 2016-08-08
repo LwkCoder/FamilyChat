@@ -13,7 +13,7 @@ import com.lib.base.widget.CommonActionBar;
 import com.lwk.familycontact.R;
 import com.lwk.familycontact.base.FCBaseActivity;
 import com.lwk.familycontact.project.contact.ContactFragment;
-import com.lwk.familycontact.project.conversation.ConversationFragment;
+import com.lwk.familycontact.project.conversation.fragment.ConversationFragment;
 import com.lwk.familycontact.project.setting.SettingFragment;
 
 /**

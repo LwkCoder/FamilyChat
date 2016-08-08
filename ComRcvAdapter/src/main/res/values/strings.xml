@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="tv_rcv_loadmore_status_init">准备加载</string>
+    <string name="tv_rcv_loadmore_status_loading">正在加载...</string>
+    <string name="tv_rcv_loadmore_status_success">加载成功</string>
+    <string name="tv_rcv_loadmore_status_fail">加载失败，请点击重试</string>
+    <string name="tv_rcv_loadmore_status_nomoredata">没有更多数据</string>
+</resources>

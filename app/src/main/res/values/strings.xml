@@ -5,6 +5,7 @@
     <!--错误描述汇总-->
     <string name="error_unknow">数据异常</string>
     <string name="error_regist_fail">注册失败，请稍后重试</string>
+    <string name="error_hx_server_unknow_error">连接服务器异常，请检查网络设置</string>
     <string name="warning_phone_can_not_empty">手机号不能为空</string>
     <string name="warning_pwd_can_not_empty">密码不能为空</string>
     <string name="warning_phone_error">请输入规范的手机号码</string>

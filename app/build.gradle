@@ -34,4 +34,5 @@ dependencies {
     compile project(':BaseLibs')
     compile project(':FlatUI')
     compile project(':RecordButton')
+    compile project(':ComRcvAdapter')
 }

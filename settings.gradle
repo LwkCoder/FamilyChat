@@ -1,1 +1,1 @@
-include ':app', ':BaseLibs', ':FlatUI', ':RecordButton'
+include ':app', ':BaseLibs', ':FlatUI', ':RecordButton', ':ComRcvAdapter'

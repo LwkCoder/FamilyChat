@@ -4,10 +4,9 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
 
-    <com.cengalabs.flatui.views.FlatTextView
-        style="@style/FC_HugeTextStyle"
-        android:layout_centerHorizontal="true"
-        android:layout_centerVertical="true"
-        flatui:fl_textColor="fl_light"
-        android:text="OHHHHHH"/>
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/rcv_conversation"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
+
 </RelativeLayout>

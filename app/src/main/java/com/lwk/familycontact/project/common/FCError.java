@@ -35,6 +35,10 @@ public class FCError
                 return R.string.warning_user_not_exist;
             case EMError.NETWORK_ERROR:
                 return R.string.warning_network_disconnect;
+            case EMError.SERVER_NOT_REACHABLE:
+                return R.string.error_hx_server_unknow_error;
+            case EMError.SERVER_UNKNOWN_ERROR:
+                return R.string.error_hx_server_unknow_error;
             default:
                 return R.string.error_unknow;
         }
