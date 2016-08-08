@@ -13,6 +13,7 @@ public class FCError
     /*自定义错误码*/
     public static final int REGIST_FAIL = 1000;
     public static final int LOGIN_FAIL = 1001;
+    public static final int LOGOUT_FAIL = 1002;
 
     /**
      * 根据环信错误码返回错误描述的资源id
@@ -32,6 +33,8 @@ public class FCError
                 return R.string.error_regist_fail;
             case EMError.USER_NOT_FOUND:
                 return R.string.warning_user_not_exist;
+            case EMError.NETWORK_ERROR:
+                return R.string.warning_network_disconnect;
             default:
                 return R.string.error_unknow;
         }

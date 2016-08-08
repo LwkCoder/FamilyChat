@@ -10,7 +10,7 @@ import com.lwk.familycontact.R;
 import com.lwk.familycontact.base.FCBaseActivity;
 import com.lwk.familycontact.project.regist.presenter.RegistPresenter;
 import com.lwk.familycontact.utils.event.EventBusHelper;
-import com.lwk.familycontact.utils.event.RegistBean;
+import com.lwk.familycontact.utils.event.RegistEventBean;
 
 /**
  * 注册界面
@@ -108,7 +108,7 @@ public class RegistActivity extends FCBaseActivity implements RegistImpl
                 showShortToast(R.string.hint_regist_success);
                 String phone = mEdPhone.getText().toString().trim();
                 String pwd = mEdPwd.getText().toString().trim();
-                EventBusHelper.getInstance().post(new RegistBean(phone, pwd));
+                EventBusHelper.getInstance().post(new RegistEventBean(phone, pwd));
                 finish();
             }
         });

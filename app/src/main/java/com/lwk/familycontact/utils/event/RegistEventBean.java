@@ -8,13 +8,13 @@ import android.os.Parcelable;
  * TODO 注册成功后传递给登录界面的数据
  * 2016/8/5
  */
-public class RegistBean implements Parcelable
+public class RegistEventBean implements Parcelable
 {
     private String phone;
 
     private String pwd;
 
-    public RegistBean(String phone, String pwd)
+    public RegistEventBean(String phone, String pwd)
     {
         this.phone = phone;
         this.pwd = pwd;
@@ -43,7 +43,7 @@ public class RegistBean implements Parcelable
     @Override
     public String toString()
     {
-        return "RegistBean{" +
+        return "RegistEventBean{" +
                 "phone='" + phone + '\'' +
                 ", pwd='" + pwd + '\'' +
                 '}';
@@ -62,24 +62,24 @@ public class RegistBean implements Parcelable
         dest.writeString(this.pwd);
     }
 
-    protected RegistBean(Parcel in)
+    protected RegistEventBean(Parcel in)
     {
         this.phone = in.readString();
         this.pwd = in.readString();
     }
 
-    public static final Parcelable.Creator<RegistBean> CREATOR = new Parcelable.Creator<RegistBean>()
+    public static final Parcelable.Creator<RegistEventBean> CREATOR = new Parcelable.Creator<RegistEventBean>()
     {
         @Override
-        public RegistBean createFromParcel(Parcel source)
+        public RegistEventBean createFromParcel(Parcel source)
         {
-            return new RegistBean(source);
+            return new RegistEventBean(source);
         }
 
         @Override
-        public RegistBean[] newArray(int size)
+        public RegistEventBean[] newArray(int size)
         {
-            return new RegistBean[size];
+            return new RegistEventBean[size];
         }
     };
 }

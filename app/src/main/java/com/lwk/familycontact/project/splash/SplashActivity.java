@@ -5,6 +5,7 @@ import android.view.View;
 import android.view.animation.AlphaAnimation;
 import android.widget.TextView;
 
+import com.lib.base.log.KLog;
 import com.lib.base.utils.AppUtil;
 import com.lwk.familycontact.R;
 import com.lwk.familycontact.base.FCBaseActivity;
@@ -50,6 +51,7 @@ public class SplashActivity extends FCBaseActivity
 
         mLoginStartTime = System.currentTimeMillis();
         //自动登录
+        KLog.d("SplashActivit--->是否能自动登录:" + HxSdkHelper.getInstance().canAutoLogin());
         if (HxSdkHelper.getInstance().canAutoLogin())
         {
             HxSdkHelper.getInstance().loadHxLocalData();
@@ -66,7 +68,7 @@ public class SplashActivity extends FCBaseActivity
                     @Override
                     public void run()
                     {
-                        startActivity(new Intent(SplashActivity.this, LoginActivity.class));
+                        startActivity(new Intent(SplashActivity.this, MainActivity.class));
                         finish();
                     }
                 }, ANIM_DURATION - mLoginTime);

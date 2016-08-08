@@ -5,6 +5,8 @@ import android.view.View;
 
 import com.lib.base.app.BaseFragment;
 import com.lwk.familycontact.R;
+import com.lwk.familycontact.im.HxConnectListener;
+import com.lwk.familycontact.im.HxSdkHelper;
 
 /**
  * Created by LWK
@@ -32,10 +34,20 @@ public class ConversationFragment extends BaseFragment
     {
     }
 
+    private HxConnectListener hxConnectListener;
     @Override
     protected void initData()
     {
         super.initData();
+        hxConnectListener=new HxConnectListener();
+        HxSdkHelper.getInstance().addConnectListener(hxConnectListener);
+    }
+
+    @Override
+    public void onDestroy()
+    {
+        super.onDestroy();
+        HxSdkHelper.getInstance().removeConnectListener(hxConnectListener);
     }
 
     @Override

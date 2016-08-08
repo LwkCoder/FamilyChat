@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.pm.PackageManager;
 
 import com.hyphenate.EMCallBack;
+import com.hyphenate.EMConnectionListener;
 import com.hyphenate.chat.EMClient;
 import com.hyphenate.chat.EMOptions;
 import com.hyphenate.exceptions.HyphenateException;
@@ -181,4 +182,56 @@ public class HxSdkHelper
         KLog.d("HxSdk load all conversation success");
     }
 
+    /**
+     * 退出环信登录
+     *
+     * @param callBack 回调
+     */
+    public void logout(final FCCallBack callBack)
+    {
+        if (!EMClient.getInstance().isLoggedInBefore())
+            return;
+        EMClient.getInstance().logout(true, new EMCallBack()
+        {
+            @Override
+            public void onSuccess()
+            {
+                if (callBack != null)
+                    callBack.onSuccess(null);
+            }
+
+            @Override
+            public void onError(int i, String s)
+            {
+                if (callBack != null)
+                    callBack.onFail(FCError.LOGOUT_FAIL, FCError.getErrorMsgIdFromCode(i));
+            }
+
+            @Override
+            public void onProgress(int i, String s)
+            {
+
+            }
+        });
+    }
+
+    /**
+     * 添加连接监听
+     *
+     * @param listener 环信连接监听
+     */
+    public void addConnectListener(EMConnectionListener listener)
+    {
+        EMClient.getInstance().addConnectionListener(listener);
+    }
+
+    /**
+     * 移除连接监听
+     *
+     * @param listener 环信连接监听
+     */
+    public void removeConnectListener(EMConnectionListener listener)
+    {
+        EMClient.getInstance().removeConnectionListener(listener);
+    }
 }

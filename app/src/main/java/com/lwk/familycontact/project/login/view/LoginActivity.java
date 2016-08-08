@@ -13,7 +13,7 @@ import com.lwk.familycontact.project.MainActivity;
 import com.lwk.familycontact.project.login.presenter.LoginPresenter;
 import com.lwk.familycontact.project.regist.view.RegistActivity;
 import com.lwk.familycontact.utils.event.EventBusHelper;
-import com.lwk.familycontact.utils.event.RegistBean;
+import com.lwk.familycontact.utils.event.RegistEventBean;
 
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
@@ -142,10 +142,10 @@ public class LoginActivity extends FCBaseActivity implements LoginImpl
 
 
     @Subscribe(threadMode = ThreadMode.MAIN)
-    public void receiveRegistBean(RegistBean registBean)
+    public void receiveRegistBean(RegistEventBean registEventBean)
     {
-        final String phone = registBean.getPhone();
-        final String pwd = registBean.getPwd();
+        final String phone = registEventBean.getPhone();
+        final String pwd = registEventBean.getPwd();
         mEdPhone.setText(phone);
         mEdPwd.setText(pwd);
         mMainHanlder.postDelayed(new Runnable()

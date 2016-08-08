@@ -41,6 +41,7 @@
                 android:layout_marginTop="180dp"
                 android:text="@string/btn_regist_confirm"
                 android:textColor="@color/white_FFFFFF"
+                android:textSize="@dimen/sp_20"
                 flatui:fl_textAppearance="fl_none"
                 flatui:fl_theme="@array/grass"
                 flatui:fl_touchEffect="fl_ripple"/>
