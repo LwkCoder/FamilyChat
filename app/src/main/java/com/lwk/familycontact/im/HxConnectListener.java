@@ -36,7 +36,7 @@ public class HxConnectListener implements EMConnectionListener
     @Override
     public void onConnected()
     {
-        KLog.e("HxConnectListener onConnected");
+        KLog.d("HxConnectListener onConnected");
         //发送Event
         ConnectEventBean eventBean = new ConnectEventBean(true, -1);
         EventBusHelper.getInstance().post(eventBean);
