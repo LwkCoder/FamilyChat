@@ -8,7 +8,7 @@ import com.lib.base.utils.StringUtil;
 import com.lwk.familycontact.im.HxSdkHelper;
 import com.lwk.familycontact.project.common.FCCallBack;
 import com.lwk.familycontact.project.login.view.LoginImpl;
-import com.lwk.familycontact.storage.SpKeys;
+import com.lwk.familycontact.storage.sp.SpKeys;
 
 /**
  * Created by LWK

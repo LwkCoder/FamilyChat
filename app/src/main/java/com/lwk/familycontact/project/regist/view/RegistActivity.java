@@ -80,7 +80,7 @@ public class RegistActivity extends FCBaseActivity implements RegistImpl
     @Override
     public void closeRegistDialog()
     {
-        mMainHanlder.post(new Runnable()
+        mMainHandler.post(new Runnable()
         {
             @Override
             public void run()
@@ -100,7 +100,7 @@ public class RegistActivity extends FCBaseActivity implements RegistImpl
     @Override
     public void registSuccess()
     {
-        mMainHanlder.post(new Runnable()
+        mMainHandler.post(new Runnable()
         {
             @Override
             public void run()

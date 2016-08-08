@@ -216,6 +216,16 @@ public class HxSdkHelper
     }
 
     /**
+     * 获取当前登录的账号
+     *
+     * @return 当前登录账号
+     */
+    public String getCurLoginUser()
+    {
+        return EMClient.getInstance().getCurrentUser();
+    }
+
+    /**
      * 添加连接监听
      *
      * @param listener 环信连接监听

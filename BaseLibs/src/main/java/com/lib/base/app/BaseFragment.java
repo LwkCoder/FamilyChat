@@ -165,7 +165,7 @@ public abstract class BaseFragment extends Fragment implements View.OnClickListe
     /**
      * 弹出Toast
      */
-    protected void showToast(final int resId)
+    protected void showShortToast(final int resId)
     {
         mMainHandler.post(new Runnable()
         {
@@ -180,7 +180,7 @@ public abstract class BaseFragment extends Fragment implements View.OnClickListe
     /**
      * 弹出Toast
      */
-    protected void showToast(final String s)
+    protected void showShortToast(final String s)
     {
         mMainHandler.post(new Runnable()
         {
@@ -188,6 +188,36 @@ public abstract class BaseFragment extends Fragment implements View.OnClickListe
             public void run()
             {
                 ToastUtils.showShortMsg(getActivity(), s);
+            }
+        });
+    }
+
+    /**
+     * 弹出Toast
+     */
+    protected void showLongToast(final int resId)
+    {
+        mMainHandler.post(new Runnable()
+        {
+            @Override
+            public void run()
+            {
+                ToastUtils.showLongMsg(getActivity(), resId);
+            }
+        });
+    }
+
+    /**
+     * 弹出Toast
+     */
+    protected void showLongToast(final String s)
+    {
+        mMainHandler.post(new Runnable()
+        {
+            @Override
+            public void run()
+            {
+                ToastUtils.showLongMsg(getActivity(), s);
             }
         });
     }

@@ -20,7 +20,7 @@ public abstract class BaseActivity extends AppCompatActivity implements View.OnC
 {
     protected String LOG_TAG = this.getClass().getSimpleName();
     protected View mRootLayout;
-    protected Handler mMainHanlder;
+    protected Handler mMainHandler;
     protected ViewFinder mVFinder;
 
     protected void beforeOnCreate(Bundle savedInstanceState)
@@ -35,7 +35,7 @@ public abstract class BaseActivity extends AppCompatActivity implements View.OnC
         KLog.d(LOG_TAG + "--->onCreate()");
         ActivityManager.getInstance().addActivity(this);
 
-        mMainHanlder = new Handler(getMainLooper())
+        mMainHandler = new Handler(getMainLooper())
         {
             @Override
             public void handleMessage(Message msg)
@@ -143,7 +143,7 @@ public abstract class BaseActivity extends AppCompatActivity implements View.OnC
      */
     protected void showShortToast(final int resId)
     {
-        mMainHanlder.post(new Runnable()
+        mMainHandler.post(new Runnable()
         {
             @Override
             public void run()
@@ -158,7 +158,7 @@ public abstract class BaseActivity extends AppCompatActivity implements View.OnC
      */
     protected void showShortToast(final String s)
     {
-        mMainHanlder.post(new Runnable()
+        mMainHandler.post(new Runnable()
         {
             @Override
             public void run()
@@ -173,7 +173,7 @@ public abstract class BaseActivity extends AppCompatActivity implements View.OnC
      */
     protected void showLongToast(final int resId)
     {
-        mMainHanlder.post(new Runnable()
+        mMainHandler.post(new Runnable()
         {
             @Override
             public void run()
@@ -188,7 +188,7 @@ public abstract class BaseActivity extends AppCompatActivity implements View.OnC
      */
     protected void showLongToast(final String s)
     {
-        mMainHanlder.post(new Runnable()
+        mMainHandler.post(new Runnable()
         {
             @Override
             public void run()

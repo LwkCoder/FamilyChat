@@ -30,7 +30,6 @@ public class ContactFragment extends BaseFragment
     @Override
     protected void initUI()
     {
-
     }
 
     @Override

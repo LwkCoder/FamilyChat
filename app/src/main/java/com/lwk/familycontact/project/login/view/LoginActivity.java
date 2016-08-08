@@ -148,7 +148,7 @@ public class LoginActivity extends FCBaseActivity implements LoginImpl
         final String pwd = registEventBean.getPwd();
         mEdPhone.setText(phone);
         mEdPwd.setText(pwd);
-        mMainHanlder.postDelayed(new Runnable()
+        mMainHandler.postDelayed(new Runnable()
         {
             @Override
             public void run()

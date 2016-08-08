@@ -63,7 +63,7 @@ public class SplashActivity extends FCBaseActivity
                 finish();
             } else
             {
-                mMainHanlder.postDelayed(new Runnable()
+                mMainHandler.postDelayed(new Runnable()
                 {
                     @Override
                     public void run()
@@ -79,7 +79,7 @@ public class SplashActivity extends FCBaseActivity
         {
             mLoginEndTime = System.currentTimeMillis();
             mLoginTime = mLoginEndTime - mLoginStartTime;
-            mMainHanlder.postDelayed(new Runnable()
+            mMainHandler.postDelayed(new Runnable()
             {
                 @Override
                 public void run()

@@ -1,4 +1,4 @@
-package com.lwk.familycontact.storage;
+package com.lwk.familycontact.storage.sp;
 
 /**
  * Created by LWK
