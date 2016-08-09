@@ -32,7 +32,7 @@ public abstract class BaseDao<T, ID>
         if (context == null)
         {
             //如果为空，则扔出非法参数异常
-            throw new IllegalArgumentException("Context can't be null!");
+            throw new IllegalArgumentException("The params of CONTEXT for ormlite BaseDao constructor can't be null!");
         }
         //避免产生内存泄露，使用getApplicationContext()
         mContext = context.getApplicationContext();

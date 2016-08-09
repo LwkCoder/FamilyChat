@@ -38,11 +38,15 @@ public class UserBean implements Parcelable, RcvSortSectionImpl
     @DatabaseField(columnName = UserDbConfig.FULL_SPELL)
     private String fullSpell;
 
-    public UserBean(String name, String phone, String localHead)
+    @DatabaseField(columnName = UserDbConfig.IS_REGIST)
+    private boolean isRegist;
+
+    public UserBean(String name, String phone, String localHead,boolean isRegist)
     {
         this.name = name;
         this.phone = phone;
         this.localHead = localHead;
+        this.isRegist = isRegist;
         updateDisplayNameAndSpell();
     }
 
@@ -116,6 +120,16 @@ public class UserBean implements Parcelable, RcvSortSectionImpl
         this.fullSpell = fullSpell;
     }
 
+    public boolean isRegist()
+    {
+        return isRegist;
+    }
+
+    public void setRegist(boolean regist)
+    {
+        isRegist = regist;
+    }
+
     @Override
     public String toString()
     {
@@ -127,6 +141,7 @@ public class UserBean implements Parcelable, RcvSortSectionImpl
                 ", firstChar='" + firstChar + '\'' +
                 ", simpleSpell='" + simpleSpell + '\'' +
                 ", fullSpell='" + fullSpell + '\'' +
+                ", isRegist=" + isRegist +
                 '}';
     }
 
@@ -146,6 +161,7 @@ public class UserBean implements Parcelable, RcvSortSectionImpl
         dest.writeString(this.firstChar);
         dest.writeString(this.simpleSpell);
         dest.writeString(this.fullSpell);
+        dest.writeByte(this.isRegist ? (byte) 1 : (byte) 0);
     }
 
     protected UserBean(Parcel in)
@@ -157,9 +173,10 @@ public class UserBean implements Parcelable, RcvSortSectionImpl
         this.firstChar = in.readString();
         this.simpleSpell = in.readString();
         this.fullSpell = in.readString();
+        this.isRegist = in.readByte() != 0;
     }
 
-    public static final Parcelable.Creator<UserBean> CREATOR = new Parcelable.Creator<UserBean>()
+    public static final Creator<UserBean> CREATOR = new Creator<UserBean>()
     {
         @Override
         public UserBean createFromParcel(Parcel source)

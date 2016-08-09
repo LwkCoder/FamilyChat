@@ -30,4 +30,7 @@ public class UserDbConfig
 
     //全拼
     public static final String FULL_SPELL = "full_spell";
+
+    //是否注册
+    public static final String IS_REGIST = "is_regist";
 }
