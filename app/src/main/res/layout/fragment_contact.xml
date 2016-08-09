@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
+<FrameLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
@@ -28,14 +28,14 @@
             android:id="@+id/common_ptrview_content"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="@android:color/holo_blue_dark"/>
+            android:background="@android:color/white"/>
 
     </com.lib.ptrview.CommonPtrLayout>
 
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
-        android:layout_alignParentRight="true"
+        android:layout_gravity="right"
         android:orientation="horizontal">
 
         <!-- 这个是浮动的提示 ，配合字母栏实现放大浮动提示滑动到哪个字母-->
@@ -60,4 +60,4 @@
             app:sidebarTextSizeChoose="@dimen/textSize_quicksidebar_choose"/>
     </LinearLayout>
 
-</RelativeLayout>
+</FrameLayout>

@@ -104,8 +104,8 @@ public class QuickSideBarView extends View
     protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec)
     {
         super.onMeasure(widthMeasureSpec, heightMeasureSpec);
-        mHeight = getHeight();
-        mWidth = getWidth();
+        mHeight = getMeasuredHeight();
+        mWidth = getMeasuredWidth();
         //每个item的高度由item的个数决定
         mItemHeight = mHeight / mLetters.size();
     }
