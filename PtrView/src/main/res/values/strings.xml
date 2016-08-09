@@ -1,0 +1,12 @@
+<resources>
+    <string name="tv_pull_down_status_reset">下拉刷新</string>
+    <string name="tv_pull_down_status_pulling">释放立即刷新</string>
+    <string name="tv_pull_down_status_released">正在刷新...</string>
+    <string name="tv_pull_down_status_success">刷新成功</string>
+    <string name="tv_pull_down_status_fail">刷新失败</string>
+    <string name="tv_pull_up_status_reset">上拉加载更多</string>
+    <string name="tv_pull_up_status_pulling">释放立即加载</string>
+    <string name="tv_pull_up_status_released">正在加载...</string>
+    <string name="tv_pull_up_status_success">加载成功</string>
+    <string name="tv_pull_up_status_fail">加载失败</string>
+</resources>

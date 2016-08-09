@@ -1,0 +1,30 @@
+<resources>
+    <declare-styleable name="CommonPtrLayout">
+        <attr name="ptr_enable_refresh" format="boolean"/>
+        <attr name="ptr_enable_loadmore" format="boolean"/>
+        <attr name="ptr_friction" format="float"/>
+        <attr name="ptr_delay_duration" format="integer"/>
+        <attr name="ptr_bg_refresh" format="reference"/>
+        <attr name="ptr_bg_loadmore" format="reference"/>
+        <attr name="ptr_is_coordinatorLayout" format="boolean"/>
+    </declare-styleable>
+
+    <declare-styleable name="CommonPtrDefView">
+        <attr name="ptr_def_view_tv_color" format="color"/>
+        <attr name="ptr_def_view_icon_pull_down_arrow" format="reference"/>
+        <attr name="ptr_def_view_icon_pull_up_arrow" format="reference"/>
+        <attr name="ptr_def_view_label_pulldown_reset" format="string"/>
+        <attr name="ptr_def_view_label_pulldown_pulling" format="string"/>
+        <attr name="ptr_def_view_label_pulldown_released" format="string"/>
+        <attr name="ptr_def_view_label_pulldown_success" format="string"/>
+        <attr name="ptr_def_view_label_pulldown_fail" format="string"/>
+        <attr name="ptr_def_view_label_pullup_reset" format="string"/>
+        <attr name="ptr_def_view_label_pullup_pulling" format="string"/>
+        <attr name="ptr_def_view_label_pullup_released" format="string"/>
+        <attr name="ptr_def_view_label_pullup_success" format="string"/>
+        <attr name="ptr_def_view_label_pullup_fail" format="string"/>
+        <attr name="ptr_def_view_pgb_drawable" format="reference"/>
+        <attr name="ptr_def_view_icon_status_success" format="reference"/>
+        <attr name="ptr_def_view_icon_status_fail" format="reference"/>
+    </declare-styleable>
+</resources>

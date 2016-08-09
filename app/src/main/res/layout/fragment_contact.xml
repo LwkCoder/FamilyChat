@@ -1,14 +1,63 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent">
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
 
-    <TextView
+    <com.lib.ptrview.CommonPtrLayout
+        android:id="@+id/ptr_layout_contact"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:ptr_enable_loadmore="false">
+
+        <!--下拉刷新：id请严格按照预设的设置-->
+        <com.lib.ptrview.CommonPtrDefView
+            android:id="@+id/common_ptrview_refresh_view"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:ptr_def_view_label_pulldown_fail="@string/tv_pull_down_fail"
+            app:ptr_def_view_label_pulldown_pulling="@string/tv_pull_down_pulling"
+            app:ptr_def_view_label_pulldown_released="@string/tv_pull_down_released"
+            app:ptr_def_view_label_pulldown_reset="@string/tv_pull_down_reset"
+            app:ptr_def_view_label_pulldown_success="@string/tv_pull_down_success"/>
+
+        <!--被包装的View：id请严格按照预设的设置-->
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/common_ptrview_content"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@android:color/holo_blue_dark"/>
+
+    </com.lib.ptrview.CommonPtrLayout>
+
+    <LinearLayout
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
-        android:layout_centerVertical="true"
-        android:text="通讯录"
-        android:textSize="50sp"/>
+        android:layout_height="match_parent"
+        android:layout_alignParentRight="true"
+        android:orientation="horizontal">
+
+        <!-- 这个是浮动的提示 ，配合字母栏实现放大浮动提示滑动到哪个字母-->
+        <!--下面的自定义属性都是默认的,可以不写-->
+        <com.lib.quicksidebar.QuickSideBarTipsView
+            android:id="@+id/siderbar_tips_view_contact"
+            android:layout_width="@dimen/height_quicksidebartips"
+            android:layout_height="match_parent"
+            app:sidebarBackgroundColor="@color/colorPrimary"
+            app:sidebarTextColor="@android:color/white"
+            app:sidebarTextSize="@dimen/textSize_quicksidebartips"/>
+
+        <!-- 这个是字母栏 -->
+        <!--下面的自定义属性都是默认的,可以不写-->
+        <com.lib.quicksidebar.QuickSideBarView
+            android:id="@+id/siderbar_contact"
+            android:layout_width="30dp"
+            android:layout_height="match_parent"
+            app:sidebarTextColor="@color/colorPrimary"
+            app:sidebarTextColorChoose="@android:color/black"
+            app:sidebarTextSize="@dimen/textSize_quicksidebar"
+            app:sidebarTextSizeChoose="@dimen/textSize_quicksidebar_choose"/>
+    </LinearLayout>
 
 </RelativeLayout>

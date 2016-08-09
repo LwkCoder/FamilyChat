@@ -33,9 +33,12 @@ dependencies {
     compile 'org.greenrobot:eventbus:3.0.0'
     compile 'com.j256.ormlite:ormlite-android:5.0'
     compile 'com.j256.ormlite:ormlite-core:5.0'
+    compile 'com.belerweb:pinyin4j:2.5.1'
     compile project(':BaseLibs')
     compile project(':FlatUI')
     compile project(':RecordButton')
     compile project(':ComRcvAdapter')
-    compile 'com.belerweb:pinyin4j:2.5.1'
+    compile project(':PtrView')
+    compile project(':ImagePicker')
+    compile project(':QuickSideBar')
 }

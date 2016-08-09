@@ -42,4 +42,11 @@
     <string name="tv_main_actionbar_tab01">会话列表</string>
     <string name="tv_main_actionbar_tab02">通讯录</string>
     <string name="tv_main_actionbar_tab03">拨号器</string>
+
+    <!--ContactFragment-->
+    <string name="tv_pull_down_reset">下拉可同步系统通讯录</string>
+    <string name="tv_pull_down_pulling">松开后开始同步系统通讯录</string>
+    <string name="tv_pull_down_released">正在同步系统通讯录</string>
+    <string name="tv_pull_down_success">同步成功</string>
+    <string name="tv_pull_down_fail">同步失败</string>
 </resources>

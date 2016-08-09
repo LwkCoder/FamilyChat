@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <item name="common_ptrview_content" type="id" />
+    <item name="common_ptrview_refresh_view" type="id" />
+    <item name="common_ptrview_loadmore_view" type="id" />
+    <item name="common_ptrview_content_scroll" type="id" />
+</resources>

@@ -12,7 +12,7 @@ import com.ashokvarma.bottomnavigation.BottomNavigationItem;
 import com.lib.base.widget.CommonActionBar;
 import com.lwk.familycontact.R;
 import com.lwk.familycontact.base.FCBaseActivity;
-import com.lwk.familycontact.project.contact.ContactFragment;
+import com.lwk.familycontact.project.contact.view.ContactFragment;
 import com.lwk.familycontact.project.conversation.fragment.ConversationFragment;
 import com.lwk.familycontact.project.dial.DialFragment;
 
