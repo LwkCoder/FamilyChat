@@ -182,10 +182,11 @@ public abstract class RcvSectionAdapter<S, C> extends RcvSingleAdapter<RcvSecBea
 
     /**
      * 根据Section查找其对应的position
+     * [没有对应的位置会返回-1]
      */
     public int getPositionBySection(S section)
     {
-        return mSectionMap.get(section);
+        return mSectionMap.containsKey(section) ? mSectionMap.get(section) : -1;
     }
 
     protected boolean isInSectionPos(int p)

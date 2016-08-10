@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                xmlns:flatui="http://schemas.android.com/apk/res-auto"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="@dimen/spacing_small">
+
+    <ImageView
+        android:id="@+id/img_contact_head"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:layout_centerVertical="true"
+        android:layout_marginRight="@dimen/spacing_normal"/>
+
+    <com.cengalabs.flatui.views.FlatTextView
+        android:id="@+id/tv_contact_name"
+        style="@style/FC_NormalTextStyle"
+        android:layout_alignTop="@+id/img_contact_head"
+        android:layout_toRightOf="@+id/img_contact_head"
+        android:textSize="@dimen/sp_18"/>
+
+    <com.cengalabs.flatui.views.FlatTextView
+        android:id="@+id/tv_contact_phone"
+        style="@style/FC_SmallTextStyle"
+        android:layout_alignBottom="@+id/img_contact_head"
+        android:layout_toRightOf="@+id/img_contact_head"
+        android:textSize="@dimen/sp_14"
+        flatui:fl_textColor="fl_dark"/>
+
+</RelativeLayout>

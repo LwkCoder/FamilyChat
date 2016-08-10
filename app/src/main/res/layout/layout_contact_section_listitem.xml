@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+             xmlns:flatui="http://schemas.android.com/apk/res-auto"
+             android:layout_width="match_parent"
+             android:layout_height="wrap_content"
+             android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/tv_contact_section"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="left"
+        android:background="#f0f0f0"
+        android:gravity="center_vertical"
+        android:textColor="@color/colorPrimaryDark"
+        android:padding="@dimen/spacing_small"
+        android:textSize="@dimen/sp_14"/>
+
+</FrameLayout>

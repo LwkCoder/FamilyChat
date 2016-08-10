@@ -1,4 +1,4 @@
-package com.lwk.familycontact.project.conversation.fragment;
+package com.lwk.familycontact.project.conversation.view;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;

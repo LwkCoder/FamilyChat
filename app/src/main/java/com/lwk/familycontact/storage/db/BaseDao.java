@@ -91,7 +91,7 @@ public abstract class BaseDao<T, ID>
                 KLog.e(LOG_TAG + " Dao.save.endThreadConnection() fail:" + e.toString());
             }
         }
-        return 0;
+        return -1;
     }
 
     /**
@@ -134,7 +134,7 @@ public abstract class BaseDao<T, ID>
                 KLog.e(LOG_TAG + " Dao.saveList.endThreadConnection() fail:" + e.toString());
             }
         }
-        return 0;
+        return -1;
     }
 
     /**
@@ -217,7 +217,7 @@ public abstract class BaseDao<T, ID>
                 KLog.e(LOG_TAG + " Dao.saveOrUpdateList.endThreadConnection() fail:" + e.toString());
             }
         }
-        return 0;
+        return -1;
     }
 
     /**
@@ -297,7 +297,7 @@ public abstract class BaseDao<T, ID>
                 KLog.e(LOG_TAG + " Dao.delete.endThreadConnection() fail:" + e.toString());
             }
         }
-        return 0;
+        return -1;
     }
 
     /**
@@ -337,7 +337,7 @@ public abstract class BaseDao<T, ID>
                 KLog.e(LOG_TAG + " Dao.deleteList.endThreadConnection() fail:" + e.toString());
             }
         }
-        return 0;
+        return -1;
     }
 
     /**
@@ -382,7 +382,7 @@ public abstract class BaseDao<T, ID>
                 }
             }
         }
-        return 0;
+        return -1;
     }
 
     /**
@@ -422,7 +422,7 @@ public abstract class BaseDao<T, ID>
                 KLog.e(LOG_TAG + " Dao.deleteById.endThreadConnection() fail:" + e.toString());
             }
         }
-        return 0;
+        return -1;
     }
 
     /**
@@ -463,7 +463,7 @@ public abstract class BaseDao<T, ID>
                 KLog.e(LOG_TAG + " Dao.deleteByIds.endThreadConnection() fail:" + e.toString());
             }
         }
-        return 0;
+        return -1;
     }
 
     /**
@@ -503,7 +503,7 @@ public abstract class BaseDao<T, ID>
                 KLog.e(LOG_TAG + " Dao.deleteByBuilder.endThreadConnection() fail:" + e.toString());
             }
         }
-        return 0;
+        return -1;
     }
 
     /**
@@ -543,7 +543,7 @@ public abstract class BaseDao<T, ID>
                 KLog.e(LOG_TAG + " Dao.update.endThreadConnection() fail:" + e.toString());
             }
         }
-        return 0;
+        return -1;
     }
 
     /**
@@ -583,7 +583,7 @@ public abstract class BaseDao<T, ID>
                 KLog.e(LOG_TAG + " Dao.updateByBuilder.endThreadConnection() fail:" + e.toString());
             }
         }
-        return 0;
+        return -1;
     }
 
     /**
@@ -923,7 +923,7 @@ public abstract class BaseDao<T, ID>
                 KLog.e(LOG_TAG + " Dao.count.endThreadConnection() fail:" + e.toString());
             }
         }
-        return 0;
+        return -1;
     }
 
     /**
@@ -963,6 +963,6 @@ public abstract class BaseDao<T, ID>
                 KLog.e(LOG_TAG + " Dao.countByBuilder.endThreadConnection() fail:" + e.toString());
             }
         }
-        return 0;
+        return -1;
     }
 }

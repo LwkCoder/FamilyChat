@@ -33,6 +33,8 @@ public abstract class RcvSortSectionAdatper<T> extends RcvSectionAdapter<String,
     //处理数据，将其转换为内部识别数据
     private void transDatas(List<T> dataList)
     {
+        if (dataList == null || dataList.size() == 0)
+            return;
         mDataList.clear();
         HashSet<String> sectionSet = new HashSet<>();
         for (T t : dataList)

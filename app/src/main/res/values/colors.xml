@@ -9,4 +9,6 @@
     <color name="bnbInActiveColor">@color/colorAccent</color>
     <color name="bnbBackgroudColor">@color/colorPrimary</color>
 
+    <color name="gray_F0F0F0">#1d3845</color>
+
 </resources>

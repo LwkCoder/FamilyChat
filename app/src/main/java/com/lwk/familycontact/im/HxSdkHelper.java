@@ -11,8 +11,10 @@ import com.hyphenate.chat.EMOptions;
 import com.hyphenate.exceptions.HyphenateException;
 import com.lib.base.BuildConfig;
 import com.lib.base.log.KLog;
+import com.lwk.familycontact.base.FCApplication;
 import com.lwk.familycontact.project.common.FCCallBack;
 import com.lwk.familycontact.project.common.FCError;
+import com.lwk.familycontact.storage.db.DbOpenHelper;
 
 import java.util.Iterator;
 import java.util.List;
@@ -198,6 +200,7 @@ public class HxSdkHelper
             public void onSuccess()
             {
                 resetFlags();
+                DbOpenHelper.getInstance(FCApplication.getIntance()).close();
                 if (callBack != null)
                     callBack.onSuccess(null);
             }
@@ -206,6 +209,7 @@ public class HxSdkHelper
             public void onError(int i, String s)
             {
                 resetFlags();
+                DbOpenHelper.getInstance(FCApplication.getIntance()).close();
                 if (callBack != null)
                     callBack.onFail(FCError.LOGOUT_FAIL, FCError.getErrorMsgIdFromCode(i));
             }
@@ -285,7 +289,7 @@ public class HxSdkHelper
                 {
                     KLog.e("HxSdk async user from server fail : hxErrCode = " + e.getErrorCode() + " , msg = " + e.getMessage());
                     if (callBack != null)
-                        callBack.onFail(FCError.ASYNC_USER_FAIL, FCError.getErrorMsgIdFromCode(e.getErrorCode()));
+                        callBack.onFail(FCError.ASYNC_HXUSER_FAIL, FCError.getErrorMsgIdFromCode(e.getErrorCode()));
                 }
             }
         }).start();

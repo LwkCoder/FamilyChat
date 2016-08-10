@@ -1,5 +1,9 @@
 package com.lwk.familycontact.project.contact.view;
 
+import com.lwk.familycontact.storage.db.user.UserBean;
+
+import java.util.List;
+
 /**
  * Created by LWK
  * TODO 通讯录界面View
@@ -7,5 +11,7 @@ package com.lwk.familycontact.project.contact.view;
  */
 public interface ContactImpl
 {
+    void refreshAllUsersSuccess(List<UserBean> allUserList);
 
+    void refreshAllUsersFail(int errorMsgId);
 }

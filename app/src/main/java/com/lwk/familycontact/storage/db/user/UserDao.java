@@ -3,6 +3,7 @@ package com.lwk.familycontact.storage.db.user;
 import android.content.Context;
 
 import com.j256.ormlite.dao.Dao;
+import com.j256.ormlite.stmt.QueryBuilder;
 import com.j256.ormlite.stmt.UpdateBuilder;
 import com.lib.base.log.KLog;
 import com.lwk.familycontact.base.FCApplication;
@@ -72,7 +73,7 @@ public class UserDao extends BaseDao<UserBean, Integer>
                     //将已有的数据标记为注册
                     int lineNUm = updateUserAsRegisted(phone);
                     //没有的数据批量加入list，稍后直接批量插入数据库
-                    if (lineNUm == 0)
+                    if (lineNUm <= 0)
                     {
                         UserBean userBean = new UserBean(phone);
                         newUserList.add(userBean);
@@ -93,7 +94,7 @@ public class UserDao extends BaseDao<UserBean, Integer>
      */
     public int updateUserAsRegisted(String phone)
     {
-        int lineNum = 0;
+        int lineNum = -1;
         try
         {
             UpdateBuilder<UserBean, Integer> updateBuilder = getDao().updateBuilder();
@@ -105,5 +106,53 @@ public class UserDao extends BaseDao<UserBean, Integer>
             KLog.e(TAG + " UserDao.updateUserAsRegisted fail : " + e.toString());
         }
         return lineNum;
+    }
+
+    /**
+     * 更新某个用户的昵称
+     *
+     * @param userBean 更新数据
+     * @return 更新成功后返回表中对应的行数，失败代表不存在该phone的数据
+     */
+    public int updateUserName(UserBean userBean)
+    {
+        int lineNum = -1;
+        try
+        {
+            UpdateBuilder<UserBean, Integer> updateBuilder = getDao().updateBuilder();
+            updateBuilder.updateColumnValue(UserDbConfig.NAME, userBean.getName());
+            updateBuilder.updateColumnValue(UserDbConfig.DISPLAY_NAME, userBean.getDisplayName());
+            updateBuilder.updateColumnValue(UserDbConfig.FIRST_CHAR, userBean.getFirstChar());
+            updateBuilder.updateColumnValue(UserDbConfig.SIMPLE_SPELL, userBean.getSimpleSpell());
+            updateBuilder.updateColumnValue(UserDbConfig.FULL_SPELL, userBean.getFullSpell());
+
+            updateBuilder.where().eq(UserDbConfig.PHONE, userBean.getPhone());
+            lineNum = getDao().update(updateBuilder.prepare());
+        } catch (SQLException e)
+        {
+            KLog.e(TAG + " UserDao.updateUserName fail : " + e.toString());
+        }
+        return lineNum;
+    }
+
+
+    /**
+     * 查询所有用户数据并按照首字母排序
+     *
+     * @return 所有用户数据list
+     */
+    public List<UserBean> queryAllUsersSortByFirstChar()
+    {
+        List<UserBean> allUserList = null;
+        try
+        {
+            QueryBuilder<UserBean, Integer> queryBuilder = getDao().queryBuilder();
+            queryBuilder.orderBy(UserDbConfig.FIRST_CHAR, true).orderBy(UserDbConfig.FULL_SPELL, true);
+            allUserList = getDao().query(queryBuilder.prepare());
+        } catch (SQLException e)
+        {
+            KLog.e(TAG + " UserDao.queryAllUsersSortByFirstChar fail : " + e.toString());
+        }
+        return allUserList;
     }
 }

@@ -10,6 +10,7 @@
         android:id="@+id/ptr_layout_contact"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        app:ptr_bg_refresh="@color/gray_F0F0F0"
         app:ptr_enable_loadmore="false">
 
         <!--下拉刷新：id请严格按照预设的设置-->
