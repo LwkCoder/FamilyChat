@@ -41,7 +41,18 @@ public class UserBean implements Parcelable, RcvSortSectionImpl
     @DatabaseField(columnName = UserDbConfig.IS_REGIST)
     private boolean isRegist;
 
-    public UserBean(String name, String phone, String localHead,boolean isRegist)
+    public UserBean()
+    {
+    }
+
+    public UserBean(String phone)
+    {
+        this.phone = phone;
+        this.isRegist = true;
+        updateDisplayNameAndSpell();
+    }
+
+    public UserBean(String name, String phone, String localHead, boolean isRegist)
     {
         this.name = name;
         this.phone = phone;
@@ -200,7 +211,7 @@ public class UserBean implements Parcelable, RcvSortSectionImpl
         if (StringUtil.isNotEmpty(name))
             setDisplayName(name);
         else if (StringUtil.isNotEmpty(phone))
-            setDisplayName(name);
+            setDisplayName(phone);
 
         if (StringUtil.isNotEmpty(displayName))
         {

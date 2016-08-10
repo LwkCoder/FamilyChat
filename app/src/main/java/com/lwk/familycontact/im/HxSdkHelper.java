@@ -40,6 +40,7 @@ public class HxSdkHelper
 
     private Context mAppContext;
     private boolean mIsSdkInited;
+    private boolean mHasAsyncUserList;
 
     /**
      * 初始化环信sdk
@@ -70,7 +71,7 @@ public class HxSdkHelper
         EMClient.getInstance().init(mAppContext, options);
         EMClient.getInstance().setDebugMode(BuildConfig.DEBUG);
         mIsSdkInited = true;
-        KLog.d("HxSdk has inited");
+        KLog.i("HxSdk has inited");
     }
 
     private String getAppName(int pID)
@@ -141,7 +142,7 @@ public class HxSdkHelper
             @Override
             public void onSuccess()
             {
-                KLog.d("HxSdk login from server success");
+                KLog.i("HxSdk login from server success");
                 loadHxLocalData();
                 if (callBack != null)
                     callBack.onSuccess(null);
@@ -177,9 +178,9 @@ public class HxSdkHelper
     public void loadHxLocalData()
     {
         EMClient.getInstance().groupManager().loadAllGroups();
-        KLog.d("HxSdk load all groups success");
+        KLog.i("HxSdk load all groups success");
         EMClient.getInstance().chatManager().loadAllConversations();
-        KLog.d("HxSdk load all conversation success");
+        KLog.i("HxSdk load all conversation success");
     }
 
     /**
@@ -196,6 +197,7 @@ public class HxSdkHelper
             @Override
             public void onSuccess()
             {
+                resetFlags();
                 if (callBack != null)
                     callBack.onSuccess(null);
             }
@@ -203,6 +205,7 @@ public class HxSdkHelper
             @Override
             public void onError(int i, String s)
             {
+                resetFlags();
                 if (callBack != null)
                     callBack.onFail(FCError.LOGOUT_FAIL, FCError.getErrorMsgIdFromCode(i));
             }
@@ -213,6 +216,12 @@ public class HxSdkHelper
 
             }
         });
+    }
+
+    //将某些标记位还原
+    private void resetFlags()
+    {
+        mHasAsyncUserList = false;
     }
 
     /**
@@ -243,5 +252,42 @@ public class HxSdkHelper
     public void removeConnectListener(EMConnectionListener listener)
     {
         EMClient.getInstance().removeConnectionListener(listener);
+    }
+
+    /**
+     * 从环信服务器拉取好友列表【仅包含账号】
+     *
+     * @param callBack 回调
+     */
+    public void asyncUserListFromServer(final FCCallBack<List<String>> callBack)
+    {
+        if (mHasAsyncUserList)
+        {
+            KLog.i("HxSdk already has asynced user from server.");
+            if (callBack != null)
+                callBack.onSuccess(null);
+            return;
+        }
+
+        new Thread(new Runnable()
+        {
+            @Override
+            public void run()
+            {
+                try
+                {
+                    List<String> userList = EMClient.getInstance().contactManager().getAllContactsFromServer();
+                    KLog.i("HxSdk async user from server : " + userList);
+                    mHasAsyncUserList = true;
+                    if (callBack != null)
+                        callBack.onSuccess(userList);
+                } catch (HyphenateException e)
+                {
+                    KLog.e("HxSdk async user from server fail : hxErrCode = " + e.getErrorCode() + " , msg = " + e.getMessage());
+                    if (callBack != null)
+                        callBack.onFail(FCError.ASYNC_USER_FAIL, FCError.getErrorMsgIdFromCode(e.getErrorCode()));
+                }
+            }
+        }).start();
     }
 }

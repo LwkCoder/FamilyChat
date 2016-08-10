@@ -16,6 +16,7 @@ import com.lwk.familycontact.R;
 import com.lwk.familycontact.base.FCApplication;
 import com.lwk.familycontact.project.common.FCError;
 import com.lwk.familycontact.project.login.view.LoginActivity;
+import com.lwk.familycontact.storage.db.user.UserDao;
 import com.lwk.familycontact.utils.event.ConnectEventBean;
 import com.lwk.familycontact.utils.event.EventBusHelper;
 
@@ -40,6 +41,8 @@ public class HxConnectListener implements EMConnectionListener
         //发送Event
         ConnectEventBean eventBean = new ConnectEventBean(true, -1);
         EventBusHelper.getInstance().post(eventBean);
+        //同步环信好友
+        UserDao.getInstance().updateUserFromHxServer();
     }
 
     @Override
