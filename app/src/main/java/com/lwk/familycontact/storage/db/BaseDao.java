@@ -73,13 +73,13 @@ public abstract class BaseDao<T, ID>
             return save;
         } catch (Exception e)
         {
-            KLog.e(LOG_TAG + " Dao.save() fail:" + e.toString());
+            KLog.w(LOG_TAG + " Dao.save() fail:" + e.toString());
             try
             {
                 dao.rollBack(databaseConnection);
             } catch (java.sql.SQLException e1)
             {
-                KLog.e(LOG_TAG + " Dao.save.rollback() fail:" + e.toString());
+                KLog.w(LOG_TAG + " Dao.save.rollback() fail:" + e.toString());
             }
         } finally
         {
@@ -88,7 +88,7 @@ public abstract class BaseDao<T, ID>
                 dao.endThreadConnection(databaseConnection);
             } catch (java.sql.SQLException e)
             {
-                KLog.e(LOG_TAG + " Dao.save.endThreadConnection() fail:" + e.toString());
+                KLog.w(LOG_TAG + " Dao.save.endThreadConnection() fail:" + e.toString());
             }
         }
         return -1;
@@ -116,13 +116,13 @@ public abstract class BaseDao<T, ID>
             return t.size();
         } catch (Exception e)
         {
-            KLog.e(LOG_TAG + " Dao.saveList() fail:" + e.toString());
+            KLog.w(LOG_TAG + " Dao.saveList() fail:" + e.toString());
             try
             {
                 dao.rollBack(databaseConnection);
             } catch (java.sql.SQLException e1)
             {
-                KLog.e(LOG_TAG + " Dao.saveList.rollBack() fail:" + e.toString());
+                KLog.w(LOG_TAG + " Dao.saveList.rollBack() fail:" + e.toString());
             }
         } finally
         {
@@ -131,7 +131,7 @@ public abstract class BaseDao<T, ID>
                 dao.endThreadConnection(databaseConnection);
             } catch (java.sql.SQLException e)
             {
-                KLog.e(LOG_TAG + " Dao.saveList.endThreadConnection() fail:" + e.toString());
+                KLog.w(LOG_TAG + " Dao.saveList.endThreadConnection() fail:" + e.toString());
             }
         }
         return -1;
@@ -156,13 +156,13 @@ public abstract class BaseDao<T, ID>
             return orUpdate;
         } catch (Exception e)
         {
-            KLog.e(LOG_TAG + " Dao.saveOrUpdate() fail:" + e.toString());
+            KLog.w(LOG_TAG + " Dao.saveOrUpdate() fail:" + e.toString());
             try
             {
                 dao.rollBack(databaseConnection);
             } catch (java.sql.SQLException e1)
             {
-                KLog.e(LOG_TAG + " Dao.saveOrUpdate.rollBack() fail:" + e.toString());
+                KLog.w(LOG_TAG + " Dao.saveOrUpdate.rollBack() fail:" + e.toString());
             }
         } finally
         {
@@ -171,7 +171,7 @@ public abstract class BaseDao<T, ID>
                 dao.endThreadConnection(databaseConnection);
             } catch (java.sql.SQLException e)
             {
-                KLog.e(LOG_TAG + " Dao.saveOrUpdate.endThreadConnection() fail:" + e.toString());
+                KLog.w(LOG_TAG + " Dao.saveOrUpdate.endThreadConnection() fail:" + e.toString());
             }
         }
         return null;
@@ -199,13 +199,13 @@ public abstract class BaseDao<T, ID>
             return list.size();
         } catch (Exception e)
         {
-            KLog.e(LOG_TAG + " Dao.saveOrUpdateList() fail:" + e.toString());
+            KLog.w(LOG_TAG + " Dao.saveOrUpdateList() fail:" + e.toString());
             try
             {
                 dao.rollBack(databaseConnection);
             } catch (java.sql.SQLException e1)
             {
-                KLog.e(LOG_TAG + " Dao.saveOrUpdateList.rollBack() fail:" + e.toString());
+                KLog.w(LOG_TAG + " Dao.saveOrUpdateList.rollBack() fail:" + e.toString());
             }
         } finally
         {
@@ -214,7 +214,7 @@ public abstract class BaseDao<T, ID>
                 dao.endThreadConnection(databaseConnection);
             } catch (java.sql.SQLException e)
             {
-                KLog.e(LOG_TAG + " Dao.saveOrUpdateList.endThreadConnection() fail:" + e.toString());
+                KLog.w(LOG_TAG + " Dao.saveOrUpdateList.endThreadConnection() fail:" + e.toString());
             }
         }
         return -1;
@@ -239,13 +239,13 @@ public abstract class BaseDao<T, ID>
             dao.commit(databaseConnection);
         } catch (Exception e)
         {
-            KLog.e(LOG_TAG + " Dao.saveOrUpdate() fail:" + e.toString());
+            KLog.w(LOG_TAG + " Dao.saveOrUpdate() fail:" + e.toString());
             try
             {
                 dao.rollBack(databaseConnection);
             } catch (java.sql.SQLException e1)
             {
-                KLog.e(LOG_TAG + " Dao.saveOrUpdate.rollBack() fail:" + e.toString());
+                KLog.w(LOG_TAG + " Dao.saveOrUpdate.rollBack() fail:" + e.toString());
             }
         } finally
         {
@@ -254,7 +254,7 @@ public abstract class BaseDao<T, ID>
                 dao.endThreadConnection(databaseConnection);
             } catch (java.sql.SQLException e)
             {
-                KLog.e(LOG_TAG + " Dao.saveOrUpdate.endThreadConnection() fail:" + e.toString());
+                KLog.w(LOG_TAG + " Dao.saveOrUpdate.endThreadConnection() fail:" + e.toString());
             }
         }
         return resultData;
@@ -279,13 +279,13 @@ public abstract class BaseDao<T, ID>
             return delete;
         } catch (Exception e)
         {
-            KLog.e(LOG_TAG + " Dao.delete() fail:" + e.toString());
+            KLog.w(LOG_TAG + " Dao.delete() fail:" + e.toString());
             try
             {
                 dao.rollBack(databaseConnection);
             } catch (java.sql.SQLException e1)
             {
-                KLog.e(LOG_TAG + " Dao.delete.rollBack() fail:" + e.toString());
+                KLog.w(LOG_TAG + " Dao.delete.rollBack() fail:" + e.toString());
             }
         } finally
         {
@@ -294,7 +294,7 @@ public abstract class BaseDao<T, ID>
                 dao.endThreadConnection(databaseConnection);
             } catch (java.sql.SQLException e)
             {
-                KLog.e(LOG_TAG + " Dao.delete.endThreadConnection() fail:" + e.toString());
+                KLog.w(LOG_TAG + " Dao.delete.endThreadConnection() fail:" + e.toString());
             }
         }
         return -1;
@@ -319,13 +319,13 @@ public abstract class BaseDao<T, ID>
             return delete;
         } catch (Exception e)
         {
-            KLog.e(LOG_TAG + " Dao.deleteList() fail:" + e.toString());
+            KLog.w(LOG_TAG + " Dao.deleteList() fail:" + e.toString());
             try
             {
                 dao.rollBack(databaseConnection);
             } catch (java.sql.SQLException e1)
             {
-                KLog.e(LOG_TAG + " Dao.deleteList.rollBack() fail:" + e.toString());
+                KLog.w(LOG_TAG + " Dao.deleteList.rollBack() fail:" + e.toString());
             }
         } finally
         {
@@ -334,7 +334,7 @@ public abstract class BaseDao<T, ID>
                 dao.endThreadConnection(databaseConnection);
             } catch (java.sql.SQLException e)
             {
-                KLog.e(LOG_TAG + " Dao.deleteList.endThreadConnection() fail:" + e.toString());
+                KLog.w(LOG_TAG + " Dao.deleteList.endThreadConnection() fail:" + e.toString());
             }
         }
         return -1;
@@ -363,13 +363,13 @@ public abstract class BaseDao<T, ID>
                 return delete;
             } catch (Exception e)
             {
-                KLog.e(LOG_TAG + " Dao.deleteByColumn() fail:" + e.toString());
+                KLog.w(LOG_TAG + " Dao.deleteByColumn() fail:" + e.toString());
                 try
                 {
                     dao.rollBack(databaseConnection);
                 } catch (java.sql.SQLException e1)
                 {
-                    KLog.e(LOG_TAG + " Dao.deleteByColumn.rollBack() fail:" + e.toString());
+                    KLog.w(LOG_TAG + " Dao.deleteByColumn.rollBack() fail:" + e.toString());
                 }
             } finally
             {
@@ -378,7 +378,7 @@ public abstract class BaseDao<T, ID>
                     dao.endThreadConnection(databaseConnection);
                 } catch (java.sql.SQLException e)
                 {
-                    KLog.e(LOG_TAG + " Dao.deleteByColumn.endThreadConnection() fail:" + e.toString());
+                    KLog.w(LOG_TAG + " Dao.deleteByColumn.endThreadConnection() fail:" + e.toString());
                 }
             }
         }
@@ -404,13 +404,13 @@ public abstract class BaseDao<T, ID>
             return delete;
         } catch (Exception e)
         {
-            KLog.e(LOG_TAG + " Dao.deleteById() fail:" + e.toString());
+            KLog.w(LOG_TAG + " Dao.deleteById() fail:" + e.toString());
             try
             {
                 dao.rollBack(databaseConnection);
             } catch (java.sql.SQLException e1)
             {
-                KLog.e(LOG_TAG + " Dao.deleteById.rollBack() fail:" + e.toString());
+                KLog.w(LOG_TAG + " Dao.deleteById.rollBack() fail:" + e.toString());
             }
         } finally
         {
@@ -419,7 +419,7 @@ public abstract class BaseDao<T, ID>
                 dao.endThreadConnection(databaseConnection);
             } catch (java.sql.SQLException e)
             {
-                KLog.e(LOG_TAG + " Dao.deleteById.endThreadConnection() fail:" + e.toString());
+                KLog.w(LOG_TAG + " Dao.deleteById.endThreadConnection() fail:" + e.toString());
             }
         }
         return -1;
@@ -445,13 +445,13 @@ public abstract class BaseDao<T, ID>
             return delete;
         } catch (Exception e)
         {
-            KLog.e(LOG_TAG + " Dao.deleteByIds() fail:" + e.toString());
+            KLog.w(LOG_TAG + " Dao.deleteByIds() fail:" + e.toString());
             try
             {
                 dao.rollBack(databaseConnection);
             } catch (java.sql.SQLException e1)
             {
-                KLog.e(LOG_TAG + " Dao.deleteByIds.rollBack() fail:" + e.toString());
+                KLog.w(LOG_TAG + " Dao.deleteByIds.rollBack() fail:" + e.toString());
             }
         } finally
         {
@@ -460,7 +460,7 @@ public abstract class BaseDao<T, ID>
                 dao.endThreadConnection(databaseConnection);
             } catch (java.sql.SQLException e)
             {
-                KLog.e(LOG_TAG + " Dao.deleteByIds.endThreadConnection() fail:" + e.toString());
+                KLog.w(LOG_TAG + " Dao.deleteByIds.endThreadConnection() fail:" + e.toString());
             }
         }
         return -1;
@@ -485,13 +485,13 @@ public abstract class BaseDao<T, ID>
             return delete;
         } catch (Exception e)
         {
-            KLog.e(LOG_TAG + " Dao.deleteByBuilder() fail:" + e.toString());
+            KLog.w(LOG_TAG + " Dao.deleteByBuilder() fail:" + e.toString());
             try
             {
                 dao.rollBack(databaseConnection);
             } catch (java.sql.SQLException e1)
             {
-                KLog.e(LOG_TAG + " Dao.deleteByBuilder.rollBack() fail:" + e.toString());
+                KLog.w(LOG_TAG + " Dao.deleteByBuilder.rollBack() fail:" + e.toString());
             }
         } finally
         {
@@ -500,7 +500,7 @@ public abstract class BaseDao<T, ID>
                 dao.endThreadConnection(databaseConnection);
             } catch (java.sql.SQLException e)
             {
-                KLog.e(LOG_TAG + " Dao.deleteByBuilder.endThreadConnection() fail:" + e.toString());
+                KLog.w(LOG_TAG + " Dao.deleteByBuilder.endThreadConnection() fail:" + e.toString());
             }
         }
         return -1;
@@ -525,13 +525,13 @@ public abstract class BaseDao<T, ID>
             return update;
         } catch (Exception e)
         {
-            KLog.e(LOG_TAG + " Dao.update() fail:" + e.toString());
+            KLog.w(LOG_TAG + " Dao.update() fail:" + e.toString());
             try
             {
                 dao.rollBack(databaseConnection);
             } catch (java.sql.SQLException e1)
             {
-                KLog.e(LOG_TAG + " Dao.update.rollBack() fail:" + e.toString());
+                KLog.w(LOG_TAG + " Dao.update.rollBack() fail:" + e.toString());
             }
         } finally
         {
@@ -540,7 +540,7 @@ public abstract class BaseDao<T, ID>
                 dao.endThreadConnection(databaseConnection);
             } catch (java.sql.SQLException e)
             {
-                KLog.e(LOG_TAG + " Dao.update.endThreadConnection() fail:" + e.toString());
+                KLog.w(LOG_TAG + " Dao.update.endThreadConnection() fail:" + e.toString());
             }
         }
         return -1;
@@ -565,13 +565,13 @@ public abstract class BaseDao<T, ID>
             return update;
         } catch (Exception e)
         {
-            KLog.e(LOG_TAG + " Dao.updateByBuilder() fail:" + e.toString());
+            KLog.w(LOG_TAG + " Dao.updateByBuilder() fail:" + e.toString());
             try
             {
                 dao.rollBack(databaseConnection);
             } catch (java.sql.SQLException e1)
             {
-                KLog.e(LOG_TAG + " Dao.updateByBuilder.rollBack() fail:" + e.toString());
+                KLog.w(LOG_TAG + " Dao.updateByBuilder.rollBack() fail:" + e.toString());
             }
         } finally
         {
@@ -580,7 +580,7 @@ public abstract class BaseDao<T, ID>
                 dao.endThreadConnection(databaseConnection);
             } catch (java.sql.SQLException e)
             {
-                KLog.e(LOG_TAG + " Dao.updateByBuilder.endThreadConnection() fail:" + e.toString());
+                KLog.w(LOG_TAG + " Dao.updateByBuilder.endThreadConnection() fail:" + e.toString());
             }
         }
         return -1;
@@ -604,13 +604,13 @@ public abstract class BaseDao<T, ID>
             return query;
         } catch (Exception e)
         {
-            KLog.e(LOG_TAG + " Dao.queryAll() fail:" + e.toString());
+            KLog.w(LOG_TAG + " Dao.queryAll() fail:" + e.toString());
             try
             {
                 dao.rollBack(databaseConnection);
             } catch (java.sql.SQLException e1)
             {
-                KLog.e(LOG_TAG + " Dao.queryAll.rollBack() fail:" + e.toString());
+                KLog.w(LOG_TAG + " Dao.queryAll.rollBack() fail:" + e.toString());
             }
         } finally
         {
@@ -619,7 +619,7 @@ public abstract class BaseDao<T, ID>
                 dao.endThreadConnection(databaseConnection);
             } catch (java.sql.SQLException e)
             {
-                KLog.e(LOG_TAG + " Dao.queryAll.endThreadConnection() fail:" + e.toString());
+                KLog.w(LOG_TAG + " Dao.queryAll.endThreadConnection() fail:" + e.toString());
             }
         }
         return null;
@@ -644,13 +644,13 @@ public abstract class BaseDao<T, ID>
             return query;
         } catch (Exception e)
         {
-            KLog.e(LOG_TAG + " Dao.queryByBuilder() fail:" + e.toString());
+            KLog.w(LOG_TAG + " Dao.queryByBuilder() fail:" + e.toString());
             try
             {
                 dao.rollBack(databaseConnection);
             } catch (java.sql.SQLException e1)
             {
-                KLog.e(LOG_TAG + " Dao.queryByBuilder.rollBack() fail:" + e.toString());
+                KLog.w(LOG_TAG + " Dao.queryByBuilder.rollBack() fail:" + e.toString());
             }
         } finally
         {
@@ -659,7 +659,7 @@ public abstract class BaseDao<T, ID>
                 dao.endThreadConnection(databaseConnection);
             } catch (java.sql.SQLException e)
             {
-                KLog.e(LOG_TAG + " Dao.queryByBuilder.endThreadConnection() fail:" + e.toString());
+                KLog.w(LOG_TAG + " Dao.queryByBuilder.endThreadConnection() fail:" + e.toString());
             }
         }
         return null;
@@ -689,13 +689,13 @@ public abstract class BaseDao<T, ID>
             return query;
         } catch (Exception e)
         {
-            KLog.e(LOG_TAG + " Dao.queryByColumn() fail:" + e.toString());
+            KLog.w(LOG_TAG + " Dao.queryByColumn() fail:" + e.toString());
             try
             {
                 dao.rollBack(databaseConnection);
             } catch (java.sql.SQLException e1)
             {
-                KLog.e(LOG_TAG + " Dao.queryByColumn.rollBack() fail:" + e.toString());
+                KLog.w(LOG_TAG + " Dao.queryByColumn.rollBack() fail:" + e.toString());
             }
         } finally
         {
@@ -704,7 +704,7 @@ public abstract class BaseDao<T, ID>
                 dao.endThreadConnection(databaseConnection);
             } catch (java.sql.SQLException e)
             {
-                KLog.e(LOG_TAG + " Dao.queryByColumn.endThreadConnection() fail:" + e.toString());
+                KLog.w(LOG_TAG + " Dao.queryByColumn.endThreadConnection() fail:" + e.toString());
             }
         }
         return null;
@@ -745,13 +745,13 @@ public abstract class BaseDao<T, ID>
             return query;
         } catch (Exception e)
         {
-            KLog.e(LOG_TAG + " Dao.queryByColumns() fail:" + e.toString());
+            KLog.w(LOG_TAG + " Dao.queryByColumns() fail:" + e.toString());
             try
             {
                 dao.rollBack(databaseConnection);
             } catch (java.sql.SQLException e1)
             {
-                KLog.e(LOG_TAG + " Dao.queryByColumns.rollBack() fail:" + e.toString());
+                KLog.w(LOG_TAG + " Dao.queryByColumns.rollBack() fail:" + e.toString());
             }
         } finally
         {
@@ -760,7 +760,7 @@ public abstract class BaseDao<T, ID>
                 dao.endThreadConnection(databaseConnection);
             } catch (java.sql.SQLException e)
             {
-                KLog.e(LOG_TAG + " Dao.queryByColumns.endThreadConnection() fail:" + e.toString());
+                KLog.w(LOG_TAG + " Dao.queryByColumns.endThreadConnection() fail:" + e.toString());
             }
         }
         return null;
@@ -807,13 +807,13 @@ public abstract class BaseDao<T, ID>
             return query;
         } catch (Exception e)
         {
-            KLog.e(LOG_TAG + " Dao.queryByColumnsMap() fail:" + e.toString());
+            KLog.w(LOG_TAG + " Dao.queryByColumnsMap() fail:" + e.toString());
             try
             {
                 dao.rollBack(databaseConnection);
             } catch (java.sql.SQLException e1)
             {
-                KLog.e(LOG_TAG + " Dao.queryByColumnsMap.rollBack() fail:" + e.toString());
+                KLog.w(LOG_TAG + " Dao.queryByColumnsMap.rollBack() fail:" + e.toString());
             }
         } finally
         {
@@ -822,7 +822,7 @@ public abstract class BaseDao<T, ID>
                 dao.endThreadConnection(databaseConnection);
             } catch (java.sql.SQLException e)
             {
-                KLog.e(LOG_TAG + " Dao.queryByColumnsMap.endThreadConnection() fail:" + e.toString());
+                KLog.w(LOG_TAG + " Dao.queryByColumnsMap.endThreadConnection() fail:" + e.toString());
             }
         }
         return null;
@@ -847,13 +847,13 @@ public abstract class BaseDao<T, ID>
             return t;
         } catch (Exception e)
         {
-            KLog.e(LOG_TAG + " Dao.queryById() fail:" + e.toString());
+            KLog.w(LOG_TAG + " Dao.queryById() fail:" + e.toString());
             try
             {
                 dao.rollBack(databaseConnection);
             } catch (java.sql.SQLException e1)
             {
-                KLog.e(LOG_TAG + " Dao.queryById.rollBack() fail:" + e.toString());
+                KLog.w(LOG_TAG + " Dao.queryById.rollBack() fail:" + e.toString());
             }
         } finally
         {
@@ -862,7 +862,7 @@ public abstract class BaseDao<T, ID>
                 dao.endThreadConnection(databaseConnection);
             } catch (java.sql.SQLException e)
             {
-                KLog.e(LOG_TAG + " Dao.queryById.endThreadConnection() fail:" + e.toString());
+                KLog.w(LOG_TAG + " Dao.queryById.endThreadConnection() fail:" + e.toString());
             }
         }
         return null;
@@ -881,7 +881,7 @@ public abstract class BaseDao<T, ID>
             exist = getDao().isTableExists();
         } catch (java.sql.SQLException e)
         {
-            KLog.e(LOG_TAG + " Dao.isTableExists() fail:" + e.toString());
+            KLog.w(LOG_TAG + " Dao.isTableExists() fail:" + e.toString());
         }
         return exist;
     }
@@ -905,13 +905,13 @@ public abstract class BaseDao<T, ID>
             return count;
         } catch (Exception e)
         {
-            KLog.e(LOG_TAG + " Dao.count() fail:" + e.toString());
+            KLog.w(LOG_TAG + " Dao.count() fail:" + e.toString());
             try
             {
                 dao.rollBack(databaseConnection);
             } catch (java.sql.SQLException e1)
             {
-                KLog.e(LOG_TAG + " Dao.count.rollBack() fail:" + e.toString());
+                KLog.w(LOG_TAG + " Dao.count.rollBack() fail:" + e.toString());
             }
         } finally
         {
@@ -920,7 +920,7 @@ public abstract class BaseDao<T, ID>
                 dao.endThreadConnection(databaseConnection);
             } catch (java.sql.SQLException e)
             {
-                KLog.e(LOG_TAG + " Dao.count.endThreadConnection() fail:" + e.toString());
+                KLog.w(LOG_TAG + " Dao.count.endThreadConnection() fail:" + e.toString());
             }
         }
         return -1;
@@ -945,13 +945,13 @@ public abstract class BaseDao<T, ID>
             return count;
         } catch (Exception e)
         {
-            KLog.e(LOG_TAG + " Dao.countByBuilder() fail:" + e.toString());
+            KLog.w(LOG_TAG + " Dao.countByBuilder() fail:" + e.toString());
             try
             {
                 dao.rollBack(databaseConnection);
             } catch (java.sql.SQLException e1)
             {
-                KLog.e(LOG_TAG + " Dao.countByBuilder.rollBack() fail:" + e.toString());
+                KLog.w(LOG_TAG + " Dao.countByBuilder.rollBack() fail:" + e.toString());
             }
         } finally
         {
@@ -960,7 +960,7 @@ public abstract class BaseDao<T, ID>
                 dao.endThreadConnection(databaseConnection);
             } catch (java.sql.SQLException e)
             {
-                KLog.e(LOG_TAG + " Dao.countByBuilder.endThreadConnection() fail:" + e.toString());
+                KLog.w(LOG_TAG + " Dao.countByBuilder.endThreadConnection() fail:" + e.toString());
             }
         }
         return -1;

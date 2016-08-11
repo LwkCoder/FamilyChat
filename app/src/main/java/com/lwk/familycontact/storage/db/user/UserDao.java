@@ -10,6 +10,7 @@ import com.lwk.familycontact.base.FCApplication;
 import com.lwk.familycontact.im.HxSdkHelper;
 import com.lwk.familycontact.project.common.FCCallBack;
 import com.lwk.familycontact.storage.db.BaseDao;
+import com.lwk.familycontact.storage.db.DbOpenHelper;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -48,9 +49,17 @@ public class UserDao extends BaseDao<UserBean, Integer>
     @Override
     public Dao<UserBean, Integer> getDao()
     {
+        if (mHelper == null || !mHelper.isOpen())
+        {
+            mHelper = null;
+            mHelper = DbOpenHelper.getInstance(FCApplication.getIntance());
+        }
         return mHelper.getDao(UserBean.class);
     }
 
+    /**
+     * 将环信服务器上同步得到的好友信息更新本地数据库中
+     */
     public void updateUserFromHxServer()
     {
         HxSdkHelper.getInstance().asyncUserListFromServer(new FCCallBack<List<String>>()
@@ -155,4 +164,5 @@ public class UserDao extends BaseDao<UserBean, Integer>
         }
         return allUserList;
     }
+
 }

@@ -1,6 +1,10 @@
 package com.lwk.familycontact.project.contact.view;
 
+import android.Manifest;
+import android.content.DialogInterface;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
@@ -19,11 +23,20 @@ import com.lwk.familycontact.storage.db.user.UserBean;
 
 import java.util.List;
 
+import permissions.dispatcher.NeedsPermission;
+import permissions.dispatcher.OnNeverAskAgain;
+import permissions.dispatcher.OnPermissionDenied;
+import permissions.dispatcher.OnShowRationale;
+import permissions.dispatcher.PermissionRequest;
+import permissions.dispatcher.RuntimePermissions;
+
 /**
  * Created by LWK
  * TODO 通讯录片段
  * 2016/8/2
  */
+
+@RuntimePermissions
 public class ContactFragment extends BaseFragment implements ContactImpl, CommonPtrLayout.OnRefreshListener, OnQuickSideBarTouchListener
 {
     private ContactPresenter mPresenter;
@@ -77,7 +90,52 @@ public class ContactFragment extends BaseFragment implements ContactImpl, Common
     @Override
     public void onRefresh()
     {
-        mPresenter.refreshContactData(getActivity());
+        ContactFragmentPermissionsDispatcher.refreshContactDataWithCheck(this);
+    }
+
+    @NeedsPermission({Manifest.permission.READ_CONTACTS, Manifest.permission.WRITE_CONTACTS})
+    public void refreshContactData()
+    {
+        mPresenter.refreshAllContactData(getActivity());
+    }
+
+    @OnShowRationale({Manifest.permission.READ_CONTACTS, Manifest.permission.WRITE_CONTACTS})
+    public void showRationaleForContactPermission(final PermissionRequest request)
+    {
+        new AlertDialog.Builder(getActivity()).setCancelable(false)
+                .setTitle(R.string.dialog_permission_contact_title)
+                .setMessage(R.string.dialog_permission_contact_message)
+                .setPositiveButton(R.string.dialog_permission_contact_confirm, new DialogInterface.OnClickListener()
+                {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which)
+                    {
+                        request.proceed();
+                    }
+                })
+                .create().show();
+    }
+
+    @OnPermissionDenied({Manifest.permission.READ_CONTACTS, Manifest.permission.WRITE_CONTACTS})
+    public void onContactPermissionDenied()
+    {
+        showShortToast(R.string.warning_permission_contact_denied);
+        //权限被拒绝后获取数据库里环信好友
+        mPresenter.refreshContactDataInHx();
+    }
+
+    @OnNeverAskAgain({Manifest.permission.READ_CONTACTS, Manifest.permission.WRITE_CONTACTS})
+    public void onNeverAskContactPermission()
+    {
+        //权限被拒绝后获取数据库里环信好友
+        mPresenter.refreshContactDataInHx();
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults)
+    {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        ContactFragmentPermissionsDispatcher.onRequestPermissionsResult(this, requestCode, grantResults);
     }
 
     @Override
@@ -112,15 +170,29 @@ public class ContactFragment extends BaseFragment implements ContactImpl, Common
     }
 
     @Override
-    public void refreshAllUsersSuccess(List<UserBean> allUserList)
+    public void refreshAllUsersSuccess(final List<UserBean> allUserList)
     {
-        mPtrLayout.notifyRefreshSuccess();
-        mAdapter.refreshDataInSection(allUserList);
+        mMainHandler.post(new Runnable()
+        {
+            @Override
+            public void run()
+            {
+                mPtrLayout.notifyRefreshSuccess();
+                mAdapter.refreshDataInSection(allUserList);
+            }
+        });
     }
 
     @Override
     public void refreshAllUsersFail(int errorMsgId)
     {
-        mPtrLayout.notifyRefreshFail();
+        mMainHandler.post(new Runnable()
+        {
+            @Override
+            public void run()
+            {
+                mPtrLayout.notifyRefreshFail();
+            }
+        });
     }
 }
