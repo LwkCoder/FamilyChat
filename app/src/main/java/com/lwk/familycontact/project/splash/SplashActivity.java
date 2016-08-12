@@ -6,7 +6,6 @@ import android.view.animation.AlphaAnimation;
 import android.widget.TextView;
 
 import com.lib.base.log.KLog;
-import com.lib.base.utils.AppUtil;
 import com.lwk.familycontact.R;
 import com.lwk.familycontact.base.FCBaseActivity;
 import com.lwk.familycontact.im.HxSdkHelper;
@@ -34,8 +33,6 @@ public class SplashActivity extends FCBaseActivity
     protected void initUI()
     {
         mLlContent = findView(R.id.ll_splash_content);
-        TextView tvVersionName = findView(R.id.tv_splash_version_name);
-        tvVersionName.setText(AppUtil.getAppVersionName(this));
         mTvAuthorDesc = findView(R.id.tv_splash_author_desc);
     }
 

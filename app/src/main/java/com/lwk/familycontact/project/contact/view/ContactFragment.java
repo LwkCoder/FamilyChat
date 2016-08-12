@@ -15,7 +15,9 @@ import com.lib.ptrview.CommonPtrLayout;
 import com.lib.quicksidebar.QuickSideBarTipsView;
 import com.lib.quicksidebar.QuickSideBarView;
 import com.lib.quicksidebar.listener.OnQuickSideBarTouchListener;
+import com.lib.rcvadapter.RcvMutilAdapter;
 import com.lib.rcvadapter.decoration.RcvLinearDecoration;
+import com.lib.rcvadapter.holder.RcvHolder;
 import com.lwk.familycontact.R;
 import com.lwk.familycontact.project.contact.adapter.ContactAdapter;
 import com.lwk.familycontact.project.contact.presenter.ContactPresenter;
@@ -37,7 +39,7 @@ import permissions.dispatcher.RuntimePermissions;
  */
 
 @RuntimePermissions
-public class ContactFragment extends BaseFragment implements ContactImpl, CommonPtrLayout.OnRefreshListener, OnQuickSideBarTouchListener
+public class ContactFragment extends BaseFragment implements ContactImpl, CommonPtrLayout.OnRefreshListener, OnQuickSideBarTouchListener, RcvMutilAdapter.onItemClickListener<UserBean>
 {
     private ContactPresenter mPresenter;
     private RecyclerView mRecyclerView;
@@ -70,6 +72,7 @@ public class ContactFragment extends BaseFragment implements ContactImpl, Common
         mRecyclerView.addItemDecoration(new RcvLinearDecoration(getActivity(), RcvLinearDecoration.VERTICAL_LIST));
         mAdapter = new ContactAdapter(getActivity(), null);
         mAdapter.openItemShowingAnim();
+        mAdapter.setOnItemClickListener(this);
         mRecyclerView.setAdapter(mAdapter);
 
         mPtrLayout = findView(R.id.ptr_layout_contact);
@@ -136,6 +139,12 @@ public class ContactFragment extends BaseFragment implements ContactImpl, Common
     {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
         ContactFragmentPermissionsDispatcher.onRequestPermissionsResult(this, requestCode, grantResults);
+    }
+
+    @Override
+    public void onItemClick(View view, RcvHolder holder, UserBean userBean, int position)
+    {
+        UserDetailActivity.skip(getActivity(), userBean);
     }
 
     @Override

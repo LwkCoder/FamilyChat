@@ -50,8 +50,8 @@ public class ContactAdapter extends RcvSortSectionAdatper<UserBean>
         ftvPhone.setText(userBean.getPhone());
 
         if (StringUtil.isNotEmpty(userBean.getLocalHead()))
-            Glide.with(mContext).load(userBean.getLocalHead()).into(imgHead);
+            Glide.with(mContext).load(userBean.getLocalHead()).override(200, 200).into(imgHead);
         else
-            imgHead.setImageResource(R.mipmap.ic_launcher);
+            imgHead.setImageResource(R.drawable.default_avatar);
     }
 }

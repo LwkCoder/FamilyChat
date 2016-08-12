@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:flatui="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/gray_F0F0F0"
+    android:fillViewport="true"
+    android:fitsSystemWindows="true"
+    tools:context="com.lwk.familycontact.project.contact.view.UserDetailActivity">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <com.lib.base.widget.CommonActionBar
+            android:id="@+id/cab_user_detail"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:background="@color/colorPrimary"/>
+
+        <RelativeLayout
+            android:id="@+id/rl_user_detail_profile"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/cab_user_detail"
+            android:layout_marginTop="@dimen/spacing_huge"
+            android:background="@color/white_FFFFFF"
+            android:padding="@dimen/spacing_normal">
+
+            <ImageView
+                android:id="@+id/img_user_detail_head"
+                android:layout_width="80dp"
+                android:layout_height="80dp"
+                android:layout_alignParentLeft="true"
+                android:layout_centerVertical="true"
+                android:layout_marginRight="@dimen/spacing_normal"/>
+
+            <com.cengalabs.flatui.views.FlatTextView
+                android:id="@+id/tv_user_detail_name"
+                style="@style/FC_NormalTextStyle"
+                android:layout_alignTop="@+id/img_user_detail_head"
+                android:layout_toRightOf="@+id/img_user_detail_head"
+                android:textSize="@dimen/sp_22"/>
+
+            <com.cengalabs.flatui.views.FlatTextView
+                android:id="@+id/tv_user_detail_phone"
+                style="@style/FC_SmallTextStyle"
+                android:layout_alignBottom="@+id/img_user_detail_head"
+                android:layout_toRightOf="@+id/img_user_detail_head"
+                android:textSize="@dimen/sp_18"
+                flatui:fl_textColor="fl_dark"/>
+        </RelativeLayout>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="30dp"
+            android:layout_below="@+id/rl_user_detail_profile"
+            android:gravity="center_vertical"
+            android:paddingLeft="@dimen/spacing_normal"
+            android:text="@string/tv_user_detail_head_hint"
+            android:textSize="@dimen/sp_14"/>
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_marginBottom="@dimen/spacing_huge"
+            android:layout_marginLeft="@dimen/spacing_normal"
+            android:layout_marginRight="@dimen/spacing_normal"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <com.cengalabs.flatui.views.FlatButton
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:layout_marginRight="@dimen/spacing_small"
+                    android:layout_weight="1"
+                    android:text="@string/btn_user_detail_sys_call"
+                    android:textSize="@dimen/sp_18"
+                    flatui:fl_textAppearance="fl_none"
+                    flatui:fl_theme="@array/grass"
+                    flatui:fl_touchEffect="fl_ripple"/>
+
+                <com.cengalabs.flatui.views.FlatButton
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:layout_weight="1"
+                    android:text="@string/btn_user_detail_voice_call"
+                    android:textSize="@dimen/sp_18"
+                    flatui:fl_textAppearance="fl_none"
+                    flatui:fl_theme="@array/grass"
+                    flatui:fl_touchEffect="fl_ripple"/>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/spacing_small"
+                android:orientation="horizontal">
+
+                <com.cengalabs.flatui.views.FlatButton
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:layout_marginRight="@dimen/spacing_small"
+                    android:layout_weight="1"
+                    android:text="@string/btn_user_detail_send_msg"
+                    android:textSize="@dimen/sp_18"
+                    flatui:fl_textAppearance="fl_none"
+                    flatui:fl_theme="@array/grass"
+                    flatui:fl_touchEffect="fl_ripple"/>
+
+                <com.cengalabs.flatui.views.FlatButton
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:layout_weight="1"
+                    android:text="@string/btn_user_detail_video_call"
+                    android:textSize="@dimen/sp_18"
+                    flatui:fl_textAppearance="fl_none"
+                    flatui:fl_theme="@array/grass"
+                    flatui:fl_touchEffect="fl_ripple"/>
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+    </RelativeLayout>
+
+</ScrollView>
