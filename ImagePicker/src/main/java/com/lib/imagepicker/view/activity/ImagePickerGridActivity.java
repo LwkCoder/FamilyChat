@@ -11,6 +11,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.os.Message;
 import android.provider.MediaStore;
+import android.provider.Settings;
 import android.util.Pair;
 import android.view.Gravity;
 import android.view.View;
@@ -81,6 +82,13 @@ public class ImagePickerGridActivity extends ImagePickerBaseActivity implements 
     @Override
     protected void initUI()
     {
+        //防止在此界面发生权限更改时，界面重新onCreate()导致的空指针
+        if (ImagePicker.getInstance().getOptions() == null)
+        {
+            finish();
+            return;
+        }
+
         ImagePickerActionBar actionBar = findView(R.id.cab_imagepicker_gridactivity);
         actionBar.setLeftLayoutAsBack(this);
         actionBar.setBackgroundColor(getResources().getColor(R.color.black_actionbar));
@@ -120,7 +128,7 @@ public class ImagePickerGridActivity extends ImagePickerBaseActivity implements 
             if (checkResult != PackageManager.PERMISSION_GRANTED)
             {
                 //对权限做出解释
-                if (!shouldShowRequestPermissionRationale(Manifest.permission.READ_EXTERNAL_STORAGE))
+                if (shouldShowRequestPermissionRationale(Manifest.permission.READ_EXTERNAL_STORAGE))
                 {
                     new AlertDialog.Builder(this).setCancelable(false)
                             .setTitle(R.string.dialog_imagepicker_permission_title)
@@ -191,7 +199,7 @@ public class ImagePickerGridActivity extends ImagePickerBaseActivity implements 
             if (checkResult != PackageManager.PERMISSION_GRANTED)
             {
                 //对权限做出解释
-                if (!shouldShowRequestPermissionRationale(Manifest.permission.CAMERA))
+                if (shouldShowRequestPermissionRationale(Manifest.permission.CAMERA))
                 {
                     new AlertDialog.Builder(this).setCancelable(false)
                             .setTitle(R.string.dialog_imagepicker_permission_title)
@@ -386,6 +394,7 @@ public class ImagePickerGridActivity extends ImagePickerBaseActivity implements 
         super.onDestroy();
     }
 
+    @TargetApi(Build.VERSION_CODES.M)
     @Override
     public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults)
     {
@@ -398,6 +407,31 @@ public class ImagePickerGridActivity extends ImagePickerBaseActivity implements 
                 } else
                 {
                     showToast(R.string.warning_imagepicker_permission_sdcard_denied);
+                    if (!shouldShowRequestPermissionRationale(Manifest.permission.READ_EXTERNAL_STORAGE))
+                        //处理NerverAsk
+                        new AlertDialog.Builder(this).setCancelable(false)
+                                .setTitle(R.string.dialog_imagepicker_permission_title)
+                                .setMessage(R.string.dialog_imagepicker_permission_sdcard_nerver_ask_message)
+                                .setNegativeButton(R.string.dialog_imagepicker_permission_nerver_ask_cancel, new DialogInterface.OnClickListener()
+                                {
+                                    @Override
+                                    public void onClick(DialogInterface dialog, int which)
+                                    {
+                                        dialog.dismiss();
+                                        ImagePickerGridActivity.this.finish();
+                                    }
+                                })
+                                .setPositiveButton(R.string.dialog_imagepicker_permission_nerver_ask_confirm, new DialogInterface.OnClickListener()
+                                {
+                                    @Override
+                                    public void onClick(DialogInterface dialog, int which)
+                                    {
+                                        dialog.dismiss();
+                                        Intent intent = new Intent(Settings.ACTION_APPLICATION_SETTINGS);
+                                        startActivity(intent);
+                                        finish();
+                                    }
+                                }).create().show();
                 }
                 break;
             case REQUEST_CODE_CAMERA:
@@ -407,6 +441,30 @@ public class ImagePickerGridActivity extends ImagePickerBaseActivity implements 
                 } else
                 {
                     showToast(R.string.warning_imagepicker_permission_camera_denied);
+                    if (!shouldShowRequestPermissionRationale(Manifest.permission.CAMERA))
+                        //处理NerverAsk
+                        new AlertDialog.Builder(this).setCancelable(false)
+                                .setTitle(R.string.dialog_imagepicker_permission_title)
+                                .setMessage(R.string.dialog_imagepicker_permission_camera_nerver_ask_message)
+                                .setNegativeButton(R.string.dialog_imagepicker_permission_nerver_ask_cancel, new DialogInterface.OnClickListener()
+                                {
+                                    @Override
+                                    public void onClick(DialogInterface dialog, int which)
+                                    {
+                                        dialog.dismiss();
+                                    }
+                                })
+                                .setPositiveButton(R.string.dialog_imagepicker_permission_nerver_ask_confirm, new DialogInterface.OnClickListener()
+                                {
+                                    @Override
+                                    public void onClick(DialogInterface dialog, int which)
+                                    {
+                                        dialog.dismiss();
+                                        Intent intent = new Intent(Settings.ACTION_APPLICATION_SETTINGS);
+                                        startActivity(intent);
+                                        finish();
+                                    }
+                                }).create().show();
                 }
                 break;
             default:
