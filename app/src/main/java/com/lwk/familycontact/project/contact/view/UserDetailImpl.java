@@ -7,4 +7,5 @@ package com.lwk.familycontact.project.contact.view;
  */
 public interface UserDetailImpl
 {
+    void updateLocalHeadFail();
 }

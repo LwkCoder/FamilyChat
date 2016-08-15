@@ -1,6 +1,7 @@
 package com.lwk.familycontact.project.contact.view;
 
 import android.Manifest;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -22,6 +23,11 @@ import com.lwk.familycontact.R;
 import com.lwk.familycontact.project.contact.adapter.ContactAdapter;
 import com.lwk.familycontact.project.contact.presenter.ContactPresenter;
 import com.lwk.familycontact.storage.db.user.UserBean;
+import com.lwk.familycontact.utils.event.EventBusHelper;
+import com.lwk.familycontact.utils.event.ProfileUpdateEventBean;
+
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 
 import java.util.List;
 
@@ -55,6 +61,13 @@ public class ContactFragment extends BaseFragment implements ContactImpl, Common
         Bundle bundle = new Bundle();
         contactFragment.setArguments(bundle);
         return contactFragment;
+    }
+
+    @Override
+    public void onAttach(Context context)
+    {
+        super.onAttach(context);
+        EventBusHelper.getInstance().regist(this);
     }
 
     @Override
@@ -203,5 +216,20 @@ public class ContactFragment extends BaseFragment implements ContactImpl, Common
                 mPtrLayout.notifyRefreshFail();
             }
         });
+    }
+
+    @Override
+    public void onDetach()
+    {
+        super.onDetach();
+        EventBusHelper.getInstance().unregist(this);
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void userProfileUpdated(ProfileUpdateEventBean eventBean)
+    {
+        UserBean userBean = eventBean.getUserBean();
+        if (userBean != null)
+            mAdapter.updateUserProfile(userBean);
     }
 }

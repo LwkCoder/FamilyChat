@@ -165,4 +165,47 @@ public class UserDao extends BaseDao<UserBean, Integer>
         return allUserList;
     }
 
+    /**
+     * 更新某个用户的本地头像
+     *
+     * @param phone    该用户手机号
+     * @param headPath 头像
+     * @return 更新成功后返回表中对应的行数，失败代表不存在该phone的数据
+     */
+    public int updateUserLocalHead(String phone, String headPath)
+    {
+        int lineNum = -1;
+        try
+        {
+            UpdateBuilder<UserBean, Integer> updateBuilder = getDao().updateBuilder();
+            updateBuilder.updateColumnValue(UserDbConfig.LOCAL_HEAD, headPath);
+            updateBuilder.where().eq(UserDbConfig.PHONE, phone);
+            lineNum = getDao().update(updateBuilder.prepare());
+        } catch (SQLException e)
+        {
+            KLog.e(TAG + " UserDao.updateUserLocalHead fail : " + e.toString());
+        }
+        return lineNum;
+    }
+
+    /**
+     * 根据手机号查询用户数据
+     *
+     * @param phone 手机号
+     * @return 用户数据
+     */
+    public UserBean queryUserByPhone(String phone)
+    {
+        UserBean userBean = null;
+        try
+        {
+            QueryBuilder<UserBean, Integer> queryBuilder = getDao().queryBuilder();
+            queryBuilder.where().eq(UserDbConfig.PHONE, phone);
+            userBean = getDao().queryForFirst(queryBuilder.prepare());
+        } catch (SQLException e)
+        {
+            KLog.e(TAG + " UserDao.queryUserByPhone fail : " + e.toString());
+        }
+        return userBean;
+    }
 }

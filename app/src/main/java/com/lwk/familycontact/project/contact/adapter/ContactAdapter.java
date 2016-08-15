@@ -8,6 +8,7 @@ import com.bumptech.glide.Glide;
 import com.cengalabs.flatui.views.FlatTextView;
 import com.lib.base.utils.StringUtil;
 import com.lib.rcvadapter.RcvSortSectionAdatper;
+import com.lib.rcvadapter.bean.RcvSecBean;
 import com.lib.rcvadapter.holder.RcvHolder;
 import com.lwk.familycontact.R;
 import com.lwk.familycontact.storage.db.user.UserBean;
@@ -53,5 +54,25 @@ public class ContactAdapter extends RcvSortSectionAdatper<UserBean>
             Glide.with(mContext).load(userBean.getLocalHead()).override(200, 200).into(imgHead);
         else
             imgHead.setImageResource(R.drawable.default_avatar);
+    }
+
+    /**
+     * 更新某个用户资料
+     */
+    public void updateUserProfile(UserBean userBean)
+    {
+        for (RcvSecBean<String, UserBean> bean : mDataList)
+        {
+            UserBean eachUserBean = bean.getContent();
+            if (eachUserBean != null && StringUtil.isEquals(userBean.getPhone(), eachUserBean.getPhone()))
+            {
+                eachUserBean.setRegist(userBean.isRegist());
+                eachUserBean.setName(userBean.getName());
+                eachUserBean.setLocalHead(userBean.getLocalHead());
+                eachUserBean.updateDisplayNameAndSpell();
+                notifyDataSetChanged();
+                return;
+            }
+        }
     }
 }
