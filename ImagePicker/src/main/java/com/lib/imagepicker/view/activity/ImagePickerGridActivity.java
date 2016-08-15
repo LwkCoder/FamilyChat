@@ -1,7 +1,13 @@
 package com.lib.imagepicker.view.activity;
 
+import android.Manifest;
+import android.annotation.TargetApi;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Message;
 import android.provider.MediaStore;
@@ -40,6 +46,10 @@ public class ImagePickerGridActivity extends ImagePickerBaseActivity implements 
     private static final int FLAG_SCAN_DATA_SUCCESS = 102;
     //扫描本地数据失败
     private static final int FLAG_SCAN_DATA_FAIL = 103;
+    //sdk23获取sd卡读写权限的requestCode
+    private static final int REQUEST_CODE_SDCARD = 110;
+    //sdk23获取sd卡拍照权限的requestCode
+    private static final int REQUEST_CODE_CAMERA = 111;
     private ImagePickerGridPresenter mPresenter;
     private GridView mGridView;
     private View mRlBottom;
@@ -96,8 +106,48 @@ public class ImagePickerGridActivity extends ImagePickerBaseActivity implements 
     protected void initData()
     {
         super.initData();
-        //开启扫描
-        mPresenter.scanAllData(this);
+        scanData();
+    }
+
+    //扫描本地媒体数据
+    private void scanData()
+    {
+        //sdk23以上需要检查权限
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M)
+        {
+            int checkResult = checkSelfPermission(Manifest.permission.READ_EXTERNAL_STORAGE);
+            //没有权限时
+            if (checkResult != PackageManager.PERMISSION_GRANTED)
+            {
+                //对权限做出解释
+                if (!shouldShowRequestPermissionRationale(Manifest.permission.READ_EXTERNAL_STORAGE))
+                {
+                    new AlertDialog.Builder(this).setCancelable(false)
+                            .setTitle(R.string.dialog_imagepicker_permission_title)
+                            .setMessage(R.string.dialog_imagepicker_permission_sdcard_message)
+                            .setPositiveButton(R.string.dialog_imagepicker_permission_confirm, new DialogInterface.OnClickListener()
+                            {
+                                @TargetApi(Build.VERSION_CODES.M)
+                                @Override
+                                public void onClick(DialogInterface dialog, int which)
+                                {
+                                    dialog.dismiss();
+                                    requestPermissions(new String[]{Manifest.permission.READ_EXTERNAL_STORAGE}, REQUEST_CODE_SDCARD);
+                                }
+                            }).create().show();
+                    return;
+                }
+                requestPermissions(new String[]{Manifest.permission.READ_EXTERNAL_STORAGE}, REQUEST_CODE_SDCARD);
+                return;
+            }
+
+            //开启扫描
+            mPresenter.scanAllData(this);
+        } else
+        {
+            //sdk23以下直接开启扫描
+            mPresenter.scanAllData(this);
+        }
     }
 
     @Override
@@ -132,6 +182,47 @@ public class ImagePickerGridActivity extends ImagePickerBaseActivity implements 
 
     @Override
     public void clickTakePhoto()
+    {
+        //sdk23以上需要检查权限
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M)
+        {
+            int checkResult = checkSelfPermission(Manifest.permission.CAMERA);
+            //没有权限时
+            if (checkResult != PackageManager.PERMISSION_GRANTED)
+            {
+                //对权限做出解释
+                if (!shouldShowRequestPermissionRationale(Manifest.permission.CAMERA))
+                {
+                    new AlertDialog.Builder(this).setCancelable(false)
+                            .setTitle(R.string.dialog_imagepicker_permission_title)
+                            .setMessage(R.string.dialog_imagepicker_permission_camera_message)
+                            .setPositiveButton(R.string.dialog_imagepicker_permission_confirm, new DialogInterface.OnClickListener()
+                            {
+                                @TargetApi(Build.VERSION_CODES.M)
+                                @Override
+                                public void onClick(DialogInterface dialog, int which)
+                                {
+                                    dialog.dismiss();
+                                    requestPermissions(new String[]{Manifest.permission.CAMERA}, REQUEST_CODE_CAMERA);
+                                }
+                            }).create().show();
+                    return;
+                }
+
+                requestPermissions(new String[]{Manifest.permission.CAMERA}, REQUEST_CODE_CAMERA);
+                return;
+            }
+
+            //拍照
+            startTakePhoto();
+        } else
+        {
+            //sdk22以下直接拍照
+            startTakePhoto();
+        }
+    }
+
+    private void startTakePhoto()
     {
         if (!OtherUtils.isSdExist())
         {
@@ -293,5 +384,33 @@ public class ImagePickerGridActivity extends ImagePickerBaseActivity implements 
         mPresenter = null;
         ImagePicker.getInstance().clear();
         super.onDestroy();
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults)
+    {
+        switch (requestCode)
+        {
+            case REQUEST_CODE_SDCARD:
+                if (grantResults[0] == PackageManager.PERMISSION_GRANTED)
+                {
+                    mPresenter.scanAllData(this);
+                } else
+                {
+                    showToast(R.string.warning_imagepicker_permission_sdcard_denied);
+                }
+                break;
+            case REQUEST_CODE_CAMERA:
+                if (grantResults[0] == PackageManager.PERMISSION_GRANTED)
+                {
+                    startTakePhoto();
+                } else
+                {
+                    showToast(R.string.warning_imagepicker_permission_camera_denied);
+                }
+                break;
+            default:
+                super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        }
     }
 }

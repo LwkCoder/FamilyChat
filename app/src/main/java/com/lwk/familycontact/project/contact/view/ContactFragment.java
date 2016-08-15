@@ -106,7 +106,8 @@ public class ContactFragment extends BaseFragment implements ContactImpl, Common
     @Override
     public void onRefresh()
     {
-        ContactFragmentPermissionsDispatcher.refreshContactDataWithCheck(this);
+        if (getActivity() != null)
+            ContactFragmentPermissionsDispatcher.refreshContactDataWithCheck(this);
     }
 
     @NeedsPermission({Manifest.permission.READ_CONTACTS, Manifest.permission.WRITE_CONTACTS})
