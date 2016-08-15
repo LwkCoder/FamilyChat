@@ -119,9 +119,9 @@ public class ContactFragment extends BaseFragment implements ContactImpl, Common
     public void showRationaleForContactPermission(final PermissionRequest request)
     {
         new AlertDialog.Builder(getActivity()).setCancelable(false)
-                .setTitle(R.string.dialog_permission_contact_title)
+                .setTitle(R.string.dialog_permission_title)
                 .setMessage(R.string.dialog_permission_contact_message)
-                .setPositiveButton(R.string.dialog_permission_contact_confirm, new DialogInterface.OnClickListener()
+                .setPositiveButton(R.string.dialog_permission_confirm, new DialogInterface.OnClickListener()
                 {
                     @Override
                     public void onClick(DialogInterface dialog, int which)

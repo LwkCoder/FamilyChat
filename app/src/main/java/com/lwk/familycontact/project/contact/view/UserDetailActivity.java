@@ -1,13 +1,18 @@
 package com.lwk.familycontact.project.contact.view;
 
+import android.Manifest;
 import android.app.Activity;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
+import android.support.v7.app.AlertDialog;
 import android.view.View;
 import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
 import com.cengalabs.flatui.views.FlatTextView;
+import com.lib.base.utils.PhoneUtils;
 import com.lib.base.utils.StringUtil;
 import com.lib.base.widget.CommonActionBar;
 import com.lib.imagepicker.ImagePicker;
@@ -27,9 +32,17 @@ import org.greenrobot.eventbus.ThreadMode;
 
 import java.util.List;
 
+import permissions.dispatcher.NeedsPermission;
+import permissions.dispatcher.OnNeverAskAgain;
+import permissions.dispatcher.OnPermissionDenied;
+import permissions.dispatcher.OnShowRationale;
+import permissions.dispatcher.PermissionRequest;
+import permissions.dispatcher.RuntimePermissions;
+
 /**
  * 用户资料详情界面
  */
+@RuntimePermissions
 public class UserDetailActivity extends FCBaseActivity implements UserDetailImpl
 {
     private static final String INTENT_KEY = "user_data_key";
@@ -78,6 +91,10 @@ public class UserDetailActivity extends FCBaseActivity implements UserDetailImpl
         mTvPhone = findView(R.id.tv_user_detail_phone);
 
         addClick(mImgHead);
+        addClick(R.id.btn_user_detail_system_call);
+        addClick(R.id.btn_user_detail_voice_call);
+        addClick(R.id.btn_user_detail_send_msg);
+        addClick(R.id.btn_user_detail_video_call);
     }
 
     @Override
@@ -93,7 +110,7 @@ public class UserDetailActivity extends FCBaseActivity implements UserDetailImpl
         {
             mActionBar.setTitleText(mUserBean.getDisplayName());
             mTvName.setText(mUserBean.getDisplayName());
-            mTvPhone.setText(mUserBean.getPhone());
+            mTvPhone.setText(PhoneUtils.formatPhoneNumAsRegular(mUserBean.getPhone(), " - "));
             String localHead = mUserBean.getLocalHead();
             if (StringUtil.isNotEmpty(localHead))
                 Glide.with(this).load(localHead).override(300, 300).into(mImgHead);
@@ -127,7 +144,61 @@ public class UserDetailActivity extends FCBaseActivity implements UserDetailImpl
                     }
                 });
                 break;
+            case R.id.btn_user_detail_system_call:
+                UserDetailActivityPermissionsDispatcher.callSystemPhoneWithCheck(this);
+                break;
+            case R.id.btn_user_detail_voice_call:
+                break;
+            case R.id.btn_user_detail_send_msg:
+                break;
+            case R.id.btn_user_detail_video_call:
+                break;
         }
+    }
+
+    @NeedsPermission(Manifest.permission.CALL_PHONE)
+    public void callSystemPhone()
+    {
+        if (mUserBean != null && StringUtil.isNotEmpty(mUserBean.getPhone()))
+        {
+            PhoneUtils.callPhone(this, mUserBean.getPhone());
+        }
+    }
+
+    @OnShowRationale(Manifest.permission.CALL_PHONE)
+    public void showRationaleForCallPhone(final PermissionRequest request)
+    {
+        new AlertDialog.Builder(this)
+                .setCancelable(false)
+                .setTitle(R.string.dialog_permission_title)
+                .setMessage(R.string.dialog_permission_call_phone_message)
+                .setPositiveButton(R.string.dialog_permission_confirm, new DialogInterface.OnClickListener()
+                {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which)
+                    {
+                        request.proceed();
+                    }
+                }).create().show();
+    }
+
+    @OnPermissionDenied(Manifest.permission.CALL_PHONE)
+    public void onCallPhonePermissionDenied()
+    {
+        showLongToast(R.string.warning_permission_callphone_denied);
+    }
+
+    @OnNeverAskAgain(Manifest.permission.CALL_PHONE)
+    public void onCallPhonePermissionNeverAsk()
+    {
+        showLongToast(R.string.warning_permission_callphone_denied);
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults)
+    {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        UserDetailActivityPermissionsDispatcher.onRequestPermissionsResult(this, requestCode, grantResults);
     }
 
     @Override

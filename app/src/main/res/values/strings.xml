@@ -15,6 +15,7 @@
     <string name="warning_user_be_removed">您的账号已被移除出服务器</string>
     <string name="warning_network_disconnect">网络连接不可用</string>
     <string name="warning_permission_contact_denied">无法获取通讯录权限</string>
+    <string name="warning_permission_callphone_denied">无法获取拨打电话权限</string>
 
     <!--环信相关-->
     <string name="dialog_user_relogin_title">账号在其他设备登录</string>
@@ -23,6 +24,8 @@
     <!--通用-->
     <string name="ed_hint_phone_input">请输入手机号</string>
     <string name="ed_hint_pwd_input">请输入密码</string>
+    <string name="dialog_permission_title">权限申明</string>
+    <string name="dialog_permission_confirm">我知道了</string>
 
     <!--LoginActivity-->
     <string name="tv_login_title">登录账号</string>
@@ -50,9 +53,7 @@
     <string name="tv_pull_down_released">正在同步系统通讯录</string>
     <string name="tv_pull_down_success">同步完成</string>
     <string name="tv_pull_down_fail">同步完成</string>
-    <string name="dialog_permission_contact_title">权限声明</string>
     <string name="dialog_permission_contact_message">应用程序需要获取手机通讯录联系人的权限，否则无法继续同步本机通讯录</string>
-    <string name="dialog_permission_contact_confirm">我知道了</string>
 
     <!--UserDetailFragment-->
     <string name="tv_user_detail_head_hint">点击头像可以设置备注头像</string>
@@ -60,4 +61,5 @@
     <string name="btn_user_detail_voice_call">语音通话</string>
     <string name="btn_user_detail_send_msg">发送消息</string>
     <string name="btn_user_detail_video_call">视频通话</string>
+    <string name="dialog_permission_call_phone_message">应用程序需要获取拨打系统电话的权限，否则无法继续呼叫该号码</string>
 </resources>

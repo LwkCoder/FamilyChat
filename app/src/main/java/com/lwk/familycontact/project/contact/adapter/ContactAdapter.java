@@ -6,6 +6,7 @@ import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
 import com.cengalabs.flatui.views.FlatTextView;
+import com.lib.base.utils.PhoneUtils;
 import com.lib.base.utils.StringUtil;
 import com.lib.rcvadapter.RcvSortSectionAdatper;
 import com.lib.rcvadapter.bean.RcvSecBean;
@@ -48,7 +49,7 @@ public class ContactAdapter extends RcvSortSectionAdatper<UserBean>
         else
             ftvName.setTextColor(COLOR_NOT_REGIST);
         ftvName.setText(userBean.getDisplayName());
-        ftvPhone.setText(userBean.getPhone());
+        ftvPhone.setText(PhoneUtils.formatPhoneNumAsRegular(userBean.getPhone(), " - "));
 
         if (StringUtil.isNotEmpty(userBean.getLocalHead()))
             Glide.with(mContext).load(userBean.getLocalHead()).override(200, 200).into(imgHead);
