@@ -15,9 +15,10 @@
         android:inputType="phone"
         android:paddingLeft="@dimen/spacing_normal"
         android:paddingRight="@dimen/spacing_normal"
+        android:textColorHint="@color/deep_light"
         android:textSize="@dimen/font_large"
-        flatui:fl_cornerRadius="1dp"
         flatui:fl_borderWidth="1dp"
+        flatui:fl_cornerRadius="1dp"
         flatui:fl_fieldStyle="fl_transparent"
         flatui:fl_theme="@array/deep"/>
 
@@ -32,9 +33,10 @@
         android:inputType="textPassword"
         android:paddingLeft="@dimen/spacing_normal"
         android:paddingRight="@dimen/spacing_normal"
+        android:textColorHint="@color/deep_light"
         android:textSize="@dimen/font_large"
-        flatui:fl_cornerRadius="1dp"
         flatui:fl_borderWidth="1dp"
+        flatui:fl_cornerRadius="1dp"
         flatui:fl_fieldStyle="fl_transparent"
         flatui:fl_theme="@array/deep"/>
 

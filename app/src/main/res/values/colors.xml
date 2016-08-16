@@ -2,11 +2,11 @@
 <resources>
     <color name="colorPrimary">@color/deep_dark</color>
     <color name="colorPrimaryDark">@color/deep_darker</color>
-    <color name="colorAccent">@color/deep_light</color>
+    <color name="colorAccent">@color/grass_primary</color>
 
     <!--BottomNavigationBar-->
     <color name="bnbActiveColor">@android:color/holo_blue_bright</color>
-    <color name="bnbInActiveColor">@color/colorAccent</color>
+    <color name="bnbInActiveColor">@color/deep_light</color>
     <color name="bnbBackgroudColor">@color/colorPrimary</color>
 
     <color name="deep_bg_pull_down">#1d3845</color>
