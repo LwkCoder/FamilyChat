@@ -52,12 +52,14 @@ public class ContactPresenter
             public void onFail(int status, int errorMsgResId)
             {
                 mContactView.refreshAllUsersFail(errorMsgResId);
+                mContactView.refreshContactNum();
             }
 
             @Override
-            public void onSuccess(List<UserBean> userBeen)
+            public void onSuccess(List<UserBean> resultList)
             {
-                mContactView.refreshAllUsersSuccess(userBeen);
+                mContactView.refreshAllUsersSuccess(resultList);
+                mContactView.refreshContactNum();
             }
         });
         mRefreshContactDataTask.executeOnExecutor(Executors.newCachedThreadPool());
@@ -90,6 +92,7 @@ public class ContactPresenter
                 }
 
                 mContactView.refreshAllUsersSuccess(resultList);
+                mContactView.refreshContactNum();
             }
         }).start();
     }

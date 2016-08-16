@@ -14,4 +14,6 @@ public interface ContactImpl
     void refreshAllUsersSuccess(List<UserBean> allUserList);
 
     void refreshAllUsersFail(int errorMsgId);
+
+    void refreshContactNum();
 }

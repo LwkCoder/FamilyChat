@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<TextView xmlns:android="http://schemas.android.com/apk/res/android"
+          android:id="@+id/tv_contact_foot"
+          android:layout_width="match_parent"
+          android:layout_height="60dp"
+          android:background="@color/gray_F0F0F0"
+          android:gravity="center"
+          android:textColor="#9d9d9d"
+          android:textSize="@dimen/sp_16">
+
+</TextView>

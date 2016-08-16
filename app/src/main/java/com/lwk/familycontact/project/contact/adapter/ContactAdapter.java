@@ -25,10 +25,12 @@ public class ContactAdapter extends RcvSortSectionAdatper<UserBean>
 {
     private int COLOR_REGIST = Color.parseColor("#2828ff");
     private int COLOR_NOT_REGIST = Color.parseColor("#202020");
+    private int mUserBeanCount;
 
     public ContactAdapter(Context context, List<UserBean> datas)
     {
         super(context, R.layout.layout_contact_section_listitem, R.layout.layout_contact_content_listitem, datas);
+        this.mUserBeanCount = datas != null ? datas.size() : 0;
     }
 
     @Override
@@ -75,5 +77,20 @@ public class ContactAdapter extends RcvSortSectionAdatper<UserBean>
                 return;
             }
         }
+    }
+
+    @Override
+    public void refreshDataInSection(List<UserBean> dataList)
+    {
+        super.refreshDataInSection(dataList);
+        this.mUserBeanCount = dataList != null ? dataList.size() : 0;
+    }
+
+    /**
+     * 获取实际联系人的数量
+     */
+    public int getUserBeanCount()
+    {
+        return mUserBeanCount;
     }
 }

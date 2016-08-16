@@ -9,8 +9,11 @@ import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
+import android.view.ViewGroup;
+import android.widget.TextView;
 
 import com.lib.base.app.BaseFragment;
+import com.lib.base.utils.ResUtils;
 import com.lib.base.utils.StringUtil;
 import com.lib.ptrview.CommonPtrLayout;
 import com.lib.quicksidebar.QuickSideBarTipsView;
@@ -20,6 +23,7 @@ import com.lib.rcvadapter.RcvMutilAdapter;
 import com.lib.rcvadapter.decoration.RcvLinearDecoration;
 import com.lib.rcvadapter.holder.RcvHolder;
 import com.lwk.familycontact.R;
+import com.lwk.familycontact.base.FCApplication;
 import com.lwk.familycontact.project.contact.adapter.ContactAdapter;
 import com.lwk.familycontact.project.contact.presenter.ContactPresenter;
 import com.lwk.familycontact.storage.db.user.UserBean;
@@ -53,6 +57,7 @@ public class ContactFragment extends BaseFragment implements ContactImpl, Common
     private QuickSideBarTipsView mSidebarTipView;
     private QuickSideBarView mSidebar;
     private ContactAdapter mAdapter;
+    private TextView mTvContactNum;
 
 
     public static ContactFragment newInstance()
@@ -86,6 +91,10 @@ public class ContactFragment extends BaseFragment implements ContactImpl, Common
         mAdapter = new ContactAdapter(getActivity(), null);
         mAdapter.openItemShowingAnim();
         mAdapter.setOnItemClickListener(this);
+        View footerView = getActivity().getLayoutInflater()
+                .inflate(R.layout.layout_foot_contact, (ViewGroup) getActivity().findViewById(android.R.id.content), false);
+        mTvContactNum = (TextView) footerView.findViewById(R.id.tv_contact_foot);
+        mAdapter.addFootView(footerView);
         mRecyclerView.setAdapter(mAdapter);
 
         mPtrLayout = findView(R.id.ptr_layout_contact);
@@ -215,6 +224,24 @@ public class ContactFragment extends BaseFragment implements ContactImpl, Common
             public void run()
             {
                 mPtrLayout.notifyRefreshFail();
+            }
+        });
+    }
+
+    @Override
+    public void refreshContactNum()
+    {
+
+        mMainHandler.post(new Runnable()
+        {
+            @Override
+            public void run()
+            {
+                if (mTvContactNum != null && mAdapter != null)
+                {
+                    String numEx = ResUtils.getString(FCApplication.getIntance(), R.string.tv_foot_contact_num);
+                    mTvContactNum.setText(numEx.replaceFirst("%%1", String.valueOf(mAdapter.getUserBeanCount())));
+                }
             }
         });
     }
