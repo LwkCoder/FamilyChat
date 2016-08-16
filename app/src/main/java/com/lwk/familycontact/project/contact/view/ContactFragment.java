@@ -167,7 +167,7 @@ public class ContactFragment extends BaseFragment implements ContactImpl, Common
     @Override
     public void onItemClick(View view, RcvHolder holder, UserBean userBean, int position)
     {
-        UserDetailActivity.skip(getActivity(), userBean);
+        ContactDetailActivity.skip(getActivity(), userBean);
     }
 
     @Override

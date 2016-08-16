@@ -70,4 +70,10 @@
     <string name="btn_user_detail_send_msg">发送消息</string>
     <string name="btn_user_detail_video_call">视频通话</string>
     <string name="dialog_permission_call_phone_message">应用程序需要获取拨打系统电话的权限，否则无法继续呼叫该号码</string>
+
+    <!--UserProfileActivity-->
+    <string name="tv_user_profile_title">个人中心</string>
+
+    <!--SettingActivity-->
+    <string name="tv_setting_title">设置</string>
 </resources>

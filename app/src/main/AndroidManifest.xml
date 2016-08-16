@@ -79,7 +79,11 @@
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustPan">
         </activity>
-        <activity android:name=".project.contact.view.UserDetailActivity">
+        <activity android:name=".project.contact.view.ContactDetailActivity">
+        </activity>
+        <activity android:name=".project.setting.SettingActivity">
+        </activity>
+        <activity android:name=".project.profile.UserProfileActivity">
         </activity>
     </application>
 

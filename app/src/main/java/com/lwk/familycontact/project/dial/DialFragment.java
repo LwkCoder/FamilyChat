@@ -5,7 +5,6 @@ import android.view.View;
 
 import com.lib.base.app.BaseFragment;
 import com.lwk.familycontact.R;
-import com.lwk.familycontact.storage.db.user.UserDao;
 
 /**
  * Created by LWK
@@ -31,21 +30,10 @@ public class DialFragment extends BaseFragment
     @Override
     protected void initUI()
     {
-        addClick(R.id.btn_test01);
-        addClick(R.id.btn_test02);
     }
 
     @Override
     protected void onClick(int id, View v)
     {
-        switch (id)
-        {
-            case R.id.btn_test01:
-                UserDao.getInstance().updateUserAsRegisted("123");
-                break;
-            case R.id.btn_test02:
-                UserDao.getInstance().updateUserAsRegisted("456");
-                break;
-        }
     }
 }

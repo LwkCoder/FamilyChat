@@ -66,6 +66,8 @@
                     android:layout_width="@dimen/common_actionbar_leftimg_width"
                     android:layout_height="@dimen/common_actionbar_leftimg_height"
                     android:layout_gravity="center"
+                    android:layout_marginLeft="@dimen/common_actionbar_leftlayout_padding"
+                    android:layout_marginRight="@dimen/common_actionbar_leftlayout_padding"
                     android:visibility="gone"/>
             </FrameLayout>
         </FrameLayout>
@@ -102,6 +104,8 @@
                 android:layout_width="@dimen/common_actionbar_rightimg_width"
                 android:layout_height="@dimen/common_actionbar_rightimg_height"
                 android:layout_gravity="center"
+                android:layout_marginLeft="@dimen/common_actionbar_leftlayout_padding"
+                android:layout_marginRight="@dimen/common_actionbar_leftlayout_padding"
                 android:visibility="gone"/>
         </FrameLayout>
 

@@ -11,6 +11,6 @@
     <dimen name="common_actionbar_leftimg_height">@dimen/dp_30</dimen>
     <dimen name="common_actionbar_centertv">@dimen/sp_17</dimen>
     <dimen name="common_actionbar_righttv_size">@dimen/sp_15</dimen>
-    <dimen name="common_actionbar_rightimg_width">@dimen/dp_30</dimen>
-    <dimen name="common_actionbar_rightimg_height">@dimen/dp_30</dimen>
+    <dimen name="common_actionbar_rightimg_width">@dimen/dp_25</dimen>
+    <dimen name="common_actionbar_rightimg_height">@dimen/dp_25</dimen>
 </resources>

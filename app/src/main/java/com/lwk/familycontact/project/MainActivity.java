@@ -1,5 +1,6 @@
 package com.lwk.familycontact.project;
 
+import android.content.Intent;
 import android.graphics.Color;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
@@ -15,6 +16,7 @@ import com.lwk.familycontact.base.FCBaseActivity;
 import com.lwk.familycontact.project.contact.view.ContactFragment;
 import com.lwk.familycontact.project.conversation.view.ConversationFragment;
 import com.lwk.familycontact.project.dial.DialFragment;
+import com.lwk.familycontact.project.profile.UserProfileActivity;
 
 /**
  * MainActivity
@@ -41,6 +43,8 @@ public class MainActivity extends FCBaseActivity implements BottomNavigationBar.
     protected void initUI()
     {
         mActionBar = findView(R.id.cab_main);
+        mActionBar.setRightImgResource(R.drawable.ic_cab_account);
+        mActionBar.setRightLayoutClickListener(this);
 
         mNavigationBar = findView(R.id.bnb_main);
         mBadge01 = createBadgeItem();
@@ -87,7 +91,12 @@ public class MainActivity extends FCBaseActivity implements BottomNavigationBar.
     @Override
     protected void onClick(int id, View v)
     {
-
+        switch (id)
+        {
+            case R.id.fl_common_actionbar_right:
+                startActivity(new Intent(MainActivity.this, UserProfileActivity.class));
+                break;
+        }
     }
 
     @Override

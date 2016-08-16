@@ -40,10 +40,10 @@ import permissions.dispatcher.PermissionRequest;
 import permissions.dispatcher.RuntimePermissions;
 
 /**
- * 用户资料详情界面
+ * 联系人资料详情界面
  */
 @RuntimePermissions
-public class UserDetailActivity extends FCBaseActivity implements UserDetailImpl
+public class ContactDetailActivity extends FCBaseActivity implements UserDetailImpl
 {
     private static final String INTENT_KEY = "user_data_key";
     private UserDetailPresenter mPresenter;
@@ -61,7 +61,7 @@ public class UserDetailActivity extends FCBaseActivity implements UserDetailImpl
      */
     public static void skip(Activity activity, UserBean userBean)
     {
-        Intent intent = new Intent(activity, UserDetailActivity.class);
+        Intent intent = new Intent(activity, ContactDetailActivity.class);
         intent.putExtra(INTENT_KEY, userBean);
         activity.startActivity(intent);
     }
