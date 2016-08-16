@@ -16,4 +16,6 @@ public interface ContactImpl
     void refreshAllUsersFail(int errorMsgId);
 
     void refreshContactNum();
+
+    void scrollToTop();
 }

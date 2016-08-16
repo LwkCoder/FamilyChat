@@ -231,7 +231,6 @@ public class ContactFragment extends BaseFragment implements ContactImpl, Common
     @Override
     public void refreshContactNum()
     {
-
         mMainHandler.post(new Runnable()
         {
             @Override
@@ -244,6 +243,13 @@ public class ContactFragment extends BaseFragment implements ContactImpl, Common
                 }
             }
         });
+    }
+
+    @Override
+    public void scrollToTop()
+    {
+        if (mRecyclerView != null)
+            mRecyclerView.smoothScrollToPosition(0);
     }
 
     @Override

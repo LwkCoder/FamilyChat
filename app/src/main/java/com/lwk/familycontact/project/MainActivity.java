@@ -124,6 +124,12 @@ public class MainActivity extends FCBaseActivity implements BottomNavigationBar.
     @Override
     public void onTabReselected(int position)
     {
+        switch (position)
+        {
+            case 1:
+                mFragment02.scrollToTop();
+                break;
+        }
     }
 
     //切换片段的方法
