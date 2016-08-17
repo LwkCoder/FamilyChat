@@ -53,6 +53,9 @@
     <string name="tv_main_actionbar_tab01">会话列表</string>
     <string name="tv_main_actionbar_tab02">通讯录</string>
     <string name="tv_main_actionbar_tab03">拨号器</string>
+    <string name="tv_main_menu_profile">我的资料</string>
+    <string name="tv_main_menu_adduser">添加好友</string>
+    <string name="tv_main_menu_setting">设置</string>
 
     <!--ContactFragment-->
     <string name="tv_pull_down_reset">下拉可同步系统通讯录</string>
@@ -72,7 +75,8 @@
     <string name="dialog_permission_call_phone_message">应用程序需要获取拨打系统电话的权限，否则无法继续呼叫该号码</string>
 
     <!--UserProfileActivity-->
-    <string name="tv_user_profile_title">个人中心</string>
+    <string name="tv_user_profile_title">我的资料</string>
+    <string name="tv_user_profile_label_phone">手机号</string>
 
     <!--SettingActivity-->
     <string name="tv_setting_title">设置</string>

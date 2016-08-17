@@ -1,4 +1,4 @@
-package com.lwk.familycontact.project;
+package com.lwk.familycontact.project.main;
 
 import android.content.Intent;
 import android.graphics.Color;
@@ -17,12 +17,13 @@ import com.lwk.familycontact.project.contact.view.ContactFragment;
 import com.lwk.familycontact.project.conversation.view.ConversationFragment;
 import com.lwk.familycontact.project.dial.DialFragment;
 import com.lwk.familycontact.project.profile.UserProfileActivity;
+import com.lwk.familycontact.project.setting.SettingActivity;
 
 /**
  * MainActivity
  * 管理三个主片段
  */
-public class MainActivity extends FCBaseActivity implements BottomNavigationBar.OnTabSelectedListener
+public class MainActivity extends FCBaseActivity implements BottomNavigationBar.OnTabSelectedListener, MainMenuPop.onMenuClickListener
 {
     private CommonActionBar mActionBar;
     private BottomNavigationBar mNavigationBar;
@@ -32,6 +33,7 @@ public class MainActivity extends FCBaseActivity implements BottomNavigationBar.
     private ConversationFragment mFragment01;
     private ContactFragment mFragment02;
     private DialFragment mFragment03;
+    private MainMenuPop mMenuPop;
 
     @Override
     protected int setContentViewId()
@@ -43,7 +45,7 @@ public class MainActivity extends FCBaseActivity implements BottomNavigationBar.
     protected void initUI()
     {
         mActionBar = findView(R.id.cab_main);
-        mActionBar.setRightImgResource(R.drawable.ic_cab_account);
+        mActionBar.setRightImgResource(R.drawable.ic_cab_plus_menu);
         mActionBar.setRightLayoutClickListener(this);
 
         mNavigationBar = findView(R.id.bnb_main);
@@ -94,7 +96,14 @@ public class MainActivity extends FCBaseActivity implements BottomNavigationBar.
         switch (id)
         {
             case R.id.fl_common_actionbar_right:
-                startActivity(new Intent(MainActivity.this, UserProfileActivity.class));
+                if (mMenuPop != null)
+                {
+                    mMenuPop.dismiss();
+                    mMenuPop = null;
+                }
+
+                mMenuPop = new MainMenuPop(this,this);
+                mMenuPop.showAsDropDown(mActionBar.getRightLayout(), 0, 0);
                 break;
         }
     }
@@ -172,5 +181,23 @@ public class MainActivity extends FCBaseActivity implements BottomNavigationBar.
     public void onBackPressed()
     {
         moveTaskToBack(true);
+    }
+
+    @Override
+    public void onClickProfile()
+    {
+        startActivity(new Intent(MainActivity.this, UserProfileActivity.class));
+    }
+
+    @Override
+    public void onClickAddUser()
+    {
+        showShortToast("添加好友");
+    }
+
+    @Override
+    public void onClickSetting()
+    {
+        startActivity(new Intent(MainActivity.this, SettingActivity.class));
     }
 }

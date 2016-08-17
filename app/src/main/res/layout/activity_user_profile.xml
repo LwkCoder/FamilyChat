@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:fillViewport="true"
     android:fitsSystemWindows="true"
     tools:context="com.lwk.familycontact.project.profile.UserProfileActivity">
 
@@ -18,6 +19,12 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@color/colorPrimary"/>
+
+        <Space
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp_48"/>
+
+        <include layout="@layout/layout_user_profile_phone"/>
 
     </LinearLayout>
 

@@ -137,6 +137,15 @@ public class CommonActionBar extends RelativeLayout
     }
 
     /**
+     * 设置左侧布局点击事件
+     */
+    public void setLeftLayoutClickListener(OnClickListener l)
+    {
+        mLayoutLeft.setVisibility(VISIBLE);
+        mLayoutLeft.setOnClickListener(l);
+    }
+
+    /**
      * 设置标题
      *
      * @param resId 资源id
@@ -210,5 +219,15 @@ public class CommonActionBar extends RelativeLayout
         setRightLayoutVisibility(VISIBLE);
         mTvRight.setVisibility(VISIBLE);
         mTvRight.setText(s);
+    }
+
+    public View getRightLayout()
+    {
+        return mLayoutRight;
+    }
+
+    public View getLeftLayout()
+    {
+        return mLayoutLeft;
     }
 }

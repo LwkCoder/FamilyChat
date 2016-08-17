@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                xmlns:flatui="http://schemas.android.com/apk/res-auto"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dp_50"
+                android:background="@color/white_FFFFFF"
+                android:paddingLeft="@dimen/spacing_normal"
+                android:paddingRight="@dimen/spacing_normal">
+
+    <ImageView
+        android:id="@+id/img_user_profile_label"
+        android:layout_width="@dimen/dp_25"
+        android:layout_height="@dimen/dp_25"
+        android:layout_alignParentLeft="true"
+        android:layout_centerVertical="true"
+        android:src="@drawable/ic_profile_phone"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_marginLeft="@dimen/spacing_small"
+        android:layout_toRightOf="@+id/img_user_profile_label"
+        android:text="@string/tv_user_profile_label_phone"
+        android:textColor="@color/deep_darker"
+        android:textSize="@dimen/sp_16"/>
+
+    <com.cengalabs.flatui.views.FlatTextView
+        android:id="@+id/tv_user_profile_phone"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_centerVertical="true"
+        android:textSize="@dimen/sp_18"
+        flatui:fl_textColor="fl_dark"/>
+</RelativeLayout>

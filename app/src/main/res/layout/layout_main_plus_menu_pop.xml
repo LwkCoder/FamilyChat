@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:layout_width="150dp"
+              android:layout_height="wrap_content"
+              android:background="@color/colorPrimaryDark"
+              android:orientation="vertical">
+
+    <LinearLayout
+        android:id="@+id/ll_main_menu_profile"
+        android:layout_width="match_parent"
+        android:layout_height="45dp"
+        android:background="@drawable/bg_main_menu_pop_selector"
+        android:gravity="center_vertical"
+        android:paddingLeft="@dimen/spacing_normal"
+        android:paddingRight="@dimen/spacing_normal">
+
+        <ImageView
+            android:layout_width="25dp"
+            android:layout_height="25dp"
+            android:layout_marginRight="@dimen/spacing_normal"
+            android:src="@drawable/ic_main_menu_proflie"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/tv_main_menu_profile"
+            android:textColor="@android:color/white"
+            android:textSize="@dimen/sp_17"/>
+
+    </LinearLayout>
+
+    <View
+        android:layout_width="150dp"
+        android:layout_height="1px"
+        android:background="@color/transblack_75000000"/>
+
+    <LinearLayout
+        android:id="@+id/ll_main_menu_adduser"
+        android:layout_width="match_parent"
+        android:layout_height="45dp"
+        android:background="@drawable/bg_main_menu_pop_selector"
+        android:gravity="center_vertical"
+        android:paddingLeft="@dimen/spacing_normal"
+        android:paddingRight="@dimen/spacing_normal">
+
+        <ImageView
+            android:layout_width="25dp"
+            android:layout_height="25dp"
+            android:layout_marginRight="@dimen/spacing_normal"
+            android:src="@drawable/ic_main_menu_adduser"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/tv_main_menu_adduser"
+            android:textColor="@android:color/white"
+            android:textSize="@dimen/sp_17"/>
+
+    </LinearLayout>
+
+    <View
+        android:layout_width="150dp"
+        android:layout_height="1px"
+        android:background="@color/transblack_75000000"/>
+
+    <LinearLayout
+        android:id="@+id/ll_main_menu_setting"
+        android:layout_width="match_parent"
+        android:layout_height="45dp"
+        android:background="@drawable/bg_main_menu_pop_selector"
+        android:gravity="center_vertical"
+        android:paddingLeft="@dimen/spacing_normal"
+        android:paddingRight="@dimen/spacing_normal">
+
+        <ImageView
+            android:layout_width="25dp"
+            android:layout_height="25dp"
+            android:layout_marginRight="@dimen/spacing_normal"
+            android:src="@drawable/ic_main_menu_setting"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/tv_main_menu_setting"
+            android:textColor="@android:color/white"
+            android:textSize="@dimen/sp_17"/>
+
+    </LinearLayout>
+
+</LinearLayout>

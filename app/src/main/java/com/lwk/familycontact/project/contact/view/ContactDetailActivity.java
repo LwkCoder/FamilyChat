@@ -145,7 +145,7 @@ public class ContactDetailActivity extends FCBaseActivity implements UserDetailI
                 });
                 break;
             case R.id.btn_user_detail_system_call:
-                UserDetailActivityPermissionsDispatcher.callSystemPhoneWithCheck(this);
+                ContactDetailActivityPermissionsDispatcher.callSystemPhoneWithCheck(this);
                 break;
             case R.id.btn_user_detail_voice_call:
                 break;
@@ -198,7 +198,7 @@ public class ContactDetailActivity extends FCBaseActivity implements UserDetailI
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults)
     {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
-        UserDetailActivityPermissionsDispatcher.onRequestPermissionsResult(this, requestCode, grantResults);
+        ContactDetailActivityPermissionsDispatcher.onRequestPermissionsResult(this, requestCode, grantResults);
     }
 
     @Override

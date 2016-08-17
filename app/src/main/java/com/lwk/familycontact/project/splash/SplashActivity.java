@@ -14,7 +14,7 @@ import com.lib.base.log.KLog;
 import com.lwk.familycontact.R;
 import com.lwk.familycontact.base.FCBaseActivity;
 import com.lwk.familycontact.im.HxSdkHelper;
-import com.lwk.familycontact.project.MainActivity;
+import com.lwk.familycontact.project.main.MainActivity;
 import com.lwk.familycontact.project.login.view.LoginActivity;
 
 import permissions.dispatcher.NeedsPermission;

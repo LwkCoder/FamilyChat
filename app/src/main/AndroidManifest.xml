@@ -51,7 +51,7 @@
         </receiver>
 
         <activity
-            android:name=".project.MainActivity"
+            android:name=".project.main.MainActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustPan">

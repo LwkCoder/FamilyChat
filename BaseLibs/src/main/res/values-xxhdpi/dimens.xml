@@ -7,8 +7,8 @@
     <dimen name="common_actionbar_imgback_height">@dimen/dp_22</dimen>
     <dimen name="common_actionbar_tvback_size">@dimen/sp_16</dimen>
     <dimen name="common_actionbar_lefttv_size">@dimen/sp_16</dimen>
-    <dimen name="common_actionbar_leftimg_width">@dimen/dp_30</dimen>
-    <dimen name="common_actionbar_leftimg_height">@dimen/dp_30</dimen>
+    <dimen name="common_actionbar_leftimg_width">@dimen/dp_25</dimen>
+    <dimen name="common_actionbar_leftimg_height">@dimen/dp_25</dimen>
     <dimen name="common_actionbar_centertv">@dimen/sp_18</dimen>
     <dimen name="common_actionbar_righttv_size">@dimen/sp_16</dimen>
     <dimen name="common_actionbar_rightimg_width">@dimen/dp_25</dimen>
