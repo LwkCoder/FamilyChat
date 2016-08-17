@@ -1,4 +1,4 @@
-package com.lwk.familycontact.project.main;
+package com.lwk.familycontact.project.main.view;
 
 import android.content.Intent;
 import android.graphics.Color;
@@ -16,6 +16,7 @@ import com.lwk.familycontact.base.FCBaseActivity;
 import com.lwk.familycontact.project.contact.view.ContactFragment;
 import com.lwk.familycontact.project.conversation.view.ConversationFragment;
 import com.lwk.familycontact.project.dial.DialFragment;
+import com.lwk.familycontact.project.main.presenter.MainPresenter;
 import com.lwk.familycontact.project.profile.UserProfileActivity;
 import com.lwk.familycontact.project.setting.SettingActivity;
 
@@ -23,8 +24,9 @@ import com.lwk.familycontact.project.setting.SettingActivity;
  * MainActivity
  * 管理三个主片段
  */
-public class MainActivity extends FCBaseActivity implements BottomNavigationBar.OnTabSelectedListener, MainMenuPop.onMenuClickListener
+public class MainActivity extends FCBaseActivity implements MainImpl, BottomNavigationBar.OnTabSelectedListener, MainMenuPop.onMenuClickListener
 {
+    private MainPresenter mPresenter;
     private CommonActionBar mActionBar;
     private BottomNavigationBar mNavigationBar;
     private BadgeItem mBadge01;
@@ -38,6 +40,7 @@ public class MainActivity extends FCBaseActivity implements BottomNavigationBar.
     @Override
     protected int setContentViewId()
     {
+        mPresenter = new MainPresenter(this);
         return R.layout.activity_main;
     }
 
@@ -102,7 +105,7 @@ public class MainActivity extends FCBaseActivity implements BottomNavigationBar.
                     mMenuPop = null;
                 }
 
-                mMenuPop = new MainMenuPop(this,this);
+                mMenuPop = new MainMenuPop(this, this);
                 mMenuPop.showAsDropDown(mActionBar.getRightLayout(), 0, 0);
                 break;
         }

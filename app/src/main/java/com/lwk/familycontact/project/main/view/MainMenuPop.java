@@ -1,4 +1,4 @@
-package com.lwk.familycontact.project.main;
+package com.lwk.familycontact.project.main.view;
 
 import android.app.Activity;
 import android.view.View;
@@ -8,7 +8,7 @@ import com.lwk.familycontact.widget.BasePop;
 
 /**
  * Created by LWK
- * TODO
+ * TODO MainActivity的菜单
  * 2016/8/17
  */
 public class MainMenuPop extends BasePop implements View.OnClickListener

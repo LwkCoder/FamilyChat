@@ -9,7 +9,7 @@ import com.lib.base.utils.ResUtils;
 import com.lib.base.widget.CommonActionBar;
 import com.lwk.familycontact.R;
 import com.lwk.familycontact.base.FCBaseActivity;
-import com.lwk.familycontact.project.main.MainActivity;
+import com.lwk.familycontact.project.main.view.MainActivity;
 import com.lwk.familycontact.project.login.presenter.LoginPresenter;
 import com.lwk.familycontact.project.regist.view.RegistActivity;
 import com.lwk.familycontact.utils.event.EventBusHelper;
