@@ -11,6 +11,7 @@ build/
 
 # IDEA
 *.iml
+*.idea
 .idea/.name
 .idea/encodings.xml
 .idea/inspectionProfiles/Project_Default.xml
@@ -21,6 +22,7 @@ build/
 .idea/vcs.xml
 .idea/workspace.xml
 .idea/libraries
+.idea/gradle.xml
 
 
 # Built application files
@@ -47,3 +49,7 @@ local.properties
 
 # Log Files
 *.log
+ComRcvAdapter/libs/
+ImagePicker/libs/
+PtrView/libs/
+QuickSideBar/libs/
