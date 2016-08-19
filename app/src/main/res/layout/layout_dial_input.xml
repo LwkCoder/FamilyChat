@@ -39,9 +39,9 @@
             android:gravity="center"
             android:singleLine="true"
             android:textColor="@android:color/black"
-            android:textSize="25sp"
+            android:textSize="32sp"
             android:textStyle="normal"
-            app:resizing_text_min_size="16sp"/>
+            app:resizing_text_min_size="18sp"/>
 
         <ImageButton
             android:id="@+id/btn_dial_input_delete"

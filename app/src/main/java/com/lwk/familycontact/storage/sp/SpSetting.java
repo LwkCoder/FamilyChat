@@ -48,7 +48,7 @@ public class SpSetting
      */
     public static boolean isDialFeedBackEnable(Context context)
     {
-        return Sp.getBoolean(context.getApplicationContext(), SpKeys.DIAL_FEEDBACK);
+        return Sp.getBoolean(context.getApplicationContext(), SpKeys.DIAL_FEEDBACK, true);
     }
 
     /**

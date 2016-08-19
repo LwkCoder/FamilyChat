@@ -7,6 +7,8 @@ import com.lib.base.app.BaseFragment;
 import com.lib.base.utils.PhoneUtils;
 import com.lib.base.utils.StringUtil;
 import com.lwk.familycontact.R;
+import com.lwk.familycontact.project.dial.presenter.DialPresenter;
+import com.lwk.familycontact.project.dial.view.DialImpl;
 import com.lwk.familycontact.storage.sp.SpSetting;
 import com.lwk.familycontact.widget.dial.DialPadView;
 
@@ -15,8 +17,9 @@ import com.lwk.familycontact.widget.dial.DialPadView;
  * TODO 拨号器片段
  * 2016/8/2
  */
-public class DialFragment extends BaseFragment implements DialPadView.onCallListener
+public class DialFragment extends BaseFragment implements DialImpl, DialPadView.onCallListener
 {
+    private DialPresenter mPresenter;
     private DialPadView mDialPadView;
 
     public static DialFragment newInstance()
@@ -30,6 +33,7 @@ public class DialFragment extends BaseFragment implements DialPadView.onCallList
     @Override
     protected int setRootLayoutId()
     {
+        mPresenter = new DialPresenter(this);
         return R.layout.fragment_dial;
     }
 

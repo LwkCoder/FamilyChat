@@ -152,10 +152,10 @@ public class DialPadView extends RelativeLayout implements View.OnClickListener
                 keyPressed(KeyEvent.KEYCODE_9);
                 break;
             case R.id.btn_dial_digist_star:
-                keyPressed(KeyEvent.KEYCODE_S);
+                keyPressed(KeyEvent.KEYCODE_STAR);
                 break;
             case R.id.btn_dial_digist_pound:
-                keyPressed(KeyEvent.KEYCODE_P);
+                keyPressed(KeyEvent.KEYCODE_POUND);
                 break;
             case R.id.btn_dial_input_plus:
                 keyPressed(KeyEvent.KEYCODE_PLUS);
