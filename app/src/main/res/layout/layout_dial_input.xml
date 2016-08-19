@@ -7,23 +7,24 @@
 
     <View
         android:layout_width="match_parent"
-        android:layout_height="10dp"
+        android:layout_height="@dimen/shadow_dial_height"
         android:background="@drawable/shadow"/>
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="50dp">
+        android:layout_height="@dimen/rl_dial_input_height"
+        android:background="@android:color/white">
 
         <Button
             android:id="@+id/btn_dial_input_plus"
-            android:layout_width="55dp"
+            android:layout_width="@dimen/btn_dial_input_width"
             android:layout_height="match_parent"
             android:layout_alignParentLeft="true"
             android:background="@drawable/bg_dial_digist_selector"
             android:gravity="center"
             android:text="@string/digist_plus"
             android:textColor="@color/tv_dial_digist_color_list"
-            android:textSize="28sp"/>
+            android:textSize="@dimen/btn_dial_input_textsize"/>
 
         <com.lwk.familycontact.widget.dial.DigitsEditText
             android:id="@+id/ed_dial_input"
@@ -39,13 +40,13 @@
             android:gravity="center"
             android:singleLine="true"
             android:textColor="@android:color/black"
-            android:textSize="32sp"
+            android:textSize="@dimen/ed_dial_input_textsize"
             android:textStyle="normal"
-            app:resizing_text_min_size="18sp"/>
+            app:resizing_text_min_size="@dimen/ed_dial_input_min_textsize"/>
 
         <ImageButton
             android:id="@+id/btn_dial_input_delete"
-            android:layout_width="55dp"
+            android:layout_width="@dimen/btn_dial_input_width"
             android:layout_height="match_parent"
             android:layout_alignParentRight="true"
             android:background="@drawable/shape_rect_transparent"

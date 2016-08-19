@@ -18,24 +18,33 @@
         android:layout_above="@+id/space_dial_pad_middle"
         android:layout_below="@+id/ll_dial_pad_input"/>
 
-    <Space
+    <View
         android:id="@+id/space_dial_pad_middle"
         android:layout_width="match_parent"
         android:layout_height="@dimen/spacing_small"
-        android:layout_above="@+id/btn_dial_pad_call"/>
+        android:layout_above="@+id/fl_dial_pad_call"
+        android:background="@android:color/white"/>
 
-    <ImageButton
-        android:id="@+id/btn_dial_pad_call"
-        android:layout_width="60dp"
-        android:layout_height="60dp"
+    <FrameLayout
+        android:id="@+id/fl_dial_pad_call"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:layout_above="@+id/space_dial_pad_bottom"
-        android:layout_centerHorizontal="true"
-        android:background="@drawable/bg_dial_call_selector"
-        android:src="@drawable/ic_dial_call"/>
+        android:background="@android:color/white">
 
-    <Space
+        <ImageButton
+            android:id="@+id/btn_dial_pad_call"
+            android:layout_width="@dimen/btn_dial_fab_size"
+            android:layout_height="@dimen/btn_dial_fab_size"
+            android:layout_gravity="center"
+            android:background="@drawable/bg_dial_call_selector"
+            android:src="@drawable/ic_dial_call"/>
+    </FrameLayout>
+
+    <View
         android:id="@+id/space_dial_pad_bottom"
         android:layout_width="match_parent"
         android:layout_height="@dimen/spacing_small"
-        android:layout_alignParentBottom="true"/>
+        android:layout_alignParentBottom="true"
+        android:background="@android:color/white"/>
 </RelativeLayout>

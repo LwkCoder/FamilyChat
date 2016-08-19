@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              xmlns:flatui="http://schemas.android.com/apk/res-auto"
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:background="@drawable/bg_rcv_contact_listitem_selector"
+              android:orientation="horizontal"
+              android:paddingBottom="@dimen/spacing_small"
+              android:paddingLeft="@dimen/spacing_normal"
+              android:paddingRight="@dimen/spacing_normal"
+              android:paddingTop="@dimen/spacing_small">
+
+    <ImageView
+        android:id="@+id/img_dial_search_head"
+        android:layout_width="40dp"
+        android:layout_height="40dp"/>
+
+    <TextView
+        android:id="@+id/tv_user_dial_search_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_vertical"
+        android:layout_marginLeft="@dimen/spacing_normal"
+        android:maxWidth="180dp"
+        android:singleLine="true"
+        android:textColor="@android:color/black"
+        android:textSize="@dimen/sp_18"/>
+
+    <com.cengalabs.flatui.views.FlatTextView
+        android:id="@+id/tv_user_dial_search_phone"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_vertical"
+        android:layout_marginLeft="@dimen/spacing_normal"
+        android:textSize="@dimen/sp_18"
+        flatui:fl_textColor="fl_dark"/>
+
+</LinearLayout>

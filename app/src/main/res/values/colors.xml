@@ -17,4 +17,6 @@
     <color name="blue_dial_text_pressed">#0277bd</color>
     <color name="green_dial_btn_normal">#2CB22D</color>
     <color name="green_dial_btn_pressed">#1FA01F</color>
+    <color name="blue_dial_btn_normal">#0288D1</color>
+    <color name="blue_dial_btn_pressed">#0072E3</color>
 </resources>

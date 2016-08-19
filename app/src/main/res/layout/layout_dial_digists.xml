@@ -2,6 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
               android:layout_width="match_parent"
               android:layout_height="match_parent"
+              android:background="@android:color/white"
               android:orientation="vertical">
 
     <LinearLayout
@@ -105,7 +106,7 @@
             style="@style/DialTextStyle"
             android:layout_weight="1"
             android:text="@string/digist_pound"
-            android:textSize="28sp"/>
+            android:textSize="@dimen/btn_dial_input_textsize"/>
 
     </LinearLayout>
 

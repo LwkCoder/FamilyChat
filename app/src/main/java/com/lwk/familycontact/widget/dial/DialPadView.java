@@ -195,8 +195,7 @@ public class DialPadView extends RelativeLayout implements View.OnClickListener
                     mEdInput.setCursorVisible(true);
                 break;
             case R.id.btn_dial_input_delete:
-                if (mEdInput != null)
-                    mEdInput.setText(null);
+                clearInput();
                 break;
         }
         return false;
@@ -224,7 +223,7 @@ public class DialPadView extends RelativeLayout implements View.OnClickListener
         updateDeleteButtonEnabledState();
         //触发文本监听
         if (mTextChangedListener != null)
-            mTextChangedListener.onTextChanged(s.getFilters().toString());
+            mTextChangedListener.onTextChanged(s.toString().trim());
     }
 
     //判断输入的文本是否为空
@@ -363,6 +362,15 @@ public class DialPadView extends RelativeLayout implements View.OnClickListener
             final boolean digitsNotEmpty = !isInputEmpty();
             mBtnDelete.setEnabled(digitsNotEmpty);
         }
+    }
+
+    /**
+     * 清空输入
+     */
+    public void clearInput()
+    {
+        if (mEdInput != null)
+            mEdInput.getText().clear();
     }
 
     /**

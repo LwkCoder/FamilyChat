@@ -5,6 +5,7 @@ import android.app.Activity;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.provider.Settings;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AlertDialog;
 import android.view.View;
@@ -191,7 +192,28 @@ public class ContactDetailActivity extends FCBaseActivity implements UserDetailI
     @OnNeverAskAgain(Manifest.permission.CALL_PHONE)
     public void onCallPhonePermissionNeverAsk()
     {
-        showLongToast(R.string.warning_permission_callphone_denied);
+        new AlertDialog.Builder(this).setCancelable(false)
+                .setTitle(R.string.warning_permission_callphone_denied)
+                .setMessage(R.string.dialog_permission_call_phone_nerver_ask_message)
+                .setNegativeButton(R.string.dialog_imagepicker_permission_nerver_ask_cancel, new DialogInterface.OnClickListener()
+                {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which)
+                    {
+                        showLongToast(R.string.warning_permission_callphone_denied);
+                        dialog.dismiss();
+                    }
+                })
+                .setPositiveButton(R.string.dialog_permission_nerver_ask_confirm, new DialogInterface.OnClickListener()
+                {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which)
+                    {
+                        dialog.dismiss();
+                        Intent intent = new Intent(Settings.ACTION_APPLICATION_SETTINGS);
+                        startActivity(intent);
+                    }
+                }).create().show();
     }
 
     @Override

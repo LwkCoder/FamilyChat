@@ -1,14 +1,30 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              xmlns:app="http://schemas.android.com/apk/res-auto"
-              android:layout_width="match_parent"
-              android:layout_height="match_parent"
-              android:orientation="vertical">
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+             xmlns:app="http://schemas.android.com/apk/res-auto"
+             android:layout_width="match_parent"
+             android:layout_height="match_parent">
+
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/rcv_dial_search_result"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
+
+    <ImageButton
+        android:id="@+id/btn_dial_search_keyboard"
+        android:layout_width="@dimen/btn_dial_fab_size"
+        android:layout_height="@dimen/btn_dial_fab_size"
+        android:layout_gravity="bottom|right"
+        android:layout_marginBottom="@dimen/spacing_large"
+        android:layout_marginRight="@dimen/spacing_large"
+        android:background="@drawable/bg_dial_keyboard_selector"
+        android:src="@drawable/ic_fab_dial"/>
 
     <com.lwk.familycontact.widget.dial.DialPadView
         android:id="@+id/dialpad"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="150dp"/>
+        android:layout_height="match_parent"
+        android:layout_gravity="bottom"
+        android:layout_marginTop="140dp"/>
 
-</LinearLayout>
+</FrameLayout>

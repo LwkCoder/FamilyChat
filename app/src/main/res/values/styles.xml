@@ -36,7 +36,7 @@
     <style name="DialTextStyle">
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">match_parent</item>
-        <item name="android:textSize">35sp</item>
+        <item name="android:textSize">@dimen/btn_dial_digist_textsize</item>
         <item name="android:textColor">@color/tv_dial_digist_color_list</item>
         <item name="android:background">@drawable/bg_dial_digist_selector</item>
         <item name="android:gravity">center</item>

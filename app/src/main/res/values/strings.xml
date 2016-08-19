@@ -28,12 +28,12 @@
     <string name="dialog_permission_title">权限申明</string>
     <string name="dialog_permission_confirm">我知道了</string>
     <string name="dialog_permission_cancel">取消</string>
+    <string name="dialog_permission_nerver_ask_confirm">去设置</string>
 
     <!--SplashActivity-->
     <string name="dialog_permission_sdcard_message">应用程序需要获取外部存储卡的读写权限，拒绝后将无法使用软件</string>
     <string name="dialog_permission_sdcard_denied">读写权限被拒绝，即将退出软件</string>
     <string name="dialog_permission_sdcard_nerver_ask_message">应用程序无法获取外部存储卡的读写权限，导致软件无法正常使用！您可通过系统设置界面打开软件的读写权限</string>
-    <string name="dialog_permission_sdcard_nerver_ask_confirm">去设置</string>
 
     <!--LoginActivity-->
     <string name="tv_login_title">登录账号</string>
@@ -74,6 +74,7 @@
     <string name="btn_user_detail_send_msg">发送消息</string>
     <string name="btn_user_detail_video_call">视频通话</string>
     <string name="dialog_permission_call_phone_message">应用程序需要获取拨打系统电话的权限，否则无法继续呼叫该号码</string>
+    <string name="dialog_permission_call_phone_nerver_ask_message">应用程序无法获取拨打系统电话的权限，您可通过系统设置界面打开软件的电话权限。</string>
 
     <!--UserProfileActivity-->
     <string name="tv_user_profile_title">我的资料</string>

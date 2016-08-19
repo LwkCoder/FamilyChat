@@ -1,5 +1,9 @@
 package com.lwk.familycontact.project.dial.view;
 
+import com.lwk.familycontact.storage.db.user.UserBean;
+
+import java.util.List;
+
 /**
  * Created by LWK
  * TODO 拨号器片段View
@@ -7,4 +11,9 @@ package com.lwk.familycontact.project.dial.view;
  */
 public interface DialImpl
 {
+    void resetSearchResult();
+
+    void onSearchResultEmpty(String phone);
+
+    void onSearchResultSuccess(List<UserBean> resultList);
 }

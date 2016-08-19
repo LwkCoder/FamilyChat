@@ -208,4 +208,25 @@ public class UserDao extends BaseDao<UserBean, Integer>
         }
         return userBean;
     }
+
+    /**
+     * 根据手机号模糊查询匹配的用户数据
+     *
+     * @param phone 手机号
+     * @return 模糊匹配结果
+     */
+    public List<UserBean> queryUsersLikePhone(String phone)
+    {
+        List<UserBean> resultList = null;
+        try
+        {
+            QueryBuilder<UserBean, Integer> queryBuilder = getDao().queryBuilder();
+            queryBuilder.where().like(UserDbConfig.PHONE, "%" + phone + "%");
+            resultList = getDao().query(queryBuilder.prepare());
+        } catch (SQLException e)
+        {
+            KLog.e(TAG + " UserDao.queryUsersLikePhone fail : " + e.toString());
+        }
+        return resultList;
+    }
 }

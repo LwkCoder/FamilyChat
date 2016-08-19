@@ -155,7 +155,7 @@ public class SplashActivity extends FCBaseActivity
                         finish();
                     }
                 })
-                .setPositiveButton(R.string.dialog_permission_sdcard_nerver_ask_confirm, new DialogInterface.OnClickListener()
+                .setPositiveButton(R.string.dialog_permission_nerver_ask_confirm, new DialogInterface.OnClickListener()
                 {
                     @Override
                     public void onClick(DialogInterface dialog, int which)
