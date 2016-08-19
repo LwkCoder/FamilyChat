@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+    <include
+        android:id="@+id/ll_dial_pad_input"
+        layout="@layout/layout_dial_input"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"/>
+
+    <include
+        android:id="@+id/ll_dial_pad_digists"
+        layout="@layout/layout_dial_digists"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/space_dial_pad_middle"
+        android:layout_below="@+id/ll_dial_pad_input"/>
+
+    <Space
+        android:id="@+id/space_dial_pad_middle"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/spacing_small"
+        android:layout_above="@+id/btn_dial_pad_call"/>
+
+    <ImageButton
+        android:id="@+id/btn_dial_pad_call"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:layout_above="@+id/space_dial_pad_bottom"
+        android:layout_centerHorizontal="true"
+        android:background="@drawable/bg_dial_call_selector"
+        android:src="@drawable/ic_dial_call"/>
+
+    <Space
+        android:id="@+id/space_dial_pad_bottom"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/spacing_small"
+        android:layout_alignParentBottom="true"/>
+</RelativeLayout>

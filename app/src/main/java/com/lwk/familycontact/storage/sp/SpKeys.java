@@ -9,4 +9,5 @@ public class SpKeys
 {
     public static final String LAST_LOGIN_PHONE = "lastLoginPhone";
     public static final String LAST_LOGIN_PWD = "lastLoginPwd";
+    public static final String DIAL_FEEDBACK="dialFeedBack";
 }

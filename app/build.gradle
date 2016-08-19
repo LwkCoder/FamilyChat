@@ -44,4 +44,5 @@ dependencies {
     compile project(':PtrView')
     compile project(':ImagePicker')
     compile project(':QuickSideBar')
+    compile project(':QrCode')
 }

@@ -2,13 +2,12 @@ package com.lwk.familycontact.project.login.presenter;
 
 import android.content.Context;
 
-import com.lib.base.sp.Sp;
 import com.lib.base.utils.PhoneUtils;
 import com.lib.base.utils.StringUtil;
 import com.lwk.familycontact.im.HxSdkHelper;
 import com.lwk.familycontact.project.common.FCCallBack;
 import com.lwk.familycontact.project.login.view.LoginImpl;
-import com.lwk.familycontact.storage.sp.SpKeys;
+import com.lwk.familycontact.storage.sp.SpSetting;
 
 /**
  * Created by LWK
@@ -26,13 +25,13 @@ public class LoginPresenter
 
     public void setLastLoginPhone(Context context)
     {
-        String phone = Sp.getString(context.getApplicationContext(), SpKeys.LAST_LOGIN_PHONE);
+        String phone = SpSetting.getLastLoginPhone(context);
         mLoginView.setLastLoginPhone(phone);
     }
 
     public void setLastLoginPwd(Context context)
     {
-        String pwd = Sp.getString(context.getApplicationContext(), SpKeys.LAST_LOGIN_PWD);
+        String pwd = SpSetting.getLastLoginPwd(context);
         mLoginView.setLastLoginPwd(pwd);
     }
 
@@ -71,8 +70,8 @@ public class LoginPresenter
             {
                 mLoginView.closeLoginDialog();
                 //存储最近登录账号的数据
-                Sp.putString(context.getApplicationContext(), SpKeys.LAST_LOGIN_PHONE, phone);
-                Sp.putString(context.getApplicationContext(), SpKeys.LAST_LOGIN_PWD, pwd);
+                SpSetting.setLastLoginPhone(context, phone);
+                SpSetting.setLastLoginPwd(context, pwd);
                 //通知界面登录完成
                 mLoginView.loginSuccess();
             }

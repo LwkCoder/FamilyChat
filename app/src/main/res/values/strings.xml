@@ -16,6 +16,7 @@
     <string name="warning_network_disconnect">网络连接不可用</string>
     <string name="warning_permission_contact_denied">无法获取通讯录权限</string>
     <string name="warning_permission_callphone_denied">无法获取拨打电话权限</string>
+    <string name="warning_dial_phone_empty">请输入号码</string>
 
     <!--环信相关-->
     <string name="dialog_user_relogin_title">账号在其他设备登录</string>
@@ -80,4 +81,20 @@
 
     <!--SettingActivity-->
     <string name="tv_setting_title">设置</string>
+
+    <!--DialPad-->
+    <string name="digist_0">0</string>
+    <string name="digist_1">1</string>
+    <string name="digist_2">2</string>
+    <string name="digist_3">3</string>
+    <string name="digist_4">4</string>
+    <string name="digist_5">5</string>
+    <string name="digist_6">6</string>
+    <string name="digist_7">7</string>
+    <string name="digist_8">8</string>
+    <string name="digist_9">9</string>
+    <string name="digist_pound">#</string>
+    <string name="digist_star">*</string>
+    <string name="digist_plus">+</string>
+
 </resources>

@@ -12,4 +12,9 @@
     <color name="deep_bg_pull_down">#1d3845</color>
     <color name="gray_E0E0E0">#e0e0e0</color>
     <color name="gray_F0F0F0">#f0f0f0</color>
+
+    <color name="blue_dial_text_normal">#0288d1</color>
+    <color name="blue_dial_text_pressed">#0277bd</color>
+    <color name="green_dial_btn_normal">#2CB22D</color>
+    <color name="green_dial_btn_pressed">#1FA01F</color>
 </resources>

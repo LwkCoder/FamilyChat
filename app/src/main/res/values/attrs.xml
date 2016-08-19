@@ -1,0 +1,7 @@
+<resources>
+
+    <declare-styleable name="ResizingText">
+        <attr name="resizing_text_min_size" format="dimension"/>
+    </declare-styleable>
+
+</resources>

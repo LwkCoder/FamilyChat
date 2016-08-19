@@ -1,0 +1,13 @@
+<resources>
+    <string name="hint_qrcode_scan">请将二维码置于扫描区域内</string>
+    <string name="lable_qrcode_actionbar_title">扫描二维码</string>
+    <string name="error_dialog_qrcode_scan_message">无法打开相机</string>
+
+    <string name="warning_qrcode_permission_camera_denied">无法获取相机权限</string>
+    <string name="dialog_qrcode_permission_title">权限申明</string>
+    <string name="dialog_qrcode_permission_confirm">我知道了</string>
+    <string name="dialog_qrcode_permission_camera_message">应用程序需要获取拍照权限，否则无法扫描二维码!</string>
+    <string name="dialog_qrcode_permission_nerver_ask_confirm">去设置</string>
+    <string name="dialog_qrcode_permission_nerver_ask_cancel">取消</string>
+    <string name="dialog_qrcode_permission_camera_nerver_ask_message">应用程序无法获取相机权限，导致无法启动相机功能，您可通过系统设置界面打开软件的相机权限</string>
+</resources>

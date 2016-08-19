@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:orientation="vertical">
+
+    <View
+        android:id="@+id/view_qrcode_actionbar_status"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#90000000"
+        android:visibility="gone"/>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:background="#20000000">
+
+        <FrameLayout
+            android:id="@+id/ll_qrcode_actionbar_left_back"
+            android:layout_width="40dp"
+            android:layout_height="match_parent"
+            android:layout_alignParentLeft="true"
+            android:layout_gravity="center">
+
+            <ImageView
+                android:layout_width="12dp"
+                android:layout_height="22dp"
+                android:layout_gravity="center"
+                android:src="@drawable/icon_qrcode_arrow_left"/>
+        </FrameLayout>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:text="@string/lable_qrcode_actionbar_title"
+            android:textColor="@android:color/white"
+            android:textSize="17sp"/>
+
+        <ImageView
+            android:id="@+id/img_qrcode_light"
+            android:layout_width="35dp"
+            android:layout_height="35dp"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="8dp"
+            android:src="@mipmap/icon_qrcode_light_normal"/>
+    </RelativeLayout>
+
+</LinearLayout>
