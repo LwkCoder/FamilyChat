@@ -13,7 +13,6 @@ import android.view.View;
 import android.widget.ImageButton;
 
 import com.lib.base.app.BaseFragment;
-import com.lib.base.log.KLog;
 import com.lib.base.utils.PhoneUtils;
 import com.lib.base.utils.StringUtil;
 import com.lib.rcvadapter.decoration.RcvLinearDecoration;
@@ -165,7 +164,8 @@ public class DialFragment extends BaseFragment implements DialImpl, DialPadView.
     @Override
     public void onSearchResultEmpty(String phone)
     {
-        KLog.e("无搜索结果");
+        mAdapter.refreshDatas(null);
+        //Todo 添加到通讯录
     }
 
     @Override
