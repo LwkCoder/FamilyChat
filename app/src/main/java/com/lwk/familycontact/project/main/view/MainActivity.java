@@ -203,4 +203,10 @@ public class MainActivity extends FCBaseActivity implements MainImpl, BottomNavi
     {
         startActivity(new Intent(MainActivity.this, SettingActivity.class));
     }
+
+    @Override
+    public void refreshUnReadMsgNum()
+    {
+
+    }
 }

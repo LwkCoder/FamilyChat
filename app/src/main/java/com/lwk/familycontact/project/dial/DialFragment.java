@@ -9,13 +9,19 @@ import android.support.annotation.NonNull;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.ImageButton;
+import android.widget.TextView;
 
 import com.lib.base.app.BaseFragment;
 import com.lib.base.utils.PhoneUtils;
 import com.lib.base.utils.StringUtil;
+import com.lib.rcvadapter.RcvMutilAdapter;
 import com.lib.rcvadapter.decoration.RcvLinearDecoration;
+import com.lib.rcvadapter.holder.RcvHolder;
 import com.lwk.familycontact.R;
 import com.lwk.familycontact.project.dial.adapter.DialSearchAdapter;
 import com.lwk.familycontact.project.dial.presenter.DialPresenter;
@@ -40,7 +46,10 @@ import permissions.dispatcher.RuntimePermissions;
  * 2016/8/2
  */
 @RuntimePermissions
-public class DialFragment extends BaseFragment implements DialImpl, DialPadView.onCallListener, DialPadView.onTextChangedListener
+public class DialFragment extends BaseFragment implements DialImpl
+        , DialPadView.onCallListener
+        , DialPadView.onTextChangedListener
+        , RcvMutilAdapter.onItemClickListener<UserBean>
 {
     private DialPresenter mPresenter;
     private DialPadView mDialPadView;
@@ -48,6 +57,10 @@ public class DialFragment extends BaseFragment implements DialImpl, DialPadView.
     private ImageButton mBtnShowKeyboard;
     private RecyclerView mRecyclerView;
     private DialSearchAdapter mAdapter;
+    private View mFootView;
+    private TextView mTvAddContact;
+    private boolean mIsKeyboardShow;
+    private boolean mHasAddFootView;
 
     public static DialFragment newInstance()
     {
@@ -70,13 +83,24 @@ public class DialFragment extends BaseFragment implements DialImpl, DialPadView.
     {
         mDialPadView = findView(R.id.dialpad);
         mBtnShowKeyboard = findView(R.id.btn_dial_search_keyboard);
+        addClick(mBtnShowKeyboard);
         mRecyclerView = findView(R.id.rcv_dial_search_result);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         mRecyclerView.addItemDecoration(new RcvLinearDecoration(getActivity(), RcvLinearDecoration.VERTICAL_LIST));
         mAdapter = new DialSearchAdapter(getActivity(), null);
+        mAdapter.setOnItemClickListener(this);
         mRecyclerView.setAdapter(mAdapter);
+        mRecyclerView.setOnTouchListener(mRcvTouchListener);
         mDialPadView.setOnCallListener(this);
         mDialPadView.setOnTextChangedListener(this);
+
+        //创建HeadView
+        mFootView = LayoutInflater.from(getActivity())
+                .inflate(R.layout.layout_dial_search_add_contact
+                        , (ViewGroup) getActivity().findViewById(android.R.id.content)
+                        , false);
+        mFootView.setOnClickListener(mAddContactListener);
+        mTvAddContact = (TextView) mFootView.findViewById(R.id.tv_dial_search_add_contact);
     }
 
     @Override
@@ -113,21 +137,55 @@ public class DialFragment extends BaseFragment implements DialImpl, DialPadView.
     {
         switch (id)
         {
+            case R.id.btn_dial_search_keyboard:
+                showKeyBoard();
+                break;
         }
     }
+
+    private View.OnTouchListener mRcvTouchListener = new View.OnTouchListener()
+    {
+        @Override
+        public boolean onTouch(View v, MotionEvent event)
+        {
+            int action = event.getAction();
+            int startY = 0, moveY = 0, chaY = 0;
+            switch (action)
+            {
+                case MotionEvent.ACTION_DOWN:
+                    startY = (int) event.getY();
+                    break;
+                case MotionEvent.ACTION_MOVE:
+                    moveY = (int) event.getY();
+                    chaY = moveY - startY;
+                    if (chaY > 50)
+                        hideKeyBoard();
+                    break;
+            }
+            return false;
+        }
+    };
 
     //显示键盘
     private void showKeyBoard()
     {
-        mAnimController.slideTranslateOutToBottom(mBtnShowKeyboard, 200, 0);
-        mAnimController.slideTranslateInFromVBottom(mDialPadView, 350, 100);
+        if (!mIsKeyboardShow)
+        {
+            mAnimController.scaleOut(mBtnShowKeyboard, 150, 0);
+            mAnimController.slideTranslateInFromVBottom(mDialPadView, 250, 75);
+            mIsKeyboardShow = true;
+        }
     }
 
     //隐藏键盘
     private void hideKeyBoard()
     {
-        mAnimController.slideTranslateOutToBottom(mDialPadView, 350, 0);
-        mAnimController.slideTranslateInFromVBottom(mBtnShowKeyboard, 200, 150);
+        if (mIsKeyboardShow)
+        {
+            mAnimController.slideTranslateOutToBottom(mDialPadView, 250, 0);
+            mAnimController.scaleIn(mBtnShowKeyboard, 150, 150);
+            mIsKeyboardShow = false;
+        }
     }
 
     @Override
@@ -140,13 +198,6 @@ public class DialFragment extends BaseFragment implements DialImpl, DialPadView.
         }
 
         DialFragmentPermissionsDispatcher.startSystemCallWithCheck(this, phone);
-    }
-
-    //拨号
-    @NeedsPermission(Manifest.permission.CALL_PHONE)
-    public void startSystemCall(String phone)
-    {
-        PhoneUtils.callPhone(getActivity(), phone);
     }
 
     @Override
@@ -162,16 +213,61 @@ public class DialFragment extends BaseFragment implements DialImpl, DialPadView.
     }
 
     @Override
+    public synchronized void showAddContact(String phone)
+    {
+        if (!mHasAddFootView)
+        {
+            mAdapter.addFootView(mFootView);
+            mHasAddFootView = true;
+        }
+        mTvAddContact.setText(phone);
+        mAdapter.notifyDataSetChanged();
+    }
+
+    @Override
+    public synchronized void closeAddContact()
+    {
+        if (mHasAddFootView)
+        {
+            mAdapter.clearFootViews();
+            mHasAddFootView = false;
+        }
+    }
+
+    private View.OnClickListener mAddContactListener = new View.OnClickListener()
+    {
+        @Override
+        public void onClick(View v)
+        {
+            addPhoneToContact();
+        }
+    };
+
+    @Override
     public void onSearchResultEmpty(String phone)
     {
         mAdapter.refreshDatas(null);
-        //Todo 添加到通讯录
     }
 
     @Override
     public void onSearchResultSuccess(List<UserBean> resultList)
     {
         mAdapter.refreshDatas(resultList);
+    }
+
+    @Override
+    public void onItemClick(View view, RcvHolder holder, UserBean userBean, int position)
+    {
+        String phone = userBean.getPhone();
+        if (StringUtil.isNotEmpty(phone))
+            DialFragmentPermissionsDispatcher.startSystemCallWithCheck(this, phone);
+    }
+
+    //拨号
+    @NeedsPermission(Manifest.permission.CALL_PHONE)
+    public void startSystemCall(String phone)
+    {
+        PhoneUtils.callPhone(getActivity(), phone);
     }
 
     @OnShowRationale(Manifest.permission.CALL_PHONE)
@@ -224,6 +320,11 @@ public class DialFragment extends BaseFragment implements DialImpl, DialPadView.
                 }).create().show();
     }
 
+    public void addPhoneToContact()
+    {
+        //TODO 跳转到添加联系人界面
+    }
+
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults)
     {
@@ -236,6 +337,9 @@ public class DialFragment extends BaseFragment implements DialImpl, DialPadView.
     {
         super.onHiddenChanged(hidden);
         if (!hidden && mDialPadView != null)
+        {
             mDialPadView.clearInput();
+            showKeyBoard();
+        }
     }
 }

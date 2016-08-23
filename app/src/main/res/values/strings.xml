@@ -98,4 +98,8 @@
     <string name="digist_star">*</string>
     <string name="digist_plus">+</string>
 
+    <!--DialFragment-->
+    <string name="tv_dial_search_add_contact_label01">添加号码&#160;</string>
+    <string name="tv_dial_search_add_contact_label02">&#160;到通讯录中</string>
+
 </resources>

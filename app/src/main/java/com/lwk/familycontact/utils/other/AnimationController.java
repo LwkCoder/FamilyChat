@@ -159,13 +159,13 @@ public class AnimationController
 
 	public void scaleIn(View view, long durationMillis, long delayMillis)
 	{
-		ScaleAnimation animation = new ScaleAnimation(0, 1, 0, 1, rela2, 0.5f, rela2, 0.5f);
+		ScaleAnimation animation = new ScaleAnimation(0, 1, 0, 1, rela1, 0.5f, rela1, 0.5f);
 		baseIn(view, animation, durationMillis, delayMillis);
 	}
 
 	public void scaleOut(View view, long durationMillis, long delayMillis)
 	{
-		ScaleAnimation animation = new ScaleAnimation(1, 0, 1, 0, rela2, 0.5f, rela2, 0.5f);
+		ScaleAnimation animation = new ScaleAnimation(1, 0, 1, 0, rela1, 0.5f, rela1, 0.5f);
 		baseOut(view, animation, durationMillis, delayMillis);
 	}
 

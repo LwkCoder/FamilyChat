@@ -13,6 +13,10 @@ public interface DialImpl
 {
     void resetSearchResult();
 
+    void showAddContact(String phone);
+
+    void closeAddContact();
+
     void onSearchResultEmpty(String phone);
 
     void onSearchResultSuccess(List<UserBean> resultList);

@@ -30,6 +30,7 @@ public class DialPresenter
         if (StringUtil.isEmpty(phone))
         {
             mDialView.resetSearchResult();
+            mDialView.closeAddContact();
         } else
         {
             if (mSearchTask != null && mSearchTask.getStatus() != AsyncTask.Status.FINISHED)
@@ -43,12 +44,14 @@ public class DialPresenter
                 @Override
                 public void onFail(int status, int errorMsgResId)
                 {
-
+                    mDialView.resetSearchResult();
+                    mDialView.closeAddContact();
                 }
 
                 @Override
                 public void onSuccess(List<UserBean> list)
                 {
+                    mDialView.showAddContact(phone);
                     if (list == null || list.size() == 0)
                         mDialView.onSearchResultEmpty(phone);
                     else

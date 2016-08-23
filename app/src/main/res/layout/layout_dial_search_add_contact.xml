@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:background="@drawable/bg_rcv_contact_listitem_selector"
+              android:orientation="horizontal"
+              android:paddingBottom="@dimen/spacing_small"
+              android:paddingLeft="@dimen/spacing_normal"
+              android:paddingRight="@dimen/spacing_normal"
+              android:paddingTop="@dimen/spacing_small">
+
+    <ImageView
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:padding="@dimen/spacing_small"
+        android:src="@drawable/ic_dial_add_contact"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_vertical"
+        android:layout_marginLeft="@dimen/spacing_normal"
+        android:text="@string/tv_dial_search_add_contact_label01"
+        android:textColor="@color/colorPrimaryDark"
+        android:textSize="@dimen/sp_15"/>
+
+    <TextView
+        android:id="@+id/tv_dial_search_add_contact"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_vertical"
+        android:singleLine="true"
+        android:textColor="@android:color/holo_blue_dark"
+        android:textSize="@dimen/sp_15"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_vertical"
+        android:text="@string/tv_dial_search_add_contact_label02"
+        android:textColor="@color/colorPrimaryDark"
+        android:textSize="@dimen/sp_15"/>
+
+</LinearLayout>

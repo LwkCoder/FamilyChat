@@ -7,4 +7,5 @@ package com.lwk.familycontact.project.main.view;
  */
 public interface MainImpl
 {
+    void refreshUnReadMsgNum();
 }

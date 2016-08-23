@@ -374,6 +374,14 @@ public class DialPadView extends RelativeLayout implements View.OnClickListener
     }
 
     /**
+     * 获取当前输入的号码
+     */
+    public String getInput()
+    {
+        return mEdInput != null ? mEdInput.getText().toString().trim() : null;
+    }
+
+    /**
      * 在Aactivity/Fragment的onStart()调用
      */
     public void onStart()
