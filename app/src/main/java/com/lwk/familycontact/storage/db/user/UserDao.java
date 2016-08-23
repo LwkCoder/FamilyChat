@@ -221,6 +221,7 @@ public class UserDao extends BaseDao<UserBean, Integer>
         try
         {
             QueryBuilder<UserBean, Integer> queryBuilder = getDao().queryBuilder();
+            queryBuilder.orderBy(UserDbConfig.FIRST_CHAR, true).orderBy(UserDbConfig.FULL_SPELL, true);
             queryBuilder.where().like(UserDbConfig.PHONE, "%" + phone + "%");
             resultList = getDao().query(queryBuilder.prepare());
         } catch (SQLException e)

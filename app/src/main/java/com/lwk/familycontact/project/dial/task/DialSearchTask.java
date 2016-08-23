@@ -2,10 +2,13 @@ package com.lwk.familycontact.project.dial.task;
 
 import android.os.AsyncTask;
 
+import com.lib.base.utils.StringUtil;
+import com.lib.rcvadapter.impl.RcvSortSectionImpl;
 import com.lwk.familycontact.project.common.FCCallBack;
 import com.lwk.familycontact.storage.db.user.UserBean;
 import com.lwk.familycontact.storage.db.user.UserDao;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -27,7 +30,22 @@ public class DialSearchTask extends AsyncTask<Void, Void, List<UserBean>>
     @Override
     protected List<UserBean> doInBackground(Void... params)
     {
-        return UserDao.getInstance().queryUsersLikePhone(mPhoneNum);
+        //查询数据库所有数据并排序，将#开头的数据放在最后
+        List<UserBean> resultList = UserDao.getInstance().queryUsersLikePhone(mPhoneNum);
+        List<UserBean> defCharList = new ArrayList<>();
+        for (UserBean userBean : resultList)
+        {
+            if (StringUtil.isEquals(userBean.getFirstChar(), RcvSortSectionImpl.DEF_SECTION))
+                defCharList.add(userBean);
+        }
+
+        if (defCharList.size() > 0)
+        {
+            resultList.removeAll(defCharList);
+            resultList.addAll(defCharList);
+        }
+
+        return resultList;
     }
 
     @Override
