@@ -58,7 +58,7 @@ public class ContactPresenter
             @Override
             public void onSuccess(List<UserBean> resultList)
             {
-                mContactView.refreshAllUsersSuccess(resultList);
+                mContactView.refreshAllUsersSuccess(true, resultList);
                 mContactView.refreshContactNum();
             }
         });
@@ -66,10 +66,10 @@ public class ContactPresenter
     }
 
     /**
-     * 刷新环信好友数据
-     * [当sdk>23,且联系人权限被拒绝后]
+     * 刷新数据库中好友数据
+     * [不获取系统通讯录中好友]
      */
-    public void refreshContactDataInHx()
+    public void refreshContactDataInDb(final boolean isPtrRefresh)
     {
         new Thread(new Runnable()
         {
@@ -91,7 +91,7 @@ public class ContactPresenter
                     resultList.addAll(defCharList);
                 }
 
-                mContactView.refreshAllUsersSuccess(resultList);
+                mContactView.refreshAllUsersSuccess(isPtrRefresh, resultList);
                 mContactView.refreshContactNum();
             }
         }).start();

@@ -11,7 +11,7 @@ import java.util.List;
  */
 public interface ContactImpl
 {
-    void refreshAllUsersSuccess(List<UserBean> allUserList);
+    void refreshAllUsersSuccess(boolean isPrtRefresh,List<UserBean> allUserList);
 
     void refreshAllUsersFail(int errorMsgId);
 

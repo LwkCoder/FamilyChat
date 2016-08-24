@@ -1,6 +1,7 @@
 package com.lwk.familycontact.project.dial.task;
 
 import android.os.AsyncTask;
+import android.util.Pair;
 
 import com.lib.base.utils.StringUtil;
 import com.lib.rcvadapter.impl.RcvSortSectionImpl;
@@ -16,20 +17,21 @@ import java.util.List;
  * TODO 根据手机号模糊搜索匹配数据的异步任务
  * 2016/8/19
  */
-public class DialSearchTask extends AsyncTask<Void, Void, List<UserBean>>
+public class DialSearchTask extends AsyncTask<Void, Void, Pair<Boolean, List<UserBean>>>
 {
     private String mPhoneNum;
-    private FCCallBack<List<UserBean>> mCallBack;
+    private FCCallBack<Pair<Boolean, List<UserBean>>> mCallBack;
 
-    public DialSearchTask(String phoneNum, FCCallBack<List<UserBean>> callBack)
+    public DialSearchTask(String phoneNum, FCCallBack<Pair<Boolean, List<UserBean>>> callBack)
     {
         this.mPhoneNum = phoneNum;
         this.mCallBack = callBack;
     }
 
     @Override
-    protected List<UserBean> doInBackground(Void... params)
+    protected Pair<Boolean, List<UserBean>> doInBackground(Void... params)
     {
+        boolean hasUser = UserDao.getInstance().hasUser(mPhoneNum);
         //查询数据库所有数据并排序，将#开头的数据放在最后
         List<UserBean> resultList = UserDao.getInstance().queryUsersLikePhone(mPhoneNum);
         List<UserBean> defCharList = new ArrayList<>();
@@ -45,11 +47,11 @@ public class DialSearchTask extends AsyncTask<Void, Void, List<UserBean>>
             resultList.addAll(defCharList);
         }
 
-        return resultList;
+        return new Pair<>(hasUser, resultList);
     }
 
     @Override
-    protected void onPostExecute(List<UserBean> list)
+    protected void onPostExecute(Pair<Boolean, List<UserBean>> list)
     {
         super.onPostExecute(list);
         if (mCallBack != null)

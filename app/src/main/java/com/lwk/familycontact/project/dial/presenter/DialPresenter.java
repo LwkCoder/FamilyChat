@@ -1,6 +1,7 @@
 package com.lwk.familycontact.project.dial.presenter;
 
 import android.os.AsyncTask;
+import android.util.Pair;
 
 import com.lib.base.utils.StringUtil;
 import com.lwk.familycontact.project.common.FCCallBack;
@@ -39,7 +40,7 @@ public class DialPresenter
                 mSearchTask = null;
             }
 
-            mSearchTask = new DialSearchTask(phone, new FCCallBack<List<UserBean>>()
+            mSearchTask = new DialSearchTask(phone, new FCCallBack<Pair<Boolean, List<UserBean>>>()
             {
                 @Override
                 public void onFail(int status, int errorMsgResId)
@@ -49,13 +50,19 @@ public class DialPresenter
                 }
 
                 @Override
-                public void onSuccess(List<UserBean> list)
+                public void onSuccess(Pair<Boolean, List<UserBean>> pair)
                 {
-                    mDialView.showAddContact(phone);
-                    if (list == null || list.size() == 0)
+                    boolean hasUser = pair.first;
+                    if (hasUser)
+                        mDialView.closeAddContact();
+                    else
+                        mDialView.showAddContact(phone);
+
+                    List<UserBean> resultList = pair.second;
+                    if (resultList == null || resultList.size() == 0)
                         mDialView.onSearchResultEmpty(phone);
                     else
-                        mDialView.onSearchResultSuccess(list);
+                        mDialView.onSearchResultSuccess(resultList);
                 }
             });
 

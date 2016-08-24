@@ -27,6 +27,8 @@ import com.lwk.familycontact.base.FCApplication;
 import com.lwk.familycontact.project.contact.adapter.ContactAdapter;
 import com.lwk.familycontact.project.contact.presenter.ContactPresenter;
 import com.lwk.familycontact.storage.db.user.UserBean;
+import com.lwk.familycontact.utils.event.ComNotifyConfig;
+import com.lwk.familycontact.utils.event.ComNotifyEventBean;
 import com.lwk.familycontact.utils.event.EventBusHelper;
 import com.lwk.familycontact.utils.event.ProfileUpdateEventBean;
 
@@ -147,14 +149,14 @@ public class ContactFragment extends BaseFragment implements ContactImpl, Common
     {
         showShortToast(R.string.warning_permission_contact_denied);
         //权限被拒绝后获取数据库里环信好友
-        mPresenter.refreshContactDataInHx();
+        mPresenter.refreshContactDataInDb(true);
     }
 
     @OnNeverAskAgain({Manifest.permission.READ_CONTACTS, Manifest.permission.WRITE_CONTACTS})
     public void onNeverAskContactPermission()
     {
         //权限被拒绝后获取数据库里环信好友
-        mPresenter.refreshContactDataInHx();
+        mPresenter.refreshContactDataInDb(true);
     }
 
     @Override
@@ -202,14 +204,15 @@ public class ContactFragment extends BaseFragment implements ContactImpl, Common
     }
 
     @Override
-    public void refreshAllUsersSuccess(final List<UserBean> allUserList)
+    public void refreshAllUsersSuccess(final boolean isPrtRefresh, final List<UserBean> allUserList)
     {
         mMainHandler.post(new Runnable()
         {
             @Override
             public void run()
             {
-                mPtrLayout.notifyRefreshSuccess();
+                if (isPrtRefresh)
+                    mPtrLayout.notifyRefreshSuccess();
                 mAdapter.refreshDataInSection(allUserList);
             }
         });
@@ -265,5 +268,16 @@ public class ContactFragment extends BaseFragment implements ContactImpl, Common
         UserBean userBean = eventBean.getUserBean();
         if (userBean != null)
             mAdapter.updateUserProfile(userBean);
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void onNotifyEventReceived(ComNotifyEventBean eventBean)
+    {
+        switch (eventBean.getFlag())
+        {
+            case ComNotifyConfig.REFRESH_CONTACT_IN_DB:
+                mPresenter.refreshContactDataInDb(false);
+                break;
+        }
     }
 }

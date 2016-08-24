@@ -79,11 +79,29 @@
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustPan">
         </activity>
-        <activity android:name=".project.contact.view.ContactDetailActivity">
+        <activity
+            android:name=".project.contact.view.ContactDetailActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustPan">
         </activity>
-        <activity android:name=".project.setting.SettingActivity">
+        <activity
+            android:name=".project.setting.SettingActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustPan">
         </activity>
-        <activity android:name=".project.profile.UserProfileActivity">
+        <activity
+            android:name=".project.profile.UserProfileActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustPan">
+        </activity>
+        <activity
+            android:name=".project.contact.view.AddContactActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustResize">
         </activity>
     </application>
 

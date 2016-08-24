@@ -230,4 +230,12 @@ public class UserDao extends BaseDao<UserBean, Integer>
         }
         return resultList;
     }
+
+    /**
+     * 是否存在某个手机号的用户
+     */
+    public boolean hasUser(String phone)
+    {
+        return queryUserByPhone(phone) != null;
+    }
 }

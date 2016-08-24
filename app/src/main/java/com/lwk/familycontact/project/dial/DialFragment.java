@@ -23,6 +23,7 @@ import com.lib.rcvadapter.RcvMutilAdapter;
 import com.lib.rcvadapter.decoration.RcvLinearDecoration;
 import com.lib.rcvadapter.holder.RcvHolder;
 import com.lwk.familycontact.R;
+import com.lwk.familycontact.project.contact.view.AddContactActivity;
 import com.lwk.familycontact.project.dial.adapter.DialSearchAdapter;
 import com.lwk.familycontact.project.dial.presenter.DialPresenter;
 import com.lwk.familycontact.project.dial.view.DialImpl;
@@ -322,7 +323,7 @@ public class DialFragment extends BaseFragment implements DialImpl
 
     public void addPhoneToContact()
     {
-        //TODO 跳转到添加联系人界面
+        AddContactActivity.skip(getActivity(), mDialPadView.getInput(), false);
     }
 
     @Override
