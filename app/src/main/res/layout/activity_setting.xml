@@ -25,7 +25,13 @@
             android:layout_height="match_parent"
             android:orientation="vertical">
 
+            <include layout="@layout/layout_setting_msg"/>
+
+            <Space style="@style/FC_SettingSpace"/>
+
             <include layout="@layout/layout_setting_dial"/>
+
+            <Space style="@style/FC_SettingSpace"/>
 
         </LinearLayout>
 

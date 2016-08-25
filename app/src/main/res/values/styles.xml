@@ -42,6 +42,11 @@
         <item name="android:gravity">center</item>
     </style>
 
+    <style name="FC_SettingSpace">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">@dimen/spacing_normal</item>
+    </style>
+
     <style name="FC_SettingTextTitle" parent="FC_LargeTextStyle">
         <item name="android:textColor">@android:color/holo_blue_dark</item>
     </style>

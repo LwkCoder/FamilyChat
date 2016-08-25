@@ -58,4 +58,20 @@ public class SpSetting
     {
         Sp.putBoolean(context, SpKeys.DIAL_FEEDBACK, enable);
     }
+
+    /**
+     * 语音消息播放是否免提
+     */
+    public static boolean isVoiceMsgHandFreeEnable(Context context)
+    {
+        return Sp.getBoolean(context.getApplicationContext(), SpKeys.VOICE_MSG_HANDFREE, true);
+    }
+
+    /**
+     * 设置语音消息播放是否免提
+     */
+    public static void setVoiceMsgHandFreeEnable(Context context, boolean enable)
+    {
+        Sp.putBoolean(context.getApplicationContext(), SpKeys.VOICE_MSG_HANDFREE, enable);
+    }
 }

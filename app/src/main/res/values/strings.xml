@@ -85,6 +85,8 @@
     <string name="tv_setting_title">设置</string>
     <string name="tv_setting_dial_label">拨号器设置</string>
     <string name="tv_setting_dial_feedback">拨号器触摸反馈</string>
+    <string name="tv_setting_msg_label">消息设置</string>
+    <string name="tv_setting_msg_voice_handfree">用扬声器播放语音</string>
 
     <!--DialPad-->
     <string name="digist_0">0</string>

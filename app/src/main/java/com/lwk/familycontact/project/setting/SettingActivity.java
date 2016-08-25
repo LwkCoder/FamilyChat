@@ -15,6 +15,7 @@ import com.lwk.familycontact.storage.sp.SpSetting;
 public class SettingActivity extends FCBaseActivity implements CompoundButton.OnCheckedChangeListener
 {
     private FlatToggleButton mFtgDialFeedBack;
+    private FlatToggleButton mFtgVoiceMsgHandFree;
 
     @Override
     protected int setContentViewId()
@@ -30,7 +31,9 @@ public class SettingActivity extends FCBaseActivity implements CompoundButton.On
         actionBar.setTitleText(R.string.tv_setting_title);
 
         mFtgDialFeedBack = findView(R.id.ftg_setting_dial_feedback);
+        mFtgVoiceMsgHandFree = findView(R.id.ftg_setting_msg_voice_handfree);
         mFtgDialFeedBack.setOnCheckedChangeListener(this);
+        mFtgVoiceMsgHandFree.setOnCheckedChangeListener(this);
     }
 
     @Override
@@ -38,6 +41,7 @@ public class SettingActivity extends FCBaseActivity implements CompoundButton.On
     {
         super.initData();
         mFtgDialFeedBack.setChecked(SpSetting.isDialFeedBackEnable(this));
+        mFtgVoiceMsgHandFree.setChecked(SpSetting.isVoiceMsgHandFreeEnable(this));
     }
 
     @Override
@@ -53,6 +57,9 @@ public class SettingActivity extends FCBaseActivity implements CompoundButton.On
         {
             case R.id.ftg_setting_dial_feedback:
                 SpSetting.setDialFeendBackEnable(this, isChecked);
+                break;
+            case R.id.ftg_setting_msg_voice_handfree:
+                SpSetting.setVoiceMsgHandFreeEnable(this, isChecked);
                 break;
         }
     }
