@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:flatui="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -33,6 +34,22 @@
 
             <Space style="@style/FC_SettingSpace"/>
 
+            <Space
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/spacing_huge"/>
+
+            <com.cengalabs.flatui.views.FlatButton
+                android:id="@+id/btn_setting_logout"
+                android:layout_width="match_parent"
+                android:layout_height="45dp"
+                android:layout_marginBottom="@dimen/spacing_huge"
+                android:layout_marginLeft="@dimen/spacing_normal"
+                android:layout_marginRight="@dimen/spacing_normal"
+                android:text="@string/btn_setting_logout"
+                android:textSize="@dimen/sp_20"
+                flatui:fl_textAppearance="fl_none"
+                flatui:fl_theme="@array/blood"
+                flatui:fl_touchEffect="fl_ripple"/>
         </LinearLayout>
 
     </ScrollView>

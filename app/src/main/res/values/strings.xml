@@ -87,6 +87,8 @@
     <string name="tv_setting_dial_feedback">拨号器触摸反馈</string>
     <string name="tv_setting_msg_label">消息设置</string>
     <string name="tv_setting_msg_voice_handfree">用扬声器播放语音</string>
+    <string name="btn_setting_logout">退出当前登录账号</string>
+    <string name="dialog_setting_logout_message">正在退出...</string>
 
     <!--DialPad-->
     <string name="digist_0">0</string>

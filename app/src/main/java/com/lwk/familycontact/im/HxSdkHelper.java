@@ -193,7 +193,11 @@ public class HxSdkHelper
     public void logout(final FCCallBack callBack)
     {
         if (!EMClient.getInstance().isLoggedInBefore())
+        {
+            if (callBack != null)
+                callBack.onSuccess(null);
             return;
+        }
         EMClient.getInstance().logout(true, new EMCallBack()
         {
             @Override
