@@ -9,18 +9,18 @@ import java.util.Stack;
 /**
  * Function:Activity管理类
  */
-public class ActivityManager
+public class AppManager
 {
-    private ActivityManager()
+    private AppManager()
     {
     }
 
     private static final class ActivityManagerHolder
     {
-        public static ActivityManager instance = new ActivityManager();
+        public static AppManager instance = new AppManager();
     }
 
-    public static ActivityManager getInstance()
+    public static AppManager getInstance()
     {
         return ActivityManagerHolder.instance;
     }

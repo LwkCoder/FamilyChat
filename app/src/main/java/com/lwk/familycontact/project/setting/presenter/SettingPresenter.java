@@ -2,8 +2,7 @@ package com.lwk.familycontact.project.setting.presenter;
 
 import android.content.Context;
 
-import com.lib.base.app.ActivityManager;
-import com.lib.base.log.KLog;
+import com.lib.base.app.AppManager;
 import com.lwk.familycontact.im.HxSdkHelper;
 import com.lwk.familycontact.project.common.FCCallBack;
 import com.lwk.familycontact.project.login.view.LoginActivity;
@@ -67,6 +66,6 @@ public class SettingPresenter
     {
         mSettingView.closeLogoutDialog();
         mSettingView.logoutSuccess();
-        ActivityManager.getInstance().finishAllActivityExceptOne(LoginActivity.class);
+        AppManager.getInstance().finishAllActivityExceptOne(LoginActivity.class);
     }
 }

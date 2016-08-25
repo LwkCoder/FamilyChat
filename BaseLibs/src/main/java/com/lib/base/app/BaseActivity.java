@@ -33,7 +33,7 @@ public abstract class BaseActivity extends AppCompatActivity implements View.OnC
         beforeOnCreate(savedInstanceState);
         super.onCreate(savedInstanceState);
         KLog.d(LOG_TAG + "--->onCreate()");
-        ActivityManager.getInstance().addActivity(this);
+        AppManager.getInstance().addActivity(this);
 
         mMainHandler = new Handler(getMainLooper())
         {
@@ -109,7 +109,7 @@ public abstract class BaseActivity extends AppCompatActivity implements View.OnC
     {
         super.onDestroy();
         KLog.d(LOG_TAG + "--->onDestroy()");
-        ActivityManager.getInstance().removeActivity(this);
+        AppManager.getInstance().removeActivity(this);
     }
 
     /**

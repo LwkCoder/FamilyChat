@@ -9,7 +9,7 @@ import android.support.v7.app.AlertDialog;
 
 import com.hyphenate.EMConnectionListener;
 import com.hyphenate.EMError;
-import com.lib.base.app.ActivityManager;
+import com.lib.base.app.AppManager;
 import com.lib.base.log.KLog;
 import com.lib.base.toast.ToastUtils;
 import com.lwk.familycontact.R;
@@ -95,7 +95,7 @@ public class HxConnectListener implements EMConnectionListener
     private void userBeRemoved()
     {
         HxSdkHelper.getInstance().logout(null);
-        Activity activity = ActivityManager.getInstance().getPopActivity();
+        Activity activity = AppManager.getInstance().getPopActivity();
         if (activity instanceof LoginActivity)
             return;
         ToastUtils.showLongMsg(FCApplication.getIntance(), R.string.warning_user_be_removed);
@@ -106,7 +106,7 @@ public class HxConnectListener implements EMConnectionListener
             @Override
             public void run()
             {
-                ActivityManager.getInstance().finishAllActivityExceptOne(LoginActivity.class);
+                AppManager.getInstance().finishAllActivityExceptOne(LoginActivity.class);
             }
         }, 500);
     }
@@ -115,7 +115,7 @@ public class HxConnectListener implements EMConnectionListener
     public void userReLogined()
     {
         HxSdkHelper.getInstance().logout(null);
-        final Activity activity = ActivityManager.getInstance().getPopActivity();
+        final Activity activity = AppManager.getInstance().getPopActivity();
         new AlertDialog.Builder(activity)
                 .setCancelable(false)
                 .setTitle(R.string.dialog_user_relogin_title)
@@ -137,7 +137,7 @@ public class HxConnectListener implements EMConnectionListener
                             @Override
                             public void run()
                             {
-                                ActivityManager.getInstance().finishAllActivityExceptOne(LoginActivity.class);
+                                AppManager.getInstance().finishAllActivityExceptOne(LoginActivity.class);
                             }
                         }, 500);
                         dialog.dismiss();
