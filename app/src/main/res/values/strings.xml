@@ -83,6 +83,8 @@
 
     <!--SettingActivity-->
     <string name="tv_setting_title">设置</string>
+    <string name="tv_setting_dial_label">拨号器设置</string>
+    <string name="tv_setting_dial_feedback">拨号器触摸反馈</string>
 
     <!--DialPad-->
     <string name="digist_0">0</string>

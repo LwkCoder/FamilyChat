@@ -42,4 +42,26 @@
         <item name="android:gravity">center</item>
     </style>
 
+    <style name="FC_SettingTextTitle" parent="FC_LargeTextStyle">
+        <item name="android:textColor">@android:color/holo_blue_dark</item>
+    </style>
+
+    <style name="FC_SettingLine">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">1px</item>
+        <item name="android:background">@color/gray_E0E0E0</item>
+        <item name="android:layout_marginTop">@dimen/spacing_small</item>
+    </style>
+
+    <style name="FC_SettingTextLabel" parent="FC_NormalTextStyle">
+        <item name="android:textColor">@color/colorPrimaryDark</item>
+        <item name="android:layout_gravity">center_vertical|left</item>
+    </style>
+
+    <style name="FC_ToggleBtn">
+        <item name="android:layout_width">@dimen/width_setting_toggle</item>
+        <item name="android:layout_height">@dimen/height_setting_toggle</item>
+        <item name="android:layout_gravity">center_vertical|right</item>
+    </style>
+
 </resources>

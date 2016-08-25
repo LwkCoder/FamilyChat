@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/gray_F0F0F0"
     android:fitsSystemWindows="true"
     android:orientation="vertical"
     tools:context="com.lwk.familycontact.project.setting.SettingActivity">
@@ -13,5 +14,21 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/colorPrimary"/>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:overScrollMode="never">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <include layout="@layout/layout_setting_dial"/>
+
+        </LinearLayout>
+
+    </ScrollView>
 
 </LinearLayout>
