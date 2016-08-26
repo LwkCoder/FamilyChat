@@ -31,6 +31,7 @@ public class AddFriendActivity extends FCBaseActivity implements AddFriendImpl
     protected void initUI()
     {
         CommonActionBar actionBar = findView(R.id.cab_add_friend);
+        actionBar.setTitleText(R.string.tv_add_friend_title);
         actionBar.setLeftLayoutAsBack(this);
         actionBar.setRightImgResource(R.drawable.ic_add_friend_qrcode);
         actionBar.setRightLayoutClickListener(this);
