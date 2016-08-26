@@ -298,4 +298,42 @@ public class HxSdkHelper
             }
         }).start();
     }
+
+    /**
+     * 添加好友事件监听
+     */
+    public void addContactListener(HxContactListener listener)
+    {
+        EMClient.getInstance().contactManager().setContactListener(listener);
+    }
+
+    /**
+     * 移除好友事件监听
+     */
+    public void removeContactListener(HxContactListener listener)
+    {
+        EMClient.getInstance().contactManager().removeContactListener(listener);
+    }
+
+    /**
+     * 添加好友
+     *
+     * @param phone 手机号
+     * @throws HyphenateException 鬼知道什么异常
+     */
+    public void addFriend(String phone) throws HyphenateException
+    {
+        EMClient.getInstance().contactManager().addContact(phone, null);
+    }
+
+    /**
+     * 删除好友
+     *
+     * @param phone 手机号
+     * @throws HyphenateException 鬼知道什么异常
+     */
+    public void deleteFriend(String phone) throws HyphenateException
+    {
+        EMClient.getInstance().contactManager().deleteContact(phone);
+    }
 }

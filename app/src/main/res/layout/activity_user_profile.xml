@@ -26,6 +26,19 @@
 
         <include layout="@layout/layout_user_profile_phone"/>
 
+        <ImageView
+            android:id="@+id/img_user_profile_qrcode"
+            android:layout_width="200dp"
+            android:layout_height="200dp"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="@dimen/spacing_huge"/>
+
+        <TextView
+            style="@style/FC_NormalTextStyle"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="@dimen/spacing_small"
+            android:text="@string/tv_user_profile_qrcode_desc"/>
+
     </LinearLayout>
 
 </ScrollView>

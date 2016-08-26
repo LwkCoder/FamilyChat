@@ -13,6 +13,10 @@ import com.ashokvarma.bottomnavigation.BottomNavigationItem;
 import com.lib.base.widget.CommonActionBar;
 import com.lwk.familycontact.R;
 import com.lwk.familycontact.base.FCBaseActivity;
+import com.lwk.familycontact.im.HxConnectListener;
+import com.lwk.familycontact.im.HxContactListener;
+import com.lwk.familycontact.im.HxSdkHelper;
+import com.lwk.familycontact.project.contact.view.AddFriendActivity;
 import com.lwk.familycontact.project.contact.view.ContactFragment;
 import com.lwk.familycontact.project.conversation.view.ConversationFragment;
 import com.lwk.familycontact.project.dial.DialFragment;
@@ -36,6 +40,8 @@ public class MainActivity extends FCBaseActivity implements MainImpl, BottomNavi
     private ContactFragment mFragment02;
     private DialFragment mFragment03;
     private MainMenuPop mMenuPop;
+    private HxConnectListener mHxConnectListener;
+    private HxContactListener mHxContactListener;
 
     @Override
     protected int setContentViewId()
@@ -91,6 +97,16 @@ public class MainActivity extends FCBaseActivity implements MainImpl, BottomNavi
         badgeItem.setBackgroundColor(Color.RED);
         badgeItem.hide();
         return badgeItem;
+    }
+
+    @Override
+    protected void initData()
+    {
+        super.initData();
+        mHxConnectListener = new HxConnectListener();
+        HxSdkHelper.getInstance().addConnectListener(mHxConnectListener);
+        mHxContactListener = new HxContactListener();
+        HxSdkHelper.getInstance().addContactListener(mHxContactListener);
     }
 
     @Override
@@ -195,7 +211,7 @@ public class MainActivity extends FCBaseActivity implements MainImpl, BottomNavi
     @Override
     public void onClickAddUser()
     {
-        showShortToast("添加好友");
+        startActivity(new Intent(MainActivity.this, AddFriendActivity.class));
     }
 
     @Override
@@ -208,5 +224,13 @@ public class MainActivity extends FCBaseActivity implements MainImpl, BottomNavi
     public void refreshUnReadMsgNum()
     {
 
+    }
+
+    @Override
+    protected void onDestroy()
+    {
+        HxSdkHelper.getInstance().removeConnectListener(mHxConnectListener);
+        HxSdkHelper.getInstance().removeContactListener(mHxContactListener);
+        super.onDestroy();
     }
 }

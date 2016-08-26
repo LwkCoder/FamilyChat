@@ -17,6 +17,7 @@
     <string name="warning_permission_contact_denied">无法获取通讯录权限</string>
     <string name="warning_permission_callphone_denied">无法获取拨打电话权限</string>
     <string name="warning_dial_phone_empty">请输入号码</string>
+    <string name="warning_add_friend_empty_phone">对方手机号不能为空，请输入手机号或者点击页面右上角扫描对方二维码</string>
 
     <!--环信相关-->
     <string name="dialog_user_relogin_title">账号在其他设备登录</string>
@@ -30,6 +31,7 @@
     <string name="dialog_permission_cancel">取消</string>
     <string name="dialog_permission_nerver_ask_confirm">去设置</string>
     <string name="hint_save_success">保存成功</string>
+    <string name="send_request_success">发送请求成功</string>
 
     <!--SplashActivity-->
     <string name="dialog_permission_sdcard_message">应用程序需要获取外部存储卡的读写权限，拒绝后将无法使用软件</string>
@@ -80,6 +82,7 @@
     <!--UserProfileActivity-->
     <string name="tv_user_profile_title">我的资料</string>
     <string name="tv_user_profile_label_phone">手机号</string>
+    <string name="tv_user_profile_qrcode_desc">扫描二维码可添加好友</string>
 
     <!--SettingActivity-->
     <string name="tv_setting_title">设置</string>
@@ -116,5 +119,10 @@
     <string name="tv_add_contact_head_desc">点此可设置备注头像</string>
     <string name="ed_add_contact_hint">在此可设置备注姓名</string>
     <string name="btn_add_contact_save">保&#160;&#160;&#160;&#160;存</string>
+
+    <!--AddFriendActivity-->
+    <string name="tv_add_friend_title">添加好友</string>
+    <string name="ed_add_friend_hint">请输入对方手机号</string>
+    <string name="btn_add_friend_confirm">发送请求</string>
 
 </resources>

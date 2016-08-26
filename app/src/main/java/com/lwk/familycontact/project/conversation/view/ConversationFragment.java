@@ -10,8 +10,6 @@ import android.view.ViewGroup;
 import com.cengalabs.flatui.views.FlatTextView;
 import com.lib.base.app.BaseFragment;
 import com.lwk.familycontact.R;
-import com.lwk.familycontact.im.HxConnectListener;
-import com.lwk.familycontact.im.HxSdkHelper;
 import com.lwk.familycontact.project.conversation.adapter.ConversationAdapter;
 import com.lwk.familycontact.utils.event.ConnectEventBean;
 import com.lwk.familycontact.utils.event.EventBusHelper;
@@ -26,7 +24,6 @@ import org.greenrobot.eventbus.ThreadMode;
  */
 public class ConversationFragment extends BaseFragment
 {
-    private HxConnectListener hxConnectListener;
     private boolean mIsConnected = true;
     private RecyclerView mRecyclerView;
     private ConversationAdapter mAdapter;
@@ -65,19 +62,10 @@ public class ConversationFragment extends BaseFragment
     }
 
     @Override
-    protected void initData()
-    {
-        super.initData();
-        hxConnectListener = new HxConnectListener();
-        HxSdkHelper.getInstance().addConnectListener(hxConnectListener);
-    }
-
-    @Override
     public void onDestroy()
     {
         super.onDestroy();
         EventBusHelper.getInstance().unregist(this);
-        HxSdkHelper.getInstance().removeConnectListener(hxConnectListener);
     }
 
     @Override
