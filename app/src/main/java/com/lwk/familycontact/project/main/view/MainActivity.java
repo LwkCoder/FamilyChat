@@ -1,7 +1,11 @@
 package com.lwk.familycontact.project.main.view;
 
+import android.content.ComponentName;
+import android.content.Context;
 import android.content.Intent;
+import android.content.ServiceConnection;
 import android.graphics.Color;
+import android.os.IBinder;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.view.Gravity;
@@ -13,14 +17,12 @@ import com.ashokvarma.bottomnavigation.BottomNavigationItem;
 import com.lib.base.widget.CommonActionBar;
 import com.lwk.familycontact.R;
 import com.lwk.familycontact.base.FCBaseActivity;
-import com.lwk.familycontact.im.HxConnectListener;
-import com.lwk.familycontact.im.HxContactListener;
-import com.lwk.familycontact.im.HxSdkHelper;
 import com.lwk.familycontact.project.contact.view.AddFriendActivity;
 import com.lwk.familycontact.project.contact.view.ContactFragment;
 import com.lwk.familycontact.project.conversation.view.ConversationFragment;
 import com.lwk.familycontact.project.dial.DialFragment;
 import com.lwk.familycontact.project.main.presenter.MainPresenter;
+import com.lwk.familycontact.project.main.service.MainService;
 import com.lwk.familycontact.project.profile.UserProfileActivity;
 import com.lwk.familycontact.project.setting.view.SettingActivity;
 
@@ -40,8 +42,7 @@ public class MainActivity extends FCBaseActivity implements MainImpl, BottomNavi
     private ContactFragment mFragment02;
     private DialFragment mFragment03;
     private MainMenuPop mMenuPop;
-    private HxConnectListener mHxConnectListener;
-    private HxContactListener mHxContactListener;
+    private MainService mMainService;
 
     @Override
     protected int setContentViewId()
@@ -103,12 +104,22 @@ public class MainActivity extends FCBaseActivity implements MainImpl, BottomNavi
     protected void initData()
     {
         super.initData();
-        //TODO 挪到Service中
-        mHxConnectListener = new HxConnectListener();
-        HxSdkHelper.getInstance().addConnectListener(mHxConnectListener);
-        mHxContactListener = new HxContactListener();
-        HxSdkHelper.getInstance().addContactListener(mHxContactListener);
+        bindService(new Intent(MainActivity.this, MainService.class), mServiceConnection, Context.BIND_AUTO_CREATE);
     }
+
+    private ServiceConnection mServiceConnection = new ServiceConnection()
+    {
+        @Override
+        public void onServiceConnected(ComponentName name, IBinder service)
+        {
+            mMainService = ((MainService.MainServiceBinder) service).getService();
+        }
+
+        @Override
+        public void onServiceDisconnected(ComponentName name)
+        {
+        }
+    };
 
     @Override
     protected void onClick(int id, View v)
@@ -230,8 +241,7 @@ public class MainActivity extends FCBaseActivity implements MainImpl, BottomNavi
     @Override
     protected void onDestroy()
     {
-        HxSdkHelper.getInstance().removeConnectListener(mHxConnectListener);
-        HxSdkHelper.getInstance().removeContactListener(mHxContactListener);
+        unbindService(mServiceConnection);
         super.onDestroy();
     }
 }

@@ -249,7 +249,8 @@ public class HxSdkHelper
      */
     public void addConnectListener(EMConnectionListener listener)
     {
-        EMClient.getInstance().addConnectionListener(listener);
+        if (listener != null)
+            EMClient.getInstance().addConnectionListener(listener);
     }
 
     /**
@@ -259,7 +260,8 @@ public class HxSdkHelper
      */
     public void removeConnectListener(EMConnectionListener listener)
     {
-        EMClient.getInstance().removeConnectionListener(listener);
+        if (listener != null)
+            EMClient.getInstance().removeConnectionListener(listener);
     }
 
     /**
@@ -304,7 +306,8 @@ public class HxSdkHelper
      */
     public void addContactListener(HxContactListener listener)
     {
-        EMClient.getInstance().contactManager().setContactListener(listener);
+        if (listener != null)
+            EMClient.getInstance().contactManager().setContactListener(listener);
     }
 
     /**
@@ -312,7 +315,8 @@ public class HxSdkHelper
      */
     public void removeContactListener(HxContactListener listener)
     {
-        EMClient.getInstance().contactManager().removeContactListener(listener);
+        if (listener != null)
+            EMClient.getInstance().contactManager().removeContactListener(listener);
     }
 
     /**
