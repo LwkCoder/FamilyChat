@@ -23,19 +23,53 @@ public class SettingPresenter
         this.mSettingView = settingView;
     }
 
+    public boolean isMsgNoticeEnable(Context context)
+    {
+        return SpSetting.isNewMsgNotice(context);
+    }
+
+    public void setMsgNoticeEnable(Context context, boolean enable)
+    {
+        SpSetting.setNewMsgNotice(context, enable);
+        if (enable)
+            mSettingView.showNoticeLayout();
+        else
+            mSettingView.hideNoticeLayout();
+    }
+
+    public boolean isMsgNoticeVoiceEnable(Context context)
+    {
+        return SpSetting.isNewMsgNoticeVoice(context);
+    }
+
+    public void setMsgNoticeVoiceEnable(Context context, boolean enable)
+    {
+        SpSetting.setNewMsgNoticeVoice(context, enable);
+    }
+
+    public boolean isMsgNoticeVibrateEnable(Context context)
+    {
+        return SpSetting.isNewMsgNoticeVibrate(context);
+    }
+
+    public void setMsgNoticeVibrateEnable(Context context, boolean enable)
+    {
+        SpSetting.setNewMsgNoticeVibrate(context, enable);
+    }
+
     public boolean isDialFeedBackEnable(Context context)
     {
         return SpSetting.isDialFeedBackEnable(context);
     }
 
-    public boolean isVoiceMsgHandFreeEnable(Context context)
-    {
-        return SpSetting.isVoiceMsgHandFreeEnable(context);
-    }
-
     public void setDialFeendBackEnable(Context context, boolean enable)
     {
         SpSetting.setDialFeendBackEnable(context, enable);
+    }
+
+    public boolean isVoiceMsgHandFreeEnable(Context context)
+    {
+        return SpSetting.isVoiceMsgHandFreeEnable(context);
     }
 
     public void setVoiceMsgHandFreeEnable(Context context, boolean enable)

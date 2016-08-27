@@ -61,6 +61,12 @@ public class AddFriendActivity extends FCBaseActivity implements AddFriendImpl
     }
 
     @Override
+    public void phoneErrorWarning()
+    {
+        showShortToast(R.string.warning_add_friend_error_phone);
+    }
+
+    @Override
     public void sendRequestSuccess()
     {
         showShortToast(R.string.send_request_success);

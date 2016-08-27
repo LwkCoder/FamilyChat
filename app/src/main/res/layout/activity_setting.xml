@@ -8,7 +8,7 @@
     android:background="@color/gray_F0F0F0"
     android:fitsSystemWindows="true"
     android:orientation="vertical"
-    tools:context="com.lwk.familycontact.project.setting.SettingActivity">
+    tools:context=".project.setting.view.SettingActivity">
 
     <com.lib.base.widget.CommonActionBar
         android:id="@+id/cab_setting"

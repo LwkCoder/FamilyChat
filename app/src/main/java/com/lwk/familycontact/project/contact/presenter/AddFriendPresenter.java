@@ -2,6 +2,7 @@ package com.lwk.familycontact.project.contact.presenter;
 
 import com.hyphenate.exceptions.HyphenateException;
 import com.lib.base.log.KLog;
+import com.lib.base.utils.PhoneUtils;
 import com.lib.base.utils.StringUtil;
 import com.lwk.familycontact.im.HxSdkHelper;
 import com.lwk.familycontact.project.common.FCError;
@@ -26,6 +27,12 @@ public class AddFriendPresenter
         if (StringUtil.isEmpty(phone))
         {
             mAddFriendView.phoneEmptyWarning();
+            return;
+        }
+
+        if (!PhoneUtils.isMobileNO(phone))
+        {
+            mAddFriendView.phoneErrorWarning();
             return;
         }
 

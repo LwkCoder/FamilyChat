@@ -9,6 +9,8 @@ public interface AddFriendImpl
 {
     void phoneEmptyWarning();
 
+    void phoneErrorWarning();
+
     void sendRequestSuccess();
 
     void sendRequestFail(int code,int errMsgId);

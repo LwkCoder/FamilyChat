@@ -7,6 +7,10 @@ package com.lwk.familycontact.project.setting.view;
  */
 public interface SettingImpl
 {
+    void hideNoticeLayout();
+
+    void showNoticeLayout();
+
     void logoutSuccess();
 
     void showLogoutDialog();

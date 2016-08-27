@@ -74,4 +74,54 @@ public class SpSetting
     {
         Sp.putBoolean(context.getApplicationContext(), SpKeys.VOICE_MSG_HANDFREE, enable);
     }
+
+    /**
+     * 是否开启新消息提醒
+     */
+    public static boolean isNewMsgNotice(Context context)
+    {
+        return Sp.getBoolean(context.getApplicationContext(), SpKeys.NEW_MSG_NOTICE, true);
+    }
+
+    /**
+     * 设置是否开启新消息提醒
+     */
+    public static void setNewMsgNotice(Context context, boolean enable)
+    {
+        Sp.putBoolean(context.getApplicationContext(), SpKeys.NEW_MSG_NOTICE, enable);
+    }
+
+    /**
+     * 是否开启新消息铃声提醒
+     */
+    public static boolean isNewMsgNoticeVoice(Context context)
+    {
+        return isNewMsgNotice(context) ?
+                Sp.getBoolean(context.getApplicationContext(), SpKeys.NEW_MSG_NOTICE_VOICE, true) : false;
+    }
+
+    /**
+     * 设置是否开启新消息铃声提醒
+     */
+    public static void setNewMsgNoticeVoice(Context context, boolean enable)
+    {
+        Sp.putBoolean(context.getApplicationContext(), SpKeys.NEW_MSG_NOTICE_VOICE, enable);
+    }
+
+    /**
+     * 是否开启新消息震动提醒
+     */
+    public static boolean isNewMsgNoticeVibrate(Context context)
+    {
+        return isNewMsgNotice(context) ?
+                Sp.getBoolean(context.getApplicationContext(), SpKeys.NEW_MSG_NOTICE_VIBRATE, true) : false;
+    }
+
+    /**
+     * 设置是否开启新消息震动提醒
+     */
+    public static void setNewMsgNoticeVibrate(Context context, boolean enable)
+    {
+        Sp.putBoolean(context.getApplicationContext(), SpKeys.NEW_MSG_NOTICE_VIBRATE, enable);
+    }
 }

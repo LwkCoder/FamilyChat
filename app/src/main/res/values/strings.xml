@@ -18,6 +18,7 @@
     <string name="warning_permission_callphone_denied">无法获取拨打电话权限</string>
     <string name="warning_dial_phone_empty">请输入号码</string>
     <string name="warning_add_friend_empty_phone">对方手机号不能为空，请输入手机号或者点击页面右上角扫描对方二维码</string>
+    <string name="warning_add_friend_error_phone">请输入规范的手机号码</string>
 
     <!--环信相关-->
     <string name="dialog_user_relogin_title">账号在其他设备登录</string>
@@ -89,8 +90,13 @@
     <string name="tv_setting_dial_label">拨号器设置</string>
     <string name="tv_setting_dial_feedback">拨号器触摸反馈</string>
     <string name="tv_setting_msg_label">消息设置</string>
-    <string name="tv_setting_msg_voice_handfree">用扬声器播放语音</string>
+    <string name="tv_setting_msg_notice">新消息提醒</string>
+    <string name="tv_setting_msg_notice_voice">新消息铃声提醒</string>
+    <string name="tv_setting_msg_notice_vibrate">新消息震动提醒</string>
+    <string name="tv_setting_msg_voice_handfree">用扬声器播放语音消息</string>
     <string name="btn_setting_logout">退出当前登录账号</string>
+    <string name="dialog_setting_logout_confirm_title">退出登录提醒</string>
+    <string name="dialog_setting_logout_confirm_message">您确定要退出当前登录的账号？</string>
     <string name="dialog_setting_logout_message">正在退出...</string>
 
     <!--DialPad-->

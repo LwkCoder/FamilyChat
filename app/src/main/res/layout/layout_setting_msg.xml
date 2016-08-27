@@ -19,6 +19,56 @@
 
         <TextView
             style="@style/FC_SettingTextLabel"
+            android:text="@string/tv_setting_msg_notice"/>
+
+        <com.cengalabs.flatui.views.FlatToggleButton
+            android:id="@+id/ftg_setting_msg_notice"
+            style="@style/FC_ToggleBtn"
+            flatui:fl_cornerRadius="@dimen/radius_setting_toggle"
+            flatui:fl_space="@dimen/space_setting_toggle"/>
+
+    </FrameLayout>
+
+    <FrameLayout
+        android:id="@+id/fl_setting_msg_notice_voice"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/height_setting">
+
+        <TextView
+            style="@style/FC_SettingTextLabel"
+            android:text="@string/tv_setting_msg_notice_voice"/>
+
+        <com.cengalabs.flatui.views.FlatToggleButton
+            android:id="@+id/ftg_setting_msg_notice_voice"
+            style="@style/FC_ToggleBtn"
+            flatui:fl_cornerRadius="@dimen/radius_setting_toggle"
+            flatui:fl_space="@dimen/space_setting_toggle"/>
+
+    </FrameLayout>
+
+    <FrameLayout
+        android:id="@+id/fl_setting_msg_notice_vibrate"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/height_setting">
+
+        <TextView
+            style="@style/FC_SettingTextLabel"
+            android:text="@string/tv_setting_msg_notice_vibrate"/>
+
+        <com.cengalabs.flatui.views.FlatToggleButton
+            android:id="@+id/ftg_setting_msg_notice_vibrate"
+            style="@style/FC_ToggleBtn"
+            flatui:fl_cornerRadius="@dimen/radius_setting_toggle"
+            flatui:fl_space="@dimen/space_setting_toggle"/>
+
+    </FrameLayout>
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/height_setting">
+
+        <TextView
+            style="@style/FC_SettingTextLabel"
             android:text="@string/tv_setting_msg_voice_handfree"/>
 
         <com.cengalabs.flatui.views.FlatToggleButton

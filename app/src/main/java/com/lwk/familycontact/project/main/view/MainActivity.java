@@ -22,7 +22,7 @@ import com.lwk.familycontact.project.conversation.view.ConversationFragment;
 import com.lwk.familycontact.project.dial.DialFragment;
 import com.lwk.familycontact.project.main.presenter.MainPresenter;
 import com.lwk.familycontact.project.profile.UserProfileActivity;
-import com.lwk.familycontact.project.setting.SettingActivity;
+import com.lwk.familycontact.project.setting.view.SettingActivity;
 
 /**
  * MainActivity
@@ -103,6 +103,7 @@ public class MainActivity extends FCBaseActivity implements MainImpl, BottomNavi
     protected void initData()
     {
         super.initData();
+        //TODO 挪到Service中
         mHxConnectListener = new HxConnectListener();
         HxSdkHelper.getInstance().addConnectListener(mHxConnectListener);
         mHxContactListener = new HxContactListener();
