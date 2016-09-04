@@ -340,4 +340,8 @@ public class HxSdkHelper
     {
         EMClient.getInstance().contactManager().deleteContact(phone);
     }
+
+    public void getUnreadInviteNum(){
+//        EMClient.getInstance().contactManager().
+    }
 }

@@ -1,0 +1,76 @@
+package com.lwk.familycontact.storage.db.invite;
+
+import android.content.Context;
+
+import com.j256.ormlite.dao.Dao;
+import com.j256.ormlite.stmt.QueryBuilder;
+import com.lib.base.log.KLog;
+import com.lwk.familycontact.base.FCApplication;
+import com.lwk.familycontact.storage.db.BaseDao;
+import com.lwk.familycontact.storage.db.DbOpenHelper;
+
+import java.sql.SQLException;
+
+/**
+ * 邀请信息表操作类
+ */
+public class InviteDao extends BaseDao<InviteBean, Integer>
+{
+    private final String TAG = this.getClass().getSimpleName();
+
+    private InviteDao(Context context)
+    {
+        super(context);
+    }
+
+    private static final class InviteDaoHolder
+    {
+        private static InviteDao instance = new InviteDao(FCApplication.getIntance());
+    }
+
+    public static InviteDao getInstance()
+    {
+        return InviteDaoHolder.instance;
+    }
+
+    @Override
+    public String setLogTag()
+    {
+        return TAG;
+    }
+
+    @Override
+    public Dao<InviteBean, Integer> getDao()
+    {
+        if (mHelper == null || !mHelper.isOpen())
+        {
+            mHelper = null;
+            mHelper = DbOpenHelper.getInstance(FCApplication.getIntance());
+        }
+        return mHelper.getDao(InviteBean.class);
+    }
+
+    /**
+     * 存储新的邀请，前提是本地数据库中不存在相同未处理过的邀请信息
+     *
+     * @param inviteBean 邀请信息
+     * @return 存储成功or失败
+     */
+    public boolean saveIfNotHandled(InviteBean inviteBean)
+    {
+        boolean saved = false;
+        try
+        {
+            QueryBuilder<InviteBean, Integer> queryBuilder = getDao().queryBuilder();
+            queryBuilder.where().eq(InviteDbConfig.OP_PHONE, inviteBean.getOpPhone())
+                    .and().eq(InviteDbConfig.STATUS, InviteStatus.ORIGIN);
+            InviteBean bean = getDao().queryForFirst(queryBuilder.prepare());
+            if (bean == null && save(inviteBean) != -1)
+                saved = true;
+        } catch (SQLException e)
+        {
+            KLog.e(TAG + "InviteDao.saveIfNotHandled fail:" + e.toString());
+        }
+        return saved;
+    }
+}
