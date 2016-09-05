@@ -107,6 +107,7 @@ public abstract class RcvMutilAdapter<T> extends RecyclerView.Adapter<RcvHolder>
 
     /**
      * 删除指定位置的HeadView
+     *
      * @param index 索引位置
      */
     public void removeHeadViewAt(int index)
@@ -148,6 +149,7 @@ public abstract class RcvMutilAdapter<T> extends RecyclerView.Adapter<RcvHolder>
 
     /**
      * 删除指定位置的FootView
+     *
      * @param index 索引位置
      */
     public void removeFootViewAt(int index)
@@ -505,24 +507,95 @@ public abstract class RcvMutilAdapter<T> extends RecyclerView.Adapter<RcvHolder>
 
     /**
      * 增加一条数据
+     *
+     * @return 成功则返回添加的位置，失败返回-1
      */
-    public void addData(T t)
+    public int addData(T t)
     {
-        if (t != null)
-        {
-            mDataList.add(t);
-            notifyDataSetChanged();
-        }
+        return addData(getHeadCounts() + getDataSize(), t);
     }
 
     /**
-     * 增加若干条数据
+     * 添加一条数据
+     *
+     * @param position 添加的位置，需要考虑HeadView的数量
+     * @param t        数据
+     * @return 成功则返回添加的位置，失败返回-1
+     */
+    public int addData(int position, T t)
+    {
+        if (t != null)
+        {
+            mDataList.add(position - getHeadCounts(), t);
+            notifyItemInserted(position);
+            return position;
+        }
+        return -1;
+    }
+
+    /**
+     * 添加若干条数据
+     *
+     * @param data 数据list
      */
     public void addDatas(List<T> data)
     {
         if (data != null && data.size() > 0)
         {
+            int posStart = getHeadCounts() + getDataSize();
             mDataList.addAll(data);
+            notifyItemRangeInserted(posStart, data.size());
+        }
+    }
+
+    /**
+     * 删除一条数据
+     *
+     * @param position 位置，需要考虑HeadView的数量
+     * @return 成功返回位置，失败返回-1
+     */
+    public int deleteData(int position)
+    {
+        if (mDataList != null)
+        {
+            mDataList.remove(position - getHeadCounts());
+            notifyItemRemoved(position);
+            return position;
+        }
+        return -1;
+    }
+
+    /**
+     * 删除一条数据，但不主动调用notifyDataSetChanged()
+     *
+     * @param t 数据
+     * @return 成功返回位置，失败返回-1
+     */
+    public int deleteData(T t)
+    {
+        if (mDataList != null)
+        {
+            int p = mDataList.indexOf(t);
+            if (mDataList.remove(t))
+            {
+                int position = p + getHeadCounts();
+                notifyItemRemoved(position);
+                return position;
+            }
+        }
+        return -1;
+    }
+
+    /**
+     * 删除若干条数据
+     *
+     * @param data 数据
+     */
+    public void deleteDatas(List<T> data)
+    {
+        if (data != null && data.size() > 0 && mDataList != null)
+        {
+            mDataList.removeAll(data);
             notifyDataSetChanged();
         }
     }

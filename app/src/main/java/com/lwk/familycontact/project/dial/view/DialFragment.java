@@ -1,4 +1,4 @@
-package com.lwk.familycontact.project.dial;
+package com.lwk.familycontact.project.dial.view;
 
 import android.Manifest;
 import android.content.DialogInterface;
@@ -26,7 +26,6 @@ import com.lwk.familycontact.R;
 import com.lwk.familycontact.project.contact.view.AddContactActivity;
 import com.lwk.familycontact.project.dial.adapter.DialSearchAdapter;
 import com.lwk.familycontact.project.dial.presenter.DialPresenter;
-import com.lwk.familycontact.project.dial.view.DialImpl;
 import com.lwk.familycontact.storage.db.user.UserBean;
 import com.lwk.familycontact.storage.sp.SpSetting;
 import com.lwk.familycontact.utils.other.AnimationController;

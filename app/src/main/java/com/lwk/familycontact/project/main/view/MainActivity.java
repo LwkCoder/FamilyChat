@@ -20,7 +20,7 @@ import com.lwk.familycontact.base.FCBaseActivity;
 import com.lwk.familycontact.project.contact.view.AddFriendActivity;
 import com.lwk.familycontact.project.contact.view.ContactFragment;
 import com.lwk.familycontact.project.conversation.view.ConversationFragment;
-import com.lwk.familycontact.project.dial.DialFragment;
+import com.lwk.familycontact.project.dial.view.DialFragment;
 import com.lwk.familycontact.project.main.presenter.MainPresenter;
 import com.lwk.familycontact.project.main.service.MainService;
 import com.lwk.familycontact.project.profile.UserProfileActivity;

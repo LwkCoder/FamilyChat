@@ -205,7 +205,7 @@ public abstract class RcvSectionAdapter<S, C> extends RcvSingleAdapter<RcvSecBea
     }
 
     @Override
-    public void addData(RcvSecBean<S, C> scRcvSecBean)
+    public int addData(RcvSecBean<S, C> scRcvSecBean)
     {
         if (scRcvSecBean != null)
         {
@@ -213,6 +213,7 @@ public abstract class RcvSectionAdapter<S, C> extends RcvSingleAdapter<RcvSecBea
             setSectionMap();
             notifyDataSetChanged();
         }
+        return mDataList.indexOf(scRcvSecBean);
     }
 
     @Override
