@@ -21,6 +21,10 @@ public class InviteBean implements Parcelable
     @DatabaseField(columnName = InviteDbConfig.STATUS)
     private int status;
 
+    public InviteBean()
+    {
+    }
+
     public InviteBean(String opPhone, long stamp)
     {
         this.opPhone = opPhone;

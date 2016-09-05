@@ -8,6 +8,7 @@ import com.j256.ormlite.dao.Dao;
 import com.j256.ormlite.support.ConnectionSource;
 import com.j256.ormlite.table.TableUtils;
 import com.lib.base.log.KLog;
+import com.lwk.familycontact.storage.db.invite.InviteBean;
 import com.lwk.familycontact.storage.db.user.UserBean;
 
 import java.sql.SQLException;
@@ -47,6 +48,7 @@ public class DbOpenHelper extends OrmLiteSqliteOpenHelper
         try
         {
             TableUtils.createTable(connectionSource, UserBean.class);
+            TableUtils.createTable(connectionSource, InviteBean.class);
         } catch (SQLException e)
         {
             KLog.e("DbOpenHelper.onCreate() fail : " + e.toString());

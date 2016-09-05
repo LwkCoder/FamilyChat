@@ -98,7 +98,7 @@ public class HxConnectListener implements EMConnectionListener
         Activity activity = AppManager.getInstance().getPopActivity();
         if (activity instanceof LoginActivity)
             return;
-        ToastUtils.showLongMsg(FCApplication.getIntance(), R.string.warning_user_be_removed);
+        ToastUtils.showLongMsg(FCApplication.getInstance(), R.string.warning_user_be_removed);
         activity.startActivity(new Intent(activity, LoginActivity.class));
         Handler handler = new Handler(Looper.getMainLooper());
         handler.postDelayed(new Runnable()

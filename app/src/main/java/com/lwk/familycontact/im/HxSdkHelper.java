@@ -204,7 +204,7 @@ public class HxSdkHelper
             public void onSuccess()
             {
                 resetFlags();
-                DbOpenHelper.getInstance(FCApplication.getIntance()).close();
+                DbOpenHelper.getInstance(FCApplication.getInstance()).close();
                 if (callBack != null)
                     callBack.onSuccess(null);
             }
@@ -213,7 +213,7 @@ public class HxSdkHelper
             public void onError(int i, String s)
             {
                 resetFlags();
-                DbOpenHelper.getInstance(FCApplication.getIntance()).close();
+                DbOpenHelper.getInstance(FCApplication.getInstance()).close();
                 if (callBack != null)
                     callBack.onFail(FCError.LOGOUT_FAIL, FCError.getErrorMsgIdFromCode(i));
             }

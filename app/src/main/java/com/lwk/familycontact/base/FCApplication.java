@@ -29,7 +29,7 @@ public class FCApplication extends Application
         HxSdkHelper.getInstance().initSdkOptions(this);
     }
 
-    public static FCApplication getIntance()
+    public static FCApplication getInstance()
     {
         return mInstance;
     }

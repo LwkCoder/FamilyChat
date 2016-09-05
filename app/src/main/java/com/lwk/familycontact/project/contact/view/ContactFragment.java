@@ -241,7 +241,7 @@ public class ContactFragment extends BaseFragment implements ContactImpl, Common
             {
                 if (mTvContactNum != null && mAdapter != null)
                 {
-                    String numEx = ResUtils.getString(FCApplication.getIntance(), R.string.tv_foot_contact_num);
+                    String numEx = ResUtils.getString(FCApplication.getInstance(), R.string.tv_foot_contact_num);
                     mTvContactNum.setText(numEx.replaceFirst("%%1", String.valueOf(mAdapter.getUserBeanCount())));
                 }
             }

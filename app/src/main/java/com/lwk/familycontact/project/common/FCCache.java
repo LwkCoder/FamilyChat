@@ -21,7 +21,7 @@ public class FCCache
 
     private static final class FCCacheHolder
     {
-        private static FCCache instance = new FCCache(FCApplication.getIntance());
+        private static FCCache instance = new FCCache(FCApplication.getInstance());
     }
 
     public static FCCache getInstance()

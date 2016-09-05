@@ -32,7 +32,7 @@ public class UserDao extends BaseDao<UserBean, Integer>
 
     private static final class UserDaoHolder
     {
-        private static UserDao instance = new UserDao(FCApplication.getIntance());
+        private static UserDao instance = new UserDao(FCApplication.getInstance());
     }
 
     public static UserDao getInstance()
@@ -52,7 +52,7 @@ public class UserDao extends BaseDao<UserBean, Integer>
         if (mHelper == null || !mHelper.isOpen())
         {
             mHelper = null;
-            mHelper = DbOpenHelper.getInstance(FCApplication.getIntance());
+            mHelper = DbOpenHelper.getInstance(FCApplication.getInstance());
         }
         return mHelper.getDao(UserBean.class);
     }

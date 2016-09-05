@@ -25,7 +25,7 @@ public class InviteDao extends BaseDao<InviteBean, Integer>
 
     private static final class InviteDaoHolder
     {
-        private static InviteDao instance = new InviteDao(FCApplication.getIntance());
+        private static InviteDao instance = new InviteDao(FCApplication.getInstance());
     }
 
     public static InviteDao getInstance()
@@ -45,7 +45,7 @@ public class InviteDao extends BaseDao<InviteBean, Integer>
         if (mHelper == null || !mHelper.isOpen())
         {
             mHelper = null;
-            mHelper = DbOpenHelper.getInstance(FCApplication.getIntance());
+            mHelper = DbOpenHelper.getInstance(FCApplication.getInstance());
         }
         return mHelper.getDao(InviteBean.class);
     }
