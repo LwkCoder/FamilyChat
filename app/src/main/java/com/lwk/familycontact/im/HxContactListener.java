@@ -2,6 +2,8 @@ package com.lwk.familycontact.im;
 
 import com.hyphenate.EMContactListener;
 import com.lib.base.log.KLog;
+import com.lwk.familycontact.storage.db.invite.InviteBean;
+import com.lwk.familycontact.storage.db.invite.InviteDao;
 
 /**
  * Created by LWK
@@ -29,6 +31,9 @@ public class HxContactListener implements EMContactListener
     {
         //收到好友邀请
         KLog.d("HxContactListener onContactInvited: phone=" + phone + ",reason=" + reason);
+        //存储到数据库中
+        InviteBean inviteBean = new InviteBean(phone, System.currentTimeMillis());
+        InviteDao.getInstance().saveIfNotHandled(inviteBean);
     }
 
     @Override
