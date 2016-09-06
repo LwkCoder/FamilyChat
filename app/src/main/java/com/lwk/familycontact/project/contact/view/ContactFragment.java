@@ -95,9 +95,9 @@ public class ContactFragment extends BaseFragment implements ContactImpl, Common
         mAdapter.openItemShowingAnim();
         mAdapter.setOnItemClickListener(this);
         View headerView = getActivity().getLayoutInflater()
-                .inflate(R.layout.layout_contact_friend_notify, (ViewGroup) getActivity().findViewById(android.R.id.content), false);
+                .inflate(R.layout.layout_contact_new_friend_notify_entrance, (ViewGroup) getActivity().findViewById(android.R.id.content), false);
         headerView.setOnClickListener(mOnHeaderViewClickListener);
-        mTvFriendNotify = (TextView) headerView.findViewById(R.id.tv_add_friend_notify_desc);
+        mTvFriendNotify = (TextView) headerView.findViewById(R.id.tv_new_friend_notify_entrance_desc);
         mAdapter.addHeadView(headerView);
         View footerView = getActivity().getLayoutInflater()
                 .inflate(R.layout.layout_foot_contact, (ViewGroup) getActivity().findViewById(android.R.id.content), false);

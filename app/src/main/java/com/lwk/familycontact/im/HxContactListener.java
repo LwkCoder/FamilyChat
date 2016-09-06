@@ -34,12 +34,12 @@ public class HxContactListener implements EMContactListener
     public void onContactInvited(String phone, String reason)
     {
         //收到好友邀请
-        KLog.i("HxContactListener onContactInvited: phone=" + phone + ",reason=" + reason);
+        KLog.i("HxContactListener onContactInvited: phone=" + phone);
         //存储到数据库中
         InviteBean inviteBean = new InviteBean(phone, System.currentTimeMillis());
         if (InviteDao.getInstance().saveIfNotHandled(inviteBean))
         {
-            //铃声通知
+            //铃声、震动通知
             FCNotifyUtils.getInstance().startNotify();
             //通知相关界面刷新
             EventBusHelper.getInstance().post(new ComNotifyEventBean(ComNotifyConfig.REFRESH_USER_INVITE));
