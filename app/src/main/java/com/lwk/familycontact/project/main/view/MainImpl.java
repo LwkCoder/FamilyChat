@@ -7,5 +7,11 @@ package com.lwk.familycontact.project.main.view;
  */
 public interface MainImpl
 {
-    void refreshUnReadMsgNum();
+    void onShowFirstBadgeNum(int num);
+
+    void onHideFirstBadgeNum();
+
+    void onShowMiddleBadgeNum(int num);
+
+    void onHideMiddleBadgeNum();
 }

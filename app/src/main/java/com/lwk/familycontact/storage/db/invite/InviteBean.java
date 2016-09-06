@@ -21,6 +21,9 @@ public class InviteBean implements Parcelable
     @DatabaseField(columnName = InviteDbConfig.STATUS)
     private int status;
 
+    @DatabaseField(columnName = InviteDbConfig.READ)
+    private boolean read;
+
     public InviteBean()
     {
     }
@@ -30,6 +33,7 @@ public class InviteBean implements Parcelable
         this.opPhone = opPhone;
         this.stamp = stamp;
         this.status = InviteStatus.ORIGIN;
+        this.read = false;
     }
 
     public InviteBean(String opPhone, long stamp, int status)
@@ -37,6 +41,7 @@ public class InviteBean implements Parcelable
         this.opPhone = opPhone;
         this.stamp = stamp;
         this.status = status;
+        this.read = false;
     }
 
     public String getOpPhone()
@@ -69,6 +74,16 @@ public class InviteBean implements Parcelable
         this.status = status;
     }
 
+    public boolean isRead()
+    {
+        return read;
+    }
+
+    public void setRead(boolean read)
+    {
+        this.read = read;
+    }
+
     @Override
     public String toString()
     {
@@ -76,6 +91,7 @@ public class InviteBean implements Parcelable
                 "opPhone='" + opPhone + '\'' +
                 ", stamp=" + stamp +
                 ", status=" + status +
+                ", read=" + read +
                 '}';
     }
 
@@ -91,6 +107,7 @@ public class InviteBean implements Parcelable
         dest.writeString(this.opPhone);
         dest.writeLong(this.stamp);
         dest.writeInt(this.status);
+        dest.writeByte(this.read ? (byte) 1 : (byte) 0);
     }
 
     protected InviteBean(Parcel in)
@@ -98,9 +115,10 @@ public class InviteBean implements Parcelable
         this.opPhone = in.readString();
         this.stamp = in.readLong();
         this.status = in.readInt();
+        this.read = in.readByte() != 0;
     }
 
-    public static final Parcelable.Creator<InviteBean> CREATOR = new Parcelable.Creator<InviteBean>()
+    public static final Creator<InviteBean> CREATOR = new Creator<InviteBean>()
     {
         @Override
         public InviteBean createFromParcel(Parcel source)

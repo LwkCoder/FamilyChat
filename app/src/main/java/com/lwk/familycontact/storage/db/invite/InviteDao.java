@@ -4,6 +4,7 @@ import android.content.Context;
 
 import com.j256.ormlite.dao.Dao;
 import com.j256.ormlite.stmt.QueryBuilder;
+import com.j256.ormlite.stmt.UpdateBuilder;
 import com.lib.base.log.KLog;
 import com.lwk.familycontact.base.FCApplication;
 import com.lwk.familycontact.storage.db.BaseDao;
@@ -72,5 +73,40 @@ public class InviteDao extends BaseDao<InviteBean, Integer>
             KLog.e(TAG + "InviteDao.saveIfNotHandled fail:" + e.toString());
         }
         return saved;
+    }
+
+    /**
+     * 获取未读好友通知数量
+     */
+    public int getUnreadNotifyNum()
+    {
+        int num = 0;
+        try
+        {
+            QueryBuilder<InviteBean, Integer> queryBuilder = getDao().queryBuilder();
+            queryBuilder.where().eq(InviteDbConfig.READ, false);
+            num = getDao().query(queryBuilder.prepare()).size();
+        } catch (SQLException e)
+        {
+            KLog.e(TAG + "InviteDao.getUnreadNotifyNum fail:" + e.toString());
+        }
+        return num;
+    }
+
+    /**
+     * 将所有未读通知设置为已读
+     */
+    public void setAllNotifyRead()
+    {
+        try
+        {
+            UpdateBuilder<InviteBean, Integer> updateBuilder = getDao().updateBuilder();
+            updateBuilder.where().eq(InviteDbConfig.READ, false);
+            updateBuilder.updateColumnValue(InviteDbConfig.READ, true);
+            getDao().update(updateBuilder.prepare());
+        } catch (SQLException e)
+        {
+            KLog.e(TAG + "InviteDao.setAllNotifyRead fail:" + e.toString());
+        }
     }
 }

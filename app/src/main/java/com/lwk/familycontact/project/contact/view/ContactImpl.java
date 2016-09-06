@@ -11,11 +11,15 @@ import java.util.List;
  */
 public interface ContactImpl
 {
-    void refreshAllUsersSuccess(boolean isPrtRefresh,List<UserBean> allUserList);
+    void refreshAllUsersSuccess(boolean isPrtRefresh, List<UserBean> allUserList);
 
     void refreshAllUsersFail(int errorMsgId);
 
     void refreshContactNum();
 
     void scrollToTop();
+
+    void onAllFriendNotifyRead();
+
+    void onFriendNotifyUnread(int num);
 }

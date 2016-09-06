@@ -96,4 +96,16 @@ public class ContactPresenter
             }
         }).start();
     }
+
+    /**
+     * 刷新好友通知
+     */
+    public void refreshFriendNotify()
+    {
+        int unreadNum = mModel.getUnreadFriendNotifyNum();
+        if (unreadNum == 0)
+            mContactView.onAllFriendNotifyRead();
+        else
+            mContactView.onFriendNotifyUnread(unreadNum);
+    }
 }

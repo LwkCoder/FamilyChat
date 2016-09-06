@@ -3,6 +3,7 @@ package com.lwk.familycontact.project.contact.view;
 import android.Manifest;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AlertDialog;
@@ -60,7 +61,7 @@ public class ContactFragment extends BaseFragment implements ContactImpl, Common
     private QuickSideBarView mSidebar;
     private ContactAdapter mAdapter;
     private TextView mTvContactNum;
-
+    private TextView mTvFriendNotify;
 
     public static ContactFragment newInstance()
     {
@@ -93,6 +94,11 @@ public class ContactFragment extends BaseFragment implements ContactImpl, Common
         mAdapter = new ContactAdapter(getActivity(), null);
         mAdapter.openItemShowingAnim();
         mAdapter.setOnItemClickListener(this);
+        View headerView = getActivity().getLayoutInflater()
+                .inflate(R.layout.layout_contact_friend_notify, (ViewGroup) getActivity().findViewById(android.R.id.content), false);
+        headerView.setOnClickListener(mOnHeaderViewClickListener);
+        mTvFriendNotify = (TextView) headerView.findViewById(R.id.tv_add_friend_notify_desc);
+        mAdapter.addHeadView(headerView);
         View footerView = getActivity().getLayoutInflater()
                 .inflate(R.layout.layout_foot_contact, (ViewGroup) getActivity().findViewById(android.R.id.content), false);
         mTvContactNum = (TextView) footerView.findViewById(R.id.tv_contact_foot);
@@ -111,6 +117,9 @@ public class ContactFragment extends BaseFragment implements ContactImpl, Common
     protected void initData()
     {
         super.initData();
+        //刷新好友通知
+        mPresenter.refreshFriendNotify();
+        //主动同步通讯录
         mPtrLayout.autoRefresh();
     }
 
@@ -256,6 +265,30 @@ public class ContactFragment extends BaseFragment implements ContactImpl, Common
     }
 
     @Override
+    public void onAllFriendNotifyRead()
+    {
+        if (mTvFriendNotify != null)
+        {
+            mTvFriendNotify.setBackgroundColor(Color.TRANSPARENT);
+            mTvFriendNotify.setTextColor(Color.GRAY);
+            mTvFriendNotify.setText(R.string.tv_friend_notify_nope);
+        }
+    }
+
+    @Override
+    public void onFriendNotifyUnread(int num)
+    {
+        if (mTvFriendNotify != null)
+        {
+            mTvFriendNotify.setBackgroundColor(Color.RED);
+            mTvFriendNotify.setTextColor(Color.WHITE);
+            String ex = ResUtils.getString(getContext(), R.string.tv_friend_notify_unread);
+            String desc = ex.replaceFirst("%%1", String.valueOf(num));
+            mTvFriendNotify.setText(desc);
+        }
+    }
+
+    @Override
     public void onDetach()
     {
         super.onDetach();
@@ -278,6 +311,19 @@ public class ContactFragment extends BaseFragment implements ContactImpl, Common
             case ComNotifyConfig.REFRESH_CONTACT_IN_DB:
                 mPresenter.refreshContactDataInDb(false);
                 break;
+            case ComNotifyConfig.REFRESH_USER_INVITE:
+                mPresenter.refreshFriendNotify();
+                break;
         }
     }
+
+    //新的好友通知点击事件
+    private View.OnClickListener mOnHeaderViewClickListener = new View.OnClickListener()
+    {
+        @Override
+        public void onClick(View v)
+        {
+            //TODO 跳转到通知界面
+        }
+    };
 }

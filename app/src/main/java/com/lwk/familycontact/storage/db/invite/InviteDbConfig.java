@@ -16,4 +16,7 @@ public class InviteDbConfig
 
     //处理状态
     public static final String STATUS = "status";
+
+    //是否已读
+    public static final String READ = "read";
 }

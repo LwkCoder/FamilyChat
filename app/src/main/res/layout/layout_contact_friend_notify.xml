@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/bg_rcv_contact_listitem_selector"
+                android:orientation="vertical"
+                android:padding="@dimen/spacing_small">
+
+    <ImageView
+        android:id="@+id/img_add_friend_notify"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:layout_centerVertical="true"
+        android:layout_marginRight="@dimen/spacing_normal"
+        android:background="@color/orange_ic_notify_bg"
+        android:padding="@dimen/spacing_normal"
+        android:src="@drawable/ic_friend_notify"/>
+
+    <TextView
+        style="@style/FC_NormalTextStyle"
+        android:layout_alignTop="@+id/img_add_friend_notify"
+        android:layout_toRightOf="@+id/img_add_friend_notify"
+        android:text="@string/tv_friend_notify_title"
+        android:textColor="@android:color/black"
+        android:textSize="@dimen/sp_18"/>
+
+    <TextView
+        android:id="@+id/tv_add_friend_notify_desc"
+        style="@style/FC_SmallTextStyle"
+        android:layout_alignBottom="@+id/img_add_friend_notify"
+        android:layout_toRightOf="@+id/img_add_friend_notify"
+        android:textSize="@dimen/sp_15"/>
+
+</RelativeLayout>

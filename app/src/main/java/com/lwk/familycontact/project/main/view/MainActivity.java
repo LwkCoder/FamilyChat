@@ -25,12 +25,20 @@ import com.lwk.familycontact.project.main.presenter.MainPresenter;
 import com.lwk.familycontact.project.main.service.MainService;
 import com.lwk.familycontact.project.profile.UserProfileActivity;
 import com.lwk.familycontact.project.setting.view.SettingActivity;
+import com.lwk.familycontact.utils.event.ComNotifyConfig;
+import com.lwk.familycontact.utils.event.ComNotifyEventBean;
+import com.lwk.familycontact.utils.event.EventBusHelper;
+
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 
 /**
  * MainActivity
  * 管理三个主片段
  */
-public class MainActivity extends FCBaseActivity implements MainImpl, BottomNavigationBar.OnTabSelectedListener, MainMenuPop.onMenuClickListener
+public class MainActivity extends FCBaseActivity implements MainImpl
+        , BottomNavigationBar.OnTabSelectedListener
+        , MainMenuPop.onMenuClickListener
 {
     private MainPresenter mPresenter;
     private CommonActionBar mActionBar;
@@ -48,6 +56,7 @@ public class MainActivity extends FCBaseActivity implements MainImpl, BottomNavi
     protected int setContentViewId()
     {
         mPresenter = new MainPresenter(this);
+        EventBusHelper.getInstance().regist(this);
         return R.layout.activity_main;
     }
 
@@ -96,7 +105,6 @@ public class MainActivity extends FCBaseActivity implements MainImpl, BottomNavi
         badgeItem.setGravity(Gravity.RIGHT | Gravity.TOP);
         badgeItem.setTextColor(Color.WHITE);
         badgeItem.setBackgroundColor(Color.RED);
-        badgeItem.hide();
         return badgeItem;
     }
 
@@ -104,6 +112,9 @@ public class MainActivity extends FCBaseActivity implements MainImpl, BottomNavi
     protected void initData()
     {
         super.initData();
+        //刷新各Tab的角标
+        mPresenter.refreshMiddleTabBadge();
+        //绑定Service实现环信各种监听
         bindService(new Intent(MainActivity.this, MainService.class), mServiceConnection, Context.BIND_AUTO_CREATE);
     }
 
@@ -232,16 +243,58 @@ public class MainActivity extends FCBaseActivity implements MainImpl, BottomNavi
         startActivity(new Intent(MainActivity.this, SettingActivity.class));
     }
 
-    @Override
-    public void refreshUnReadMsgNum()
-    {
-
-    }
 
     @Override
     protected void onDestroy()
     {
         unbindService(mServiceConnection);
+        EventBusHelper.getInstance().unregist(this);
         super.onDestroy();
+    }
+
+    @Override
+    public void onShowFirstBadgeNum(int num)
+    {
+        if (mBadge01 != null)
+        {
+            mBadge01.show();
+            mBadge01.setText(String.valueOf(num));
+        }
+    }
+
+    @Override
+    public void onHideFirstBadgeNum()
+    {
+        if (mBadge01 != null)
+            mBadge01.hide();
+    }
+
+    @Override
+    public void onShowMiddleBadgeNum(int num)
+    {
+        if (mBadge02 != null)
+        {
+            mBadge02.setText(String.valueOf(num));
+            mBadge02.show();
+        }
+    }
+
+    @Override
+    public void onHideMiddleBadgeNum()
+    {
+        if (mBadge02 != null)
+            mBadge02.hide();
+    }
+
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void onNotifyEventReceived(ComNotifyEventBean eventBean)
+    {
+        switch (eventBean.getFlag())
+        {
+            case ComNotifyConfig.REFRESH_USER_INVITE:
+                mPresenter.refreshMiddleTabBadge();
+                break;
+        }
     }
 }

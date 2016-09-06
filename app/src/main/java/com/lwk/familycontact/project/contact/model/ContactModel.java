@@ -6,6 +6,7 @@ import android.database.Cursor;
 import android.provider.ContactsContract;
 
 import com.lib.base.log.KLog;
+import com.lwk.familycontact.storage.db.invite.InviteDao;
 import com.lwk.familycontact.storage.db.user.UserBean;
 
 import java.util.ArrayList;
@@ -68,5 +69,11 @@ public class ContactModel
         Pattern p = Pattern.compile(regEx);
         Matcher m = p.matcher(phone);
         return m.replaceAll("").replaceAll("\\s*", "").trim();
+    }
+
+    //获取未读的好友通知数量
+    public int getUnreadFriendNotifyNum()
+    {
+        return InviteDao.getInstance().getUnreadNotifyNum();
     }
 }

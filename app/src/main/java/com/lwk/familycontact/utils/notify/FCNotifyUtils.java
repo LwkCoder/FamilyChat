@@ -53,7 +53,7 @@ public class FCNotifyUtils
     private boolean canNotify()
     {
         // 判断手机系统是否处于静音模式
-        return mAudioMgr.getRingerMode() == AudioManager.RINGER_MODE_SILENT;
+        return mAudioMgr.getRingerMode() != AudioManager.RINGER_MODE_SILENT;
     }
 
     //判断震动条件

@@ -70,6 +70,9 @@
     <string name="tv_pull_down_fail">同步完成</string>
     <string name="dialog_permission_contact_message">应用程序需要获取手机通讯录联系人的权限，否则无法继续同步本机通讯录</string>
     <string name="tv_foot_contact_num">%%1位联系人</string>
+    <string name="tv_friend_notify_title">新的好友通知</string>
+    <string name="tv_friend_notify_unread">%%1条未处理通知</string>
+    <string name="tv_friend_notify_nope">当前没有新通知</string>
 
     <!--UserDetailFragment-->
     <string name="tv_user_detail_head_hint">点击头像可以设置备注头像</string>

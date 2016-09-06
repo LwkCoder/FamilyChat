@@ -4,6 +4,9 @@ import com.hyphenate.EMContactListener;
 import com.lib.base.log.KLog;
 import com.lwk.familycontact.storage.db.invite.InviteBean;
 import com.lwk.familycontact.storage.db.invite.InviteDao;
+import com.lwk.familycontact.utils.event.ComNotifyConfig;
+import com.lwk.familycontact.utils.event.ComNotifyEventBean;
+import com.lwk.familycontact.utils.event.EventBusHelper;
 import com.lwk.familycontact.utils.notify.FCNotifyUtils;
 
 /**
@@ -36,7 +39,10 @@ public class HxContactListener implements EMContactListener
         InviteBean inviteBean = new InviteBean(phone, System.currentTimeMillis());
         if (InviteDao.getInstance().saveIfNotHandled(inviteBean))
         {
+            //铃声通知
             FCNotifyUtils.getInstance().startNotify();
+            //通知相关界面刷新
+            EventBusHelper.getInstance().post(new ComNotifyEventBean(ComNotifyConfig.REFRESH_USER_INVITE));
         }
     }
 
