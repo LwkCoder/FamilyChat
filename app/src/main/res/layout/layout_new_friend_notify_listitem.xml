@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                android:layout_width="match_parent"
+                android:layout_height="120dp"
+                android:background="@drawable/bg_shadow_rect"
+                android:padding="@dimen/spacing_normal">
+
+    <TextView
+        android:id="@+id/tv_new_friend_notify_listitem_desc"
+        style="@style/FC_NormalTextStyle"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginRight="@dimen/spacing_normal"
+        android:layout_toLeftOf="@+id/tv_new_friend_notify_listitem_time"
+        android:textColor="@android:color/black"/>
+
+    <LinearLayout
+        android:id="@+id/ll_new_friend_notify_listitem"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:orientation="horizontal"
+        android:visibility="gone">
+
+        <Button
+            android:id="@+id/btn_new_friend_notify_listitem_reject"
+            android:layout_width="70dp"
+            android:layout_height="35dp"
+            android:layout_marginRight="@dimen/spacing_small"
+            android:background="@drawable/bg_btn_new_friend_reject_selector"
+            android:text="@string/reject"
+            android:textColor="@android:color/white"
+            android:textSize="@dimen/sp_16"/>
+
+        <Button
+            android:id="@+id/btn_new_friend_notify_listitem_agree"
+            android:layout_width="70dp"
+            android:layout_height="35dp"
+            android:layout_marginLeft="@dimen/spacing_normal"
+            android:background="@drawable/bg_btn_new_friend_agree_selector"
+            android:text="@string/agree"
+            android:textColor="@android:color/white"
+            android:textSize="@dimen/sp_16"/>
+
+    </LinearLayout>
+
+
+    <TextView
+        android:id="@+id/tv_new_friend_notify_listitem_status"
+        style="@style/FC_NormalTextStyle"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:paddingBottom="@dimen/spacing_small"
+        android:paddingLeft="@dimen/spacing_normal"
+        android:paddingRight="@dimen/spacing_normal"
+        android:paddingTop="@dimen/spacing_small"
+        android:textColor="@android:color/white"
+        android:visibility="gone"/>
+
+    <TextView
+        android:id="@+id/tv_new_friend_notify_listitem_time"
+        style="@style/FC_SmallTextStyle"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentTop="true"
+        android:textColor="@android:color/darker_gray"/>
+</RelativeLayout>

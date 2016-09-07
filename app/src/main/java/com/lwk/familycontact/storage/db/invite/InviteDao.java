@@ -11,6 +11,7 @@ import com.lwk.familycontact.storage.db.BaseDao;
 import com.lwk.familycontact.storage.db.DbOpenHelper;
 
 import java.sql.SQLException;
+import java.util.List;
 
 /**
  * 邀请信息表操作类
@@ -91,6 +92,24 @@ public class InviteDao extends BaseDao<InviteBean, Integer>
             KLog.e(TAG + "InviteDao.getUnreadNotifyNum fail:" + e.toString());
         }
         return num;
+    }
+
+    /**
+     * 查询所有通知信息[越新的数据下标越小]
+     */
+    public List<InviteBean> queryAllSortByStamp()
+    {
+        List<InviteBean> list = null;
+        try
+        {
+            QueryBuilder<InviteBean, Integer> queryBuilder = getDao().queryBuilder();
+            queryBuilder.orderBy(InviteDbConfig.STAMP, true);
+            list = getDao().query(queryBuilder.prepare());
+        } catch (SQLException e)
+        {
+            KLog.e(TAG + "InviteDao.queryAllSortByStamp fail:" + e.toString());
+        }
+        return list;
     }
 
     /**

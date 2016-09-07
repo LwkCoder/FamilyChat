@@ -115,12 +115,17 @@
             android:enabled="true"
             android:exported="false">
         </service>
-
         <service
             android:name=".project.main.service.MainService$InnerService"
             android:enabled="true"
             android:exported="false">
         </service>
+
+        <activity android:name=".project.notify.view.NewFriendNotifyActivity"
+                  android:configChanges="orientation|keyboardHidden|screenSize"
+                  android:screenOrientation="portrait"
+                  android:windowSoftInputMode="adjustPan">
+        </activity>
     </application>
 
 </manifest>

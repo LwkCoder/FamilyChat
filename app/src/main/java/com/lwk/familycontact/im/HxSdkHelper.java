@@ -341,7 +341,67 @@ public class HxSdkHelper
         EMClient.getInstance().contactManager().deleteContact(phone);
     }
 
-    public void getUnreadInviteNum(){
-//        EMClient.getInstance().contactManager().
+    /**
+     * 同意好友请求
+     *
+     * @param phone    对方手机号
+     * @param callBack 回调
+     */
+    public void agreeNewFriendInvite(String phone, final FCCallBack callBack)
+    {
+        EMClient.getInstance().contactManager().asyncAcceptInvitation(phone, new EMCallBack()
+        {
+            @Override
+            public void onSuccess()
+            {
+                if (callBack != null)
+                    callBack.onSuccess(null);
+            }
+
+            @Override
+            public void onError(int i, String s)
+            {
+                if (callBack != null)
+                    callBack.onFail(FCError.AGREE_INVITE_FAIL, FCError.getErrorMsgIdFromCode(i));
+            }
+
+            @Override
+            public void onProgress(int i, String s)
+            {
+
+            }
+        });
+    }
+
+    /**
+     * 拒绝好友请求
+     *
+     * @param phone    对方手机号
+     * @param callBack 回调
+     */
+    public void rejectNewFriendInvite(String phone, final FCCallBack callBack)
+    {
+        EMClient.getInstance().contactManager().asyncDeclineInvitation(phone, new EMCallBack()
+        {
+            @Override
+            public void onSuccess()
+            {
+                if (callBack != null)
+                    callBack.onSuccess(null);
+            }
+
+            @Override
+            public void onError(int i, String s)
+            {
+                if (callBack != null)
+                    callBack.onFail(FCError.REJECT_INVITE_FAIL, FCError.getErrorMsgIdFromCode(i));
+            }
+
+            @Override
+            public void onProgress(int i, String s)
+            {
+
+            }
+        });
     }
 }

@@ -9,14 +9,14 @@ public class InviteStatus
     public static final int ORIGIN = 0;
 
     //已同意
-    public static final int ACCEPT = 1;
+    public static final int AGREED = 1;
 
     //已拒绝
     public static final int REJECTED = 2;
 
-    //被同意
-    public static final int BE_ACCEPTED = 3;
+    //对方同意
+    public static final int BE_AGREED = 3;
 
-    //被拒绝
+    //对方拒绝
     public static final int BE_REJECTED = 4;
 }

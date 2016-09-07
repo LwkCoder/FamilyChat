@@ -33,6 +33,12 @@
     <string name="dialog_permission_nerver_ask_confirm">去设置</string>
     <string name="hint_save_success">保存成功</string>
     <string name="send_request_success">发送请求成功</string>
+    <string name="reject">拒绝</string>
+    <string name="agree">同意</string>
+    <string name="hasRejected">已拒绝</string>
+    <string name="hasAgreed">已同意</string>
+    <string name="opHasAgreed">对方已同意</string>
+    <string name="opHasRejected">对方已拒绝</string>
 
     <!--SplashActivity-->
     <string name="dialog_permission_sdcard_message">应用程序需要获取外部存储卡的读写权限，拒绝后将无法使用软件</string>
@@ -134,4 +140,8 @@
     <string name="ed_add_friend_hint">请输入对方手机号</string>
     <string name="btn_add_friend_confirm">发送请求</string>
 
+    <!--NewFriendNotifyActivity-->
+    <string name="tv_new_friend_notify_title">新的好友通知</string>
+    <string name="tv_new_friend_notify_listitem_desc01">%%1&#160;申请添加您为好友</string>
+    <string name="tv_new_friend_notify_listitem_desc02">您申请添加&#160;%%1&#160;为好友</string>
 </resources>

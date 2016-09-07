@@ -3,6 +3,7 @@ package com.lwk.familycontact.project.contact.view;
 import android.Manifest;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -27,6 +28,7 @@ import com.lwk.familycontact.R;
 import com.lwk.familycontact.base.FCApplication;
 import com.lwk.familycontact.project.contact.adapter.ContactAdapter;
 import com.lwk.familycontact.project.contact.presenter.ContactPresenter;
+import com.lwk.familycontact.project.notify.view.NewFriendNotifyActivity;
 import com.lwk.familycontact.storage.db.user.UserBean;
 import com.lwk.familycontact.utils.event.ComNotifyConfig;
 import com.lwk.familycontact.utils.event.ComNotifyEventBean;
@@ -323,7 +325,7 @@ public class ContactFragment extends BaseFragment implements ContactImpl, Common
         @Override
         public void onClick(View v)
         {
-            //TODO 跳转到通知界面
+            startActivity(new Intent(getActivity(), NewFriendNotifyActivity.class));
         }
     };
 }

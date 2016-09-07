@@ -4,6 +4,7 @@ import com.hyphenate.EMContactListener;
 import com.lib.base.log.KLog;
 import com.lwk.familycontact.storage.db.invite.InviteBean;
 import com.lwk.familycontact.storage.db.invite.InviteDao;
+import com.lwk.familycontact.storage.db.invite.InviteStatus;
 import com.lwk.familycontact.utils.event.ComNotifyConfig;
 import com.lwk.familycontact.utils.event.ComNotifyEventBean;
 import com.lwk.familycontact.utils.event.EventBusHelper;
@@ -51,6 +52,14 @@ public class HxContactListener implements EMContactListener
     {
         //好友请求被同意
         KLog.i("HxContactListener onContactAgreed: phone=" + phone);
+        InviteBean inviteBean = new InviteBean(phone, System.currentTimeMillis(), InviteStatus.BE_AGREED);
+        if (InviteDao.getInstance().save(inviteBean) != -1)
+        {
+            //铃声、震动通知
+            FCNotifyUtils.getInstance().startNotify();
+            //通知相关界面刷新
+            EventBusHelper.getInstance().post(new ComNotifyEventBean(ComNotifyConfig.REFRESH_USER_INVITE));
+        }
     }
 
     @Override
@@ -58,5 +67,13 @@ public class HxContactListener implements EMContactListener
     {
         //好友请求被拒绝
         KLog.i("HxContactListener onContactRefused: phone=" + phone);
+        InviteBean inviteBean = new InviteBean(phone, System.currentTimeMillis(), InviteStatus.BE_REJECTED);
+        if (InviteDao.getInstance().save(inviteBean) != -1)
+        {
+            //铃声、震动通知
+            FCNotifyUtils.getInstance().startNotify();
+            //通知相关界面刷新
+            EventBusHelper.getInstance().post(new ComNotifyEventBean(ComNotifyConfig.REFRESH_USER_INVITE));
+        }
     }
 }
