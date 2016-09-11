@@ -12,7 +12,8 @@
         android:layout_alignParentTop="true"
         android:layout_marginRight="@dimen/spacing_normal"
         android:layout_toLeftOf="@+id/tv_new_friend_notify_listitem_time"
-        android:textColor="@android:color/black"/>
+        android:textColor="@color/colorPrimaryDark"
+        android:textSize="@dimen/sp_17"/>
 
     <LinearLayout
         android:id="@+id/ll_new_friend_notify_listitem"
@@ -63,5 +64,6 @@
         style="@style/FC_SmallTextStyle"
         android:layout_alignParentRight="true"
         android:layout_alignParentTop="true"
+        android:layout_marginTop="@dimen/spacing_tiny"
         android:textColor="@android:color/darker_gray"/>
 </RelativeLayout>

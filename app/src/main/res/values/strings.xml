@@ -144,4 +144,5 @@
     <string name="tv_new_friend_notify_title">新的好友通知</string>
     <string name="tv_new_friend_notify_listitem_desc01">%%1&#160;申请添加您为好友</string>
     <string name="tv_new_friend_notify_listitem_desc02">您申请添加&#160;%%1&#160;为好友</string>
+    <string name="tv_warning_friend_notify_empty">当前没有收到新的好友通知</string>
 </resources>

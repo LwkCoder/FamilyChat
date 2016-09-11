@@ -1,8 +1,6 @@
 package com.lwk.familycontact.project.notify.adapter;
 
 import android.content.Context;
-import android.graphics.Color;
-import android.text.SpannableString;
 import android.view.View;
 import android.widget.TextView;
 
@@ -14,7 +12,6 @@ import com.lwk.familycontact.R;
 import com.lwk.familycontact.project.notify.presenter.NewFriendPresenter;
 import com.lwk.familycontact.storage.db.invite.InviteBean;
 import com.lwk.familycontact.storage.db.invite.InviteStatus;
-import com.lwk.familycontact.utils.other.TextLightUtils;
 
 import java.util.Date;
 import java.util.List;
@@ -48,7 +45,7 @@ public class NewFriendNotifyAdapter extends RcvSingleAdapter<InviteBean>
         {
             case InviteStatus.ORIGIN:
                 btnView.setVisibility(View.VISIBLE);
-                tvDesc.setVisibility(View.GONE);
+                tvStatus.setVisibility(View.GONE);
                 //设置描述
                 setDesc1(tvDesc, itemData.getOpPhone());
                 //设置BUTTON
@@ -71,30 +68,34 @@ public class NewFriendNotifyAdapter extends RcvSingleAdapter<InviteBean>
                 break;
             case InviteStatus.AGREED:
                 btnView.setVisibility(View.GONE);
-                tvDesc.setVisibility(View.VISIBLE);
+                tvStatus.setVisibility(View.VISIBLE);
                 //设置描述和状态
                 setDesc1(tvDesc, itemData.getOpPhone());
+                tvStatus.setBackgroundResource(R.drawable.shape_rect_green_dark_4radius);
                 tvStatus.setText(R.string.hasAgreed);
                 break;
             case InviteStatus.REJECTED:
                 btnView.setVisibility(View.GONE);
-                tvDesc.setVisibility(View.VISIBLE);
+                tvStatus.setVisibility(View.VISIBLE);
                 //设置描述和状态
                 setDesc1(tvDesc, itemData.getOpPhone());
+                tvStatus.setBackgroundResource(R.drawable.shape_rect_red_dark_4radius);
                 tvStatus.setText(R.string.hasRejected);
                 break;
             case InviteStatus.BE_AGREED:
                 btnView.setVisibility(View.GONE);
-                tvDesc.setVisibility(View.VISIBLE);
+                tvStatus.setVisibility(View.VISIBLE);
                 //设置描述和状态
                 setDesc2(tvDesc, itemData.getOpPhone());
+                tvStatus.setBackgroundResource(R.drawable.shape_rect_green_dark_4radius);
                 tvStatus.setText(R.string.opHasAgreed);
                 break;
             case InviteStatus.BE_REJECTED:
                 btnView.setVisibility(View.GONE);
-                tvDesc.setVisibility(View.VISIBLE);
+                tvStatus.setVisibility(View.VISIBLE);
                 //设置描述和状态
                 setDesc2(tvDesc, itemData.getOpPhone());
+                tvStatus.setBackgroundResource(R.drawable.shape_rect_red_dark_4radius);
                 tvStatus.setText(R.string.opHasRejected);
                 break;
         }
@@ -103,16 +104,14 @@ public class NewFriendNotifyAdapter extends RcvSingleAdapter<InviteBean>
     //设置描述【当此通知对本方来说是接收方】
     private void setDesc1(TextView tvDesc, String phone)
     {
-        String ex = ResUtils.getString(mContext, R.string.tv_new_friend_notify_listitem_desc01).replaceFirst("%%1", phone);
-        SpannableString desc = TextLightUtils.matcherSearchTitle(Color.BLUE, ex, phone);
+        String desc = ResUtils.getString(mContext, R.string.tv_new_friend_notify_listitem_desc01).replaceFirst("%%1", phone);
         tvDesc.setText(desc);
     }
 
     //设置描述【当此通知对本方来说是发送方】
     private void setDesc2(TextView tvDesc, String phone)
     {
-        String ex = ResUtils.getString(mContext, R.string.tv_new_friend_notify_listitem_desc02).replaceFirst("%%1", phone);
-        SpannableString desc = TextLightUtils.matcherSearchTitle(Color.BLUE, ex, phone);
+        String desc = ResUtils.getString(mContext, R.string.tv_new_friend_notify_listitem_desc02).replaceFirst("%%1", phone);
         tvDesc.setText(desc);
     }
 }

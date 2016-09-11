@@ -263,7 +263,7 @@ public class ContactFragment extends BaseFragment implements ContactImpl, Common
     public void scrollToTop()
     {
         if (mRecyclerView != null)
-            mRecyclerView.smoothScrollToPosition(0);
+            mRecyclerView.scrollToPosition(0);
     }
 
     @Override

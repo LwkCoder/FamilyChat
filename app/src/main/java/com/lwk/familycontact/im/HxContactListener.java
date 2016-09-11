@@ -5,6 +5,7 @@ import com.lib.base.log.KLog;
 import com.lwk.familycontact.storage.db.invite.InviteBean;
 import com.lwk.familycontact.storage.db.invite.InviteDao;
 import com.lwk.familycontact.storage.db.invite.InviteStatus;
+import com.lwk.familycontact.storage.db.user.UserDao;
 import com.lwk.familycontact.utils.event.ComNotifyConfig;
 import com.lwk.familycontact.utils.event.ComNotifyEventBean;
 import com.lwk.familycontact.utils.event.EventBusHelper;
@@ -59,6 +60,8 @@ public class HxContactListener implements EMContactListener
             FCNotifyUtils.getInstance().startNotify();
             //通知相关界面刷新
             EventBusHelper.getInstance().post(new ComNotifyEventBean(ComNotifyConfig.REFRESH_USER_INVITE));
+            //更新数据库并通知通讯录界面刷新
+            addOrUpdateNewUserData(phone);
         }
     }
 
@@ -75,5 +78,14 @@ public class HxContactListener implements EMContactListener
             //通知相关界面刷新
             EventBusHelper.getInstance().post(new ComNotifyEventBean(ComNotifyConfig.REFRESH_USER_INVITE));
         }
+    }
+
+    //更新数据库并通知通讯录界面刷新
+    private void addOrUpdateNewUserData(String phone)
+    {
+        //更新数据库
+        UserDao.getInstance().addOrUpdateUser(phone);
+        //发送Eventbus通知通讯录刷新
+        EventBusHelper.getInstance().post(new ComNotifyEventBean(ComNotifyConfig.REFRESH_CONTACT_IN_DB));
     }
 }

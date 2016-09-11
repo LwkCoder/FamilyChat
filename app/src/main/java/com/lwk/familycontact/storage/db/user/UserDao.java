@@ -238,4 +238,19 @@ public class UserDao extends BaseDao<UserBean, Integer>
     {
         return queryUserByPhone(phone) != null;
     }
+
+    /**
+     * 根据手机号，将数据库已有数据标记为已注册，如果数据库没有则添加新数据
+     *
+     * @param phone 待匹配手机号
+     */
+    public void addOrUpdateUser(String phone)
+    {
+        int lineNum = updateUserAsRegisted(phone);
+        if (lineNum <= 0)
+        {
+            UserBean newUser = new UserBean(phone);
+            save(newUser);
+        }
+    }
 }

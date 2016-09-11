@@ -8,6 +8,9 @@ import com.lwk.familycontact.project.notify.model.NewFriendModel;
 import com.lwk.familycontact.project.notify.view.NewFriendImpl;
 import com.lwk.familycontact.storage.db.invite.InviteBean;
 import com.lwk.familycontact.storage.db.invite.InviteStatus;
+import com.lwk.familycontact.utils.event.ComNotifyConfig;
+import com.lwk.familycontact.utils.event.ComNotifyEventBean;
+import com.lwk.familycontact.utils.event.EventBusHelper;
 
 import java.util.List;
 
@@ -38,24 +41,10 @@ public class NewFriendPresenter
             public void run()
             {
                 List<InviteBean> allNotifyList = mNewFriendModel.getAllInviteNotify();
-                if (allNotifyList == null || allNotifyList.size() == 0)
-                    handlerRefreshEmpty();
-                else
+                if (allNotifyList != null && allNotifyList.size() != 0)
                     handlerRefreshSuccess(allNotifyList);
             }
         }).start();
-    }
-
-    private void handlerRefreshEmpty()
-    {
-        mMainHandler.post(new Runnable()
-        {
-            @Override
-            public void run()
-            {
-                mNewFriendView.onRefreshAllNotifyEmpty();
-            }
-        });
     }
 
     private void handlerRefreshSuccess(final List<InviteBean> list)
@@ -89,8 +78,12 @@ public class NewFriendPresenter
                 //同步数据库
                 inviteBean.setStatus(InviteStatus.AGREED);
                 mNewFriendModel.updateNotify(inviteBean);
-                //刷新界面
+                //刷新通知界面
                 mNewFriendView.onNotifyStatusChanged();
+                //添加/更新新好友数据
+                mNewFriendModel.addOrUpdateNewUserData(inviteBean.getOpPhone());
+                //发送Eventbus通知通讯录刷新
+                EventBusHelper.getInstance().post(new ComNotifyEventBean(ComNotifyConfig.REFRESH_CONTACT_IN_DB));
             }
         });
     }
@@ -114,9 +107,19 @@ public class NewFriendPresenter
                 //同步数据库
                 inviteBean.setStatus(InviteStatus.REJECTED);
                 mNewFriendModel.updateNotify(inviteBean);
-                //刷新界面
+                //刷新通知界面
                 mNewFriendView.onNotifyStatusChanged();
             }
         });
+    }
+
+    /**
+     * 将所有通知标记为已读
+     */
+    public void markAllNotifyAsRead()
+    {
+        mNewFriendModel.martAllInviteAsRead();
+        //通知相关界面刷新
+        EventBusHelper.getInstance().post(new ComNotifyEventBean(ComNotifyConfig.REFRESH_USER_INVITE));
     }
 }

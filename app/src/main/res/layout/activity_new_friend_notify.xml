@@ -5,6 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
+    android:orientation="vertical"
     tools:context=".project.notify.view.NewFriendNotifyActivity">
 
     <com.lib.base.widget.CommonActionBar
@@ -16,7 +17,6 @@
     <android.support.v7.widget.RecyclerView
         android:id="@+id/rcv_new_friend_notify"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="@android:color/darker_gray"/>
+        android:layout_height="match_parent"/>
 
 </LinearLayout>

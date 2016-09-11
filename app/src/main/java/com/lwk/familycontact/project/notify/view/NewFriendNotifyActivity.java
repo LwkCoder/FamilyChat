@@ -4,6 +4,8 @@ import android.app.ProgressDialog;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
+import android.view.ViewGroup;
+import android.widget.TextView;
 
 import com.lib.base.widget.CommonActionBar;
 import com.lwk.familycontact.R;
@@ -48,6 +50,12 @@ public class NewFriendNotifyActivity extends FCBaseActivity implements NewFriend
         mRecyclerView = findView(R.id.rcv_new_friend_notify);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
         mAdapter = new NewFriendNotifyAdapter(this, null, mPresenter);
+        View emptyView = getLayoutInflater().inflate(R.layout.layout_empty_view
+                , (ViewGroup) findViewById(android.R.id.content)
+                , false);
+        TextView tvEmpty = (TextView) emptyView.findViewById(R.id.tv_empty_view);
+        tvEmpty.setText(R.string.tv_warning_friend_notify_empty);
+        mAdapter.setEmptyView(emptyView);
         mRecyclerView.setAdapter(mAdapter);
     }
 
@@ -65,12 +73,6 @@ public class NewFriendNotifyActivity extends FCBaseActivity implements NewFriend
     }
 
     @Override
-    public void onRefreshAllNotifyEmpty()
-    {
-
-    }
-
-    @Override
     public void onRefreshAllNotifySuccess(List<InviteBean> list)
     {
         mAdapter.refreshDatas(list);
@@ -79,13 +81,19 @@ public class NewFriendNotifyActivity extends FCBaseActivity implements NewFriend
     @Override
     public void showHandlingDialog()
     {
-
+        mDialog = new ProgressDialog(this);
+        mDialog.setCancelable(false);
+        mDialog.show();
     }
 
     @Override
     public void closeHandingDialog()
     {
-
+        if (mDialog != null)
+        {
+            mDialog.dismiss();
+            mDialog = null;
+        }
     }
 
     @Override
@@ -97,8 +105,15 @@ public class NewFriendNotifyActivity extends FCBaseActivity implements NewFriend
     @Override
     public void onNotifyStatusChanged()
     {
-        if (mAdapter != null)
-            mAdapter.notifyDataSetChanged();
+        mMainHandler.post(new Runnable()
+        {
+            @Override
+            public void run()
+            {
+                if (mAdapter != null)
+                    mAdapter.notifyDataSetChanged();
+            }
+        });
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)
@@ -115,7 +130,8 @@ public class NewFriendNotifyActivity extends FCBaseActivity implements NewFriend
     @Override
     protected void onDestroy()
     {
-        EventBusHelper.getInstance().unregist(this);
         super.onDestroy();
+        EventBusHelper.getInstance().unregist(this);
+        mPresenter.markAllNotifyAsRead();
     }
 }

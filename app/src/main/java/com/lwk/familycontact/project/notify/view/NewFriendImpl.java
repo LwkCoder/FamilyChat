@@ -11,8 +11,6 @@ import java.util.List;
  */
 public interface NewFriendImpl
 {
-    void onRefreshAllNotifyEmpty();
-
     void onRefreshAllNotifySuccess(List<InviteBean> list);
 
     void showHandlingDialog();

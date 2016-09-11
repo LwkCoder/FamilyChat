@@ -103,7 +103,7 @@ public class InviteDao extends BaseDao<InviteBean, Integer>
         try
         {
             QueryBuilder<InviteBean, Integer> queryBuilder = getDao().queryBuilder();
-            queryBuilder.orderBy(InviteDbConfig.STAMP, true);
+            queryBuilder.orderBy(InviteDbConfig.STAMP, false);
             list = getDao().query(queryBuilder.prepare());
         } catch (SQLException e)
         {
