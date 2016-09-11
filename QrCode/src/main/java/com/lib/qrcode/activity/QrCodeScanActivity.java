@@ -229,8 +229,6 @@ public class QrCodeScanActivity extends Activity implements SurfaceHolder.Callba
 
     private void initCamera(SurfaceHolder surfaceHolder)
     {
-        Log.e("ll", "检查二维码权限");
-
         //sdk23以上需要检查权限
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M && !mHasCheckPermission)
         {
