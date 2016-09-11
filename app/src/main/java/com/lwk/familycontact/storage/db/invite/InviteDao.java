@@ -5,6 +5,7 @@ import android.content.Context;
 import com.j256.ormlite.dao.Dao;
 import com.j256.ormlite.stmt.QueryBuilder;
 import com.j256.ormlite.stmt.UpdateBuilder;
+import com.j256.ormlite.table.TableUtils;
 import com.lib.base.log.KLog;
 import com.lwk.familycontact.base.FCApplication;
 import com.lwk.familycontact.storage.db.BaseDao;
@@ -126,6 +127,20 @@ public class InviteDao extends BaseDao<InviteBean, Integer>
         } catch (SQLException e)
         {
             KLog.e(TAG + "InviteDao.setAllNotifyRead fail:" + e.toString());
+        }
+    }
+
+    /**
+     * 清楚表中所有数据
+     */
+    public void clear()
+    {
+        try
+        {
+            TableUtils.clearTable(getDao().getConnectionSource(), InviteBean.class);
+        } catch (SQLException e)
+        {
+            KLog.e(TAG + "InviteDao.clear fail:" + e.toString());
         }
     }
 }

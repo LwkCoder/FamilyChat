@@ -40,9 +40,7 @@ public class NewFriendPresenter
             @Override
             public void run()
             {
-                List<InviteBean> allNotifyList = mNewFriendModel.getAllInviteNotify();
-                if (allNotifyList != null && allNotifyList.size() != 0)
-                    handlerRefreshSuccess(allNotifyList);
+                handlerRefreshSuccess(mNewFriendModel.getAllInviteNotify());
             }
         }).start();
     }
@@ -121,5 +119,21 @@ public class NewFriendPresenter
         mNewFriendModel.martAllInviteAsRead();
         //通知相关界面刷新
         EventBusHelper.getInstance().post(new ComNotifyEventBean(ComNotifyConfig.REFRESH_USER_INVITE));
+    }
+
+    //清空所有通知
+    public void clearAllNotify()
+    {
+        mNewFriendView.showHandlingDialog();
+        new Thread(new Runnable()
+        {
+            @Override
+            public void run()
+            {
+                mNewFriendModel.clearAllInvite();
+                mNewFriendView.closeHandingDialog();
+                refreshAllNotify();
+            }
+        }).start();
     }
 }

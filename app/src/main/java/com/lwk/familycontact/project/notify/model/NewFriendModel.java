@@ -36,4 +36,10 @@ public class NewFriendModel
     {
         UserDao.getInstance().addOrUpdateUser(phone);
     }
+
+    //清楚所有新好友通知
+    public void clearAllInvite()
+    {
+        InviteDao.getInstance().clear();
+    }
 }

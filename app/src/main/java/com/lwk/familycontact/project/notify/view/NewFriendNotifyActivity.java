@@ -1,6 +1,8 @@
 package com.lwk.familycontact.project.notify.view;
 
 import android.app.ProgressDialog;
+import android.content.DialogInterface;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
@@ -46,6 +48,8 @@ public class NewFriendNotifyActivity extends FCBaseActivity implements NewFriend
         CommonActionBar actionBar = findView(R.id.cab_new_friend_notify);
         actionBar.setTitleText(R.string.tv_new_friend_notify_title);
         actionBar.setLeftLayoutAsBack(this);
+        actionBar.setRightTvText(R.string.tv_new_friend_notify_clear);
+        actionBar.setRightLayoutClickListener(this);
 
         mRecyclerView = findView(R.id.rcv_new_friend_notify);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
@@ -69,7 +73,12 @@ public class NewFriendNotifyActivity extends FCBaseActivity implements NewFriend
     @Override
     protected void onClick(int id, View v)
     {
-
+        switch (id)
+        {
+            case R.id.fl_common_actionbar_right:
+                clearAllNotify();
+                break;
+        }
     }
 
     @Override
@@ -81,9 +90,16 @@ public class NewFriendNotifyActivity extends FCBaseActivity implements NewFriend
     @Override
     public void showHandlingDialog()
     {
-        mDialog = new ProgressDialog(this);
-        mDialog.setCancelable(false);
-        mDialog.show();
+        mMainHandler.post(new Runnable()
+        {
+            @Override
+            public void run()
+            {
+                mDialog = new ProgressDialog(NewFriendNotifyActivity.this);
+                mDialog.setCancelable(false);
+                mDialog.show();
+            }
+        });
     }
 
     @Override
@@ -91,8 +107,15 @@ public class NewFriendNotifyActivity extends FCBaseActivity implements NewFriend
     {
         if (mDialog != null)
         {
-            mDialog.dismiss();
-            mDialog = null;
+            mMainHandler.post(new Runnable()
+            {
+                @Override
+                public void run()
+                {
+                    mDialog.dismiss();
+                    mDialog = null;
+                }
+            });
         }
     }
 
@@ -125,6 +148,32 @@ public class NewFriendNotifyActivity extends FCBaseActivity implements NewFriend
                 mPresenter.refreshAllNotify();
                 break;
         }
+    }
+
+    //清空通知，二次确认
+    private void clearAllNotify()
+    {
+        new AlertDialog.Builder(this)
+                .setCancelable(true)
+                .setTitle(R.string.dialog_new_friend_notify_clear_title)
+                .setMessage(R.string.dialog_new_friend_notify_clear_message)
+                .setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener()
+                {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which)
+                    {
+                        dialog.dismiss();
+                    }
+                })
+                .setPositiveButton(R.string.confrim, new DialogInterface.OnClickListener()
+                {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which)
+                    {
+                        dialog.dismiss();
+                        mPresenter.clearAllNotify();
+                    }
+                }).create().show();
     }
 
     @Override
