@@ -7,6 +7,7 @@ import com.lwk.familycontact.storage.db.user.UserBean;
 import com.lwk.familycontact.storage.db.user.UserDao;
 import com.lwk.familycontact.utils.event.EventBusHelper;
 import com.lwk.familycontact.utils.event.ProfileUpdateEventBean;
+import com.lwk.familycontact.utils.other.ThreadManager;
 
 /**
  * Created by LWK
@@ -36,7 +37,7 @@ public class UserDetailPresenter
             return;
         }
 
-        new Thread(new Runnable()
+        ThreadManager.getInstance().addNewRunnable(new Runnable()
         {
             @Override
             public void run()
@@ -53,6 +54,6 @@ public class UserDetailPresenter
                     EventBusHelper.getInstance().post(eventBean);
                 }
             }
-        }).start();
+        });
     }
 }

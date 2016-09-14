@@ -15,6 +15,7 @@ import com.lwk.familycontact.base.FCApplication;
 import com.lwk.familycontact.project.common.FCCallBack;
 import com.lwk.familycontact.project.common.FCError;
 import com.lwk.familycontact.storage.db.DbOpenHelper;
+import com.lwk.familycontact.utils.other.ThreadManager;
 
 import java.util.Iterator;
 import java.util.List;
@@ -110,7 +111,7 @@ public class HxSdkHelper
      */
     public void regist(final String phone, final String pwd, final FCCallBack callBack)
     {
-        new Thread(new Runnable()
+        ThreadManager.getInstance().addNewRunnable(new Runnable()
         {
             @Override
             public void run()
@@ -127,7 +128,7 @@ public class HxSdkHelper
                         callBack.onFail(FCError.REGIST_FAIL, FCError.getErrorMsgIdFromCode(e.getErrorCode()));
                 }
             }
-        }).start();
+        });
     }
 
     /**
@@ -279,7 +280,7 @@ public class HxSdkHelper
             return;
         }
 
-        new Thread(new Runnable()
+        ThreadManager.getInstance().addNewRunnable(new Runnable()
         {
             @Override
             public void run()
@@ -298,7 +299,7 @@ public class HxSdkHelper
                         callBack.onFail(FCError.ASYNC_HXUSER_FAIL, FCError.getErrorMsgIdFromCode(e.getErrorCode()));
                 }
             }
-        }).start();
+        });
     }
 
     /**

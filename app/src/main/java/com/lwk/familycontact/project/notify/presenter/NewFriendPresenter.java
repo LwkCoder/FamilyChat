@@ -11,6 +11,7 @@ import com.lwk.familycontact.storage.db.invite.InviteStatus;
 import com.lwk.familycontact.utils.event.ComNotifyConfig;
 import com.lwk.familycontact.utils.event.ComNotifyEventBean;
 import com.lwk.familycontact.utils.event.EventBusHelper;
+import com.lwk.familycontact.utils.other.ThreadManager;
 
 import java.util.List;
 
@@ -35,14 +36,14 @@ public class NewFriendPresenter
     //从本地获取所有通知
     public void refreshAllNotify()
     {
-        new Thread(new Runnable()
+        ThreadManager.getInstance().addNewRunnable(new Runnable()
         {
             @Override
             public void run()
             {
                 handlerRefreshSuccess(mNewFriendModel.getAllInviteNotify());
             }
-        }).start();
+        });
     }
 
     private void handlerRefreshSuccess(final List<InviteBean> list)
@@ -125,7 +126,7 @@ public class NewFriendPresenter
     public void clearAllNotify()
     {
         mNewFriendView.showHandlingDialog();
-        new Thread(new Runnable()
+        ThreadManager.getInstance().addNewRunnable(new Runnable()
         {
             @Override
             public void run()
@@ -134,6 +135,6 @@ public class NewFriendPresenter
                 mNewFriendView.closeHandingDialog();
                 refreshAllNotify();
             }
-        }).start();
+        });
     }
 }

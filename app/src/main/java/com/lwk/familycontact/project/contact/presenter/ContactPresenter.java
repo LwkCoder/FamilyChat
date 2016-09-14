@@ -11,6 +11,7 @@ import com.lwk.familycontact.project.contact.task.RefreshContactDataTask;
 import com.lwk.familycontact.project.contact.view.ContactImpl;
 import com.lwk.familycontact.storage.db.user.UserBean;
 import com.lwk.familycontact.storage.db.user.UserDao;
+import com.lwk.familycontact.utils.other.ThreadManager;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -71,7 +72,7 @@ public class ContactPresenter
      */
     public void refreshContactDataInDb(final boolean isPtrRefresh)
     {
-        new Thread(new Runnable()
+        ThreadManager.getInstance().addNewRunnable(new Runnable()
         {
             @Override
             public void run()
@@ -94,7 +95,7 @@ public class ContactPresenter
                 mContactView.refreshAllUsersSuccess(isPtrRefresh, resultList);
                 mContactView.refreshContactNum();
             }
-        }).start();
+        });
     }
 
     /**
