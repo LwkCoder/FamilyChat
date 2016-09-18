@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:layout_width="wrap_content"
+              android:layout_height="wrap_content"
+              android:background="@drawable/bg_layout_im_record_dialog"
+              android:gravity="center"
+              android:orientation="vertical"
+              android:padding="10dp">
+
+    <FrameLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+
+        <LinearLayout
+            android:id="@+id/ll_im_record_dialog_voice"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:layout_width="@dimen/img_im_record_dialog_width"
+                android:layout_height="@dimen/img_im_record_dialog_warning_height"
+                android:src="@drawable/img_im_record_dialog_mic"/>
+
+            <ImageView
+                android:id="@+id/img_im_record_dialog_voice_level"
+                android:layout_width="@dimen/img_im_record_dialog_width"
+                android:layout_height="@dimen/img_im_record_dialog_warning_height"
+                android:src="@drawable/v1"/>
+        </LinearLayout>
+
+        <ImageView
+            android:id="@+id/img_im_record_dialog_voice_warning"
+            android:layout_width="@dimen/img_im_record_dialog_warning_width"
+            android:layout_height="@dimen/img_im_record_dialog_warning_height"/>
+
+    </FrameLayout>
+
+    <TextView
+        android:id="@+id/tv_im_record_dialog_status"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="5dp"
+        android:textColor="@android:color/white"
+        android:textSize="@dimen/tv_im_record_dialog_textsize"/>
+
+</LinearLayout>

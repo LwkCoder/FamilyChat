@@ -1,0 +1,10 @@
+<resources>
+    <string name="im_record_button_status_normal">按住&#160;&#160;&#160;&#160;说话</string>
+    <string name="im_record_button_status_recording">松开&#160;&#160;&#160;&#160;结束</string>
+    <string name="im_record_button_status_want_cancel">松开手指，取消录音</string>
+
+    <string name="im_record_dialog_status_recording">手指上滑，取消发送</string>
+    <string name="im_record_dialog_status_too_short">录音时间太短</string>
+
+    <string name="warning_im_record_no_sdcard">Sd卡不存在，无法录音</string>
+</resources>

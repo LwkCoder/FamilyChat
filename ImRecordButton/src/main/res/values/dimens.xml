@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="img_im_record_dialog_width">90dp</dimen>
+    <dimen name="img_im_record_dialog_height">135dp</dimen>
+    <dimen name="img_im_record_dialog_warning_width">180dp</dimen>
+    <dimen name="img_im_record_dialog_warning_height">135dp</dimen>
+    <dimen name="tv_im_record_dialog_textsize">16sp</dimen>
+</resources>
