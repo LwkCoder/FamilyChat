@@ -39,10 +39,10 @@ dependencies {
     apt 'com.github.hotchemi:permissionsdispatcher-processor:2.1.3'
     compile project(':BaseLibs')
     compile project(':FlatUI')
-    compile project(':RecordButton')
     compile project(':ComRcvAdapter')
     compile project(':PtrView')
     compile project(':ImagePicker')
     compile project(':QuickSideBar')
     compile project(':QrCode')
+    compile project(':ImRecordButton')
 }

@@ -6,7 +6,6 @@ import android.text.TextUtils;
 import android.util.Log;
 
 import java.io.File;
-import java.io.IOException;
 
 /**
  * Created by LWK
@@ -102,7 +101,7 @@ public class IMRecordAudioManager
             if (mListener != null)
                 mListener.onPreparedSuccess();
 
-        } catch (IOException e)
+        } catch (Exception e)
         {
             Log.e("IMRecordAudioManager", "prepareAudio fail : " + e.toString());
             if (mListener != null)
@@ -144,8 +143,8 @@ public class IMRecordAudioManager
     {
         if (mRecorder != null)
         {
-            mRecorder.start();
             mIsRecording = true;
+            mRecorder.start();
         }
     }
 
@@ -186,5 +185,18 @@ public class IMRecordAudioManager
     public String getCurrentPath()
     {
         return mFilePath;
+    }
+
+    /**
+     * 是否正在录音
+     */
+    public boolean isRecording()
+    {
+        return mIsRecording;
+    }
+
+    public void reset()
+    {
+        mFilePath = null;
     }
 }

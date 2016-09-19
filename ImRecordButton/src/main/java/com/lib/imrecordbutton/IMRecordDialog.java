@@ -40,7 +40,8 @@ public class IMRecordDialog implements IMRecordViewImpl
             mImgWarning = (ImageView) layout.findViewById(R.id.img_im_record_dialog_voice_warning);
             mTvStatus = (TextView) layout.findViewById(R.id.tv_im_record_dialog_status);
         }
-        mDialog.show();
+        if (!mDialog.isShowing())
+            mDialog.show();
     }
 
     @Override
@@ -50,7 +51,7 @@ public class IMRecordDialog implements IMRecordViewImpl
         {
             mLlVoice.setVisibility(View.VISIBLE);
             mImgWarning.setVisibility(View.INVISIBLE);
-            mTvStatus.setText(R.string.im_record_button_status_recording);
+            mTvStatus.setText(R.string.im_record_dialog_status_recording);
             mTvStatus.setBackgroundResource(R.drawable.bg_tv_im_record_dialog_recording);
         }
     }
@@ -100,6 +101,9 @@ public class IMRecordDialog implements IMRecordViewImpl
             case IMRecordError.NO_SDCARD:
                 noSdCardWarning();
                 break;
+            default:
+                unknowError();
+                break;
         }
     }
 
@@ -122,6 +126,18 @@ public class IMRecordDialog implements IMRecordViewImpl
             mImgWarning.setVisibility(View.VISIBLE);
             mImgWarning.setImageResource(R.drawable.img_im_record_dialog_warning);
             mTvStatus.setText(R.string.warning_im_record_no_sdcard);
+            mTvStatus.setBackgroundResource(R.drawable.bg_tv_im_recrod_dialog_warning);
+        }
+    }
+
+    private void unknowError()
+    {
+        if (isDialogShowing())
+        {
+            mLlVoice.setVisibility(View.INVISIBLE);
+            mImgWarning.setVisibility(View.VISIBLE);
+            mImgWarning.setImageResource(R.drawable.img_im_record_dialog_warning);
+            mTvStatus.setText(R.string.warning_im_record_unknow_error);
             mTvStatus.setBackgroundResource(R.drawable.bg_tv_im_recrod_dialog_warning);
         }
     }

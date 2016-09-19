@@ -7,4 +7,5 @@
     <string name="im_record_dialog_status_too_short">录音时间太短</string>
 
     <string name="warning_im_record_no_sdcard">Sd卡不存在，无法录音</string>
+    <string name="warning_im_record_unknow_error">发生未知错误，无法录音</string>
 </resources>
