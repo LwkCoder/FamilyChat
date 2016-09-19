@@ -99,7 +99,6 @@ public class IMRecordButton extends Button implements IMRecordAudioManager.onRec
         if (ty != null)
         {
             final int N = ty.getIndexCount();
-            Log.e("IMRecordButton","属性数量："+N);
             for (int i = 0; i < N; i++)
             {
                 int attr = ty.getIndex(i);
