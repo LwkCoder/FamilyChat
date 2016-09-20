@@ -36,6 +36,7 @@ dependencies {
     compile 'com.j256.ormlite:ormlite-core:5.0'
     compile 'com.belerweb:pinyin4j:2.5.1'
     compile 'com.github.hotchemi:permissionsdispatcher:2.1.3'
+    compile 'com.joooonho:selectableroundedimageview:1.0.1'
     apt 'com.github.hotchemi:permissionsdispatcher-processor:2.1.3'
     compile project(':BaseLibs')
     compile project(':FlatUI')

@@ -1,6 +1,6 @@
 package com.lwk.familycontact.storage.db;
 
-import com.lwk.familycontact.im.HxSdkHelper;
+import com.lwk.familycontact.im.helper.HxSdkHelper;
 
 /**
  * Created by LWK

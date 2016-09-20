@@ -3,7 +3,7 @@ package com.lwk.familycontact.project.setting.presenter;
 import android.content.Context;
 
 import com.lib.base.app.AppManager;
-import com.lwk.familycontact.im.HxSdkHelper;
+import com.lwk.familycontact.im.helper.HxSdkHelper;
 import com.lwk.familycontact.project.common.FCCallBack;
 import com.lwk.familycontact.project.login.view.LoginActivity;
 import com.lwk.familycontact.project.setting.view.SettingImpl;

@@ -1,0 +1,15 @@
+package com.lwk.familycontact.project.conversation.view;
+
+import com.lwk.familycontact.im.bean.HxConversation;
+
+import java.util.List;
+
+/**
+ * Created by LWK
+ * TODO 会话片段View实现的接口
+ * 2016/9/20
+ */
+public interface ConversationImpl
+{
+    void onLoadAllConversationSuccess(List<HxConversation> list);
+}

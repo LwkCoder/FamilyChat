@@ -20,4 +20,6 @@
     <dimen name="space_setting_toggle">14dp</dimen>
 
     <dimen name="radius_shadow_rect">4dp</dimen>
+
+    <dimen name="height_conversation_listitem">85dp</dimen>
 </resources>

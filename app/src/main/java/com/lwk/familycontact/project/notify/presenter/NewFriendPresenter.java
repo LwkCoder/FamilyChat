@@ -2,7 +2,7 @@ package com.lwk.familycontact.project.notify.presenter;
 
 import android.os.Handler;
 
-import com.lwk.familycontact.im.HxSdkHelper;
+import com.lwk.familycontact.im.helper.HxSdkHelper;
 import com.lwk.familycontact.project.common.FCCallBack;
 import com.lwk.familycontact.project.notify.model.NewFriendModel;
 import com.lwk.familycontact.project.notify.view.NewFriendImpl;

@@ -13,7 +13,7 @@ import android.widget.TextView;
 import com.lib.base.log.KLog;
 import com.lwk.familycontact.R;
 import com.lwk.familycontact.base.FCBaseActivity;
-import com.lwk.familycontact.im.HxSdkHelper;
+import com.lwk.familycontact.im.helper.HxSdkHelper;
 import com.lwk.familycontact.project.main.view.MainActivity;
 import com.lwk.familycontact.project.login.view.LoginActivity;
 

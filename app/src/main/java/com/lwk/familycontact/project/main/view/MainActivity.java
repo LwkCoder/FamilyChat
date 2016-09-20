@@ -55,7 +55,7 @@ public class MainActivity extends FCBaseActivity implements MainImpl
     @Override
     protected int setContentViewId()
     {
-        mPresenter = new MainPresenter(this);
+        mPresenter = new MainPresenter(this, mMainHandler);
         EventBusHelper.getInstance().regist(this);
         return R.layout.activity_main;
     }
@@ -113,6 +113,7 @@ public class MainActivity extends FCBaseActivity implements MainImpl
     {
         super.initData();
         //刷新各Tab的角标
+        mPresenter.refreshLeftTabBadge();
         mPresenter.refreshMiddleTabBadge();
         //绑定Service实现环信各种监听
         bindService(new Intent(MainActivity.this, MainService.class), mServiceConnection, Context.BIND_AUTO_CREATE);
@@ -294,6 +295,9 @@ public class MainActivity extends FCBaseActivity implements MainImpl
         {
             case ComNotifyConfig.REFRESH_USER_INVITE:
                 mPresenter.refreshMiddleTabBadge();
+                break;
+            case ComNotifyConfig.REFRESH_UNREAD_MSG:
+                mPresenter.refreshLeftTabBadge();
                 break;
         }
     }

@@ -9,9 +9,11 @@ import android.os.IBinder;
 import android.support.annotation.Nullable;
 
 import com.lib.base.log.KLog;
-import com.lwk.familycontact.im.HxConnectListener;
-import com.lwk.familycontact.im.HxContactListener;
-import com.lwk.familycontact.im.HxSdkHelper;
+import com.lwk.familycontact.im.helper.HxChatHelper;
+import com.lwk.familycontact.im.listener.HxConnectListener;
+import com.lwk.familycontact.im.listener.HxContactListener;
+import com.lwk.familycontact.im.listener.HxMessageListener;
+import com.lwk.familycontact.im.helper.HxSdkHelper;
 
 /**
  * 绑定各种环信监听的Service
@@ -23,6 +25,7 @@ public class MainService extends Service
     private MainServiceBinder mBinder = new MainServiceBinder();
     private HxConnectListener mHxConnectListener;
     private HxContactListener mHxContactListener;
+    private HxMessageListener mHxMessageListener;
 
     public MainService()
     {
@@ -84,6 +87,8 @@ public class MainService extends Service
         HxSdkHelper.getInstance().addConnectListener(mHxConnectListener);
         mHxContactListener = new HxContactListener();
         HxSdkHelper.getInstance().addContactListener(mHxContactListener);
+        mHxMessageListener = new HxMessageListener();
+        HxChatHelper.getInstance().addMessageListener(mHxMessageListener);
     }
 
     /**
@@ -94,6 +99,7 @@ public class MainService extends Service
         KLog.i("MainService--->unRegistHxListener()");
         HxSdkHelper.getInstance().removeConnectListener(mHxConnectListener);
         HxSdkHelper.getInstance().removeContactListener(mHxContactListener);
+        HxChatHelper.getInstance().removeMessageListener(mHxMessageListener);
     }
 
     public class MainServiceBinder extends Binder

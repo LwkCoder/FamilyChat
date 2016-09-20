@@ -8,7 +8,7 @@ import com.lib.base.widget.CommonActionBar;
 import com.lib.qrcode.QrCodeHelper;
 import com.lwk.familycontact.R;
 import com.lwk.familycontact.base.FCBaseActivity;
-import com.lwk.familycontact.im.HxSdkHelper;
+import com.lwk.familycontact.im.helper.HxSdkHelper;
 
 /**
  * 我的资料界面

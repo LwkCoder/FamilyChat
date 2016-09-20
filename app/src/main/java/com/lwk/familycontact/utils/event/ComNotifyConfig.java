@@ -11,4 +11,6 @@ public class ComNotifyConfig
     public static final int REFRESH_CONTACT_IN_DB = 1;
     //刷新未读好友申请
     public static final int REFRESH_USER_INVITE = 2;
+    //刷新未读消息
+    public static final int REFRESH_UNREAD_MSG = 3;
 }

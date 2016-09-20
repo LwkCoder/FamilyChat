@@ -4,7 +4,7 @@ import com.hyphenate.exceptions.HyphenateException;
 import com.lib.base.log.KLog;
 import com.lib.base.utils.PhoneUtils;
 import com.lib.base.utils.StringUtil;
-import com.lwk.familycontact.im.HxSdkHelper;
+import com.lwk.familycontact.im.helper.HxSdkHelper;
 import com.lwk.familycontact.project.common.FCError;
 import com.lwk.familycontact.project.contact.view.AddFriendImpl;
 

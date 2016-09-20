@@ -4,7 +4,7 @@ import android.app.Application;
 
 import com.cengalabs.flatui.FlatUI;
 import com.lib.base.log.KLog;
-import com.lwk.familycontact.im.HxSdkHelper;
+import com.lwk.familycontact.im.helper.HxSdkHelper;
 
 /**
  * Created by LWK

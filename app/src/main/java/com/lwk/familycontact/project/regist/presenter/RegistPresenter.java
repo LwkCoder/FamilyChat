@@ -2,7 +2,7 @@ package com.lwk.familycontact.project.regist.presenter;
 
 import com.lib.base.utils.PhoneUtils;
 import com.lib.base.utils.StringUtil;
-import com.lwk.familycontact.im.HxSdkHelper;
+import com.lwk.familycontact.im.helper.HxSdkHelper;
 import com.lwk.familycontact.project.common.FCCallBack;
 import com.lwk.familycontact.project.regist.view.RegistImpl;
 

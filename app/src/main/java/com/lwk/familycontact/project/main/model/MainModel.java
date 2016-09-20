@@ -1,5 +1,6 @@
 package com.lwk.familycontact.project.main.model;
 
+import com.lwk.familycontact.im.helper.HxChatHelper;
 import com.lwk.familycontact.storage.db.invite.InviteDao;
 
 /**
@@ -18,5 +19,11 @@ public class MainModel
     public int getUnreadFriendNotifyNum()
     {
         return InviteDao.getInstance().getUnreadNotifyNum();
+    }
+
+    //获取所有未读消息总数
+    public int getAllUnreadMsgCount()
+    {
+        return HxChatHelper.getInstance().getAllUnreadMsgCount();
     }
 }

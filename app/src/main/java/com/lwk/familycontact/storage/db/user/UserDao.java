@@ -7,7 +7,7 @@ import com.j256.ormlite.stmt.QueryBuilder;
 import com.j256.ormlite.stmt.UpdateBuilder;
 import com.lib.base.log.KLog;
 import com.lwk.familycontact.base.FCApplication;
-import com.lwk.familycontact.im.HxSdkHelper;
+import com.lwk.familycontact.im.helper.HxSdkHelper;
 import com.lwk.familycontact.project.common.FCCallBack;
 import com.lwk.familycontact.storage.db.BaseDao;
 import com.lwk.familycontact.storage.db.DbOpenHelper;

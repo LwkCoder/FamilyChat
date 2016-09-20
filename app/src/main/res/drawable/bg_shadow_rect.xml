@@ -36,8 +36,7 @@
                                 android:bottom="2px"
                                 android:left="2px"
                                 android:right="2px"
-                                android:top="2px"
-                                />
+                                android:top="2px"/>
                         </shape>
                     </item>
                     <item>
@@ -108,11 +107,10 @@
                     </item>
                 </layer-list>
             </item>
-
             <!--button pressed -->
             <item>
                 <shape android:shape="rectangle">
-                    <solid android:color="@android:color/white"/>
+                    <solid android:color="@color/gray_FCFCFC"/>
                     <corners android:radius="@dimen/radius_shadow_rect"/>
                 </shape>
             </item>
@@ -225,7 +223,7 @@
                     </item>
                 </layer-list>
             </item>
-            <!-- utton -->
+            <!-- button -->
             <item>
                 <shape android:shape="rectangle">
                     <solid android:color="@android:color/white"/>

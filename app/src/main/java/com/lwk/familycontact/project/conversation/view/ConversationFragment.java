@@ -4,26 +4,41 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import com.cengalabs.flatui.views.FlatTextView;
 import com.lib.base.app.BaseFragment;
+import com.lib.rcvadapter.RcvMutilAdapter;
+import com.lib.rcvadapter.holder.RcvHolder;
 import com.lwk.familycontact.R;
+import com.lwk.familycontact.im.bean.HxConversation;
+import com.lwk.familycontact.project.chat.view.HxChatActivity;
 import com.lwk.familycontact.project.conversation.adapter.ConversationAdapter;
+import com.lwk.familycontact.project.conversation.presenter.ConverstionPresenter;
+import com.lwk.familycontact.utils.event.ComNotifyConfig;
+import com.lwk.familycontact.utils.event.ComNotifyEventBean;
 import com.lwk.familycontact.utils.event.ConnectEventBean;
 import com.lwk.familycontact.utils.event.EventBusHelper;
+import com.lwk.familycontact.utils.event.ProfileUpdateEventBean;
 
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
+
+import java.util.List;
 
 /**
  * Created by LWK
  * TODO 会话片段
  * 2016/8/2
  */
-public class ConversationFragment extends BaseFragment
+public class ConversationFragment extends BaseFragment implements ConversationImpl
+        , RcvMutilAdapter.onItemClickListener<HxConversation>
+        , RcvMutilAdapter.onItemLongClickListener<HxConversation>
 {
+    private ConverstionPresenter mPresenter;
     private boolean mIsConnected = true;
     private RecyclerView mRecyclerView;
     private ConversationAdapter mAdapter;
@@ -49,6 +64,7 @@ public class ConversationFragment extends BaseFragment
     @Override
     protected int setRootLayoutId()
     {
+        mPresenter = new ConverstionPresenter(this, mMainHandler);
         return R.layout.fragment_conversation;
     }
 
@@ -57,8 +73,45 @@ public class ConversationFragment extends BaseFragment
     {
         mRecyclerView = findView(R.id.rcv_conversation);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false));
-        mAdapter = new ConversationAdapter(getActivity(), R.layout.layout_conversation_listitem, null);
+        mAdapter = new ConversationAdapter(getActivity(), null);
+        View emptyView = LayoutInflater.from(getContext()).inflate(R.layout.layout_empty_view
+                , (ViewGroup) getActivity().findViewById(android.R.id.content), false);
+        TextView tvEmpty = (TextView) emptyView.findViewById(R.id.tv_empty_view);
+        tvEmpty.setText(R.string.tv_conversation_empty);
+        mAdapter.setEmptyView(emptyView);
+        mAdapter.setOnItemClickListener(this);
+        mAdapter.setOnItemLongClickListener(this);
         mRecyclerView.setAdapter(mAdapter);
+    }
+
+    @Override
+    protected void initData()
+    {
+        super.initData();
+        mPresenter.loadAllConversations();
+    }
+
+    @Override
+    public void onLoadAllConversationSuccess(List<HxConversation> list)
+    {
+        mAdapter.refreshDatas(list);
+    }
+
+    @Override
+    public void onItemClick(View view, RcvHolder holder, HxConversation itemData, int position)
+    {
+        HxChatActivity.start(getActivity(), itemData.getEmConversation().conversationId(), itemData.getUserBean());
+    }
+
+    @Override
+    public void onItemLongClick(View view, RcvHolder holder, HxConversation itemData, int position)
+    {
+
+    }
+
+    @Override
+    protected void onClick(int id, View v)
+    {
     }
 
     @Override
@@ -68,9 +121,23 @@ public class ConversationFragment extends BaseFragment
         EventBusHelper.getInstance().unregist(this);
     }
 
-    @Override
-    protected void onClick(int id, View v)
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void onNotifyEventReceived(ComNotifyEventBean eventBean)
     {
+        switch (eventBean.getFlag())
+        {
+            case ComNotifyConfig.REFRESH_UNREAD_MSG:
+                mPresenter.loadAllConversations();
+                break;
+        }
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void userProfileUpdated(ProfileUpdateEventBean eventBean)
+    {
+        //用户资料更新要重新刷新数据
+        if (eventBean.getUserBean() != null)
+            mPresenter.loadAllConversations();
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)
