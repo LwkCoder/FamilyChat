@@ -42,7 +42,7 @@ public class HxContactListener implements EMContactListener
         if (InviteDao.getInstance().saveIfNotHandled(inviteBean))
         {
             //铃声、震动通知
-            FCNotifyUtils.getInstance().startNotify();
+            FCNotifyUtils.getInstance().ringtongAndVibratorNotify();
             //通知相关界面刷新
             EventBusHelper.getInstance().post(new ComNotifyEventBean(ComNotifyConfig.REFRESH_USER_INVITE));
         }
@@ -57,7 +57,7 @@ public class HxContactListener implements EMContactListener
         if (InviteDao.getInstance().save(inviteBean) != -1)
         {
             //铃声、震动通知
-            FCNotifyUtils.getInstance().startNotify();
+            FCNotifyUtils.getInstance().ringtongAndVibratorNotify();
             //通知相关界面刷新
             EventBusHelper.getInstance().post(new ComNotifyEventBean(ComNotifyConfig.REFRESH_USER_INVITE));
             //更新数据库并通知通讯录界面刷新
@@ -74,7 +74,7 @@ public class HxContactListener implements EMContactListener
         if (InviteDao.getInstance().save(inviteBean) != -1)
         {
             //铃声、震动通知
-            FCNotifyUtils.getInstance().startNotify();
+            FCNotifyUtils.getInstance().ringtongAndVibratorNotify();
             //通知相关界面刷新
             EventBusHelper.getInstance().post(new ComNotifyEventBean(ComNotifyConfig.REFRESH_USER_INVITE));
         }

@@ -1,15 +1,28 @@
 package com.lwk.familycontact.utils.notify;
 
+import android.app.Notification;
+import android.app.NotificationManager;
+import android.app.PendingIntent;
 import android.content.Context;
+import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.graphics.BitmapFactory;
+import android.graphics.Color;
 import android.media.AudioManager;
 import android.media.Ringtone;
 import android.media.RingtoneManager;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Vibrator;
+import android.support.v4.app.NotificationCompat;
 
+import com.hyphenate.chat.EMMessage;
+import com.lwk.familycontact.R;
 import com.lwk.familycontact.base.FCApplication;
+import com.lwk.familycontact.project.main.view.MainActivity;
 import com.lwk.familycontact.storage.sp.SpSetting;
+
+import java.util.List;
 
 /**
  * Created by LWK
@@ -18,17 +31,19 @@ import com.lwk.familycontact.storage.sp.SpSetting;
  */
 public class FCNotifyUtils
 {
-    private FCNotifyUtils()
+    private FCNotifyUtils(Context context)
     {
         //获取铃声管理器
         mAudioMgr = (AudioManager) FCApplication.getInstance().getSystemService(Context.AUDIO_SERVICE);
         //获取震动管理器
         mVibratorMgr = (Vibrator) FCApplication.getInstance().getSystemService(Context.VIBRATOR_SERVICE);
+        //创建通知栏管理对象
+        mNotifyMgr = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
     }
 
     private static final class FCNotifyUtilsHolder
     {
-        private static FCNotifyUtils instance = new FCNotifyUtils();
+        private static FCNotifyUtils instance = new FCNotifyUtils(FCApplication.getInstance());
     }
 
     public static FCNotifyUtils getInstance()
@@ -140,9 +155,61 @@ public class FCNotifyUtils
     /**
      * 播放铃声+震动
      */
-    public void startNotify()
+    public void ringtongAndVibratorNotify()
     {
         vibratorNotify();
         ringtongNotify();
+    }
+
+    /*******************************************
+     * 通知栏相关
+     ************************************************************************/
+
+    //通知管理器
+    private NotificationManager mNotifyMgr;
+    //后台通知id【不显示消息详情时】
+    protected int mBackNotifyId = 0x123;
+
+    //取消通知栏提醒
+    public void resetNotification()
+    {
+        if (mNotifyMgr != null)
+            mNotifyMgr.cancelAll();
+    }
+
+    /**
+     * 发送新消息通知栏提醒
+     *
+     * @param list 新消息
+     */
+    public void sendMessageNotifivation(List<EMMessage> list)
+    {
+        PackageManager packageManager = FCApplication.getInstance().getPackageManager();
+        //将应用名设置为通知栏标题
+        String title = (String) packageManager
+                .getApplicationLabel(FCApplication.getInstance().getApplicationInfo());
+        String message = FCApplication.getInstance().getResources().getString(R.string.notification_message);
+        //创建通知栏点击意图
+        Intent msgIntent = new Intent(FCApplication.getInstance(), MainActivity.class);
+        PendingIntent pendingIntent = PendingIntent.getActivity(FCApplication.getInstance(),
+                mBackNotifyId, msgIntent, PendingIntent.FLAG_UPDATE_CURRENT);
+        // 创建notification对象
+        NotificationCompat.Builder mBuilder = new NotificationCompat.Builder(FCApplication.getInstance())
+                .setContentTitle(title)
+                .setContentText(message)
+                .setContentIntent(pendingIntent)
+                .setSmallIcon(R.mipmap.ic_logo)//TODO 改为只使用alpha图层的Icon
+                .setLargeIcon(BitmapFactory.decodeResource(FCApplication.getInstance().getResources(), R.mipmap.ic_logo))
+                .setLights(Color.BLUE, 2000, 2000)//三色灯提醒,其中ledARGB 表示灯光颜色、 ledOnMS 亮持续时间、ledOffMS 暗的时间
+                .setWhen(System.currentTimeMillis())
+                .setAutoCancel(true);
+
+        Notification notification = mBuilder.build();
+        notification.flags = Notification.FLAG_SHOW_LIGHTS;//要支持三色灯，这个flag绝对不能少
+
+        //发送通知
+        mNotifyMgr.notify(mBackNotifyId, notification);
+        //铃声、震动
+        ringtongAndVibratorNotify();
     }
 }

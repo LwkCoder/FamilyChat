@@ -10,6 +10,8 @@ import com.lwk.familycontact.R;
 import com.lwk.familycontact.base.FCBaseActivity;
 import com.lwk.familycontact.project.chat.presenter.HxChatPresenter;
 import com.lwk.familycontact.storage.db.user.UserBean;
+import com.lwk.familycontact.utils.event.ChatActEventBean;
+import com.lwk.familycontact.utils.event.EventBusHelper;
 
 /**
  * 聊天界面
@@ -45,6 +47,8 @@ public class HxChatActivity extends FCBaseActivity implements HxChatImpl
         Intent intent = getIntent();
         mConversationId = intent.getStringExtra(INTENT_KEY_PHONE);
         mUserBean = intent.getParcelableExtra(INTENT_KEY_USERBEAN);
+        //发送进入聊天界面的通知
+        EventBusHelper.getInstance().post(new ChatActEventBean(true, mConversationId));
     }
 
     @Override
@@ -84,6 +88,8 @@ public class HxChatActivity extends FCBaseActivity implements HxChatImpl
     protected void onDestroy()
     {
         mPresenter.clearConversationUnreadCount(mConversationId);
+        //发送离开聊天界面的通知
+        EventBusHelper.getInstance().post(new ChatActEventBean(false, mConversationId));
         super.onDestroy();
     }
 }

@@ -5,6 +5,7 @@ import android.os.Bundle;
 import com.lib.base.app.BaseActivity;
 import com.lib.base.utils.ScreenUtils;
 import com.lwk.familycontact.R;
+import com.lwk.familycontact.utils.notify.FCNotifyUtils;
 
 /**
  * Created by LWK
@@ -18,5 +19,12 @@ public abstract class FCBaseActivity extends BaseActivity
     {
         super.beforeOnCreate(savedInstanceState);
         ScreenUtils.changeStatusBarColor(this, getResources().getColor(R.color.colorPrimaryDark));
+    }
+
+    @Override
+    protected void onStart()
+    {
+        super.onStart();
+        FCNotifyUtils.getInstance().resetNotification();
     }
 }

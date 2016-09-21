@@ -57,7 +57,7 @@ public class ConverstionPresenter
     public void delConversation(final HxConversation conversation)
     {
         //判断该会话是否有未读消息，有的话删除后需要通知刷新未读消息数
-        final boolean needRefreshUnreadConut = conversation.getEmConversation().getUnreadMsgCount() > 0;
+        final boolean hasUnreadConut = conversation.getEmConversation().getUnreadMsgCount() > 0;
         ThreadManager.getInstance().addNewRunnable(new Runnable()
         {
             @Override
@@ -69,11 +69,12 @@ public class ConverstionPresenter
                     @Override
                     public void run()
                     {
-                        mViewImpl.onConversationBeDeleted(conversation);
+                        if (hasUnreadConut)
+                            EventBusHelper.getInstance().post(new ComNotifyEventBean(ComNotifyConfig.REFRESH_UNREAD_MSG));
+                        else
+                            mViewImpl.onConversationBeDeleted(conversation);
                     }
                 });
-                if (needRefreshUnreadConut)
-                    EventBusHelper.getInstance().post(new ComNotifyEventBean(ComNotifyConfig.REFRESH_UNREAD_MSG));
             }
         });
     }

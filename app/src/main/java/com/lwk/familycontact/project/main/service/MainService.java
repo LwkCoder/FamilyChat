@@ -14,6 +14,11 @@ import com.lwk.familycontact.im.listener.HxConnectListener;
 import com.lwk.familycontact.im.listener.HxContactListener;
 import com.lwk.familycontact.im.listener.HxMessageListener;
 import com.lwk.familycontact.im.helper.HxSdkHelper;
+import com.lwk.familycontact.utils.event.ChatActEventBean;
+import com.lwk.familycontact.utils.event.EventBusHelper;
+
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 
 /**
  * 绑定各种环信监听的Service
@@ -43,6 +48,7 @@ public class MainService extends Service
     {
         KLog.i("MainService--->OnCreate()");
         super.onCreate();
+        EventBusHelper.getInstance().regist(this);
     }
 
     @Override
@@ -50,6 +56,7 @@ public class MainService extends Service
     {
         KLog.i("MainService--->onDestory()");
         super.onDestroy();
+        EventBusHelper.getInstance().unregist(this);
     }
 
     @Override
@@ -107,6 +114,20 @@ public class MainService extends Service
         public MainService getService()
         {
             return MainService.this;
+        }
+    }
+
+    @Subscribe(threadMode = ThreadMode.BACKGROUND)
+    public void onChatActEventBeanReceived(ChatActEventBean eventBean)
+    {
+        if (eventBean.isEnterIn())
+        {
+            if (mHxMessageListener != null)
+                mHxMessageListener.addConId(eventBean.getConversatinoId());
+        } else
+        {
+            if (mHxMessageListener != null)
+                mHxMessageListener.removeConId(eventBean.getConversatinoId());
         }
     }
 
