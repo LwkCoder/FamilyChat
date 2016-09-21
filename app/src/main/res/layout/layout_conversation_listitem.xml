@@ -10,16 +10,16 @@
         android:id="@+id/fl_conversation_listitem_head"
         android:layout_width="@dimen/height_conversation_listitem"
         android:layout_height="@dimen/height_conversation_listitem"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentLeft="true">
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true">
 
         <com.joooonho.SelectableRoundedImageView
             android:id="@+id/img_conversation_listitem_head"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:scaleType="centerCrop"
-            app:sriv_left_top_corner_radius="@dimen/radius_shadow_rect"
-            app:sriv_left_bottom_corner_radius="@dimen/radius_shadow_rect"/>
+            app:sriv_left_bottom_corner_radius="@dimen/radius_shadow_rect"
+            app:sriv_left_top_corner_radius="@dimen/radius_shadow_rect"/>
 
         <TextView
             android:id="@+id/tv_conversation_listitem_unread"
@@ -45,16 +45,40 @@
         android:layout_toRightOf="@+id/fl_conversation_listitem_head"
         android:textSize="@dimen/sp_18"/>
 
-    <TextView
-        android:id="@+id/tv_conversation_listitem_last_msg"
-        style="@style/FC_SmallTextStyle"
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_alignBottom="@+id/fl_conversation_listitem_head"
         android:layout_marginBottom="@dimen/spacing_small"
         android:layout_marginLeft="@dimen/spacing_normal"
         android:layout_marginRight="@dimen/spacing_huge"
         android:layout_toRightOf="@+id/fl_conversation_listitem_head"
-        android:singleLine="true"
-        android:textColor="@color/gray_7B7B7B"/>
+        android:orientation="horizontal">
+
+        <ProgressBar
+            android:id="@+id/pgb_conversation_listitem_status_sending"
+            android:layout_width="15dp"
+            android:layout_height="15dp"
+            android:layout_marginRight="@dimen/spacing_small"
+            android:visibility="gone"/>
+
+        <ImageView
+            android:id="@+id/img_conversation_listitem_status_fail"
+            android:layout_width="15dp"
+            android:layout_height="15dp"
+            android:layout_marginRight="@dimen/spacing_small"
+            android:src="@drawable/ic_message_send_fail"
+            android:visibility="gone"/>
+
+        <TextView
+            android:id="@+id/tv_conversation_listitem_last_msg"
+            style="@style/FC_SmallTextStyle"
+            android:layout_gravity="center_vertical"
+            android:singleLine="true"
+            android:textColor="@color/gray_7B7B7B"/>
+
+    </LinearLayout>
+
 
     <TextView
         android:id="@+id/tv_conversation_listitem_time"

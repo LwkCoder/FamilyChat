@@ -2,6 +2,8 @@ package com.lwk.familycontact.project.conversation.adapter;
 
 import android.content.Context;
 import android.view.View;
+import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
@@ -41,6 +43,8 @@ public class ConversationAdapter extends RcvSingleAdapter<HxConversation>
         FlatTextView fTvName = holder.findView(R.id.tv_conversation_listitem_name);
         TextView tvLastMsg = holder.findView(R.id.tv_conversation_listitem_last_msg);
         TextView tvTime = holder.findView(R.id.tv_conversation_listitem_time);
+        ProgressBar pgbSending = holder.findView(R.id.pgb_conversation_listitem_status_sending);
+        ImageView imgSendFail = holder.findView(R.id.img_conversation_listitem_status_fail);
 
         UserBean userBean = itemData.getUserBean();
         EMConversation emConversation = itemData.getEmConversation();
@@ -95,6 +99,21 @@ public class ConversationAdapter extends RcvSingleAdapter<HxConversation>
         {
             EMTextMessageBody txtBody = (EMTextMessageBody) lastMessage.getBody();
             tvLastMsg.setText(txtBody.getMessage());
+        }
+        //设置最后消息的状态
+        EMMessage.Status status = lastMessage.status();
+        if (status == EMMessage.Status.CREATE || status == EMMessage.Status.INPROGRESS)
+        {
+            pgbSending.setVisibility(View.VISIBLE);
+            imgSendFail.setVisibility(View.GONE);
+        } else if (status == EMMessage.Status.FAIL)
+        {
+            pgbSending.setVisibility(View.GONE);
+            imgSendFail.setVisibility(View.VISIBLE);
+        } else
+        {
+            pgbSending.setVisibility(View.GONE);
+            imgSendFail.setVisibility(View.GONE);
         }
     }
 }
