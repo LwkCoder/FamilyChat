@@ -1,7 +1,9 @@
 package com.lwk.familycontact.project.conversation.view;
 
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -104,9 +106,34 @@ public class ConversationFragment extends BaseFragment implements ConversationIm
     }
 
     @Override
-    public void onItemLongClick(View view, RcvHolder holder, HxConversation itemData, int position)
+    public void onItemLongClick(View view, RcvHolder holder, final HxConversation itemData, int position)
     {
+        new AlertDialog.Builder(getActivity())
+                .setTitle(R.string.dialog_del_conversation_title)
+                .setMessage(R.string.dialog_del_conversation_message)
+                .setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener()
+                {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which)
+                    {
+                        dialog.dismiss();
+                    }
+                })
+                .setPositiveButton(R.string.confrim, new DialogInterface.OnClickListener()
+                {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which)
+                    {
+                        dialog.dismiss();
+                        mPresenter.delConversation(itemData);
+                    }
+                }).create().show();
+    }
 
+    @Override
+    public void onConversationBeDeleted(HxConversation conversation)
+    {
+        mAdapter.deleteData(conversation);
     }
 
     @Override

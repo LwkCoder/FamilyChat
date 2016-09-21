@@ -12,4 +12,6 @@ import java.util.List;
 public interface ConversationImpl
 {
     void onLoadAllConversationSuccess(List<HxConversation> list);
+
+    void onConversationBeDeleted(HxConversation conversation);
 }

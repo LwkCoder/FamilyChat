@@ -157,6 +157,7 @@
     <string name="msg_type_desc_video">[视频消息]</string>
     <string name="msg_type_desc_location">[位置消息]</string>
     <string name="msg_type_desc_file">[文件消息]</string>
-
+    <string name="dialog_del_conversation_title">删除提醒</string>
+    <string name="dialog_del_conversation_message">您确定要删除该条会话吗？\n(删除后会清空该会话的聊天记录！)</string>
 
 </resources>

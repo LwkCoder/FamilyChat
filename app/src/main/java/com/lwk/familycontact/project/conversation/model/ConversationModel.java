@@ -48,4 +48,12 @@ public class ConversationModel
 
         return resultList;
     }
+
+    /**
+     * 删除会话
+     */
+    public void delConversation(HxConversation conversation)
+    {
+        HxChatHelper.getInstance().delConversation(conversation.getEmConversation().conversationId(), true);
+    }
 }

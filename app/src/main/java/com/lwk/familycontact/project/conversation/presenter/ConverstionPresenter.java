@@ -5,6 +5,9 @@ import android.os.Handler;
 import com.lwk.familycontact.im.bean.HxConversation;
 import com.lwk.familycontact.project.conversation.model.ConversationModel;
 import com.lwk.familycontact.project.conversation.view.ConversationImpl;
+import com.lwk.familycontact.utils.event.ComNotifyConfig;
+import com.lwk.familycontact.utils.event.ComNotifyEventBean;
+import com.lwk.familycontact.utils.event.EventBusHelper;
 import com.lwk.familycontact.utils.other.ThreadManager;
 
 import java.util.List;
@@ -47,6 +50,30 @@ public class ConverstionPresenter
                             mViewImpl.onLoadAllConversationSuccess(conversationsList);
                         }
                     });
+            }
+        });
+    }
+
+    public void delConversation(final HxConversation conversation)
+    {
+        //判断该会话是否有未读消息，有的话删除后需要通知刷新未读消息数
+        final boolean needRefreshUnreadConut = conversation.getEmConversation().getUnreadMsgCount() > 0;
+        ThreadManager.getInstance().addNewRunnable(new Runnable()
+        {
+            @Override
+            public void run()
+            {
+                mModel.delConversation(conversation);
+                mMainHandler.post(new Runnable()
+                {
+                    @Override
+                    public void run()
+                    {
+                        mViewImpl.onConversationBeDeleted(conversation);
+                    }
+                });
+                if (needRefreshUnreadConut)
+                    EventBusHelper.getInstance().post(new ComNotifyEventBean(ComNotifyConfig.REFRESH_UNREAD_MSG));
             }
         });
     }

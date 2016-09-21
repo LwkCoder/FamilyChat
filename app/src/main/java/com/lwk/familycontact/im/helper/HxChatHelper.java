@@ -82,4 +82,15 @@ public class HxChatHelper
         if (emConversation != null)
             emConversation.markAllMessagesAsRead();
     }
+
+    /**
+     * 删除某条会话
+     *
+     * @param conId        会话id
+     * @param clearHistory 是否清空聊天记录
+     */
+    public void delConversation(String conId, boolean clearHistory)
+    {
+        EMClient.getInstance().chatManager().deleteConversation(conId, clearHistory);
+    }
 }

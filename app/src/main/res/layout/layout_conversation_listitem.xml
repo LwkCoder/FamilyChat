@@ -54,7 +54,7 @@
         android:layout_marginRight="@dimen/spacing_huge"
         android:layout_toRightOf="@+id/fl_conversation_listitem_head"
         android:singleLine="true"
-        android:textColor="@color/gray_ADADAD"/>
+        android:textColor="@color/gray_7B7B7B"/>
 
     <TextView
         android:id="@+id/tv_conversation_listitem_time"
