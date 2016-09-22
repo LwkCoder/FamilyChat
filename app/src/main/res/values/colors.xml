@@ -23,4 +23,6 @@
     <color name="blue_dial_btn_normal">#0288D1</color>
     <color name="blue_dial_btn_pressed">#0072E3</color>
     <color name="orange_ic_notify_bg">#FF6C00</color>
+
+    <color name="blue_voice_message_length">#01ADEE</color>
 </resources>

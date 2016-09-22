@@ -75,6 +75,9 @@ public class ConversationAdapter extends RcvSingleAdapter<HxConversation>
         {
             tvUnread.setVisibility(View.GONE);
         }
+
+        if (lastMessage == null)
+            return;
         //设置时间
         long timeStamp = lastMessage.getMsgTime();
         tvTime.setText(DateUtils.getTimeDescribe(mContext, new Date(timeStamp)));

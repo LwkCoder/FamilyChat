@@ -14,11 +14,16 @@ public class SortConversationComparator implements Comparator<EMConversation>
     @Override
     public int compare(EMConversation con01, EMConversation con02)
     {
+        if (con01.getLastMessage() == null)
+            return -1;
+        else if (con02.getLastMessage() == null)
+            return -1;
+
         long timeStamp01 = con01.getLastMessage().getMsgTime();
         long timeStamp02 = con02.getLastMessage().getMsgTime();
         if (timeStamp01 == timeStamp02)
             return 0;
-        else if (timeStamp01 > timeStamp02)
+        else if (timeStamp01 < timeStamp02)
             return 1;
         else
             return -1;

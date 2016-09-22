@@ -7,6 +7,13 @@
     <android.support.v7.widget.RecyclerView
         android:id="@+id/rcv_conversation"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"/>
+        android:layout_height="match_parent"
+        android:layout_above="@+id/rBtn_Con"/>
+
+    <com.lib.imrecordbutton.IMRecordButton
+        android:id="@+id/rBtn_Con"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"/>
 
 </RelativeLayout>

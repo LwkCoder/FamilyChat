@@ -1,9 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/gray_E0E0E0"
     android:fitsSystemWindows="true"
     android:orientation="vertical"
     tools:context=".project.chat.view.HxChatActivity">
@@ -13,5 +15,25 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/colorPrimary"/>
+
+    <com.lib.ptrview.CommonPtrLayout
+        android:id="@+id/prt_chat"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:ptr_enable_loadmore="false"
+        app:ptr_enable_refresh="true">
+
+        <com.lib.ptrview.CommonPtrDefView
+            android:id="@+id/common_ptrview_refresh_view"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/common_ptrview_content"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/gray_E0E0E0"/>
+
+    </com.lib.ptrview.CommonPtrLayout>
 
 </LinearLayout>

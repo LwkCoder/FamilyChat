@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+             android:layout_width="match_parent"
+             android:layout_height="wrap_content">
+
+    <TextView
+        android:id="@+id/tv_chat_listitem_time_stamp"
+        style="@style/FC_SmallTextStyle"
+        android:layout_gravity="center"
+        android:layout_margin="@dimen/spacing_small"
+        android:background="@drawable/shape_rect_tv_chat_timestamp_bg"
+        android:gravity="center"
+        android:minWidth="@dimen/dp_50"
+        android:padding="@dimen/spacing_tiny"
+        android:textColor="@color/white_FFFFFF"
+        android:visibility="gone"/>
+
+</FrameLayout>

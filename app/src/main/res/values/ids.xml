@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <item name="img_chat_listitem_head" type="id"/>
+    <item name="tv_chat_listitem_name" type="id"/>
+    <item name="tv_chat_listitem_text_content" type="id"/>
+    <item name="img_chat_listitem_img_content" type="id"/>
+    <item name="fl_chat_listitem_voice_content" type="id"/>
+    <item name="img_chat_listitem_voice_content" type="id"/>
+    <item name="tv_chat_listitem_voice_content" type="id"/>
+
+    <item name="pgb_chat_listitem_sending" type="id"/>
+    <item name="img_chat_listitem_resend" type="id"/>
+</resources>

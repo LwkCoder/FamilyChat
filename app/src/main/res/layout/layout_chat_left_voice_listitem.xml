@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:orientation="vertical"
+              android:padding="@dimen/spacing_small">
+
+    <include layout="@layout/layout_chat_time_stamp_listitem"/>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <ImageView
+            style="@style/ImageChatHeadStyle"
+            android:src="@drawable/default_avatar"/>
+
+        <LinearLayout
+            android:id="@+id/ll_chat_listitem_left_message"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/spacing_small"
+            android:orientation="vertical">
+
+            <TextView
+                style="@style/TvChatNameStyle"
+                android:visibility="gone"/>
+
+            <FrameLayout
+                style="@style/FlChatVoiceContentStyle"
+                android:background="@drawable/bg_chat_left_message">
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical|left"
+                    android:layout_marginLeft="@dimen/spacing_small"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal">
+
+                    <ImageView
+                        style="@style/ImgChatVoiceContentStyle"
+                        android:src="@drawable/ic_voice_left03"/>
+
+                    <TextView
+                        style="@style/TvChatVoiceContentStyle"
+                        android:textColor="@color/blue_voice_message_length"
+                        android:layout_marginLeft="@dimen/spacing_tiny"/>
+                </LinearLayout>
+            </FrameLayout>
+
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/tv_chat_listitem_voice_unlisten"
+            style="@style/FC_SmallTextStyle"
+            android:layout_gravity="center_vertical"
+            android:text="@string/tv_chat_listitem_voice_unlisten"
+            android:textColor="@color/colorPrimaryDark"
+            android:visibility="gone"/>
+
+    </LinearLayout>
+</LinearLayout>

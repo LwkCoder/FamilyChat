@@ -19,6 +19,7 @@
     <string name="warning_dial_phone_empty">请输入号码</string>
     <string name="warning_add_friend_empty_phone">对方手机号不能为空，请输入手机号或者点击页面右上角扫描对方二维码</string>
     <string name="warning_add_friend_error_phone">请输入规范的手机号码</string>
+    <string name="error_play_voice_message">语音消息播放失败</string>
 
     <!--环信相关-->
     <string name="dialog_user_relogin_title">账号在其他设备登录</string>
@@ -161,4 +162,8 @@
     <string name="dialog_del_conversation_message">您确定要删除该条会话吗？\n(删除后会清空该会话的聊天记录！)</string>
     <string name="notification_message">您有新的消息，点击该通知查看详情</string>
 
+    <!--HxChatActivity-->
+    <string name="toast_text_be_copyed">文本已复制</string>
+    <string name="tv_chat_listitem_voice_length_Ex">%%1秒</string>
+    <string name="tv_chat_listitem_voice_unlisten">未听</string>
 </resources>

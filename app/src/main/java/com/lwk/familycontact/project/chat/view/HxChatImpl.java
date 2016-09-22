@@ -8,4 +8,8 @@ package com.lwk.familycontact.project.chat.view;
 public interface HxChatImpl
 {
     void onRefreshActionBarTitle(String title);
+
+    void refershAdapterStatus();
+
+    void showError(int errorCode,int errMsgResId);
 }

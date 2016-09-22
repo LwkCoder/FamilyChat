@@ -19,6 +19,7 @@ public class FCError
     public static final int ADD_FRIEND_FAIL = 1005;
     public static final int AGREE_INVITE_FAIL = 1006;
     public static final int REJECT_INVITE_FAIL = 1007;
+    public static final int VOICE_PLAY_ERROR = 1008;
 
 
     /**

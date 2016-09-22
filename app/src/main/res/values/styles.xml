@@ -69,4 +69,49 @@
         <item name="android:layout_gravity">center_vertical|right</item>
     </style>
 
+    <style name="ImageChatHeadStyle">
+        <item name="android:id">@id/img_chat_listitem_head</item>
+        <item name="android:layout_width">@dimen/img_chat_listitem_head_size</item>
+        <item name="android:layout_height">@dimen/img_chat_listitem_head_size</item>
+        <item name="android:scaleType">centerCrop</item>
+    </style>
+
+    <style name="TvChatNameStyle" parent="FC_SmallTextStyle">
+        <item name="android:id">@id/tv_chat_listitem_name</item>
+        <item name="android:textColor">@android:color/darker_gray</item>
+    </style>
+
+    <style name="TvChatTextContentStyle" parent="FC_NormalTextStyle">
+        <item name="android:id">@id/tv_chat_listitem_text_content</item>
+        <item name="android:maxWidth">@dimen/tv_chat_listitem_text_max_width</item>
+        <item name="android:minHeight">@dimen/tv_chat_listitem_text_min_height</item>
+        <item name="android:padding">@dimen/spacing_normal</item>
+    </style>
+
+    <style name="ImgChatImageContentStyle">
+        <item name="android:id">@id/img_chat_listitem_img_content</item>
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:paddingLeft">@dimen/img_chat_listitem_image_content_padding_left</item>
+        <item name="android:paddingRight">@dimen/img_chat_listitem_image_content_padding_right</item>
+        <item name="android:paddingTop">@dimen/img_chat_listitem_image_content_padding_top</item>
+        <item name="android:paddingBottom">@dimen/img_chat_listitem_image_content_padding_bottom</item>
+    </style>
+
+    <style name="FlChatVoiceContentStyle">
+        <item name="android:id">@id/fl_chat_listitem_voice_content</item>
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">@dimen/fl_chat_listitem_voice_content_height</item>
+    </style>
+
+    <style name="ImgChatVoiceContentStyle">
+        <item name="android:id">@id/img_chat_listitem_voice_content</item>
+        <item name="android:layout_width">@dimen/img_chat_listitem_voice_content_size</item>
+        <item name="android:layout_height">@dimen/img_chat_listitem_voice_content_size</item>
+    </style>
+
+    <style name="TvChatVoiceContentStyle" parent="FC_SmallTextStyle">
+        <item name="android:id">@id/tv_chat_listitem_voice_content</item>
+        <item name="android:textSize">@dimen/sp_14</item>
+    </style>
 </resources>

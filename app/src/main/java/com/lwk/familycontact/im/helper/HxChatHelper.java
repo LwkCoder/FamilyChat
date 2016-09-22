@@ -2,6 +2,7 @@ package com.lwk.familycontact.im.helper;
 
 import com.hyphenate.chat.EMClient;
 import com.hyphenate.chat.EMConversation;
+import com.hyphenate.chat.EMMessage;
 import com.lwk.familycontact.im.listener.HxMessageListener;
 
 import java.util.Map;
@@ -92,5 +93,107 @@ public class HxChatHelper
     public void delConversation(String conId, boolean clearHistory)
     {
         EMClient.getInstance().chatManager().deleteConversation(conId, clearHistory);
+    }
+
+    /**
+     * 发送文本消息
+     *
+     * @param chatType 聊天类型
+     * @param content  内容
+     * @param conId    会话id
+     * @return 文本消息
+     */
+    public EMMessage sendTextMessage(EMMessage.ChatType chatType, String content, String conId)
+    {
+        EMMessage message = EMMessage.createTxtSendMessage(content, conId);
+        message.setChatType(chatType);
+        EMClient.getInstance().chatManager().sendMessage(message);
+        return message;
+    }
+
+    /**
+     * 发送语音消息
+     *
+     * @param chatType 聊天类型
+     * @param filePath 语音文件地址
+     * @param seconds  语音时长【秒】
+     * @param conId    会话id
+     * @return 语音消息
+     */
+    public EMMessage sendVoiceMessage(EMMessage.ChatType chatType, String filePath, int seconds, String conId)
+    {
+        EMMessage message = EMMessage.createVoiceSendMessage(filePath, seconds, conId);
+        message.setChatType(chatType);
+        EMClient.getInstance().chatManager().sendMessage(message);
+        return message;
+    }
+
+    /**
+     * 发送图片消息
+     *
+     * @param chatType      聊天类型
+     * @param filePath      图片文件地址
+     * @param sendOriginPic 是否发送原图【false为不发送，超过100K会被压缩发送】
+     * @param conId         会话id
+     * @return 图片消息
+     */
+    public EMMessage sendImageMessage(EMMessage.ChatType chatType, String filePath, boolean sendOriginPic, String conId)
+    {
+        EMMessage message = EMMessage.createImageSendMessage(filePath, sendOriginPic, conId);
+        message.setChatType(chatType);
+        EMClient.getInstance().chatManager().sendMessage(message);
+        return message;
+    }
+
+    /**
+     * 发送视频消息
+     *
+     * @param chatType    聊天类型
+     * @param filePath    视频文件地址
+     * @param thumbPath   预览图文件地址
+     * @param videoLength 视频时长【秒1】
+     * @param conId       会话id
+     * @return 视频消息
+     */
+    public EMMessage sendVideoMessage(EMMessage.ChatType chatType, String filePath, String thumbPath, int videoLength, String conId)
+    {
+        EMMessage message = EMMessage.createVideoSendMessage(filePath, thumbPath, videoLength, conId);
+        message.setChatType(chatType);
+        EMClient.getInstance().chatManager().sendMessage(message);
+        return message;
+    }
+
+    /**
+     * 发送位置消息
+     *
+     * @param chatType        聊天类型
+     * @param latitude        纬度
+     * @param longitude       经度
+     * @param locationAddress 地址
+     * @param conId           会话id
+     * @return 位置消息
+     */
+    public EMMessage sendLocationMessage(EMMessage.ChatType chatType, long latitude, long longitude, String locationAddress, String conId)
+    {
+        EMMessage message = EMMessage.createLocationSendMessage(latitude, longitude, locationAddress, conId);
+        message.setChatType(EMMessage.ChatType.GroupChat);
+        EMClient.getInstance().chatManager().sendMessage(message);
+        return message;
+    }
+
+    /**
+     * 发送文件消息
+     *
+     * @param chatType 聊天类型
+     * @param filePath 文件地址
+     * @param conId    会话id
+     * @return 文件消息
+     */
+    public EMMessage sendFileMessage(EMMessage.ChatType chatType, String filePath, String conId)
+    {
+        EMMessage message = EMMessage.createFileSendMessage(filePath, conId);
+        message.setChatType(chatType);
+        EMClient.getInstance().chatManager().sendMessage(message);
+        return message;
     }
 }

@@ -22,4 +22,18 @@
     <dimen name="radius_shadow_rect">4dp</dimen>
 
     <dimen name="height_conversation_listitem">85dp</dimen>
+
+    <dimen name="img_chat_listitem_head_size">40dp</dimen>
+    <dimen name="tv_chat_listitem_text_min_height">40dp</dimen>
+    <dimen name="tv_chat_listitem_text_max_width">240dp</dimen>
+    <dimen name="img_chat_listitem_image_content_radius">9dp</dimen>
+    <dimen name="img_chat_listitem_image_content_min_size">40dp</dimen>
+    <dimen name="img_chat_listitem_image_content_padding_top">6dp</dimen>
+    <dimen name="img_chat_listitem_image_content_padding_bottom">6dp</dimen>
+    <dimen name="img_chat_listitem_image_content_padding_left">7dp</dimen>
+    <dimen name="img_chat_listitem_image_content_padding_right">7dp</dimen>
+    <dimen name="fl_chat_listitem_voice_content_height">50dp</dimen>
+    <dimen name="fl_chat_listitem_voice_content_min_width">85dp</dimen>
+    <dimen name="fl_chat_listitem_voice_content_max_width">145dp</dimen>
+    <dimen name="img_chat_listitem_voice_content_size">20dp</dimen>
 </resources>

@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+             android:layout_width="wrap_content"
+             android:layout_height="wrap_content"
+             android:orientation="vertical">
+
+    <ProgressBar
+        android:id="@id/pgb_chat_listitem_sending"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:padding="@dimen/spacing_small"
+        android:visibility="gone"/>
+
+    <ImageView
+        android:id="@id/img_chat_listitem_resend"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:padding="@dimen/spacing_small"
+        android:src="@drawable/ic_message_send_fail"
+        android:visibility="gone"/>
+
+</FrameLayout>
