@@ -23,6 +23,10 @@ public class ImageBean implements Parcelable
     private boolean isThumbFileExist;
     //最后修改时间
     private Long lastModified;
+    //图片宽
+    private int width;
+    //图片高
+    private int height;
     //所在文件夹的id
     private String floderId;
 
@@ -99,6 +103,26 @@ public class ImageBean implements Parcelable
         this.floderId = floderId;
     }
 
+    public int getWidth()
+    {
+        return width;
+    }
+
+    public void setWidth(int width)
+    {
+        this.width = width;
+    }
+
+    public int getHeight()
+    {
+        return height;
+    }
+
+    public void setHeight(int height)
+    {
+        this.height = height;
+    }
+
     @Override
     public String toString()
     {
@@ -108,7 +132,9 @@ public class ImageBean implements Parcelable
                 ", imagePath='" + imagePath + '\'' +
                 ", isThumbFileExist=" + isThumbFileExist +
                 ", lastModified=" + lastModified +
-                ", floderId=" + floderId +
+                ", width=" + width +
+                ", height=" + height +
+                ", floderId='" + floderId + '\'' +
                 '}';
     }
 
@@ -124,8 +150,10 @@ public class ImageBean implements Parcelable
         dest.writeString(this.imageId);
         dest.writeString(this.thumbnailPath);
         dest.writeString(this.imagePath);
-        dest.writeByte(isThumbFileExist ? (byte) 1 : (byte) 0);
+        dest.writeByte(this.isThumbFileExist ? (byte) 1 : (byte) 0);
         dest.writeValue(this.lastModified);
+        dest.writeInt(this.width);
+        dest.writeInt(this.height);
         dest.writeString(this.floderId);
     }
 
@@ -136,10 +164,12 @@ public class ImageBean implements Parcelable
         this.imagePath = in.readString();
         this.isThumbFileExist = in.readByte() != 0;
         this.lastModified = (Long) in.readValue(Long.class.getClassLoader());
+        this.width = in.readInt();
+        this.height = in.readInt();
         this.floderId = in.readString();
     }
 
-    public static final Parcelable.Creator<ImageBean> CREATOR = new Parcelable.Creator<ImageBean>()
+    public static final Creator<ImageBean> CREATOR = new Creator<ImageBean>()
     {
         @Override
         public ImageBean createFromParcel(Parcel source)

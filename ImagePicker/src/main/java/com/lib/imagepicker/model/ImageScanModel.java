@@ -134,6 +134,8 @@ public class ImageScanModel
                             MediaStore.Images.Media.BUCKET_ID,
                             MediaStore.Images.Media.PICASA_ID,
                             MediaStore.Images.Media.DATA,
+                            MediaStore.Images.Media.WIDTH,
+                            MediaStore.Images.Media.HEIGHT,
                             MediaStore.Images.Media.DISPLAY_NAME,
                             MediaStore.Images.Media.TITLE,
                             MediaStore.Images.Media.DATE_ADDED,
@@ -152,6 +154,8 @@ public class ImageScanModel
                 int photoIDIndex = cur.getColumnIndexOrThrow(MediaStore.Images.Media._ID);
                 int photoPathIndex = cur.getColumnIndexOrThrow(MediaStore.Images.Media.DATA);
                 int photoModifyIndex = cur.getColumnIndexOrThrow(MediaStore.Images.Media.DATE_MODIFIED);
+                int photoWidthIndex = cur.getColumnIndexOrThrow(MediaStore.Images.Media.WIDTH);
+                int photoHeightIndex = cur.getColumnIndexOrThrow(MediaStore.Images.Media.HEIGHT);
                 //                    int photoNameIndex = cur.getColumnIndexOrThrow(Media.DISPLAY_NAME);
                 //                    int photoTitleIndex = cur.getColumnIndexOrThrow(Media.TITLE);
                 //                    int photoSizeIndex = cur.getColumnIndexOrThrow(Media.SIZE);
@@ -168,11 +172,15 @@ public class ImageScanModel
                     String modify = cur.getString(photoModifyIndex);
                     String bucketId = cur.getString(bucketIdIndex);//文件夹id
                     String bucketName = cur.getString(bucketDisplayNameIndex);//文件夹名字
+                    String width = cur.getString(photoWidthIndex);
+                    String height = cur.getString(photoHeightIndex);
 
                     if (new File(path).exists())
                     {
                         ImageBean imageItem = new ImageBean();
                         imageItem.setImageId(_id);
+                        imageItem.setWidth(Integer.valueOf(width));
+                        imageItem.setHeight(Integer.valueOf(height));
                         imageItem.setImagePath(path);
                         imageItem.setThumbnailPath(mThumbnailList.get(_id));
                         imageItem.setLastModified(Long.valueOf(modify));
