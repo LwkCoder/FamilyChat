@@ -28,8 +28,20 @@ public class IMRecordAudioManager
     public IMRecordAudioManager()
     {
         //Init
+        initRecorder();
+    }
+
+    //初始化
+    private void initRecorder()
+    {
+        if (mRecorder == null)
+            mRecorder = new MediaRecorder();
         //设置默认缓存路径
         mCachePath = getDefCachePath();
+        //检查路径是否存在，不存在就创建
+        File dir = new File(mCachePath);
+        if (!dir.exists())
+            dir.mkdirs();
     }
 
     public interface onRecorderPreparedListener
@@ -59,6 +71,10 @@ public class IMRecordAudioManager
     public void setCachePath(String cachePath)
     {
         this.mCachePath = cachePath;
+        //检查路径是否存在，不存在就创建
+        File dir = new File(mCachePath);
+        if (!dir.exists())
+            dir.mkdirs();
     }
 
     /**
@@ -76,22 +92,16 @@ public class IMRecordAudioManager
             return;
         }
 
-        if (mRecorder != null)
-            release();
-
         try
         {
             //检查路径是否存在，不存在就创建
             File dir = new File(mCachePath);
-            if (!dir.exists())
-                dir.mkdirs();
             //生成文件名
             String fileName = createFileName();
             //生成保存文件的file
             File file = new File(dir, fileName);
             mFilePath = file.getAbsolutePath();
-            //初始化mediaRecord
-            mRecorder = new MediaRecorder();
+            //设置mediaRecord各种参数并开始准备
             mRecorder.setOutputFile(mFilePath);//设置输出路径
             mRecorder.setAudioSource(MediaRecorder.AudioSource.MIC);//设置音频输入源为麦克风
             mRecorder.setOutputFormat(MediaRecorder.OutputFormat.AMR_NB);//设置音频格式为amr
@@ -149,19 +159,16 @@ public class IMRecordAudioManager
     }
 
     /**
-     * 释放recorder
+     * 复位recorder
      */
-    public synchronized void release()
+    public synchronized void reset()
     {
         if (mRecorder != null)
         {
             if (mIsRecording)
-            {
                 mRecorder.stop();
-                mRecorder.release();
-            }
             mIsRecording = false;
-            mRecorder = null;
+            mRecorder.reset();
         }
     }
 
@@ -170,7 +177,7 @@ public class IMRecordAudioManager
      */
     public void cancel()
     {
-        release();
+        reset();
         if (mFilePath != null)
         {
             File file = new File(mFilePath);
@@ -195,7 +202,10 @@ public class IMRecordAudioManager
         return mIsRecording;
     }
 
-    public void reset()
+    /**
+     * 清除录音地址
+     */
+    public void clearFilePath()
     {
         mFilePath = null;
     }

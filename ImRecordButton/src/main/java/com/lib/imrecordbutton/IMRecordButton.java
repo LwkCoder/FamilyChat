@@ -214,11 +214,11 @@ public class IMRecordButton extends Button implements IMRecordAudioManager.onRec
         {
             case MotionEvent.ACTION_DOWN:
                 mHasUp = false;
-                if (mWakeLock != null && mWakeLock.isHeld())
-                    mWakeLock.release();
+                if (mWakeLock != null)
+                    mWakeLock.acquire();
 
                 changeState(STATE_RECORDING);
-                //之所以先触发回调通知，是因为按下按钮时可能外部正在播放语音，可先利用辞回调停止播放
+                //之所以先触发回调通知，是因为按下按钮时可能外部正在播放语音，可先利用回调停止播放
                 triggerRecordStartListener();
                 //sd卡不存在的时候提示用户
                 if (!isSdcardExits())
@@ -257,13 +257,14 @@ public class IMRecordButton extends Button implements IMRecordAudioManager.onRec
                 else if ((!mIsAudioPreparedFail && !mAudioManager.isRecording())
                         || (mAudioManager.isRecording() && mTime < MIN_RECORD_TIME))
                 {
+                    mAudioManager.cancel();
                     mHandler.sendEmptyMessage(MSG_VOICE_TOO_SHORT);
                 }
                 //正常录音
                 else if (mAudioManager.isRecording() && mCurState == STATE_RECORDING)
                 {
                     mHandler.sendEmptyMessage(MSG_RECORD_FINISH);
-                    mAudioManager.release();
+                    mAudioManager.reset();
                     triggerRecordFinishListener();
                 }
                 //恢复状态和标识
@@ -452,7 +453,7 @@ public class IMRecordButton extends Button implements IMRecordAudioManager.onRec
     {
         mTime = 0;
         mIsAudioPreparedFail = false;
-        mAudioManager.reset();
+        mAudioManager.clearFilePath();
         changeState(STATE_NORMAL);
     }
 }
