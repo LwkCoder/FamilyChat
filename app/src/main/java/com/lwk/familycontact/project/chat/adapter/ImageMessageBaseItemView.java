@@ -4,7 +4,6 @@ import android.content.Context;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.bumptech.glide.Glide;
 import com.hyphenate.chat.EMImageMessageBody;
 import com.hyphenate.chat.EMMessage;
 import com.joooonho.SelectableRoundedImageView;
@@ -14,6 +13,7 @@ import com.lib.rcvadapter.holder.RcvHolder;
 import com.lwk.familycontact.R;
 import com.lwk.familycontact.base.FCApplication;
 import com.lwk.familycontact.project.chat.presenter.HxChatPresenter;
+import com.lwk.familycontact.project.common.CommonUtils;
 import com.lwk.familycontact.storage.db.user.UserBean;
 
 import java.io.File;
@@ -72,9 +72,11 @@ public abstract class ImageMessageBaseItemView extends HxChatBaseItemView
         String localUrl = messageBody.getLocalUrl();
         String remoteUrl = messageBody.getRemoteUrl();
         if (emMessage.isDelivered() && StringUtil.isNotEmpty(localUrl) && new File(localUrl).exists())
-            Glide.with(mContext).load(localUrl).override(mLayoutWidth, mLayoutHeight).into(imageView);
+            CommonUtils.getInstance().getImageDisplayer()
+                    .display(mContext, imageView, localUrl, mLayoutWidth, mLayoutHeight);
         else
-            Glide.with(mContext).load(remoteUrl).override(mLayoutWidth, mLayoutHeight).into(imageView);
+            CommonUtils.getInstance().getImageDisplayer()
+                    .display(mContext, imageView, remoteUrl, mLayoutWidth, mLayoutHeight);
 
         //设置点击事件
         imageView.setOnClickListener(new View.OnClickListener()

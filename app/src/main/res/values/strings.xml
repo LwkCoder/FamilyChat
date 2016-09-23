@@ -166,4 +166,5 @@
     <string name="toast_text_be_copyed">文本已复制</string>
     <string name="tv_chat_listitem_voice_length_Ex">%%1秒</string>
     <string name="tv_chat_listitem_voice_unlisten">未听</string>
+    <string name="tv_chat_listitem_video_length_Ex">时长：%%1秒</string>
 </resources>

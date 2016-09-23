@@ -4,13 +4,13 @@ import android.content.Context;
 import android.view.View;
 import android.widget.ImageView;
 
-import com.bumptech.glide.Glide;
 import com.hyphenate.chat.EMMessage;
 import com.lib.base.utils.StringUtil;
 import com.lib.rcvadapter.holder.RcvHolder;
 import com.lib.rcvadapter.view.RcvBaseItemView;
 import com.lwk.familycontact.R;
 import com.lwk.familycontact.project.chat.presenter.HxChatPresenter;
+import com.lwk.familycontact.project.common.CommonUtils;
 import com.lwk.familycontact.storage.db.user.UserBean;
 
 /**
@@ -42,30 +42,41 @@ public abstract class HxChatBaseItemView extends RcvBaseItemView<EMMessage>
     //设置用户资料
     protected void setUserData(RcvHolder holder, EMMessage emMessage, int position)
     {
-        //设置头像
-        if (mUserBean != null && StringUtil.isNotEmpty(mUserBean.getLocalHead()))
-            Glide.with(mContext).load(mUserBean.getLocalHead())
-                    .override(150, 150).into((ImageView) holder.findView(R.id.img_chat_listitem_head));
-        else
-            holder.setImgResource(R.id.img_chat_listitem_head, R.drawable.default_avatar);
-        //设置名字
-        if (emMessage.getChatType() == EMMessage.ChatType.Chat)
+        if (emMessage.direct() == EMMessage.Direct.RECEIVE)
         {
-            holder.setVisibility(R.id.tv_chat_listitem_name, View.GONE);
+            //设置头像
+            if (mUserBean != null && StringUtil.isNotEmpty(mUserBean.getLocalHead()))
+                CommonUtils.getInstance().getImageDisplayer()
+                        .display(mContext, (ImageView) holder.findView(R.id.img_chat_listitem_head),
+                                mUserBean.getLocalHead(), 150, 150);
+            else
+                holder.setImgResource(R.id.img_chat_listitem_head, R.drawable.default_avatar);
+            //设置名字
+            //单聊不显示名字
+            if (emMessage.getChatType() == EMMessage.ChatType.Chat)
+            {
+                holder.setVisibility(R.id.tv_chat_listitem_name, View.GONE);
+            } else
+            {
+                holder.setVisibility(R.id.tv_chat_listitem_name, View.VISIBLE);
+                if (mUserBean != null)
+                    holder.setTvText(R.id.tv_chat_listitem_name, mUserBean.getDisplayName());
+                else
+                    holder.setTvText(R.id.tv_chat_listitem_name, emMessage.getUserName());
+            }
         } else
         {
-            holder.setVisibility(R.id.tv_chat_listitem_name, View.VISIBLE);
-            if (mUserBean != null)
-                holder.setTvText(R.id.tv_chat_listitem_name, mUserBean.getDisplayName());
-            else
-                holder.setTvText(R.id.tv_chat_listitem_name, emMessage.getUserName());
+            //本方头像为默认头像
+            holder.setImgResource(R.id.img_chat_listitem_head, R.drawable.default_avatar);
+            //不显示名字
+            holder.setVisibility(R.id.tv_chat_listitem_name, View.GONE);
         }
     }
 
-    //设置消息状态
+    //发送方消息设置状态
     protected void setMessageStatus(RcvHolder holder, final EMMessage emMessage, final int position)
     {
-        if (emMessage.isDelivered())
+        if (emMessage.direct() == EMMessage.Direct.SEND)
         {
             //设置消息状态
             EMMessage.Status status = emMessage.status();

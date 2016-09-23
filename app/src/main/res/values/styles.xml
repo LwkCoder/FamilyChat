@@ -114,4 +114,24 @@
         <item name="android:id">@id/tv_chat_listitem_voice_content</item>
         <item name="android:textSize">@dimen/sp_14</item>
     </style>
+
+    <style name="ImgChatVideoContentStyle">
+        <item name="android:id">@id/img_chat_listitem_video_content</item>
+        <item name="android:layout_width">@dimen/img_chat_listitem_video_content_width</item>
+        <item name="android:layout_height">@dimen/img_chat_listitem_video_content_height</item>
+        <item name="android:paddingLeft">@dimen/img_chat_listitem_image_content_padding_left</item>
+        <item name="android:paddingRight">@dimen/img_chat_listitem_image_content_padding_right</item>
+        <item name="android:paddingTop">@dimen/img_chat_listitem_image_content_padding_top</item>
+        <item name="android:paddingBottom">@dimen/img_chat_listitem_image_content_padding_bottom</item>
+        <item name="android:scaleType">centerCrop</item>
+    </style>
+
+    <style name="TvChatVideoContentStyle" parent="FC_TextViewStyle">
+        <item name="android:id">@id/tv_chat_listitem_video_content</item>
+        <item name="android:textColor">@android:color/white</item>
+        <item name="android:textSize">@dimen/sp_14</item>
+        <item name="android:layout_gravity">bottom|center_horizontal</item>
+        <item name="android:layout_marginBottom">@dimen/spacing_normal</item>
+    </style>
+
 </resources>

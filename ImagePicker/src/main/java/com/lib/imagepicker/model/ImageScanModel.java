@@ -4,6 +4,7 @@ import android.content.ContentResolver;
 import android.content.Context;
 import android.database.Cursor;
 import android.provider.MediaStore;
+import android.util.Log;
 
 import com.lib.imagepicker.R;
 import com.lib.imagepicker.bean.ImageBean;
@@ -179,11 +180,14 @@ public class ImageScanModel
                     {
                         ImageBean imageItem = new ImageBean();
                         imageItem.setImageId(_id);
-                        imageItem.setWidth(Integer.valueOf(width));
-                        imageItem.setHeight(Integer.valueOf(height));
+                        if (width != null && width.length() > 0)
+                            imageItem.setWidth(Integer.valueOf(width));
+                        if (height != null && height.length() > 0)
+                            imageItem.setHeight(Integer.valueOf(height));
                         imageItem.setImagePath(path);
                         imageItem.setThumbnailPath(mThumbnailList.get(_id));
-                        imageItem.setLastModified(Long.valueOf(modify));
+                        if (modify != null && modify.length() > 0)
+                            imageItem.setLastModified(Long.valueOf(modify));
                         imageItem.setFloderId(bucketId);
                         mAllImgList.add(imageItem);
 
@@ -222,6 +226,7 @@ public class ImageScanModel
             success = true;
         } catch (Exception e)
         {
+            Log.e("ImagePicker", "ImagePicker.ImageScanModel--->scanAllData() fail:" + e.toString());
             success = false;
         }
 

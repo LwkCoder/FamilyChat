@@ -185,7 +185,7 @@ public class ImagePickerGridActivity extends ImagePickerBaseActivity implements 
     @Override
     public void scanDataFail()
     {
-        mMainHanlder.sendEmptyMessage(FLAG_SCAN_DATA_SUCCESS);
+        mMainHanlder.sendEmptyMessage(FLAG_SCAN_DATA_FAIL);
     }
 
     @Override

@@ -7,9 +7,9 @@ package com.lwk.familycontact.project.chat.utils;
  */
 public interface VoicePlayListener
 {
-    void startPlay();
+    void startPlay(boolean isHandFree);
 
-    void endPlay();
+    void endPlay(boolean isHandFree);
 
     void error(int errorCode,int errMsgResId);
 }

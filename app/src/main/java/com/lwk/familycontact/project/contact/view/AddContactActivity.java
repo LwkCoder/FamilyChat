@@ -10,7 +10,6 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.bumptech.glide.Glide;
 import com.lib.base.utils.ResUtils;
 import com.lib.base.widget.CommonActionBar;
 import com.lib.imagepicker.ImagePicker;
@@ -19,6 +18,7 @@ import com.lib.imagepicker.bean.ImageBean;
 import com.lib.imagepicker.model.ImagePickerMode;
 import com.lwk.familycontact.R;
 import com.lwk.familycontact.base.FCBaseActivity;
+import com.lwk.familycontact.project.common.CommonUtils;
 import com.lwk.familycontact.project.common.FCCache;
 import com.lwk.familycontact.project.contact.presenter.AddContactPresenter;
 import com.lwk.familycontact.utils.other.TextLightUtils;
@@ -140,10 +140,8 @@ public class AddContactActivity extends FCBaseActivity implements AddContactImpl
                         if (list != null && list.size() > 0)
                         {
                             mHead = list.get(0).getImagePath();
-                            Glide.with(AddContactActivity.this)
-                                    .load(mHead)
-                                    .override(300, 300)
-                                    .into(mImgHead);
+                            CommonUtils.getInstance().getImageDisplayer()
+                                    .display(AddContactActivity.this, mImgHead, mHead, 300, 300);
                         }
                     }
                 });

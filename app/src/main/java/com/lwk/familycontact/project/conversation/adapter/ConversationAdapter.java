@@ -6,7 +6,6 @@ import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
-import com.bumptech.glide.Glide;
 import com.cengalabs.flatui.views.FlatTextView;
 import com.hyphenate.chat.EMConversation;
 import com.hyphenate.chat.EMMessage;
@@ -18,6 +17,7 @@ import com.lib.rcvadapter.RcvSingleAdapter;
 import com.lib.rcvadapter.holder.RcvHolder;
 import com.lwk.familycontact.R;
 import com.lwk.familycontact.im.bean.HxConversation;
+import com.lwk.familycontact.project.common.CommonUtils;
 import com.lwk.familycontact.storage.db.user.UserBean;
 
 import java.util.Date;
@@ -54,7 +54,9 @@ public class ConversationAdapter extends RcvSingleAdapter<HxConversation>
         {
             String head = userBean.getLocalHead();
             if (StringUtil.isNotEmpty(head))
-                Glide.with(mContext).load(head).override(300, 300).into(rImgHead);
+
+                CommonUtils.getInstance().getImageDisplayer()
+                        .display(mContext, rImgHead, head, 300, 300);
             else
                 rImgHead.setImageResource(R.drawable.default_avatar);
             fTvName.setText(userBean.getDisplayName());

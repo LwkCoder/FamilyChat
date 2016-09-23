@@ -11,7 +11,6 @@ import android.support.v7.app.AlertDialog;
 import android.view.View;
 import android.widget.ImageView;
 
-import com.bumptech.glide.Glide;
 import com.cengalabs.flatui.views.FlatTextView;
 import com.lib.base.utils.PhoneUtils;
 import com.lib.base.utils.StringUtil;
@@ -22,6 +21,7 @@ import com.lib.imagepicker.bean.ImageBean;
 import com.lib.imagepicker.model.ImagePickerMode;
 import com.lwk.familycontact.R;
 import com.lwk.familycontact.base.FCBaseActivity;
+import com.lwk.familycontact.project.common.CommonUtils;
 import com.lwk.familycontact.project.common.FCCache;
 import com.lwk.familycontact.project.contact.presenter.UserDetailPresenter;
 import com.lwk.familycontact.storage.db.user.UserBean;
@@ -114,7 +114,8 @@ public class ContactDetailActivity extends FCBaseActivity implements UserDetailI
             mTvPhone.setText(PhoneUtils.formatPhoneNumAsRegular(mUserBean.getPhone(), " - "));
             String localHead = mUserBean.getLocalHead();
             if (StringUtil.isNotEmpty(localHead))
-                Glide.with(this).load(localHead).override(300, 300).into(mImgHead);
+                CommonUtils.getInstance().getImageDisplayer()
+                        .display(this, mImgHead, localHead, 300, 300);
             else
                 mImgHead.setImageResource(R.drawable.default_avatar);
         }

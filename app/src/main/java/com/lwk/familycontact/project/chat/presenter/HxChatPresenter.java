@@ -72,6 +72,13 @@ public class HxChatPresenter
     {
     }
 
+    /**
+     * 点击语音消息
+     *
+     * @param message  被点击的语音消息
+     * @param filePath 语音消息播放地址
+     * @param position 消息位置
+     */
     public void clickVoiceMessage(EMMessage message, final String filePath, final int position)
     {
         if (mCurPlayVoicePosition == position)
@@ -87,14 +94,14 @@ public class HxChatPresenter
         mVoicePlayUtils.playVoice(filePath, new VoicePlayListener()
         {
             @Override
-            public void startPlay()
+            public void startPlay(boolean isHandFree)
             {
                 mCurPlayVoicePosition = position;
                 mViewImpl.refershAdapterStatus();
             }
 
             @Override
-            public void endPlay()
+            public void endPlay(boolean isHandFree)
             {
                 stopPlayVoiceMessage();
                 mViewImpl.refershAdapterStatus();

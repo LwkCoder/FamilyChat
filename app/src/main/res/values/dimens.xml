@@ -23,6 +23,7 @@
 
     <dimen name="height_conversation_listitem">85dp</dimen>
 
+    <!--HxChatAdapter-->
     <dimen name="img_chat_listitem_head_size">40dp</dimen>
     <dimen name="tv_chat_listitem_text_min_height">40dp</dimen>
     <dimen name="tv_chat_listitem_text_max_width">240dp</dimen>
@@ -36,4 +37,6 @@
     <dimen name="fl_chat_listitem_voice_content_min_width">85dp</dimen>
     <dimen name="fl_chat_listitem_voice_content_max_width">145dp</dimen>
     <dimen name="img_chat_listitem_voice_content_size">20dp</dimen>
+    <dimen name="img_chat_listitem_video_content_width">120dp</dimen>
+    <dimen name="img_chat_listitem_video_content_height">150dp</dimen>
 </resources>
