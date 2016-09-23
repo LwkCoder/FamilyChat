@@ -22,20 +22,18 @@ import java.util.List;
 public class HxChatAdapter extends RcvMutilAdapter<EMMessage>
 {
     protected final int MIN_SHOW_TIME = 900000;//15分钟
-    private HxChatPresenter mPresenter;
-    private UserBean mUserBean;
 
     public HxChatAdapter(Context context, List<EMMessage> datas, HxChatPresenter presenter, UserBean userBean)
     {
         super(context, datas);
-        this.mPresenter = presenter;
-        this.mUserBean = userBean;
         addItemView(new LeftTextMessageItemView(context, presenter, userBean));
         addItemView(new RightTextMessageItemView(context, presenter, userBean));
         addItemView(new LeftImageMessageItemView(context, presenter, userBean));
         addItemView(new RightImageMessageItemView(context, presenter, userBean));
         addItemView(new LeftVoiceMessageItemView(context, presenter, userBean));
         addItemView(new RightVoiceMessageItemView(context, presenter, userBean));
+        addItemView(new LeftVideoMessageItemView(context, presenter, userBean));
+        addItemView(new RightVideoMessageItemView(context, presenter, userBean));
     }
 
     @Override

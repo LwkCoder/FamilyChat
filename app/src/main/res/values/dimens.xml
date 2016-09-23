@@ -28,7 +28,7 @@
     <dimen name="tv_chat_listitem_text_min_height">40dp</dimen>
     <dimen name="tv_chat_listitem_text_max_width">240dp</dimen>
     <dimen name="img_chat_listitem_image_content_radius">9dp</dimen>
-    <dimen name="img_chat_listitem_image_content_min_size">40dp</dimen>
+    <dimen name="img_chat_listitem_image_content_min_size">80dp</dimen>
     <dimen name="img_chat_listitem_image_content_padding_top">6dp</dimen>
     <dimen name="img_chat_listitem_image_content_padding_bottom">6dp</dimen>
     <dimen name="img_chat_listitem_image_content_padding_left">7dp</dimen>
@@ -39,4 +39,5 @@
     <dimen name="img_chat_listitem_voice_content_size">20dp</dimen>
     <dimen name="img_chat_listitem_video_content_width">120dp</dimen>
     <dimen name="img_chat_listitem_video_content_height">150dp</dimen>
+    <dimen name="btn_chat_listitem_video_content_size">45dp</dimen>
 </resources>

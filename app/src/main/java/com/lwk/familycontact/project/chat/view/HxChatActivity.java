@@ -7,7 +7,6 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 
-import com.hyphenate.chat.EMClient;
 import com.hyphenate.chat.EMMessage;
 import com.lib.base.widget.CommonActionBar;
 import com.lib.ptrview.CommonPtrLayout;
@@ -65,7 +64,7 @@ public class HxChatActivity extends FCBaseActivity implements HxChatImpl, Common
     @Override
     protected int setContentViewId()
     {
-        mPresenter = new HxChatPresenter(this);
+        mPresenter = new HxChatPresenter(this, mMainHandler);
         return R.layout.activity_hx_chat;
     }
 
@@ -76,6 +75,7 @@ public class HxChatActivity extends FCBaseActivity implements HxChatImpl, Common
         mActionBar.setLeftLayoutAsBack(this);
 
         mPtrView = findView(R.id.prt_chat);
+        mPtrView.setDuration(1000);
         mPtrView.setOnRefreshListener(this);
         mRecyclerView = findView(R.id.common_ptrview_content);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
@@ -88,27 +88,65 @@ public class HxChatActivity extends FCBaseActivity implements HxChatImpl, Common
     {
         super.initData();
         mPresenter.setActionBarTitle(mConversationId, mUserBean);
-        List<EMMessage> messageList = EMClient.getInstance().chatManager().getConversation(mConversationId).getAllMessages();
-        mAdapter.refreshDatas(messageList);
+        mPresenter.loadOnePageData(mConversationId, true);
     }
 
     @Override
     public void onRefresh()
     {
-        mMainHandler.postDelayed(new Runnable()
-        {
-            @Override
-            public void run()
-            {
-                mPtrView.notifyRefreshSuccess();
-            }
-        }, 1000);
+        mPresenter.loadOnePageData(mConversationId, false);
     }
 
     @Override
     public void onRefreshActionBarTitle(String title)
     {
         mActionBar.setTitleText(title);
+    }
+
+    @Override
+    public EMMessage getAdapterFirstMsg()
+    {
+        return mAdapter.getDatas() != null && mAdapter.getDatas().size() > 0 ?
+                mAdapter.getDatas().get(0) : null;
+    }
+
+    @Override
+    public int getAdapterMsgCount()
+    {
+        return mAdapter.getDatas() != null ? mAdapter.getDatas().size() : 0;
+    }
+
+    @Override
+    public void loadOnePageMessagesSuccess(List<EMMessage> messages, boolean isFirstLoad)
+    {
+        mAdapter.getDatas().addAll(0, messages);
+        mAdapter.notifyDataSetChanged();
+        if (messages != null)
+            mRecyclerView.scrollToPosition(messages.size());
+    }
+
+    @Override
+    public void onPtrSuccess()
+    {
+        mPtrView.notifyRefreshSuccess();
+    }
+
+    @Override
+    public void onPtrFail()
+    {
+        mPtrView.notifyRefreshFail();
+    }
+
+    @Override
+    public void showNoMoreMessageWarning()
+    {
+        showShortToast(R.string.warning_no_more_message_history);
+    }
+
+    @Override
+    public void scrollToBottom()
+    {
+        mRecyclerView.scrollToPosition(mAdapter.getItemCount() - 1);
     }
 
     @Override

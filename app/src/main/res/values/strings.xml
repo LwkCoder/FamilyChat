@@ -2,7 +2,7 @@
     <string name="app_name">家聊</string>
     <string name="AuthorDesc">Produced by WK.Luo</string>
 
-    <!--错误描述汇总-->
+    <!--提示汇总-->
     <string name="error_unknow">数据异常</string>
     <string name="error_regist_fail">注册失败，请稍后重试</string>
     <string name="error_hx_server_unknow_error">连接服务器异常，请检查网络设置</string>
@@ -20,6 +20,7 @@
     <string name="warning_add_friend_empty_phone">对方手机号不能为空，请输入手机号或者点击页面右上角扫描对方二维码</string>
     <string name="warning_add_friend_error_phone">请输入规范的手机号码</string>
     <string name="error_play_voice_message">语音消息播放失败</string>
+    <string name="warning_no_more_message_history">没有更多聊天记录</string>
 
     <!--环信相关-->
     <string name="dialog_user_relogin_title">账号在其他设备登录</string>
@@ -166,5 +167,11 @@
     <string name="toast_text_be_copyed">文本已复制</string>
     <string name="tv_chat_listitem_voice_length_Ex">%%1秒</string>
     <string name="tv_chat_listitem_voice_unlisten">未听</string>
-    <string name="tv_chat_listitem_video_length_Ex">时长：%%1秒</string>
+    <string name="tv_chat_listitem_video_duration_Ex">%%1秒</string>
+    <string name="tv_chat_listitem_video_filelength_Ex">%%1Mb</string>
+    <string name="ptr_chat_reset">下拉加载历史消息</string>
+    <string name="ptr_chat_pulling">松开后加载历史消息</string>
+    <string name="ptr_chat_release">正在加载历史消息...</string>
+    <string name="ptr_chat_success">加载成功</string>
+    <string name="ptr_chat_fail">加载失败</string>
 </resources>

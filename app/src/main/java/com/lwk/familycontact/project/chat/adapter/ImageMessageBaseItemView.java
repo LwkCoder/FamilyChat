@@ -73,10 +73,10 @@ public abstract class ImageMessageBaseItemView extends HxChatBaseItemView
         String remoteUrl = messageBody.getRemoteUrl();
         if (emMessage.isDelivered() && StringUtil.isNotEmpty(localUrl) && new File(localUrl).exists())
             CommonUtils.getInstance().getImageDisplayer()
-                    .display(mContext, imageView, localUrl, mLayoutWidth, mLayoutHeight);
+                    .display(mContext, imageView, localUrl, mLayoutWidth / 2, mLayoutHeight / 2);
         else
             CommonUtils.getInstance().getImageDisplayer()
-                    .display(mContext, imageView, remoteUrl, mLayoutWidth, mLayoutHeight);
+                    .display(mContext, imageView, remoteUrl, mLayoutWidth / 2, mLayoutHeight / 2);
 
         //设置点击事件
         imageView.setOnClickListener(new View.OnClickListener()

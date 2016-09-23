@@ -127,11 +127,17 @@
     </style>
 
     <style name="TvChatVideoContentStyle" parent="FC_TextViewStyle">
-        <item name="android:id">@id/tv_chat_listitem_video_content</item>
         <item name="android:textColor">@android:color/white</item>
         <item name="android:textSize">@dimen/sp_14</item>
-        <item name="android:layout_gravity">bottom|center_horizontal</item>
         <item name="android:layout_marginBottom">@dimen/spacing_normal</item>
+    </style>
+
+    <style name="BtnChatVideoContentStyle">
+        <item name="android:id">@id/btn_chat_listitem_video_content</item>
+        <item name="android:layout_width">@dimen/btn_chat_listitem_video_content_size</item>
+        <item name="android:layout_height">@dimen/btn_chat_listitem_video_content_size</item>
+        <item name="android:background">@drawable/btn_chat_video_start_selector</item>
+        <item name="android:layout_gravity">center</item>
     </style>
 
 </resources>

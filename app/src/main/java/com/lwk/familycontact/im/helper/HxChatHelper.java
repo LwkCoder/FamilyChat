@@ -5,6 +5,7 @@ import com.hyphenate.chat.EMConversation;
 import com.hyphenate.chat.EMMessage;
 import com.lwk.familycontact.im.listener.HxMessageListener;
 
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -93,6 +94,30 @@ public class HxChatHelper
     public void delConversation(String conId, boolean clearHistory)
     {
         EMClient.getInstance().chatManager().deleteConversation(conId, clearHistory);
+    }
+
+    /**
+     * 获取某条会话
+     *
+     * @param conId 会话id
+     * @return 会话对象
+     */
+    public EMConversation getConversation(String conId)
+    {
+        return EMClient.getInstance().chatManager().getConversation(conId);
+    }
+
+    /**
+     * 从数据库中加载若干条历史消息
+     *
+     * @param conId      会话id
+     * @param startMsgId 起始消息id
+     * @param size       消息数量
+     */
+    public List<EMMessage> loadMessageFormDB(String conId, String startMsgId, int size)
+    {
+        EMConversation conversation = getConversation(conId);
+        return conversation.loadMoreMsgFromDB(startMsgId, size);
     }
 
     /**
@@ -196,4 +221,5 @@ public class HxChatHelper
         EMClient.getInstance().chatManager().sendMessage(message);
         return message;
     }
+
 }

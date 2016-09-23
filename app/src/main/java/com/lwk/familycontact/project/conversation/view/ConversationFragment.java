@@ -12,15 +12,11 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.cengalabs.flatui.views.FlatTextView;
-import com.hyphenate.chat.EMMessage;
 import com.lib.base.app.BaseFragment;
-import com.lib.imrecordbutton.IMRecordButton;
-import com.lib.imrecordbutton.IMRecordListener;
 import com.lib.rcvadapter.RcvMutilAdapter;
 import com.lib.rcvadapter.holder.RcvHolder;
 import com.lwk.familycontact.R;
 import com.lwk.familycontact.im.bean.HxConversation;
-import com.lwk.familycontact.im.helper.HxChatHelper;
 import com.lwk.familycontact.project.chat.view.HxChatActivity;
 import com.lwk.familycontact.project.conversation.adapter.ConversationAdapter;
 import com.lwk.familycontact.project.conversation.presenter.ConverstionPresenter;
@@ -88,22 +84,6 @@ public class ConversationFragment extends BaseFragment implements ConversationIm
         mAdapter.setOnItemClickListener(this);
         mAdapter.setOnItemLongClickListener(this);
         mRecyclerView.setAdapter(mAdapter);
-
-        IMRecordButton recordButton = findView(R.id.rBtn_Con);
-        recordButton.setOnRecordListener(new IMRecordListener()
-        {
-            @Override
-            public void startRecord()
-            {
-
-            }
-
-            @Override
-            public void recordFinish(float seconds, String filePath)
-            {
-                HxChatHelper.getInstance().sendVoiceMessage(EMMessage.ChatType.Chat, filePath, (int) seconds, "15555555555");
-            }
-        });
     }
 
     @Override

@@ -46,7 +46,19 @@
                     app:sriv_right_top_corner_radius="@dimen/img_chat_listitem_image_content_radius"/>
 
                 <TextView
-                    style="@style/TvChatVideoContentStyle"/>
+                    android:id="@id/tv_chat_listitem_video_content_duration"
+                    style="@style/TvChatVideoContentStyle"
+                    android:layout_gravity="bottom|left"
+                    android:layout_marginLeft="@dimen/spacing_small"/>
+
+                <TextView
+                    android:id="@id/tv_chat_listitem_video_content_filelength"
+                    style="@style/TvChatVideoContentStyle"
+                    android:layout_gravity="bottom|right"
+                    android:layout_marginRight="@dimen/spacing_small"/>
+
+                <Button
+                    style="@style/BtnChatVideoContentStyle"/>
 
             </FrameLayout>
 

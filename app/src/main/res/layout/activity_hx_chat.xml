@@ -20,13 +20,20 @@
         android:id="@+id/prt_chat"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        app:ptr_bg_refresh="@color/gray_ADADAD"
         app:ptr_enable_loadmore="false"
         app:ptr_enable_refresh="true">
 
         <com.lib.ptrview.CommonPtrDefView
             android:id="@+id/common_ptrview_refresh_view"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"/>
+            android:layout_height="wrap_content"
+            app:ptr_def_view_label_pulldown_fail="@string/ptr_chat_fail"
+            app:ptr_def_view_label_pulldown_pulling="@string/ptr_chat_pulling"
+            app:ptr_def_view_label_pulldown_released="@string/ptr_chat_release"
+            app:ptr_def_view_label_pulldown_reset="@string/ptr_chat_reset"
+            app:ptr_def_view_label_pulldown_success="@string/ptr_chat_success"
+            app:ptr_def_view_tv_color="@color/colorPrimaryDark"/>
 
         <android.support.v7.widget.RecyclerView
             android:id="@+id/common_ptrview_content"
