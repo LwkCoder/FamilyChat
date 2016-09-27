@@ -27,6 +27,11 @@ public interface HxChatImpl
     int getAdapterMsgCount();
 
     /**
+     * 获取会话id
+     */
+    String getConversationId();
+
+    /**
      * 加载一页消息成功
      *
      * @param messages    消息list

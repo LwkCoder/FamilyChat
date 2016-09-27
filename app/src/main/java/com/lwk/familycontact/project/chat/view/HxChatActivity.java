@@ -9,7 +9,6 @@ import android.view.MotionEvent;
 import android.view.View;
 
 import com.hyphenate.chat.EMMessage;
-import com.lib.base.utils.StringUtil;
 import com.lib.base.widget.CommonActionBar;
 import com.lib.imrecordbutton.IMRecordListener;
 import com.lib.ptrview.CommonPtrLayout;
@@ -146,6 +145,12 @@ public class HxChatActivity extends FCBaseActivity implements HxChatImpl
     }
 
     @Override
+    public String getConversationId()
+    {
+        return mConversationId;
+    }
+
+    @Override
     public void loadOnePageMessagesSuccess(List<EMMessage> messages, boolean isFirstLoad)
     {
         if (messages == null)
@@ -193,6 +198,7 @@ public class HxChatActivity extends FCBaseActivity implements HxChatImpl
     {
         if (mAdapter != null)
         {
+            //判断当前添加消息前最后一条可见消息的位置是不是为最底部的消息，是就在添加新消息后将会话拉到底部
             int curLastVisiablePosition = mLayoutManager.findLastVisibleItemPosition();
             boolean needScrollToBottom = curLastVisiablePosition == mAdapter.getDatas().size() - 1;
             mAdapter.addData(message);
@@ -247,12 +253,7 @@ public class HxChatActivity extends FCBaseActivity implements HxChatImpl
         switch (eventBean.getFlag())
         {
             case HxMessageEventBean.NEW_MESSAGE_RECEIVED:
-                List<EMMessage> messageList = eventBean.getMsgList();
-                for (EMMessage message : messageList)
-                {
-                    if (StringUtil.isEquals(message.getFrom(), mConversationId))
-                        addNewMessage(message);
-                }
+                mPresenter.addNewReceivedMessages(eventBean);
                 break;
         }
     }

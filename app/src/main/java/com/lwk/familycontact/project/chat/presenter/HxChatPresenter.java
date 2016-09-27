@@ -5,6 +5,7 @@ import android.os.Handler;
 import com.hyphenate.EMCallBack;
 import com.hyphenate.chat.EMConversation;
 import com.hyphenate.chat.EMMessage;
+import com.lib.base.utils.StringUtil;
 import com.lwk.familycontact.base.FCApplication;
 import com.lwk.familycontact.im.helper.HxChatHelper;
 import com.lwk.familycontact.project.chat.model.HxChatModel;
@@ -15,6 +16,7 @@ import com.lwk.familycontact.storage.db.user.UserBean;
 import com.lwk.familycontact.utils.event.ComNotifyConfig;
 import com.lwk.familycontact.utils.event.ComNotifyEventBean;
 import com.lwk.familycontact.utils.event.EventBusHelper;
+import com.lwk.familycontact.utils.event.HxMessageEventBean;
 import com.lwk.familycontact.utils.other.ThreadManager;
 
 import java.util.List;
@@ -89,8 +91,7 @@ public class HxChatPresenter
             if (isFirstLoad)
             {
                 mViewImpl.loadOnePageMessagesSuccess(null, isFirstLoad);
-            }
-            else
+            } else
             {
                 mViewImpl.showNoMoreMessageWarning();
                 mViewImpl.onPtrFail();
@@ -156,7 +157,7 @@ public class HxChatPresenter
     public void sendTextMessage(EMMessage.ChatType chatType, String conId, String message)
     {
         EMMessage emMessage = HxChatHelper.getInstance().sendTextMessage(chatType, conId, message);
-        addNewMessage(emMessage);
+        addNewSendingMessage(emMessage);
     }
 
     /**
@@ -165,11 +166,11 @@ public class HxChatPresenter
     public void sendVoiceMessage(EMMessage.ChatType chatType, String conId, String filePath, int seconds)
     {
         EMMessage emMessage = HxChatHelper.getInstance().sendVoiceMessage(chatType, conId, filePath, seconds);
-        addNewMessage(emMessage);
+        addNewSendingMessage(emMessage);
     }
 
     //将新发送的消息加到RecyclerView中
-    private void addNewMessage(final EMMessage message)
+    private void addNewSendingMessage(final EMMessage message)
     {
         mViewImpl.addNewMessage(message);
         message.setMessageStatusCallback(new EMCallBack()
@@ -206,6 +207,20 @@ public class HxChatPresenter
                 //在这里可以刷新消息发送进度
             }
         });
+    }
+
+    /**
+     * 添加新接收的消息
+     */
+    public void addNewReceivedMessages(HxMessageEventBean eventBean)
+    {
+        List<EMMessage> messageList = eventBean.getMsgList();
+        String conId = mViewImpl.getConversationId();
+        for (EMMessage message : messageList)
+        {
+            if (StringUtil.isEquals(message.getFrom(), conId))
+                mViewImpl.addNewMessage(message);
+        }
     }
 
     public void showImageDetail(EMMessage message, int position)
