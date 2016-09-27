@@ -239,7 +239,7 @@ public class HxChatActivity extends FCBaseActivity implements HxChatImpl
     @Override
     public void startRecord()
     {
-
+        mPresenter.stopPlayVoiceMessage();
     }
 
     @Override
