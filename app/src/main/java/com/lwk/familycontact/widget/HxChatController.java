@@ -146,5 +146,4 @@ public class HxChatController extends LinearLayout
     {
         void onClickSend(String content);
     }
-
 }

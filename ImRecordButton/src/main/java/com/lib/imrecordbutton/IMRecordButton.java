@@ -305,6 +305,7 @@ public class IMRecordButton extends Button implements IMRecordAudioManager.onRec
                 break;
             //监听ACTION_CANCEL，防止某些rom在第一次使用录音时弹出权限dialog，导致不触发ACTION_UP
             case MotionEvent.ACTION_CANCEL:
+                setBackgroundResource(mBgResIdNormal);
                 mHasUp = true;
                 if (mWakeLock != null && mWakeLock.isHeld())
                     mWakeLock.release();

@@ -15,20 +15,24 @@ import com.lwk.familycontact.R;
 import com.lwk.familycontact.base.FCBaseActivity;
 import com.lwk.familycontact.project.chat.adapter.HxChatAdapter;
 import com.lwk.familycontact.project.chat.presenter.HxChatPresenter;
+import com.lwk.familycontact.project.chat.utils.AndroidAdjustResizeBugFix;
 import com.lwk.familycontact.storage.db.user.UserBean;
 import com.lwk.familycontact.utils.event.ChatActEventBean;
 import com.lwk.familycontact.utils.event.EventBusHelper;
 import com.lwk.familycontact.widget.HxChatController;
+import com.lwk.familycontact.widget.ResizeLayout;
 
 import java.util.List;
 
 /**
  * 聊天界面
  */
-public class HxChatActivity extends FCBaseActivity implements HxChatImpl, CommonPtrLayout.OnRefreshListener
+public class HxChatActivity extends FCBaseActivity implements HxChatImpl
+        , CommonPtrLayout.OnRefreshListener, ResizeLayout.OnResizeListener
 {
     private static final String INTENT_KEY_USERBEAN = "userbean";
     private static final String INTENT_KEY_PHONE = "phone";
+    private final int RECYCLERVIEW_CHANGE_HEIGHT = Integer.MAX_VALUE - 100;
     private HxChatPresenter mPresenter;
     private String mConversationId;
     private UserBean mUserBean;
@@ -37,6 +41,7 @@ public class HxChatActivity extends FCBaseActivity implements HxChatImpl, Common
     private RecyclerView mRecyclerView;
     private HxChatAdapter mAdapter;
     private HxChatController mChatController;
+    private ResizeLayout mResizeLayout;
 
     /**
      * 跳转到聊天界面的公共方法
@@ -77,6 +82,9 @@ public class HxChatActivity extends FCBaseActivity implements HxChatImpl, Common
         mActionBar = findView(R.id.cab_hx_chat);
         mActionBar.setLeftLayoutAsBack(this);
 
+        mResizeLayout = findView(R.id.rel_hx_chat);
+        mResizeLayout.setOnResizeListener(this);
+
         mPtrView = findView(R.id.prt_chat);
         mPtrView.setDuration(1000);
         mPtrView.setOnRefreshListener(this);
@@ -86,6 +94,7 @@ public class HxChatActivity extends FCBaseActivity implements HxChatImpl, Common
         mRecyclerView.setAdapter(mAdapter);
 
         mChatController = findView(R.id.hcc_hx_chat);
+        AndroidAdjustResizeBugFix.assistActivity(this);
     }
 
     @Override
@@ -171,6 +180,13 @@ public class HxChatActivity extends FCBaseActivity implements HxChatImpl, Common
     protected void onClick(int id, View v)
     {
 
+    }
+
+    @Override
+    public void OnResize(int w, int h, int oldw, int oldh)
+    {
+        if (h != 0 && oldh != 0 && h < oldh)
+            scrollToBottom();
     }
 
     //该界面不需要点击非edittext区域关闭软键盘
