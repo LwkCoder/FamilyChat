@@ -99,36 +99,38 @@ public class HxChatHelper
     /**
      * 获取某条会话
      *
-     * @param conId 会话id
+     * @param conId   会话id
+     * @param conType 会话类型
      * @return 会话对象
      */
-    public EMConversation getConversation(String conId)
+    public EMConversation getConversation(String conId, EMConversation.EMConversationType conType)
     {
-        return EMClient.getInstance().chatManager().getConversation(conId);
+        return EMClient.getInstance().chatManager().getConversation(conId, conType, false);
     }
 
     /**
      * 从数据库中加载若干条历史消息
      *
+     * @param conType    会话类型
      * @param conId      会话id
      * @param startMsgId 起始消息id
      * @param size       消息数量
      */
-    public List<EMMessage> loadMessageFormDB(String conId, String startMsgId, int size)
+    public List<EMMessage> loadMessageFormDB(EMConversation.EMConversationType conType, String conId, String startMsgId, int size)
     {
-        EMConversation conversation = getConversation(conId);
-        return conversation.loadMoreMsgFromDB(startMsgId, size);
+        EMConversation conversation = getConversation(conId, conType);
+        return conversation != null ? conversation.loadMoreMsgFromDB(startMsgId, size) : null;
     }
 
     /**
      * 发送文本消息
      *
      * @param chatType 聊天类型
-     * @param content  内容
      * @param conId    会话id
+     * @param content  内容
      * @return 文本消息
      */
-    public EMMessage sendTextMessage(EMMessage.ChatType chatType, String content, String conId)
+    public EMMessage sendTextMessage(EMMessage.ChatType chatType, String conId, String content)
     {
         EMMessage message = EMMessage.createTxtSendMessage(content, conId);
         message.setChatType(chatType);
@@ -140,12 +142,12 @@ public class HxChatHelper
      * 发送语音消息
      *
      * @param chatType 聊天类型
+     * @param conId    会话id
      * @param filePath 语音文件地址
      * @param seconds  语音时长【秒】
-     * @param conId    会话id
      * @return 语音消息
      */
-    public EMMessage sendVoiceMessage(EMMessage.ChatType chatType, String filePath, int seconds, String conId)
+    public EMMessage sendVoiceMessage(EMMessage.ChatType chatType, String conId, String filePath, int seconds)
     {
         EMMessage message = EMMessage.createVoiceSendMessage(filePath, seconds, conId);
         message.setChatType(chatType);
@@ -157,12 +159,12 @@ public class HxChatHelper
      * 发送图片消息
      *
      * @param chatType      聊天类型
+     * @param conId         会话id
      * @param filePath      图片文件地址
      * @param sendOriginPic 是否发送原图【false为不发送，超过100K会被压缩发送】
-     * @param conId         会话id
      * @return 图片消息
      */
-    public EMMessage sendImageMessage(EMMessage.ChatType chatType, String filePath, boolean sendOriginPic, String conId)
+    public EMMessage sendImageMessage(EMMessage.ChatType chatType, String conId, String filePath, boolean sendOriginPic)
     {
         EMMessage message = EMMessage.createImageSendMessage(filePath, sendOriginPic, conId);
         message.setChatType(chatType);
@@ -174,13 +176,13 @@ public class HxChatHelper
      * 发送视频消息
      *
      * @param chatType    聊天类型
+     * @param conId       会话id
      * @param filePath    视频文件地址
      * @param thumbPath   预览图文件地址
      * @param videoLength 视频时长【秒1】
-     * @param conId       会话id
      * @return 视频消息
      */
-    public EMMessage sendVideoMessage(EMMessage.ChatType chatType, String filePath, String thumbPath, int videoLength, String conId)
+    public EMMessage sendVideoMessage(EMMessage.ChatType chatType, String conId, String filePath, String thumbPath, int videoLength)
     {
         EMMessage message = EMMessage.createVideoSendMessage(filePath, thumbPath, videoLength, conId);
         message.setChatType(chatType);
@@ -192,13 +194,13 @@ public class HxChatHelper
      * 发送位置消息
      *
      * @param chatType        聊天类型
+     * @param conId           会话id
      * @param latitude        纬度
      * @param longitude       经度
      * @param locationAddress 地址
-     * @param conId           会话id
      * @return 位置消息
      */
-    public EMMessage sendLocationMessage(EMMessage.ChatType chatType, long latitude, long longitude, String locationAddress, String conId)
+    public EMMessage sendLocationMessage(EMMessage.ChatType chatType, String conId, long latitude, long longitude, String locationAddress)
     {
         EMMessage message = EMMessage.createLocationSendMessage(latitude, longitude, locationAddress, conId);
         message.setChatType(EMMessage.ChatType.GroupChat);
@@ -210,11 +212,11 @@ public class HxChatHelper
      * 发送文件消息
      *
      * @param chatType 聊天类型
-     * @param filePath 文件地址
      * @param conId    会话id
+     * @param filePath 文件地址
      * @return 文件消息
      */
-    public EMMessage sendFileMessage(EMMessage.ChatType chatType, String filePath, String conId)
+    public EMMessage sendFileMessage(EMMessage.ChatType chatType, String conId, String filePath)
     {
         EMMessage message = EMMessage.createFileSendMessage(filePath, conId);
         message.setChatType(chatType);

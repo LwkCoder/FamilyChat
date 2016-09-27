@@ -9,7 +9,9 @@ import android.view.MotionEvent;
 import android.view.View;
 
 import com.hyphenate.chat.EMMessage;
+import com.lib.base.utils.StringUtil;
 import com.lib.base.widget.CommonActionBar;
+import com.lib.imrecordbutton.IMRecordListener;
 import com.lib.ptrview.CommonPtrLayout;
 import com.lwk.familycontact.R;
 import com.lwk.familycontact.base.FCBaseActivity;
@@ -19,8 +21,12 @@ import com.lwk.familycontact.project.chat.utils.AndroidAdjustResizeBugFix;
 import com.lwk.familycontact.storage.db.user.UserBean;
 import com.lwk.familycontact.utils.event.ChatActEventBean;
 import com.lwk.familycontact.utils.event.EventBusHelper;
+import com.lwk.familycontact.utils.event.HxMessageEventBean;
 import com.lwk.familycontact.widget.HxChatController;
 import com.lwk.familycontact.widget.ResizeLayout;
+
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 
 import java.util.List;
 
@@ -28,17 +34,22 @@ import java.util.List;
  * 聊天界面
  */
 public class HxChatActivity extends FCBaseActivity implements HxChatImpl
-        , CommonPtrLayout.OnRefreshListener, ResizeLayout.OnResizeListener
+        , CommonPtrLayout.OnRefreshListener
+        , ResizeLayout.OnResizeListener
+        , HxChatController.onTextSendListener
+        , IMRecordListener
 {
     private static final String INTENT_KEY_USERBEAN = "userbean";
-    private static final String INTENT_KEY_PHONE = "phone";
-    private final int RECYCLERVIEW_CHANGE_HEIGHT = Integer.MAX_VALUE - 100;
+    private static final String INTENT_KEY_CONID = "conId";
+    private static final String INTENT_KEY_CHATTYPE = "chattype";
     private HxChatPresenter mPresenter;
+    private EMMessage.ChatType mChatType = EMMessage.ChatType.Chat;//目前都作为单聊
     private String mConversationId;
     private UserBean mUserBean;
     private CommonActionBar mActionBar;
     private CommonPtrLayout mPtrView;
     private RecyclerView mRecyclerView;
+    private LinearLayoutManager mLayoutManager;
     private HxChatAdapter mAdapter;
     private HxChatController mChatController;
     private ResizeLayout mResizeLayout;
@@ -47,13 +58,13 @@ public class HxChatActivity extends FCBaseActivity implements HxChatImpl
      * 跳转到聊天界面的公共方法
      *
      * @param activity 发起跳转的Activity
-     * @param phone    手机号
+     * @param conId    会话id
      * @param userBean 对方资料
      */
-    public static void start(Activity activity, String phone, UserBean userBean)
+    public static void start(Activity activity, String conId, UserBean userBean)
     {
         Intent intent = new Intent(activity, HxChatActivity.class);
-        intent.putExtra(INTENT_KEY_PHONE, phone);
+        intent.putExtra(INTENT_KEY_CONID, conId);
         intent.putExtra(INTENT_KEY_USERBEAN, userBean);
         activity.startActivity(intent);
     }
@@ -63,7 +74,7 @@ public class HxChatActivity extends FCBaseActivity implements HxChatImpl
     {
         super.beforeOnCreate(savedInstanceState);
         Intent intent = getIntent();
-        mConversationId = intent.getStringExtra(INTENT_KEY_PHONE);
+        mConversationId = intent.getStringExtra(INTENT_KEY_CONID);
         mUserBean = intent.getParcelableExtra(INTENT_KEY_USERBEAN);
         //发送进入聊天界面的通知
         EventBusHelper.getInstance().post(new ChatActEventBean(true, mConversationId));
@@ -73,6 +84,7 @@ public class HxChatActivity extends FCBaseActivity implements HxChatImpl
     protected int setContentViewId()
     {
         mPresenter = new HxChatPresenter(this, mMainHandler);
+        EventBusHelper.getInstance().regist(this);
         return R.layout.activity_hx_chat;
     }
 
@@ -89,11 +101,14 @@ public class HxChatActivity extends FCBaseActivity implements HxChatImpl
         mPtrView.setDuration(1000);
         mPtrView.setOnRefreshListener(this);
         mRecyclerView = findView(R.id.common_ptrview_content);
-        mRecyclerView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
+        mLayoutManager = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
+        mRecyclerView.setLayoutManager(mLayoutManager);
         mAdapter = new HxChatAdapter(this, null, mPresenter, mUserBean);
         mRecyclerView.setAdapter(mAdapter);
 
         mChatController = findView(R.id.hcc_hx_chat);
+        mChatController.setOnTextSendListener(this);
+        mChatController.setOnRecordListener(this);
         AndroidAdjustResizeBugFix.assistActivity(this);
     }
 
@@ -102,13 +117,13 @@ public class HxChatActivity extends FCBaseActivity implements HxChatImpl
     {
         super.initData();
         mPresenter.setActionBarTitle(mConversationId, mUserBean);
-        mPresenter.loadOnePageData(mConversationId, true);
+        mPresenter.loadOnePageData(mChatType, mConversationId, true);
     }
 
     @Override
     public void onRefresh()
     {
-        mPresenter.loadOnePageData(mConversationId, false);
+        mPresenter.loadOnePageData(mChatType, mConversationId, false);
     }
 
     @Override
@@ -133,9 +148,12 @@ public class HxChatActivity extends FCBaseActivity implements HxChatImpl
     @Override
     public void loadOnePageMessagesSuccess(List<EMMessage> messages, boolean isFirstLoad)
     {
+        if (messages == null)
+            return;
+
         mAdapter.getDatas().addAll(0, messages);
         mAdapter.notifyDataSetChanged();
-        if (messages != null)
+        if (messages != null && !isFirstLoad)
             mRecyclerView.scrollToPosition(messages.size());
     }
 
@@ -171,6 +189,29 @@ public class HxChatActivity extends FCBaseActivity implements HxChatImpl
     }
 
     @Override
+    public void addNewMessage(EMMessage message)
+    {
+        if (mAdapter != null)
+        {
+            int curLastVisiablePosition = mLayoutManager.findLastVisibleItemPosition();
+            boolean needScrollToBottom = curLastVisiablePosition == mAdapter.getDatas().size() - 1;
+            mAdapter.addData(message);
+            if (needScrollToBottom)
+                scrollToBottom();
+        }
+    }
+
+    @Override
+    public void onMessageStatusChanged(EMMessage message)
+    {
+        if (mAdapter != null)
+        {
+            int position = mAdapter.getDatas().indexOf(message);
+            mAdapter.notifyItemChanged(position, message);
+        }
+    }
+
+    @Override
     public void showError(int errorCode, int errMsgResId)
     {
         showShortToast(errMsgResId);
@@ -180,6 +221,40 @@ public class HxChatActivity extends FCBaseActivity implements HxChatImpl
     protected void onClick(int id, View v)
     {
 
+    }
+
+    @Override
+    public void onClickSend(String content)
+    {
+        mPresenter.sendTextMessage(mChatType, mConversationId, content);
+    }
+
+    @Override
+    public void startRecord()
+    {
+
+    }
+
+    @Override
+    public void recordFinish(float seconds, String filePath)
+    {
+        mPresenter.sendVoiceMessage(mChatType, mConversationId, filePath, (int) seconds);
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void onNewMessageReceived(HxMessageEventBean eventBean)
+    {
+        switch (eventBean.getFlag())
+        {
+            case HxMessageEventBean.NEW_MESSAGE_RECEIVED:
+                List<EMMessage> messageList = eventBean.getMsgList();
+                for (EMMessage message : messageList)
+                {
+                    if (StringUtil.isEquals(message.getFrom(), mConversationId))
+                        addNewMessage(message);
+                }
+                break;
+        }
     }
 
     @Override
@@ -203,6 +278,7 @@ public class HxChatActivity extends FCBaseActivity implements HxChatImpl
         mPresenter.clearConversationUnreadCount(mConversationId);
         //发送离开聊天界面的通知
         EventBusHelper.getInstance().post(new ChatActEventBean(false, mConversationId));
+        EventBusHelper.getInstance().unregist(this);
         super.onDestroy();
     }
 }

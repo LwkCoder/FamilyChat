@@ -60,6 +60,16 @@ public interface HxChatImpl
     void refershAdapterStatus();
 
     /**
+     * 添加新消息
+     */
+    void addNewMessage(EMMessage message);
+
+    /**
+     * 某条消息的状态更改
+     */
+    void onMessageStatusChanged(EMMessage message);
+
+    /**
      * 提示错误
      *
      * @param errorCode   错误码

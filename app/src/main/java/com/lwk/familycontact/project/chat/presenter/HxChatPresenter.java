@@ -2,6 +2,7 @@ package com.lwk.familycontact.project.chat.presenter;
 
 import android.os.Handler;
 
+import com.hyphenate.EMCallBack;
 import com.hyphenate.chat.EMConversation;
 import com.hyphenate.chat.EMMessage;
 import com.lwk.familycontact.base.FCApplication;
@@ -73,12 +74,29 @@ public class HxChatPresenter
      * 加载一页消息记录
      *
      * @param conId       会话id
+     * @param chatType    聊天类型
      * @param isFirstLoad 是否为第一次加载
      */
-    public void loadOnePageData(String conId, final boolean isFirstLoad)
+    public void loadOnePageData(EMMessage.ChatType chatType, String conId, final boolean isFirstLoad)
     {
         String startMsgId = null;
-        EMConversation conversation = HxChatHelper.getInstance().getConversation(conId);
+        EMConversation.EMConversationType conType = getConTypeFromChatType(chatType);
+        EMConversation conversation = HxChatHelper.getInstance().getConversation(conId, conType);
+
+        //会话不存在时
+        if (conversation == null)
+        {
+            if (isFirstLoad)
+            {
+                mViewImpl.loadOnePageMessagesSuccess(null, isFirstLoad);
+            }
+            else
+            {
+                mViewImpl.showNoMoreMessageWarning();
+                mViewImpl.onPtrFail();
+            }
+            return;
+        }
 
         //获取适配器里第一条消息，以便获取起始msgId
         EMMessage firstMessage = mViewImpl.getAdapterFirstMsg();
@@ -89,7 +107,7 @@ public class HxChatPresenter
         //当适配器消息数量小于该会话所有消息数量就去数据库拉取
         if (cacheMsgCount < conversation.getAllMsgCount())
         {
-            final List<EMMessage> messages = HxChatHelper.getInstance().loadMessageFormDB(conId, startMsgId, EACH_PAGE_SIZE);
+            final List<EMMessage> messages = HxChatHelper.getInstance().loadMessageFormDB(conType, conId, startMsgId, EACH_PAGE_SIZE);
             //第一次加载直接拉到底部
             if (isFirstLoad)
             {
@@ -100,7 +118,7 @@ public class HxChatPresenter
             else
             {
                 mViewImpl.onPtrSuccess();
-                //延迟一会儿再将数据穿过去，不然太快了
+                //延迟一会儿再将数据传过去，不然太快了
                 mMainHandler.postDelayed(new Runnable()
                 {
                     @Override
@@ -117,6 +135,78 @@ public class HxChatPresenter
         }
     }
 
+    /**
+     * 根据ChatType获取EMConversationType
+     */
+    private EMConversation.EMConversationType getConTypeFromChatType(EMMessage.ChatType chatType)
+    {
+        if (chatType == EMMessage.ChatType.Chat)
+            return EMConversation.EMConversationType.Chat;
+        else if (chatType == EMMessage.ChatType.GroupChat)
+            return EMConversation.EMConversationType.GroupChat;
+        else if (chatType == EMMessage.ChatType.ChatRoom)
+            return EMConversation.EMConversationType.ChatRoom;
+        else
+            return EMConversation.EMConversationType.Chat;
+    }
+
+    /**
+     * 发送文本消息
+     */
+    public void sendTextMessage(EMMessage.ChatType chatType, String conId, String message)
+    {
+        EMMessage emMessage = HxChatHelper.getInstance().sendTextMessage(chatType, conId, message);
+        addNewMessage(emMessage);
+    }
+
+    /**
+     * 发送语音消息
+     */
+    public void sendVoiceMessage(EMMessage.ChatType chatType, String conId, String filePath, int seconds)
+    {
+        EMMessage emMessage = HxChatHelper.getInstance().sendVoiceMessage(chatType, conId, filePath, seconds);
+        addNewMessage(emMessage);
+    }
+
+    //将新发送的消息加到RecyclerView中
+    private void addNewMessage(final EMMessage message)
+    {
+        mViewImpl.addNewMessage(message);
+        message.setMessageStatusCallback(new EMCallBack()
+        {
+            @Override
+            public void onSuccess()
+            {
+                mMainHandler.post(new Runnable()
+                {
+                    @Override
+                    public void run()
+                    {
+                        mViewImpl.onMessageStatusChanged(message);
+                    }
+                });
+            }
+
+            @Override
+            public void onError(int code, String error)
+            {
+                mMainHandler.post(new Runnable()
+                {
+                    @Override
+                    public void run()
+                    {
+                        mViewImpl.onMessageStatusChanged(message);
+                    }
+                });
+            }
+
+            @Override
+            public void onProgress(int progress, String status)
+            {
+                //在这里可以刷新消息发送进度
+            }
+        });
+    }
 
     public void showImageDetail(EMMessage message, int position)
     {
