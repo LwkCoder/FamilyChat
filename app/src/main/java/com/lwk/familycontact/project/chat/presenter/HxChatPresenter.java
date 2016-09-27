@@ -76,13 +76,12 @@ public class HxChatPresenter
      * 加载一页消息记录
      *
      * @param conId       会话id
-     * @param chatType    聊天类型
+     * @param conType     会话类型
      * @param isFirstLoad 是否为第一次加载
      */
-    public void loadOnePageData(EMMessage.ChatType chatType, String conId, final boolean isFirstLoad)
+    public void loadOnePageData(EMConversation.EMConversationType conType, String conId, final boolean isFirstLoad)
     {
         String startMsgId = null;
-        EMConversation.EMConversationType conType = getConTypeFromChatType(chatType);
         EMConversation conversation = HxChatHelper.getInstance().getConversation(conId, conType);
 
         //会话不存在时
@@ -137,35 +136,35 @@ public class HxChatPresenter
     }
 
     /**
-     * 根据ChatType获取EMConversationType
+     * 根据EMConversationType获取ChatType
      */
-    private EMConversation.EMConversationType getConTypeFromChatType(EMMessage.ChatType chatType)
+    private EMMessage.ChatType getChatTypeFromConType(EMConversation.EMConversationType conType)
     {
-        if (chatType == EMMessage.ChatType.Chat)
-            return EMConversation.EMConversationType.Chat;
-        else if (chatType == EMMessage.ChatType.GroupChat)
-            return EMConversation.EMConversationType.GroupChat;
-        else if (chatType == EMMessage.ChatType.ChatRoom)
-            return EMConversation.EMConversationType.ChatRoom;
+        if (conType == EMConversation.EMConversationType.Chat)
+            return EMMessage.ChatType.Chat;
+        else if (conType == EMConversation.EMConversationType.GroupChat)
+            return EMMessage.ChatType.GroupChat;
+        else if (conType == EMConversation.EMConversationType.ChatRoom)
+            return EMMessage.ChatType.ChatRoom;
         else
-            return EMConversation.EMConversationType.Chat;
+            return EMMessage.ChatType.Chat;
     }
 
     /**
      * 发送文本消息
      */
-    public void sendTextMessage(EMMessage.ChatType chatType, String conId, String message)
+    public void sendTextMessage(EMConversation.EMConversationType conType, String conId, String message)
     {
-        EMMessage emMessage = HxChatHelper.getInstance().sendTextMessage(chatType, conId, message);
+        EMMessage emMessage = HxChatHelper.getInstance().sendTextMessage(getChatTypeFromConType(conType), conId, message);
         addNewSendingMessage(emMessage);
     }
 
     /**
      * 发送语音消息
      */
-    public void sendVoiceMessage(EMMessage.ChatType chatType, String conId, String filePath, int seconds)
+    public void sendVoiceMessage(EMConversation.EMConversationType conType, String conId, String filePath, int seconds)
     {
-        EMMessage emMessage = HxChatHelper.getInstance().sendVoiceMessage(chatType, conId, filePath, seconds);
+        EMMessage emMessage = HxChatHelper.getInstance().sendVoiceMessage(getChatTypeFromConType(conType), conId, filePath, seconds);
         addNewSendingMessage(emMessage);
     }
 

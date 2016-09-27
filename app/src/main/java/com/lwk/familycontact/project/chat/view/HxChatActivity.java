@@ -8,6 +8,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.MotionEvent;
 import android.view.View;
 
+import com.hyphenate.chat.EMConversation;
 import com.hyphenate.chat.EMMessage;
 import com.lib.base.widget.CommonActionBar;
 import com.lib.imrecordbutton.IMRecordListener;
@@ -40,9 +41,9 @@ public class HxChatActivity extends FCBaseActivity implements HxChatImpl
 {
     private static final String INTENT_KEY_USERBEAN = "userbean";
     private static final String INTENT_KEY_CONID = "conId";
-    private static final String INTENT_KEY_CHATTYPE = "chattype";
+    private static final String INTENT_KEY_CONTYPE = "conType";
     private HxChatPresenter mPresenter;
-    private EMMessage.ChatType mChatType = EMMessage.ChatType.Chat;//目前都作为单聊
+    private EMConversation.EMConversationType mConType = EMConversation.EMConversationType.Chat;//目前都作为单聊
     private String mConversationId;
     private UserBean mUserBean;
     private CommonActionBar mActionBar;
@@ -116,13 +117,13 @@ public class HxChatActivity extends FCBaseActivity implements HxChatImpl
     {
         super.initData();
         mPresenter.setActionBarTitle(mConversationId, mUserBean);
-        mPresenter.loadOnePageData(mChatType, mConversationId, true);
+        mPresenter.loadOnePageData(mConType, mConversationId, true);
     }
 
     @Override
     public void onRefresh()
     {
-        mPresenter.loadOnePageData(mChatType, mConversationId, false);
+        mPresenter.loadOnePageData(mConType, mConversationId, false);
     }
 
     @Override
@@ -232,7 +233,7 @@ public class HxChatActivity extends FCBaseActivity implements HxChatImpl
     @Override
     public void onClickSend(String content)
     {
-        mPresenter.sendTextMessage(mChatType, mConversationId, content);
+        mPresenter.sendTextMessage(mConType, mConversationId, content);
     }
 
     @Override
@@ -244,7 +245,7 @@ public class HxChatActivity extends FCBaseActivity implements HxChatImpl
     @Override
     public void recordFinish(float seconds, String filePath)
     {
-        mPresenter.sendVoiceMessage(mChatType, mConversationId, filePath, (int) seconds);
+        mPresenter.sendVoiceMessage(mConType, mConversationId, filePath, (int) seconds);
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)
