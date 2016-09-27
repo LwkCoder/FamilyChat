@@ -13,6 +13,8 @@
     <color name="gray_FCFCFC">#fcfcfc</color>
     <color name="gray_F0F0F0">#f0f0f0</color>
     <color name="gray_E0E0E0">#e0e0e0</color>
+    <color name="gray_D0D0D0">#d0d0d0</color>
+    <color name="gray_BEBEBE">#d0d0d0</color>
     <color name="gray_ADADAD">#adadad</color>
     <color name="gray_7B7B7B">#7b7b7b</color>
 
@@ -25,4 +27,7 @@
     <color name="orange_ic_notify_bg">#FF6C00</color>
 
     <color name="blue_voice_message_length">#01ADEE</color>
+    <color name="green_05AE5C">#05AE5C</color>
+    <color name="green_089951">#089651</color>
+
 </resources>

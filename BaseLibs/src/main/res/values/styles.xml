@@ -24,9 +24,4 @@
         <item name="android:windowContentOverlay">@null</item>
     </style>
 
-    <declare-styleable name="BgSurfaceView">
-        <attr name="bg_Sfv" format="reference" />
-        <attr name="width_Sfv" format="dimension" />
-        <attr name="height_Sfv" format="dimension" />
-    </declare-styleable>
 </resources>

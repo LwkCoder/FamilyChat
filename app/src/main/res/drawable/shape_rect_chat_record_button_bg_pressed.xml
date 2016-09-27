@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<shape xmlns:android="http://schemas.android.com/apk/res/android"
+       android:shape="rectangle">
+    <corners android:radius="@dimen/radius_chat_record_button"/>
+    <solid android:color="@color/gray_D0D0D0"/>
+    <stroke
+        android:width="1dp"
+        android:color="@color/black_38393E"/>
+</shape>

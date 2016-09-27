@@ -43,6 +43,10 @@ public class IMRecordButton extends Button implements IMRecordAudioManager.onRec
     private String mStrStateRecording;
     //欲取消状态下文案
     private String mStrStateWantCancel;
+    //正常状态下背景图
+    private int mBgResIdNormal;
+    //按下状态下背景图
+    private int mBgResIdPressed;
     //正常状态
     private static final int STATE_NORMAL = 1;
     //正在录音状态
@@ -90,10 +94,12 @@ public class IMRecordButton extends Button implements IMRecordAudioManager.onRec
 
     private void init(Context context, AttributeSet attrs, int defStyleAttr)
     {
-        //各状态下默认文案
+        //默认资源
         mStrStateNormal = getResources().getString(R.string.im_record_button_status_normal);
         mStrStateRecording = getResources().getString(R.string.im_record_button_status_recording);
         mStrStateWantCancel = getResources().getString(R.string.im_record_button_status_want_cancel);
+        mBgResIdNormal = R.drawable.shape_rect_im_record_button_normal;
+        mBgResIdPressed = R.drawable.shape_rect_im_record_button_pressed;
         //获取自定义属性
         final TypedArray ty = context.obtainStyledAttributes(attrs, R.styleable.IMRecordButton);
         if (ty != null)
@@ -108,6 +114,10 @@ public class IMRecordButton extends Button implements IMRecordAudioManager.onRec
                     mStrStateRecording = ty.getString(attr);
                 else if (attr == R.styleable.IMRecordButton_cancel_text)
                     mStrStateWantCancel = ty.getString(attr);
+                else if (attr == R.styleable.IMRecordButton_backgrount_resId_normal)
+                    mBgResIdNormal = ty.getResourceId(attr, R.drawable.shape_rect_im_record_button_normal);
+                else if (attr == R.styleable.IMRecordButton_backgrount_resId_pressed)
+                    mBgResIdPressed = ty.getResourceId(attr, R.drawable.shape_rect_im_record_button_pressed);
             }
             ty.recycle();
         }
@@ -124,6 +134,7 @@ public class IMRecordButton extends Button implements IMRecordAudioManager.onRec
         mAudioManager.setOnRercorderPreparedListener(this);
         //默认状态
         changeState(STATE_NORMAL);
+        setBackgroundResource(mBgResIdNormal);
     }
 
     /**
@@ -162,6 +173,26 @@ public class IMRecordButton extends Button implements IMRecordAudioManager.onRec
     public void setStateCancelTextResId(int resId)
     {
         this.mStrStateWantCancel = getResources().getString(resId);
+    }
+
+    /**
+     * 设置普通状态下背景图资源id
+     *
+     * @param resId 资源id
+     */
+    public void setBackgroundResIdNormal(int resId)
+    {
+        this.mBgResIdNormal = resId;
+    }
+
+    /**
+     * 设置按下状态时背景图资源id
+     *
+     * @param resId 资源id
+     */
+    public void setBackgroundResIdPressed(int resId)
+    {
+        this.mBgResIdPressed = resId;
     }
 
     /**
@@ -213,6 +244,7 @@ public class IMRecordButton extends Button implements IMRecordAudioManager.onRec
         switch (action)
         {
             case MotionEvent.ACTION_DOWN:
+                setBackgroundResource(mBgResIdPressed);
                 mHasUp = false;
                 if (mWakeLock != null)
                     mWakeLock.acquire();
@@ -244,6 +276,7 @@ public class IMRecordButton extends Button implements IMRecordAudioManager.onRec
                 }
                 break;
             case MotionEvent.ACTION_UP:
+                setBackgroundResource(mBgResIdNormal);
                 mHasUp = true;
                 if (mWakeLock != null && mWakeLock.isHeld())
                     mWakeLock.release();

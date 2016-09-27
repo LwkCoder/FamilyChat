@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              xmlns:app="http://schemas.android.com/apk/res-auto"
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:background="@android:color/white"
+              android:orientation="vertical">
+
+    <View
+        style="@style/HorizontalLine"/>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="@dimen/spacing_small">
+
+        <ImageView
+            android:id="@+id/img_chat_controller_input_mode"
+            android:layout_width="@dimen/img_chat_controller_switch_size"
+            android:layout_height="@dimen/img_chat_controller_switch_size"
+            android:layout_alignParentLeft="true"
+            android:layout_centerVertical="true"
+            android:src="@drawable/img_chat_contorller_voice_selector"/>
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/spacing_small"
+            android:layout_marginRight="@dimen/spacing_small"
+            android:layout_toLeftOf="@+id/btn_chat_controller_send"
+            android:layout_toRightOf="@+id/img_chat_controller_input_mode">
+
+            <EditText
+                android:id="@+id/ed_chat_controller_text_input"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/ed_chat_controller_text_bg_selector"
+                android:gravity="center_vertical"
+                android:maxHeight="@dimen/ed_chat_controller_text_input_max_height"
+                android:minHeight="@dimen/btn_chat_record_button_height"
+                android:paddingBottom="@dimen/spacing_tiny"
+                android:paddingTop="@dimen/spacing_tiny"
+                android:textColor="@color/colorPrimaryDark"
+                android:textSize="@dimen/sp_16"
+                android:visibility="visible"/>
+
+            <com.lib.imrecordbutton.IMRecordButton
+                android:id="@+id/imbtn_chat_controller_voice_input"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/btn_chat_record_button_height"
+                android:textColor="@color/colorPrimaryDark"
+                android:textSize="@dimen/sp_17"
+                android:visibility="gone"
+                app:backgrount_resId_normal="@drawable/shape_rect_chat_record_button_bg_normal"
+                app:backgrount_resId_pressed="@drawable/shape_rect_chat_record_button_bg_pressed"/>
+        </FrameLayout>
+
+        <Button
+            android:id="@+id/btn_chat_controller_send"
+            android:layout_width="48dp"
+            android:layout_height="@dimen/dp_30"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:background="@drawable/bg_chat_send_selector"
+            android:text="@string/btn_chat_send"
+            android:textColor="@android:color/white"
+            android:textSize="@dimen/sp_15"/>
+    </RelativeLayout>
+
+</LinearLayout>

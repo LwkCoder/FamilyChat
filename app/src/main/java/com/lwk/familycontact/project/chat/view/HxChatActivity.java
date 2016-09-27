@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.MotionEvent;
 import android.view.View;
 
 import com.hyphenate.chat.EMMessage;
@@ -17,6 +18,7 @@ import com.lwk.familycontact.project.chat.presenter.HxChatPresenter;
 import com.lwk.familycontact.storage.db.user.UserBean;
 import com.lwk.familycontact.utils.event.ChatActEventBean;
 import com.lwk.familycontact.utils.event.EventBusHelper;
+import com.lwk.familycontact.widget.HxChatController;
 
 import java.util.List;
 
@@ -34,6 +36,7 @@ public class HxChatActivity extends FCBaseActivity implements HxChatImpl, Common
     private CommonPtrLayout mPtrView;
     private RecyclerView mRecyclerView;
     private HxChatAdapter mAdapter;
+    private HxChatController mChatController;
 
     /**
      * 跳转到聊天界面的公共方法
@@ -81,6 +84,8 @@ public class HxChatActivity extends FCBaseActivity implements HxChatImpl, Common
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
         mAdapter = new HxChatAdapter(this, null, mPresenter, mUserBean);
         mRecyclerView.setAdapter(mAdapter);
+
+        mChatController = findView(R.id.hcc_hx_chat);
     }
 
     @Override
@@ -166,6 +171,13 @@ public class HxChatActivity extends FCBaseActivity implements HxChatImpl, Common
     protected void onClick(int id, View v)
     {
 
+    }
+
+    //该界面不需要点击非edittext区域关闭软键盘
+    @Override
+    public boolean dispatchTouchEvent(MotionEvent ev)
+    {
+        return getWindow().superDispatchTouchEvent(ev);
     }
 
     @Override

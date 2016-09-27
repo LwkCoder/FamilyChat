@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
+<com.lwk.familycontact.widget.ResizeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
@@ -14,12 +14,15 @@
         android:id="@+id/cab_hx_chat"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
         android:background="@color/colorPrimary"/>
 
     <com.lib.ptrview.CommonPtrLayout
         android:id="@+id/prt_chat"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:layout_above="@+id/hcc_hx_chat"
+        android:layout_below="@+id/cab_hx_chat"
         app:ptr_bg_refresh="@color/gray_ADADAD"
         app:ptr_enable_loadmore="false"
         app:ptr_enable_refresh="true">
@@ -43,4 +46,9 @@
 
     </com.lib.ptrview.CommonPtrLayout>
 
-</LinearLayout>
+    <com.lwk.familycontact.widget.HxChatController
+        android:id="@+id/hcc_hx_chat"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"/>
+</com.lwk.familycontact.widget.ResizeLayout>

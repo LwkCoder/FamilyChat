@@ -6,4 +6,5 @@
     <dimen name="img_im_record_dialog_warning_height">135dp</dimen>
     <dimen name="tv_im_record_dialog_textsize">16sp</dimen>
     <dimen name="distance_cancel_y">60dp</dimen>
+    <dimen name="radius_imrecordbutton_background_rect">5dp</dimen>
 </resources>

@@ -4,5 +4,7 @@
         <attr name="normal_text" format="string"/>
         <attr name="recording_text" format="string"/>
         <attr name="cancel_text" format="string"/>
+        <attr name="backgrount_resId_normal" format="reference"/>
+        <attr name="backgrount_resId_pressed" format="reference"/>
     </declare-styleable>
 </resources>

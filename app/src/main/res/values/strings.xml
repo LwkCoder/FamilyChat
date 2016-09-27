@@ -174,4 +174,5 @@
     <string name="ptr_chat_release">正在加载历史消息...</string>
     <string name="ptr_chat_success">加载成功</string>
     <string name="ptr_chat_fail">加载失败</string>
+    <string name="btn_chat_send">发送</string>
 </resources>
