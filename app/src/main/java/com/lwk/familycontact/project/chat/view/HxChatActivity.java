@@ -10,7 +10,10 @@ import android.view.View;
 
 import com.hyphenate.chat.EMConversation;
 import com.hyphenate.chat.EMMessage;
+import com.lib.base.utils.KeyboradUtils;
 import com.lib.base.widget.CommonActionBar;
+import com.lib.imagepicker.ImagePicker;
+import com.lib.imagepicker.bean.ImageBean;
 import com.lib.imrecordbutton.IMRecordListener;
 import com.lib.ptrview.CommonPtrLayout;
 import com.lwk.familycontact.R;
@@ -93,6 +96,8 @@ public class HxChatActivity extends FCBaseActivity implements HxChatImpl
     {
         mActionBar = findView(R.id.cab_hx_chat);
         mActionBar.setLeftLayoutAsBack(this);
+        mActionBar.setRightImgResource(R.drawable.ic_cab_plus_menu);
+        mActionBar.setRightLayoutClickListener(this);
 
         mResizeLayout = findView(R.id.rel_hx_chat);
         mResizeLayout.setOnResizeListener(this);
@@ -149,6 +154,12 @@ public class HxChatActivity extends FCBaseActivity implements HxChatImpl
     public String getConversationId()
     {
         return mConversationId;
+    }
+
+    @Override
+    public EMConversation.EMConversationType getConversationType()
+    {
+        return mConType;
     }
 
     @Override
@@ -219,6 +230,13 @@ public class HxChatActivity extends FCBaseActivity implements HxChatImpl
     }
 
     @Override
+    public void removeMessage(EMMessage message, int position)
+    {
+        mAdapter.getDatas().remove(message);
+        mAdapter.notifyDataSetChanged();
+    }
+
+    @Override
     public void showError(int errorCode, int errMsgResId)
     {
         showShortToast(errMsgResId);
@@ -227,7 +245,20 @@ public class HxChatActivity extends FCBaseActivity implements HxChatImpl
     @Override
     protected void onClick(int id, View v)
     {
-
+        switch (id)
+        {
+            case R.id.fl_common_actionbar_right:
+                KeyboradUtils.HideKeyboard(mActionBar);
+                ImagePicker.getInstance().pickMutilImage(this, 9, new ImagePicker.OnSelectedListener()
+                {
+                    @Override
+                    public void onSelected(List<ImageBean> list)
+                    {
+                        mPresenter.sendImageMessages(mConType, mConversationId, list);
+                    }
+                });
+                break;
+        }
     }
 
     @Override

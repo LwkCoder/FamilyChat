@@ -404,7 +404,7 @@ public abstract class RcvMutilAdapter<T> extends RecyclerView.Adapter<RcvHolder>
             {
                 if (mOnItemClickListener != null)
                 {
-                    int position = viewHolder.getAdapterPosition();
+                    int position = viewHolder.getLayoutPosition();
                     mOnItemClickListener.onItemClick(v, viewHolder, mDataList.get(position - getHeadCounts()), position);
                 }
             }
@@ -417,7 +417,7 @@ public abstract class RcvMutilAdapter<T> extends RecyclerView.Adapter<RcvHolder>
             {
                 if (mOnItemLongClickListener != null)
                 {
-                    int position = viewHolder.getAdapterPosition();
+                    int position = viewHolder.getLayoutPosition();
                     mOnItemLongClickListener.onItemLongClick(v, viewHolder, mDataList.get(position - getHeadCounts()), position);
                 }
                 return false;

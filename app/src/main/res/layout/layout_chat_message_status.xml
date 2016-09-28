@@ -8,15 +8,15 @@
         android:id="@id/pgb_chat_listitem_sending"
         android:layout_width="50dp"
         android:layout_height="50dp"
-        android:padding="@dimen/spacing_small"
+        android:padding="@dimen/dp_12"
         android:visibility="gone"/>
 
     <ImageView
         android:id="@id/img_chat_listitem_resend"
         android:layout_width="50dp"
         android:layout_height="50dp"
-        android:padding="@dimen/spacing_small"
-        android:src="@drawable/ic_message_send_fail"
+        android:padding="@dimen/dp_12"
+        android:src="@drawable/img_chat_resend_selector"
         android:visibility="gone"/>
 
 </FrameLayout>

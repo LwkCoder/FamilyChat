@@ -71,12 +71,12 @@ public abstract class ImageMessageBaseItemView extends HxChatBaseItemView
         //判断显示图地址
         String localUrl = messageBody.getLocalUrl();
         String remoteUrl = messageBody.getRemoteUrl();
-        if (emMessage.isDelivered() && StringUtil.isNotEmpty(localUrl) && new File(localUrl).exists())
+        if (emMessage.direct() == EMMessage.Direct.SEND && StringUtil.isNotEmpty(localUrl) && new File(localUrl).exists())
             CommonUtils.getInstance().getImageDisplayer()
-                    .display(mContext, imageView, localUrl, mLayoutWidth / 2, mLayoutHeight / 2);
+                    .display(mContext, imageView, localUrl, mLayoutWidth, mLayoutHeight);
         else
             CommonUtils.getInstance().getImageDisplayer()
-                    .display(mContext, imageView, remoteUrl, mLayoutWidth / 2, mLayoutHeight / 2);
+                    .display(mContext, imageView, remoteUrl, mLayoutWidth, mLayoutHeight);
 
         //设置点击事件
         imageView.setOnClickListener(new View.OnClickListener()

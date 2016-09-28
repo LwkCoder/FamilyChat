@@ -4,8 +4,12 @@ import android.os.Handler;
 
 import com.hyphenate.EMCallBack;
 import com.hyphenate.chat.EMConversation;
+import com.hyphenate.chat.EMImageMessageBody;
 import com.hyphenate.chat.EMMessage;
+import com.hyphenate.chat.EMTextMessageBody;
+import com.hyphenate.chat.EMVoiceMessageBody;
 import com.lib.base.utils.StringUtil;
+import com.lib.imagepicker.bean.ImageBean;
 import com.lwk.familycontact.base.FCApplication;
 import com.lwk.familycontact.im.helper.HxChatHelper;
 import com.lwk.familycontact.project.chat.model.HxChatModel;
@@ -155,8 +159,10 @@ public class HxChatPresenter
      */
     public void sendTextMessage(EMConversation.EMConversationType conType, String conId, String message)
     {
-        EMMessage emMessage = HxChatHelper.getInstance().sendTextMessage(getChatTypeFromConType(conType), conId, message);
-        addNewSendingMessage(emMessage);
+        EMMessage emMessage = HxChatHelper.getInstance().createTextMessage(getChatTypeFromConType(conType), conId, message);
+        emMessage.setMessageStatusCallback(new MessageStatusCallBack(emMessage));
+        mViewImpl.addNewMessage(emMessage);
+        HxChatHelper.getInstance().sendMessage(emMessage);
     }
 
     /**
@@ -164,48 +170,84 @@ public class HxChatPresenter
      */
     public void sendVoiceMessage(EMConversation.EMConversationType conType, String conId, String filePath, int seconds)
     {
-        EMMessage emMessage = HxChatHelper.getInstance().sendVoiceMessage(getChatTypeFromConType(conType), conId, filePath, seconds);
-        addNewSendingMessage(emMessage);
+        EMMessage emMessage = HxChatHelper.getInstance().createVoiceMessage(getChatTypeFromConType(conType), conId, filePath, seconds);
+        emMessage.setMessageStatusCallback(new MessageStatusCallBack(emMessage));
+        mViewImpl.addNewMessage(emMessage);
+        HxChatHelper.getInstance().sendMessage(emMessage);
     }
 
-    //将新发送的消息加到RecyclerView中
-    private void addNewSendingMessage(final EMMessage message)
+    /**
+     * 发送若干张图片消息
+     */
+    public void sendImageMessages(final EMConversation.EMConversationType conType, final String conId, List<ImageBean> list)
     {
-        mViewImpl.addNewMessage(message);
-        message.setMessageStatusCallback(new EMCallBack()
+        int delay = 0;
+        for (final ImageBean imageBean : list)
         {
-            @Override
-            public void onSuccess()
+            mMainHandler.postDelayed(new Runnable()
             {
-                mMainHandler.post(new Runnable()
+                @Override
+                public void run()
                 {
-                    @Override
-                    public void run()
-                    {
-                        mViewImpl.onMessageStatusChanged(message);
-                    }
-                });
-            }
+                    sendImageMessage(conType, conId, imageBean.getImagePath(), false);
+                }
+            }, delay);
+            delay += 400;
+        }
+    }
 
-            @Override
-            public void onError(int code, String error)
+    /**
+     * 发送图片消息
+     */
+    public void sendImageMessage(EMConversation.EMConversationType conType, String conId, String filePath, boolean sendOriginFile)
+    {
+        EMMessage emMessage = HxChatHelper.getInstance().createImageMessage(getChatTypeFromConType(conType), conId, filePath, sendOriginFile);
+        emMessage.setMessageStatusCallback(new MessageStatusCallBack(emMessage));
+        mViewImpl.addNewMessage(emMessage);
+        HxChatHelper.getInstance().sendMessage(emMessage);
+    }
+
+    //消息发送回调
+    private class MessageStatusCallBack implements EMCallBack
+    {
+        private EMMessage message;
+
+        public MessageStatusCallBack(EMMessage message)
+        {
+            this.message = message;
+        }
+
+        @Override
+        public void onSuccess()
+        {
+            mMainHandler.post(new Runnable()
             {
-                mMainHandler.post(new Runnable()
+                @Override
+                public void run()
                 {
-                    @Override
-                    public void run()
-                    {
-                        mViewImpl.onMessageStatusChanged(message);
-                    }
-                });
-            }
+                    mViewImpl.onMessageStatusChanged(message);
+                }
+            });
+        }
 
-            @Override
-            public void onProgress(int progress, String status)
+        @Override
+        public void onError(int code, String error)
+        {
+            mMainHandler.post(new Runnable()
             {
-                //在这里可以刷新消息发送进度
-            }
-        });
+                @Override
+                public void run()
+                {
+                    mViewImpl.onMessageStatusChanged(message);
+                }
+            });
+        }
+
+        @Override
+        public void onProgress(int progress, String status)
+        {
+            //在这里可以刷新消息发送进度
+        }
     }
 
     /**
@@ -289,8 +331,31 @@ public class HxChatPresenter
     {
     }
 
+    /**
+     * 重新发送某条消息
+     */
     public void resendMessage(EMMessage message, int position)
     {
-
+        EMConversation.EMConversationType conType = mViewImpl.getConversationType();
+        String conId = mViewImpl.getConversationId();
+        //移除已有消息
+        HxChatHelper.getInstance().deleteMessage(conType, conId, message);
+        mViewImpl.removeMessage(message, position);
+        //重发消息
+        switch (message.getType())
+        {
+            case TXT:
+                EMTextMessageBody textMessageBody = (EMTextMessageBody) message.getBody();
+                sendTextMessage(conType, conId, textMessageBody.getMessage());
+                break;
+            case VOICE:
+                EMVoiceMessageBody voiceMessageBody = (EMVoiceMessageBody) message.getBody();
+                sendVoiceMessage(conType, conId, voiceMessageBody.getLocalUrl(), voiceMessageBody.getLength());
+                break;
+            case IMAGE:
+                EMImageMessageBody imageMessageBody = (EMImageMessageBody) message.getBody();
+                sendImageMessage(conType, conId, imageMessageBody.getLocalUrl(), imageMessageBody.isSendOriginalImage());
+                break;
+        }
     }
 }

@@ -1,5 +1,6 @@
 package com.lwk.familycontact.project.chat.view;
 
+import com.hyphenate.chat.EMConversation;
 import com.hyphenate.chat.EMMessage;
 
 import java.util.List;
@@ -30,6 +31,11 @@ public interface HxChatImpl
      * 获取会话id
      */
     String getConversationId();
+
+    /**
+     * 获取会话类型
+     */
+    EMConversation.EMConversationType getConversationType();
 
     /**
      * 加载一页消息成功
@@ -73,6 +79,11 @@ public interface HxChatImpl
      * 某条消息的状态更改
      */
     void onMessageStatusChanged(EMMessage message);
+
+    /**
+     * 移除一条消息
+     */
+    void removeMessage(EMMessage message, int position);
 
     /**
      * 提示错误

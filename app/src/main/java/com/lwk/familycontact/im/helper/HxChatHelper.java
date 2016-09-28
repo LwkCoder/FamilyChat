@@ -123,23 +123,22 @@ public class HxChatHelper
     }
 
     /**
-     * 发送文本消息
+     * 创建文本消息
      *
      * @param chatType 聊天类型
      * @param conId    会话id
      * @param content  内容
      * @return 文本消息
      */
-    public EMMessage sendTextMessage(EMMessage.ChatType chatType, String conId, String content)
+    public EMMessage createTextMessage(EMMessage.ChatType chatType, String conId, String content)
     {
         EMMessage message = EMMessage.createTxtSendMessage(content, conId);
         message.setChatType(chatType);
-        EMClient.getInstance().chatManager().sendMessage(message);
         return message;
     }
 
     /**
-     * 发送语音消息
+     * 创建语音消息
      *
      * @param chatType 聊天类型
      * @param conId    会话id
@@ -147,16 +146,15 @@ public class HxChatHelper
      * @param seconds  语音时长【秒】
      * @return 语音消息
      */
-    public EMMessage sendVoiceMessage(EMMessage.ChatType chatType, String conId, String filePath, int seconds)
+    public EMMessage createVoiceMessage(EMMessage.ChatType chatType, String conId, String filePath, int seconds)
     {
         EMMessage message = EMMessage.createVoiceSendMessage(filePath, seconds, conId);
         message.setChatType(chatType);
-        EMClient.getInstance().chatManager().sendMessage(message);
         return message;
     }
 
     /**
-     * 发送图片消息
+     * 创建图片消息
      *
      * @param chatType      聊天类型
      * @param conId         会话id
@@ -164,16 +162,15 @@ public class HxChatHelper
      * @param sendOriginPic 是否发送原图【false为不发送，超过100K会被压缩发送】
      * @return 图片消息
      */
-    public EMMessage sendImageMessage(EMMessage.ChatType chatType, String conId, String filePath, boolean sendOriginPic)
+    public EMMessage createImageMessage(EMMessage.ChatType chatType, String conId, String filePath, boolean sendOriginPic)
     {
         EMMessage message = EMMessage.createImageSendMessage(filePath, sendOriginPic, conId);
         message.setChatType(chatType);
-        EMClient.getInstance().chatManager().sendMessage(message);
         return message;
     }
 
     /**
-     * 发送视频消息
+     * 创建视频消息
      *
      * @param chatType    聊天类型
      * @param conId       会话id
@@ -182,16 +179,15 @@ public class HxChatHelper
      * @param videoLength 视频时长【秒1】
      * @return 视频消息
      */
-    public EMMessage sendVideoMessage(EMMessage.ChatType chatType, String conId, String filePath, String thumbPath, int videoLength)
+    public EMMessage createVideoMessage(EMMessage.ChatType chatType, String conId, String filePath, String thumbPath, int videoLength)
     {
         EMMessage message = EMMessage.createVideoSendMessage(filePath, thumbPath, videoLength, conId);
         message.setChatType(chatType);
-        EMClient.getInstance().chatManager().sendMessage(message);
         return message;
     }
 
     /**
-     * 发送位置消息
+     * 创建位置消息
      *
      * @param chatType        聊天类型
      * @param conId           会话id
@@ -200,28 +196,47 @@ public class HxChatHelper
      * @param locationAddress 地址
      * @return 位置消息
      */
-    public EMMessage sendLocationMessage(EMMessage.ChatType chatType, String conId, long latitude, long longitude, String locationAddress)
+    public EMMessage createLocationMessage(EMMessage.ChatType chatType, String conId, long latitude, long longitude, String locationAddress)
     {
         EMMessage message = EMMessage.createLocationSendMessage(latitude, longitude, locationAddress, conId);
         message.setChatType(EMMessage.ChatType.GroupChat);
-        EMClient.getInstance().chatManager().sendMessage(message);
         return message;
     }
 
     /**
-     * 发送文件消息
+     * 创建文件消息
      *
      * @param chatType 聊天类型
      * @param conId    会话id
      * @param filePath 文件地址
      * @return 文件消息
      */
-    public EMMessage sendFileMessage(EMMessage.ChatType chatType, String conId, String filePath)
+    public EMMessage createFileMessage(EMMessage.ChatType chatType, String conId, String filePath)
     {
         EMMessage message = EMMessage.createFileSendMessage(filePath, conId);
         message.setChatType(chatType);
-        EMClient.getInstance().chatManager().sendMessage(message);
         return message;
     }
 
+    /**
+     * 发送消息
+     */
+    public void sendMessage(EMMessage message)
+    {
+        EMClient.getInstance().chatManager().sendMessage(message);
+    }
+
+    /**
+     * 删除某条消息
+     *
+     * @param conType 会话类型
+     * @param conId   会话id
+     * @param message 消息
+     */
+    public void deleteMessage(EMConversation.EMConversationType conType, String conId, EMMessage message)
+    {
+        EMConversation conversation = getConversation(conId, conType);
+        if (conversation != null)
+            conversation.removeMessage(message.getMsgId());
+    }
 }
