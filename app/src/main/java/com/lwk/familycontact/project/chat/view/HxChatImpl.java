@@ -86,6 +86,13 @@ public interface HxChatImpl
     void removeMessage(EMMessage message, int position);
 
     /**
+     * 跳转到查看大图界面
+     *
+     * @param firstVisiableMsgId 第一张图的msgid
+     */
+    void startToImageDetailAct(String firstVisiableMsgId);
+
+    /**
      * 提示错误
      *
      * @param errorCode   错误码

@@ -5,6 +5,7 @@ import com.hyphenate.chat.EMConversation;
 import com.hyphenate.chat.EMMessage;
 import com.lwk.familycontact.im.listener.HxMessageListener;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -238,5 +239,21 @@ public class HxChatHelper
         EMConversation conversation = getConversation(conId, conType);
         if (conversation != null)
             conversation.removeMessage(message.getMsgId());
+    }
+
+    /**
+     * 搜索某条会话中某种类型的所有消息
+     *
+     * @param conType 会话类型
+     * @param conId   会话id
+     * @param type    消息类型
+     */
+    public List<EMMessage> searchMsgsInConByMsgType(EMConversation.EMConversationType conType, String conId, EMMessage.Type type)
+    {
+        List<EMMessage> list = new ArrayList<>();
+        EMConversation conversation = getConversation(conId, conType);
+        if (conversation != null)
+            list.addAll(conversation.searchMsgFromDB(type, 0, Integer.MAX_VALUE, null, null));
+        return list;
     }
 }

@@ -84,7 +84,7 @@ public abstract class ImageMessageBaseItemView extends HxChatBaseItemView
             @Override
             public void onClick(View v)
             {
-                mPresenter.showImageDetail(emMessage, position);
+                mPresenter.clickImageMessage(emMessage, position);
             }
         });
 

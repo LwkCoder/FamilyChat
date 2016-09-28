@@ -237,6 +237,12 @@ public class HxChatActivity extends FCBaseActivity implements HxChatImpl
     }
 
     @Override
+    public void startToImageDetailAct(String firstVisiableMsgId)
+    {
+        HxImageDetailActivity.start(this, mConType, mConversationId, firstVisiableMsgId);
+    }
+
+    @Override
     public void showError(int errorCode, int errMsgResId)
     {
         showShortToast(errMsgResId);

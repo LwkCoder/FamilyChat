@@ -12,7 +12,6 @@ import com.lib.base.utils.StringUtil;
 import com.lib.imagepicker.bean.ImageBean;
 import com.lwk.familycontact.base.FCApplication;
 import com.lwk.familycontact.im.helper.HxChatHelper;
-import com.lwk.familycontact.project.chat.model.HxChatModel;
 import com.lwk.familycontact.project.chat.utils.VoicePlayListener;
 import com.lwk.familycontact.project.chat.utils.VoicePlayUtils;
 import com.lwk.familycontact.project.chat.view.HxChatImpl;
@@ -34,7 +33,6 @@ public class HxChatPresenter
 {
     //每页消息数量
     private final int EACH_PAGE_SIZE = 20;
-    private HxChatModel mModel;
     private HxChatImpl mViewImpl;
     private Handler mMainHandler;
     private int mCurPlayVoicePosition = -1;
@@ -44,7 +42,6 @@ public class HxChatPresenter
     {
         this.mViewImpl = viewImpl;
         this.mMainHandler = handler;
-        mModel = new HxChatModel();
         mVoicePlayUtils = new VoicePlayUtils(FCApplication.getInstance());
     }
 
@@ -69,7 +66,7 @@ public class HxChatPresenter
             @Override
             public void run()
             {
-                mModel.clearConversationUnreadCount(phone);
+                HxChatHelper.getInstance().clearConversationUnreadCount(phone);
                 //发送通知刷新未读消息数
                 EventBusHelper.getInstance().post(new ComNotifyEventBean(ComNotifyConfig.REFRESH_UNREAD_MSG));
             }
@@ -264,10 +261,6 @@ public class HxChatPresenter
         }
     }
 
-    public void showImageDetail(EMMessage message, int position)
-    {
-    }
-
     /**
      * 获取当前播放语音消息的位置
      */
@@ -324,6 +317,17 @@ public class HxChatPresenter
     {
         mVoicePlayUtils.stopVoice();
         mCurPlayVoicePosition = -1;
+    }
+
+    /**
+     * 点击查看图片消息的大图
+     *
+     * @param message
+     * @param position
+     */
+    public void clickImageMessage(EMMessage message, int position)
+    {
+        mViewImpl.startToImageDetailAct(message.getMsgId());
     }
 
 

@@ -17,6 +17,7 @@ public class GlideImageDisplayer implements ImageDisplayer
     {
         Glide.with(context)
                 .load(url)
+                .asBitmap()
                 .override(maxWidth, maxHeight)
                 .into(imageView);
     }
@@ -26,6 +27,7 @@ public class GlideImageDisplayer implements ImageDisplayer
     {
         Glide.with(context)
                 .load(url)
+                .asBitmap()
                 .placeholder(holderImgResId)
                 .error(errorImgResId)
                 .override(maxWidth, maxHeight)

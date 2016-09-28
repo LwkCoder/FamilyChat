@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    android:id="@+id/fl_chat_image_detail_root"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@android:color/black"
+    android:fitsSystemWindows="true"
+    tools:context="com.lwk.familycontact.project.chat.view.HxImageDetailActivity">
+
+    <com.lib.imagepicker.view.widget.ViewPagerFixed
+        android:id="@+id/vp_chat_image_detail"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
+
+    <com.lib.base.widget.CommonActionBar
+        android:id="@+id/cab_chat_image_detail"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:background="@color/colorPrimary"/>
+
+</RelativeLayout>
