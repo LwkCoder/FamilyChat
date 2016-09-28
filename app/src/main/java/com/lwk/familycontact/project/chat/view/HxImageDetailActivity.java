@@ -192,7 +192,7 @@ public class HxImageDetailActivity extends FCBaseActivity implements HxImageDeta
             mActionBar.setAnimation(AnimationUtils.loadAnimation(this, com.lib.imagepicker.R.anim.imagepicker_actionbar_dismiss));
             mActionBar.setVisibility(View.GONE);
             //更改状态栏为透明
-            ScreenUtils.changeStatusBarColor(this, getResources().getColor(com.lib.imagepicker.R.color.transparent_imagepicker));
+            ScreenUtils.changeStatusBarColor(this, getResources().getColor(R.color.transparent_00000000));
             //给最外层布局加上这个属性表示，Activity全屏显示，且状态栏被隐藏覆盖掉。
             if (Build.VERSION.SDK_INT >= 16)
                 mViewContent.setSystemUiVisibility(View.SYSTEM_UI_FLAG_FULLSCREEN);
@@ -201,7 +201,7 @@ public class HxImageDetailActivity extends FCBaseActivity implements HxImageDeta
             mActionBar.setAnimation(AnimationUtils.loadAnimation(this, com.lib.imagepicker.R.anim.imagepicker_actionbar_show));
             mActionBar.setVisibility(View.VISIBLE);
             //改回状态栏颜色
-            ScreenUtils.changeStatusBarColor(this, getResources().getColor(com.lib.imagepicker.R.color.black_statusbar));
+            ScreenUtils.changeStatusBarColor(this, getResources().getColor(R.color.colorPrimaryDark));
             //Activity全屏显示，但状态栏不会被隐藏覆盖，状态栏依然可见，Activity顶端布局部分会被状态遮住
             if (Build.VERSION.SDK_INT >= 16)
                 mViewContent.setSystemUiVisibility(View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN);

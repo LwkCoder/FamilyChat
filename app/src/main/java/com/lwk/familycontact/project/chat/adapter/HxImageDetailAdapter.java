@@ -10,6 +10,7 @@ import com.hyphenate.chat.EMImageMessageBody;
 import com.hyphenate.chat.EMMessage;
 import com.lib.base.utils.ScreenUtils;
 import com.lib.base.utils.StringUtil;
+import com.lwk.familycontact.R;
 import com.lwk.familycontact.base.FCApplication;
 import com.lwk.familycontact.project.common.CommonUtils;
 
@@ -65,10 +66,10 @@ public class HxImageDetailAdapter extends PagerAdapter
         String remoteUrl = messageBody.getRemoteUrl();
         if (StringUtil.isNotEmpty(localUrl) && new File(localUrl).exists())
                         CommonUtils.getInstance().getImageDisplayer().display(mActivity, photoView, localUrl, mScreenWidth, mScreenHeight
-                                , com.lib.imagepicker.R.drawable.glide_default_picture, com.lib.imagepicker.R.drawable.glide_default_picture);
+                                , R.drawable.pic_image_detail_place_holder, R.drawable.pic_image_detail_fail);
         else
                     CommonUtils.getInstance().getImageDisplayer().display(mActivity, photoView, remoteUrl, mScreenWidth, mScreenHeight
-                            , com.lib.imagepicker.R.drawable.glide_default_picture, com.lib.imagepicker.R.drawable.glide_default_picture);
+                            , R.drawable.pic_image_detail_place_holder, R.drawable.pic_image_detail_fail);
 
         photoView.setOnPhotoTapListener(new PhotoViewAttacher.OnPhotoTapListener()
         {

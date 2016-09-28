@@ -5,7 +5,6 @@ import android.view.View;
 import android.widget.ImageView;
 
 import com.hyphenate.chat.EMMessage;
-import com.lib.base.toast.ToastUtils;
 import com.lib.base.utils.StringUtil;
 import com.lib.rcvadapter.holder.RcvHolder;
 import com.lib.rcvadapter.view.RcvBaseItemView;
@@ -72,15 +71,6 @@ public abstract class HxChatBaseItemView extends RcvBaseItemView<EMMessage>
             //不显示名字
             holder.setVisibility(R.id.tv_chat_listitem_name, View.GONE);
         }
-
-        holder.setClickListener(R.id.img_chat_listitem_head, new View.OnClickListener()
-        {
-            @Override
-            public void onClick(View v)
-            {
-                ToastUtils.showShortMsg(mContext, "pos=" + position);
-            }
-        });
     }
 
     //发送方消息设置状态
