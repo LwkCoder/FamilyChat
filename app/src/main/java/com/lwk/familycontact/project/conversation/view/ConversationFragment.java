@@ -87,16 +87,17 @@ public class ConversationFragment extends BaseFragment implements ConversationIm
     }
 
     @Override
-    protected void initData()
+    public void onStart()
     {
-        super.initData();
+        super.onStart();
         mPresenter.loadAllConversations();
     }
 
     @Override
     public void onLoadAllConversationSuccess(List<HxConversation> list)
     {
-        mAdapter.refreshDatas(list);
+        if (mAdapter != null)
+            mAdapter.refreshDatas(list);
     }
 
     @Override
@@ -133,7 +134,8 @@ public class ConversationFragment extends BaseFragment implements ConversationIm
     @Override
     public void onConversationBeDeleted(HxConversation conversation)
     {
-        mAdapter.deleteData(conversation);
+        if (mAdapter != null)
+            mAdapter.deleteData(conversation);
     }
 
     @Override

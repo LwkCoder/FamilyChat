@@ -19,6 +19,7 @@ import com.lib.ptrview.CommonPtrLayout;
 import com.lwk.familycontact.R;
 import com.lwk.familycontact.base.FCBaseActivity;
 import com.lwk.familycontact.project.chat.adapter.HxChatAdapter;
+import com.lwk.familycontact.project.chat.dialog.VoicePlayInCallWarning;
 import com.lwk.familycontact.project.chat.presenter.HxChatPresenter;
 import com.lwk.familycontact.project.chat.utils.AndroidAdjustResizeBugFix;
 import com.lwk.familycontact.storage.db.user.UserBean;
@@ -56,6 +57,7 @@ public class HxChatActivity extends FCBaseActivity implements HxChatImpl
     private HxChatAdapter mAdapter;
     private HxChatController mChatController;
     private ResizeLayout mResizeLayout;
+    private VoicePlayInCallWarning mVoicePlayInCallWarning = new VoicePlayInCallWarning(this);
 
     /**
      * 跳转到聊天界面的公共方法
@@ -240,6 +242,18 @@ public class HxChatActivity extends FCBaseActivity implements HxChatImpl
     public void startToImageDetailAct(String firstVisiableMsgId)
     {
         HxImageDetailActivity.start(this, mConType, mConversationId, firstVisiableMsgId);
+    }
+
+    @Override
+    public void showVoicePlayInCall()
+    {
+        mVoicePlayInCallWarning.showAsDropDown(mActionBar, 0, 0);
+    }
+
+    @Override
+    public void closeVoicePlayInCall()
+    {
+        mVoicePlayInCallWarning.dismiss();
     }
 
     @Override

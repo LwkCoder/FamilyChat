@@ -21,6 +21,7 @@
     <string name="warning_add_friend_error_phone">请输入规范的手机号码</string>
     <string name="error_play_voice_message">语音消息播放失败</string>
     <string name="warning_no_more_message_history">没有更多聊天记录</string>
+    <string name="warning_voice_play_in_call">当前为听筒播放模式</string>
 
     <!--环信相关-->
     <string name="dialog_user_relogin_title">账号在其他设备登录</string>

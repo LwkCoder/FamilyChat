@@ -42,7 +42,7 @@ public class HxChatPresenter
     {
         this.mViewImpl = viewImpl;
         this.mMainHandler = handler;
-        mVoicePlayUtils = new VoicePlayUtils(FCApplication.getInstance());
+        mVoicePlayUtils = new VoicePlayUtils(FCApplication.getInstance(), this);
     }
 
     /**
@@ -317,6 +317,22 @@ public class HxChatPresenter
     {
         mVoicePlayUtils.stopVoice();
         mCurPlayVoicePosition = -1;
+    }
+
+    /**
+     * 提示语音播放在听筒里
+     */
+    public void showVoicePlayInCallWarning()
+    {
+        mViewImpl.showVoicePlayInCall();
+    }
+
+    /**
+     * 关闭语音播放在听筒的提示
+     */
+    public void closeVoicePlayInCallWarning()
+    {
+        mViewImpl.closeVoicePlayInCall();
     }
 
     /**

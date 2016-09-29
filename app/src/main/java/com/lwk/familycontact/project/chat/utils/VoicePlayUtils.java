@@ -7,6 +7,7 @@ import android.media.MediaPlayer;
 import com.lib.base.log.KLog;
 import com.lib.base.utils.StringUtil;
 import com.lwk.familycontact.R;
+import com.lwk.familycontact.project.chat.presenter.HxChatPresenter;
 import com.lwk.familycontact.project.common.FCError;
 import com.lwk.familycontact.storage.sp.SpSetting;
 
@@ -21,10 +22,12 @@ public class VoicePlayUtils
     //语音播放player
     private MediaPlayer mMediaPlayer;
     private AudioManager mAudioManager;
+    private HxChatPresenter mPresenter;
 
-    public VoicePlayUtils(Context context)
+    public VoicePlayUtils(Context context, HxChatPresenter presenter)
     {
         this.mContext = context.getApplicationContext();
+        this.mPresenter = presenter;
         mAudioManager = (AudioManager) mContext.getSystemService(Context.AUDIO_SERVICE);
         mMediaPlayer = new MediaPlayer();
     }
@@ -60,6 +63,7 @@ public class VoicePlayUtils
                 // 把声音设定成Earpiece（听筒）出来，设定为正在通话中
                 mAudioManager.setMode(AudioManager.MODE_IN_CALL);
                 mMediaPlayer.setAudioStreamType(AudioManager.STREAM_VOICE_CALL);
+                mPresenter.showVoicePlayInCallWarning();//提示用户
             }
 
             mMediaPlayer.setDataSource(filePath);
@@ -88,6 +92,7 @@ public class VoicePlayUtils
             KLog.e("VoicePlayUtils playVoice() error:" + e.toString());
             if (listener != null)
                 listener.error(FCError.VOICE_PLAY_ERROR, R.string.error_play_voice_message);
+            mPresenter.closeVoicePlayInCallWarning();
         }
     }
 
@@ -101,6 +106,7 @@ public class VoicePlayUtils
             if (mMediaPlayer.isPlaying())
                 mMediaPlayer.stop();
             mMediaPlayer.reset();//4.4需要【mediaplayer went away with unhandled events】
+            mPresenter.closeVoicePlayInCallWarning();
         }
     }
 }

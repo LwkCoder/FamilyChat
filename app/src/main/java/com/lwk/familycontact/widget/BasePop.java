@@ -22,18 +22,17 @@ public abstract class BasePop
     public BasePop(Activity context)
     {
         this.mContext = context;
-        initPop();
-        initUI(mContentView);
     }
 
     private void initPop()
     {
         mPopupWindow = new PopupWindow(mContext);
-        mPopupWindow.setFocusable(true);
-        mPopupWindow.setOutsideTouchable(true);
+        mPopupWindow.setFocusable(setFocusable());
+        boolean outsideTouchacle = setOutsideTouchable();
+        mPopupWindow.setOutsideTouchable(outsideTouchacle);
         mPopupWindow.setBackgroundDrawable(new ShapeDrawable());
-        mPopupWindow.setWidth(WindowManager.LayoutParams.WRAP_CONTENT);
-        mPopupWindow.setHeight(WindowManager.LayoutParams.WRAP_CONTENT);
+        mPopupWindow.setWidth(setLayoutWidthParams());
+        mPopupWindow.setHeight(setLayoutHeightParams());
         int animStyle = setAnimStyle();
         if (animStyle != 0)
             mPopupWindow.setAnimationStyle(animStyle);
@@ -43,20 +42,41 @@ public abstract class BasePop
         mContentView.measure(WindowManager.LayoutParams.WRAP_CONTENT, WindowManager.LayoutParams.WRAP_CONTENT);
         mPopupWindow.setContentView(mContentView);
         //设置点击外部关闭pop
-        mPopupWindow.setTouchInterceptor(new View.OnTouchListener()
-        {
-            @Override
-            public boolean onTouch(View v, MotionEvent event)
+        if (outsideTouchacle)
+            mPopupWindow.setTouchInterceptor(new View.OnTouchListener()
             {
-                if (event.getAction() == MotionEvent.ACTION_OUTSIDE)
+                @Override
+                public boolean onTouch(View v, MotionEvent event)
                 {
-                    mPopupWindow.dismiss();
-                    return true;
+                    if (event.getAction() == MotionEvent.ACTION_OUTSIDE)
+                    {
+                        mPopupWindow.dismiss();
+                        return true;
+                    }
+                    return false;
                 }
-                return false;
-            }
-        });
+            });
     }
+
+    /**
+     * 子类实现是否获取焦点
+     */
+    public abstract boolean setFocusable();
+
+    /**
+     * 子类实现外部点击是否关闭PopupWindow
+     */
+    public abstract boolean setOutsideTouchable();
+
+    /**
+     * 子类实现指定布局宽度
+     */
+    public abstract int setLayoutWidthParams();
+
+    /**
+     * 子类实现指定布局高度
+     */
+    public abstract int setLayoutHeightParams();
 
     /**
      * 子类实现此方法来指定内容布局的id
@@ -83,8 +103,12 @@ public abstract class BasePop
      */
     public void showAtLocation(View parent, int gravity, int xOffset, int yOffset)
     {
-        if (mPopupWindow != null)
-            mPopupWindow.showAtLocation(parent, gravity, xOffset, yOffset);
+        if (mPopupWindow == null)
+        {
+            initPop();
+            initUI(mContentView);
+        }
+        mPopupWindow.showAtLocation(parent, gravity, xOffset, yOffset);
     }
 
     /**
@@ -96,8 +120,12 @@ public abstract class BasePop
      */
     public void showAsDropDown(View anchor, int xOffset, int yOffset)
     {
-        if (mPopupWindow != null)
-            mPopupWindow.showAsDropDown(anchor, xOffset, yOffset);
+        if (mPopupWindow == null)
+        {
+            initPop();
+            initUI(mContentView);
+        }
+        mPopupWindow.showAsDropDown(anchor, xOffset, yOffset);
     }
 
     /**
@@ -114,7 +142,10 @@ public abstract class BasePop
     public void dismiss()
     {
         if (isShowing())
+        {
             mPopupWindow.dismiss();
+            mPopupWindow = null;
+        }
     }
 
     /**

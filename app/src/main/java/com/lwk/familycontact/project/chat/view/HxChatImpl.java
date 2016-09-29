@@ -93,6 +93,16 @@ public interface HxChatImpl
     void startToImageDetailAct(String firstVisiableMsgId);
 
     /**
+     * 当语音消息在听筒播放时提示用户
+     */
+    void showVoicePlayInCall();
+
+    /**
+     * 关闭语音消息在听筒播放的提示
+     */
+    void closeVoicePlayInCall();
+
+    /**
      * 提示错误
      *
      * @param errorCode   错误码

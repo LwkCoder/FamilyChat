@@ -2,6 +2,7 @@ package com.lwk.familycontact.project.main.view;
 
 import android.app.Activity;
 import android.view.View;
+import android.view.WindowManager;
 
 import com.lwk.familycontact.R;
 import com.lwk.familycontact.widget.BasePop;
@@ -19,6 +20,30 @@ public class MainMenuPop extends BasePop implements View.OnClickListener
     {
         super(context);
         this.mListener = listener;
+    }
+
+    @Override
+    public boolean setFocusable()
+    {
+        return true;
+    }
+
+    @Override
+    public boolean setOutsideTouchable()
+    {
+        return true;
+    }
+
+    @Override
+    public int setLayoutWidthParams()
+    {
+        return WindowManager.LayoutParams.WRAP_CONTENT;
+    }
+
+    @Override
+    public int setLayoutHeightParams()
+    {
+        return WindowManager.LayoutParams.WRAP_CONTENT;
     }
 
     @Override
