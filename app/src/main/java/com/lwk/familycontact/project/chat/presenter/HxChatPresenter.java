@@ -1,5 +1,6 @@
 package com.lwk.familycontact.project.chat.presenter;
 
+import android.content.Context;
 import android.os.Handler;
 
 import com.hyphenate.EMCallBack;
@@ -16,6 +17,7 @@ import com.lwk.familycontact.project.chat.utils.VoiceMessagePlayUtils;
 import com.lwk.familycontact.project.chat.utils.VoiceMessagePlayListener;
 import com.lwk.familycontact.project.chat.view.HxChatImpl;
 import com.lwk.familycontact.storage.db.user.UserBean;
+import com.lwk.familycontact.storage.sp.SpSetting;
 import com.lwk.familycontact.utils.event.ComNotifyConfig;
 import com.lwk.familycontact.utils.event.ComNotifyEventBean;
 import com.lwk.familycontact.utils.event.EventBusHelper;
@@ -71,6 +73,14 @@ public class HxChatPresenter
                 EventBusHelper.getInstance().post(new ComNotifyEventBean(ComNotifyConfig.REFRESH_UNREAD_MSG));
             }
         });
+    }
+
+    /**
+     * 是否优先展示文字输入模式
+     */
+    public boolean isTextInputModeFirst(Context context)
+    {
+        return SpSetting.isChatTextInputModeFirst(context);
     }
 
     /**

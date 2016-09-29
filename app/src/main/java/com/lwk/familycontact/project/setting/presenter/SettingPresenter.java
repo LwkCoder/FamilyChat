@@ -77,6 +77,16 @@ public class SettingPresenter
         SpSetting.setVoiceMsgHandFreeEnable(context, enable);
     }
 
+    public boolean isChatTextInputModeFirst(Context context)
+    {
+        return SpSetting.isChatTextInputModeFirst(context);
+    }
+
+    public void setChatTextInputModeFirst(Context context, boolean b)
+    {
+        SpSetting.setChatTextInputModeFirst(context, b);
+    }
+
     public void logout()
     {
         mSettingView.showLogoutDialog();

@@ -22,6 +22,7 @@
     <string name="error_play_voice_message">语音消息播放失败</string>
     <string name="warning_no_more_message_history">没有更多聊天记录</string>
     <string name="warning_voice_play_in_call">当前为听筒播放模式</string>
+    <string name="warning_permission_record_audio_denied">无法获取应用的录音权限，将导致无法正常发送语音消息和拨打语音通话</string>
 
     <!--环信相关-->
     <string name="dialog_user_relogin_title">账号在其他设备登录</string>
@@ -106,6 +107,8 @@
     <string name="tv_setting_msg_notice_voice">新消息铃声提醒</string>
     <string name="tv_setting_msg_notice_vibrate">新消息震动提醒</string>
     <string name="tv_setting_msg_voice_handfree">用扬声器播放语音消息</string>
+    <string name="tv_setting_chat_label">聊天设置</string>
+    <string name="tv_setting_chat_text_input_first">聊天界面优先展示文字输入模式</string>
     <string name="btn_setting_logout">退出当前登录账号</string>
     <string name="dialog_setting_logout_confirm_title">退出登录提醒</string>
     <string name="dialog_setting_logout_confirm_message">您确定要退出当前登录的账号？</string>
@@ -176,4 +179,6 @@
     <string name="ptr_chat_success">加载成功</string>
     <string name="ptr_chat_fail">加载失败</string>
     <string name="btn_chat_send">发送</string>
+    <string name="dialog_permission_record_audio_message">应用程序需要录音权限，否则无法正常发送语音消息/拨打语音电话</string>
+    <string name="dialog_permission_record_audio_nerver_ask_message">应用程序无法获取录音的权限，您可通过系统设置界面打开软件的录音权限。</string>
 </resources>

@@ -1,8 +1,13 @@
 package com.lwk.familycontact.project.chat.view;
 
+import android.Manifest;
 import android.app.Activity;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.provider.Settings;
+import android.support.annotation.NonNull;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.MotionEvent;
@@ -19,10 +24,10 @@ import com.lib.ptrview.CommonPtrLayout;
 import com.lwk.familycontact.R;
 import com.lwk.familycontact.base.FCBaseActivity;
 import com.lwk.familycontact.project.chat.adapter.HxChatAdapter;
-import com.lwk.familycontact.project.chat.dialog.VoicePlayInCallWarning;
 import com.lwk.familycontact.project.chat.presenter.HxChatPresenter;
 import com.lwk.familycontact.project.chat.utils.AndroidAdjustResizeBugFix;
 import com.lwk.familycontact.project.chat.utils.HeadSetReceiver;
+import com.lwk.familycontact.project.chat.utils.VoiceMessagePlayInCallWarning;
 import com.lwk.familycontact.storage.db.user.UserBean;
 import com.lwk.familycontact.utils.event.ChatActEventBean;
 import com.lwk.familycontact.utils.event.EventBusHelper;
@@ -35,14 +40,22 @@ import org.greenrobot.eventbus.ThreadMode;
 
 import java.util.List;
 
+import permissions.dispatcher.NeedsPermission;
+import permissions.dispatcher.OnNeverAskAgain;
+import permissions.dispatcher.OnPermissionDenied;
+import permissions.dispatcher.OnShowRationale;
+import permissions.dispatcher.PermissionRequest;
+import permissions.dispatcher.RuntimePermissions;
+
 /**
  * 聊天界面
  */
+@RuntimePermissions
 public class HxChatActivity extends FCBaseActivity implements HxChatImpl
         , CommonPtrLayout.OnRefreshListener
         , ResizeLayout.OnResizeListener
         , HxChatController.onTextSendListener
-        , IMRecordListener, HeadSetReceiver.onHeadSetStateChangeListener
+        , IMRecordListener, HeadSetReceiver.onHeadSetStateChangeListener, HxChatController.onCheckModeToVoiceInputListener
 {
     //跳转到该界面Intent键值：userbean(用户资料：单聊时有用)
     private static final String INTENT_KEY_USERBEAN = "userbean";
@@ -62,7 +75,7 @@ public class HxChatActivity extends FCBaseActivity implements HxChatImpl
     private HxChatController mChatController;
     private ResizeLayout mResizeLayout;
     //语音消息在播放时如果是听筒模式的提醒
-    private VoicePlayInCallWarning mVoicePlayInCallWarning = new VoicePlayInCallWarning(this);
+    private VoiceMessagePlayInCallWarning mVoiceMessagePlayInCallWarning = new VoiceMessagePlayInCallWarning(this);
     //耳机插入监听
     private HeadSetReceiver mHeadSetReceiver;
 
@@ -123,6 +136,7 @@ public class HxChatActivity extends FCBaseActivity implements HxChatImpl
         mChatController = findView(R.id.hcc_hx_chat);
         mChatController.setOnTextSendListener(this);
         mChatController.setOnRecordListener(this);
+        mChatController.setOnCheckModeToVoiceInputListener(this);
         AndroidAdjustResizeBugFix.assistActivity(this);
     }
 
@@ -132,6 +146,9 @@ public class HxChatActivity extends FCBaseActivity implements HxChatImpl
         super.initData();
         mPresenter.setActionBarTitle(mConversationId, mUserBean);
         mPresenter.loadOnePageData(mConType, mConversationId, true);
+        //如果优先展示语音输入模式，就切换输入模式
+        if (!mPresenter.isTextInputModeFirst(this))
+            HxChatActivityPermissionsDispatcher.checkVoiceInputModeWithCheck(this);
         //注册耳机监听
         mHeadSetReceiver = HeadSetReceiver.registInActivity(this, this);
     }
@@ -256,13 +273,13 @@ public class HxChatActivity extends FCBaseActivity implements HxChatImpl
     @Override
     public void showVoicePlayInCall()
     {
-        mVoicePlayInCallWarning.showAsDropDown(mActionBar, 0, 0);
+        mVoiceMessagePlayInCallWarning.showAsDropDown(mActionBar, 0, 0);
     }
 
     @Override
     public void closeVoicePlayInCall()
     {
-        mVoicePlayInCallWarning.dismiss();
+        mVoiceMessagePlayInCallWarning.dismiss();
     }
 
     @Override
@@ -361,5 +378,74 @@ public class HxChatActivity extends FCBaseActivity implements HxChatImpl
         EventBusHelper.getInstance().post(new ChatActEventBean(false, mConversationId));
         EventBusHelper.getInstance().unregist(this);
         super.onDestroy();
+    }
+
+    @Override
+    public void onCheckToVoiceInputMode()
+    {
+        HxChatActivityPermissionsDispatcher.checkVoiceInputModeWithCheck(this);
+    }
+
+    @NeedsPermission(Manifest.permission.RECORD_AUDIO)
+    public void checkVoiceInputMode()
+    {
+        if (mChatController != null)
+            mChatController.checkModeToVoiceInput();
+    }
+
+    @OnShowRationale(Manifest.permission.RECORD_AUDIO)
+    public void showRationaleForRecordAudio(final PermissionRequest request)
+    {
+        new AlertDialog.Builder(this).setCancelable(false)
+                .setTitle(R.string.dialog_permission_title)
+                .setMessage(R.string.dialog_permission_record_audio_message)
+                .setPositiveButton(R.string.dialog_permission_confirm, new DialogInterface.OnClickListener()
+                {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which)
+                    {
+                        request.proceed();
+                    }
+                })
+                .create().show();
+    }
+
+    @OnPermissionDenied(Manifest.permission.RECORD_AUDIO)
+    public void onRecordAudioPermissionDenied()
+    {
+        showLongToast(R.string.warning_permission_record_audio_denied);
+    }
+
+    @OnNeverAskAgain(Manifest.permission.RECORD_AUDIO)
+    public void onNeverAskRecordAudio()
+    {
+        new AlertDialog.Builder(this).setCancelable(false)
+                .setTitle(R.string.dialog_permission_title)
+                .setMessage(R.string.dialog_permission_record_audio_nerver_ask_message)
+                .setNegativeButton(R.string.dialog_permission_cancel, new DialogInterface.OnClickListener()
+                {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which)
+                    {
+                        dialog.dismiss();
+                    }
+                })
+                .setPositiveButton(R.string.dialog_permission_nerver_ask_confirm, new DialogInterface.OnClickListener()
+                {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which)
+                    {
+                        dialog.dismiss();
+                        Intent intent = new Intent(Settings.ACTION_APPLICATION_SETTINGS);
+                        startActivity(intent);
+                    }
+                }).create().show();
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults)
+    {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        HxChatActivityPermissionsDispatcher.onRequestPermissionsResult(this, requestCode, grantResults);
     }
 }

@@ -30,6 +30,7 @@ public class SettingActivity extends FCBaseActivity implements CompoundButton.On
     private View mViewNoticeVibrate;
     private FlatToggleButton mFtgMsgNoticeVibrate;
     private FlatToggleButton mFtgVoiceMsgHandFree;
+    private FlatToggleButton mFtgTextInputFirst;
     private ProgressDialog mDialog;
     private AnimationController mAnimationController;
     private final int FADE_ANIM_DURATION = 175;
@@ -56,6 +57,7 @@ public class SettingActivity extends FCBaseActivity implements CompoundButton.On
         mViewNoticeVibrate = findView(R.id.fl_setting_msg_notice_vibrate);
         mFtgMsgNoticeVibrate = findView(R.id.ftg_setting_msg_notice_vibrate);
         mFtgVoiceMsgHandFree = findView(R.id.ftg_setting_msg_voice_handfree);
+        mFtgTextInputFirst = findView(R.id.ftg_setting_chat_text_input_first);
 
         addClick(R.id.btn_setting_logout);
     }
@@ -69,12 +71,14 @@ public class SettingActivity extends FCBaseActivity implements CompoundButton.On
         mFtgMsgNoticeVoice.setChecked(mPresenter.isMsgNoticeVoiceEnable(this));
         mFtgMsgNoticeVibrate.setChecked(mPresenter.isMsgNoticeVibrateEnable(this));
         mFtgVoiceMsgHandFree.setChecked(mPresenter.isVoiceMsgHandFreeEnable(this));
+        mFtgTextInputFirst.setChecked(mPresenter.isChatTextInputModeFirst(this));
 
         mFtgDialFeedBack.setOnCheckedChangeListener(this);
         mFtgMsgNotice.setOnCheckedChangeListener(this);
         mFtgMsgNoticeVoice.setOnCheckedChangeListener(this);
         mFtgMsgNoticeVibrate.setOnCheckedChangeListener(this);
         mFtgVoiceMsgHandFree.setOnCheckedChangeListener(this);
+        mFtgTextInputFirst.setOnCheckedChangeListener(this);
     }
 
     @Override
@@ -126,6 +130,9 @@ public class SettingActivity extends FCBaseActivity implements CompoundButton.On
                 break;
             case R.id.ftg_setting_msg_voice_handfree:
                 mPresenter.setVoiceMsgHandFreeEnable(this, isChecked);
+                break;
+            case R.id.ftg_setting_chat_text_input_first:
+                mPresenter.setChatTextInputModeFirst(this, isChecked);
                 break;
         }
     }

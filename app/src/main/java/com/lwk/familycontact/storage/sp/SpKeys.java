@@ -14,4 +14,5 @@ public class SpKeys
     public static final String NEW_MSG_NOTICE = "newMsgNotice";
     public static final String NEW_MSG_NOTICE_VOICE = "newMsgNoticeVoice";
     public static final String NEW_MSG_NOTICE_VIBRATE = "newMsgNoticeVibrate";
+    public static final String CHAT_TEXT_INPUT_FIRST = "chatTextInputFirst";
 }

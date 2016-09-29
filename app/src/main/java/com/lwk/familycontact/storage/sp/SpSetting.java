@@ -124,4 +124,20 @@ public class SpSetting
     {
         Sp.putBoolean(context.getApplicationContext(), SpKeys.NEW_MSG_NOTICE_VIBRATE, enable);
     }
+
+    /**
+     * 进入聊天界面时是否优先展示文字输入模式
+     */
+    public static boolean isChatTextInputModeFirst(Context context)
+    {
+        return Sp.getBoolean(context.getApplicationContext(), SpKeys.CHAT_TEXT_INPUT_FIRST, true);
+    }
+
+    /**
+     * 设置进入聊天界面时是否优先展示文字输入模式
+     */
+    public static void setChatTextInputModeFirst(Context context, boolean b)
+    {
+        Sp.putBoolean(context.getApplicationContext(), SpKeys.CHAT_TEXT_INPUT_FIRST, b);
+    }
 }

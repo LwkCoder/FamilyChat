@@ -1,4 +1,4 @@
-package com.lwk.familycontact.project.chat.dialog;
+package com.lwk.familycontact.project.chat.utils;
 
 import android.app.Activity;
 import android.view.View;
@@ -12,10 +12,10 @@ import com.lwk.familycontact.widget.BasePop;
  * TODO 语音消息在听筒播放的提示
  * 2016/9/29
  */
-public class VoicePlayInCallWarning extends BasePop
+public class VoiceMessagePlayInCallWarning extends BasePop
 {
 
-    public VoicePlayInCallWarning(Activity context)
+    public VoiceMessagePlayInCallWarning(Activity context)
     {
         super(context);
     }

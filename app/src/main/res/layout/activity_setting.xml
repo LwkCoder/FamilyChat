@@ -30,6 +30,10 @@
 
             <Space style="@style/FC_SettingSpace"/>
 
+            <include layout="@layout/layout_setting_chat"/>
+
+            <Space style="@style/FC_SettingSpace"/>
+
             <include layout="@layout/layout_setting_dial"/>
 
             <Space style="@style/FC_SettingSpace"/>
