@@ -139,6 +139,13 @@ public class ConversationFragment extends BaseFragment implements ConversationIm
     }
 
     @Override
+    public void scrollToTop()
+    {
+        if (mRecyclerView != null)
+            mRecyclerView.scrollToPosition(0);
+    }
+
+    @Override
     protected void onClick(int id, View v)
     {
     }

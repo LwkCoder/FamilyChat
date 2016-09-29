@@ -22,6 +22,7 @@ import com.lwk.familycontact.project.chat.adapter.HxChatAdapter;
 import com.lwk.familycontact.project.chat.dialog.VoicePlayInCallWarning;
 import com.lwk.familycontact.project.chat.presenter.HxChatPresenter;
 import com.lwk.familycontact.project.chat.utils.AndroidAdjustResizeBugFix;
+import com.lwk.familycontact.project.chat.utils.HeadSetReceiver;
 import com.lwk.familycontact.storage.db.user.UserBean;
 import com.lwk.familycontact.utils.event.ChatActEventBean;
 import com.lwk.familycontact.utils.event.EventBusHelper;
@@ -41,10 +42,13 @@ public class HxChatActivity extends FCBaseActivity implements HxChatImpl
         , CommonPtrLayout.OnRefreshListener
         , ResizeLayout.OnResizeListener
         , HxChatController.onTextSendListener
-        , IMRecordListener
+        , IMRecordListener, HeadSetReceiver.onHeadSetStateChangeListener
 {
+    //跳转到该界面Intent键值：userbean(用户资料：单聊时有用)
     private static final String INTENT_KEY_USERBEAN = "userbean";
+    //跳转到该界面Intent键值：conId（会话id）
     private static final String INTENT_KEY_CONID = "conId";
+    //跳转到该界面Intent键值：conType（会话类型）
     private static final String INTENT_KEY_CONTYPE = "conType";
     private HxChatPresenter mPresenter;
     private EMConversation.EMConversationType mConType = EMConversation.EMConversationType.Chat;//目前都作为单聊
@@ -57,7 +61,10 @@ public class HxChatActivity extends FCBaseActivity implements HxChatImpl
     private HxChatAdapter mAdapter;
     private HxChatController mChatController;
     private ResizeLayout mResizeLayout;
+    //语音消息在播放时如果是听筒模式的提醒
     private VoicePlayInCallWarning mVoicePlayInCallWarning = new VoicePlayInCallWarning(this);
+    //耳机插入监听
+    private HeadSetReceiver mHeadSetReceiver;
 
     /**
      * 跳转到聊天界面的公共方法
@@ -125,6 +132,8 @@ public class HxChatActivity extends FCBaseActivity implements HxChatImpl
         super.initData();
         mPresenter.setActionBarTitle(mConversationId, mUserBean);
         mPresenter.loadOnePageData(mConType, mConversationId, true);
+        //注册耳机监听
+        mHeadSetReceiver = HeadSetReceiver.registInActivity(this, this);
     }
 
     @Override
@@ -268,7 +277,6 @@ public class HxChatActivity extends FCBaseActivity implements HxChatImpl
         switch (id)
         {
             case R.id.fl_common_actionbar_right:
-                KeyboradUtils.HideKeyboard(mActionBar);
                 ImagePicker.getInstance().pickMutilImage(this, 9, new ImagePicker.OnSelectedListener()
                 {
                     @Override
@@ -311,6 +319,15 @@ public class HxChatActivity extends FCBaseActivity implements HxChatImpl
     }
 
     @Override
+    public void onHeadSetStateChanged(boolean headSetIn)
+    {
+        if (headSetIn)
+            mPresenter.notifyHeadSetIn();
+        else
+            mPresenter.notifyHeadSetOut();
+    }
+
+    @Override
     public void OnResize(int w, int h, int oldw, int oldh)
     {
         if (h != 0 && oldh != 0 && h < oldh)
@@ -325,10 +342,21 @@ public class HxChatActivity extends FCBaseActivity implements HxChatImpl
     }
 
     @Override
+    protected void onStop()
+    {
+        super.onStop();
+        //停止播放语音消息
+        mPresenter.stopPlayVoiceMessage();
+        //关闭软键盘
+        KeyboradUtils.HideKeyboard(mChatController);
+    }
+
+    @Override
     protected void onDestroy()
     {
-        mPresenter.stopPlayVoiceMessage();
         mPresenter.clearConversationUnreadCount(mConversationId);
+        //解绑耳机广播监听
+        HeadSetReceiver.unregistFromActivity(this, mHeadSetReceiver);
         //发送离开聊天界面的通知
         EventBusHelper.getInstance().post(new ChatActEventBean(false, mConversationId));
         EventBusHelper.getInstance().unregist(this);

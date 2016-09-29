@@ -12,8 +12,8 @@ import com.lib.base.utils.StringUtil;
 import com.lib.imagepicker.bean.ImageBean;
 import com.lwk.familycontact.base.FCApplication;
 import com.lwk.familycontact.im.helper.HxChatHelper;
-import com.lwk.familycontact.project.chat.utils.VoicePlayListener;
-import com.lwk.familycontact.project.chat.utils.VoicePlayUtils;
+import com.lwk.familycontact.project.chat.utils.VoiceMessagePlayUtils;
+import com.lwk.familycontact.project.chat.utils.VoiceMessagePlayListener;
 import com.lwk.familycontact.project.chat.view.HxChatImpl;
 import com.lwk.familycontact.storage.db.user.UserBean;
 import com.lwk.familycontact.utils.event.ComNotifyConfig;
@@ -36,13 +36,13 @@ public class HxChatPresenter
     private HxChatImpl mViewImpl;
     private Handler mMainHandler;
     private int mCurPlayVoicePosition = -1;
-    private VoicePlayUtils mVoicePlayUtils;
+    private VoiceMessagePlayUtils mVoiceMessagePlayUtils;
 
     public HxChatPresenter(HxChatImpl viewImpl, Handler handler)
     {
         this.mViewImpl = viewImpl;
         this.mMainHandler = handler;
-        mVoicePlayUtils = new VoicePlayUtils(FCApplication.getInstance(), this);
+        mVoiceMessagePlayUtils = new VoiceMessagePlayUtils(FCApplication.getInstance(), this);
     }
 
     /**
@@ -288,7 +288,7 @@ public class HxChatPresenter
         stopPlayVoiceMessage();
         message.setListened(true);
         mViewImpl.refershAdapterStatus();
-        mVoicePlayUtils.playVoice(filePath, new VoicePlayListener()
+        mVoiceMessagePlayUtils.playVoice(filePath, new VoiceMessagePlayListener()
         {
             @Override
             public void startPlay(boolean isHandFree)
@@ -315,7 +315,7 @@ public class HxChatPresenter
     //停止播放语音消息
     public void stopPlayVoiceMessage()
     {
-        mVoicePlayUtils.stopVoice();
+        mVoiceMessagePlayUtils.stopVoice();
         mCurPlayVoicePosition = -1;
     }
 
@@ -333,6 +333,22 @@ public class HxChatPresenter
     public void closeVoicePlayInCallWarning()
     {
         mViewImpl.closeVoicePlayInCall();
+    }
+
+    /**
+     * 通知耳机插入
+     */
+    public void notifyHeadSetIn()
+    {
+        mVoiceMessagePlayUtils.notifyHeadSetIn();
+    }
+
+    /**
+     * 通知耳机拔出
+     */
+    public void notifyHeadSetOut()
+    {
+        mVoiceMessagePlayUtils.notifyHeadSetOut();
     }
 
     /**

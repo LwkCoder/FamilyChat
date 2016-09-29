@@ -190,6 +190,9 @@ public class MainActivity extends FCBaseActivity implements MainImpl
             case 1:
                 mFragment02.scrollToTop();
                 break;
+            case 2:
+                mFragment01.scrollToTop();
+                break;
         }
     }
 

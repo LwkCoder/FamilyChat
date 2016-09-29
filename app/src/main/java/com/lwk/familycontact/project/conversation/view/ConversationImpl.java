@@ -14,4 +14,6 @@ public interface ConversationImpl
     void onLoadAllConversationSuccess(List<HxConversation> list);
 
     void onConversationBeDeleted(HxConversation conversation);
+
+    void scrollToTop();
 }

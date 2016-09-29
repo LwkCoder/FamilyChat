@@ -5,7 +5,7 @@ package com.lwk.familycontact.project.chat.utils;
  * TODO 语音消息播放监听
  * 2016/9/22
  */
-public interface VoicePlayListener
+public interface VoiceMessagePlayListener
 {
     void startPlay(boolean isHandFree);
 

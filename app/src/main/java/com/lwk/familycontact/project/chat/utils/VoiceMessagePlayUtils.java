@@ -16,15 +16,17 @@ import com.lwk.familycontact.storage.sp.SpSetting;
  * TODO 语音消息播放帮助类
  * 2016/9/22
  */
-public class VoicePlayUtils
+public class VoiceMessagePlayUtils
 {
     private Context mContext;
     //语音播放player
     private MediaPlayer mMediaPlayer;
     private AudioManager mAudioManager;
     private HxChatPresenter mPresenter;
+    //是否插入耳机
+    private boolean mIsHeadSetMode;
 
-    public VoicePlayUtils(Context context, HxChatPresenter presenter)
+    public VoiceMessagePlayUtils(Context context, HxChatPresenter presenter)
     {
         this.mContext = context.getApplicationContext();
         this.mPresenter = presenter;
@@ -38,7 +40,7 @@ public class VoicePlayUtils
      * @param filePath 语音地址
      * @param listener 监听
      */
-    public synchronized void playVoice(String filePath, final VoicePlayListener listener)
+    public synchronized void playVoice(String filePath, final VoiceMessagePlayListener listener)
     {
         if (StringUtil.isEmpty(filePath))
         {
@@ -50,20 +52,25 @@ public class VoicePlayUtils
         try
         {
             stopVoice();
-            //开启扬声器播放语音
+            //获取当前是否为耳机模式
+            mIsHeadSetMode = mAudioManager.isWiredHeadsetOn();
             final boolean isHandFree = SpSetting.isVoiceMsgHandFreeEnable(mContext);
-            if (isHandFree)
+            //耳机插入的时候直接用听筒模式播放
+            if (mIsHeadSetMode)
             {
-                mAudioManager.setSpeakerphoneOn(true);
-                mAudioManager.setMode(AudioManager.MODE_NORMAL);
-                mMediaPlayer.setAudioStreamType(AudioManager.STREAM_RING);
+                setAudioModeOfInCall();
             } else
             {
-                mAudioManager.setSpeakerphoneOn(false);// 关闭扬声器
-                // 把声音设定成Earpiece（听筒）出来，设定为正在通话中
-                mAudioManager.setMode(AudioManager.MODE_IN_CALL);
-                mMediaPlayer.setAudioStreamType(AudioManager.STREAM_VOICE_CALL);
-                mPresenter.showVoicePlayInCallWarning();//提示用户
+                //开启扬声器播放语音
+                if (isHandFree)
+                {
+                    setAudioModeOfHandFree();
+                } else
+                {
+                    //提示用户当前是听筒模式
+                    mPresenter.showVoicePlayInCallWarning();
+                    setAudioModeOfInCall();
+                }
             }
 
             mMediaPlayer.setDataSource(filePath);
@@ -89,7 +96,7 @@ public class VoicePlayUtils
             });
         } catch (Exception e)
         {
-            KLog.e("VoicePlayUtils playVoice() error:" + e.toString());
+            KLog.e("VoiceMessagePlayUtils playVoice() error:" + e.toString());
             if (listener != null)
                 listener.error(FCError.VOICE_PLAY_ERROR, R.string.error_play_voice_message);
             mPresenter.closeVoicePlayInCallWarning();
@@ -108,5 +115,67 @@ public class VoicePlayUtils
             mMediaPlayer.reset();//4.4需要【mediaplayer went away with unhandled events】
             mPresenter.closeVoicePlayInCallWarning();
         }
+    }
+
+    /**
+     * 设置为扬声器模式
+     */
+    private void setAudioModeOfHandFree()
+    {
+        if (mAudioManager != null)
+        {
+            mAudioManager.setSpeakerphoneOn(true);
+            mAudioManager.setMode(AudioManager.MODE_NORMAL);
+            mMediaPlayer.setAudioStreamType(AudioManager.STREAM_RING);
+        }
+    }
+
+    /**
+     * 设置为听筒模式
+     */
+    private void setAudioModeOfInCall()
+    {
+        if (mAudioManager != null)
+        {
+            mAudioManager.setSpeakerphoneOn(false);// 关闭扬声器
+            // 把声音设定成Earpiece（听筒）出来，设定为正在通话中
+            mAudioManager.setMode(AudioManager.MODE_IN_COMMUNICATION);
+            mMediaPlayer.setAudioStreamType(AudioManager.STREAM_VOICE_CALL);
+        }
+    }
+
+    /**
+     * 播放语音的过程中监听到耳机插入
+     */
+    public void notifyHeadSetIn()
+    {
+        if (mMediaPlayer != null && mMediaPlayer.isPlaying())
+        {
+            mAudioManager.setSpeakerphoneOn(false);// 关闭扬声器
+            mAudioManager.setMode(AudioManager.MODE_IN_COMMUNICATION);
+        }
+        mIsHeadSetMode = true;
+    }
+
+    /**
+     * 播放语音的过程中监听到耳机拔出
+     */
+    public void notifyHeadSetOut()
+    {
+        if (mMediaPlayer != null && mMediaPlayer.isPlaying())
+        {
+            //开启扬声器播放语音
+            final boolean isHandFree = SpSetting.isVoiceMsgHandFreeEnable(mContext);
+            if (isHandFree)
+            {
+                mAudioManager.setSpeakerphoneOn(true);
+                mAudioManager.setMode(AudioManager.MODE_NORMAL);
+            } else
+            {
+                mAudioManager.setSpeakerphoneOn(false);
+                mAudioManager.setMode(AudioManager.MODE_IN_COMMUNICATION);
+            }
+        }
+        mIsHeadSetMode = false;
     }
 }
