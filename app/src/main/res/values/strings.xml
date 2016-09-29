@@ -177,7 +177,7 @@
     <string name="ptr_chat_pulling">松开后加载历史消息</string>
     <string name="ptr_chat_release">正在加载历史消息...</string>
     <string name="ptr_chat_success">加载成功</string>
-    <string name="ptr_chat_fail">加载失败</string>
+    <string name="ptr_chat_fail">没有更多聊天历史</string>
     <string name="btn_chat_send">发送</string>
     <string name="dialog_permission_record_audio_message">应用程序需要录音权限，否则无法正常发送语音消息/拨打语音电话</string>
     <string name="dialog_permission_record_audio_nerver_ask_message">应用程序无法获取录音的权限，您可通过系统设置界面打开软件的录音权限。</string>

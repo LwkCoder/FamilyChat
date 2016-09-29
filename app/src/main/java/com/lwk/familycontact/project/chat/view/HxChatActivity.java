@@ -55,7 +55,8 @@ public class HxChatActivity extends FCBaseActivity implements HxChatImpl
         , CommonPtrLayout.OnRefreshListener
         , ResizeLayout.OnResizeListener
         , HxChatController.onTextSendListener
-        , IMRecordListener, HeadSetReceiver.onHeadSetStateChangeListener, HxChatController.onCheckModeToVoiceInputListener
+        , HxChatController.onCheckModeToVoiceInputListener
+        , IMRecordListener, HeadSetReceiver.onHeadSetStateChangeListener
 {
     //跳转到该界面Intent键值：userbean(用户资料：单聊时有用)
     private static final String INTENT_KEY_USERBEAN = "userbean";
