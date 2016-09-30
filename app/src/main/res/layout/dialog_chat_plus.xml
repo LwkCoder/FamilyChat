@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:background="@drawable/shape_rect_chat_plus_dialog_bg"
+              android:orientation="vertical"
+              android:padding="@dimen/spacing_normal">
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:minWidth="300dp"
+        android:orientation="horizontal">
+
+        <LinearLayout
+            android:id="@+id/ll_chat_plus_dialog_pic"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <ImageView
+                android:layout_width="@dimen/img_dialog_chat_plus_item_size"
+                android:layout_height="@dimen/img_dialog_chat_plus_item_size"
+                android:background="@drawable/bg_chat_plus_dialog_item_selctor"
+                android:padding="@dimen/spacing_normal"
+                android:src="@drawable/img_chat_plus_dialog_photo"/>
+
+            <TextView
+                style="@style/FC_SmallTextStyle"
+                android:layout_marginTop="@dimen/spacing_tiny"
+                android:text="@string/tv_dialog_chat_plus_label_photo"
+                android:textColor="@android:color/black"
+                android:textSize="@dimen/sp_14"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/ll_chat_plus_dialog_video"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <ImageView
+                android:layout_width="@dimen/img_dialog_chat_plus_item_size"
+                android:layout_height="@dimen/img_dialog_chat_plus_item_size"
+                android:background="@drawable/bg_chat_plus_dialog_item_selctor"
+                android:padding="@dimen/spacing_normal"
+                android:src="@drawable/img_chat_plus_dialog_video"/>
+
+            <TextView
+                style="@style/FC_SmallTextStyle"
+                android:layout_marginTop="@dimen/spacing_tiny"
+                android:text="@string/tv_dialog_chat_plus_label_video"
+                android:textColor="@android:color/black"
+                android:textSize="@dimen/sp_14"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/ll_chat_plus_dialog_voice_call"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <ImageView
+                android:layout_width="@dimen/img_dialog_chat_plus_item_size"
+                android:layout_height="@dimen/img_dialog_chat_plus_item_size"
+                android:background="@drawable/bg_chat_plus_dialog_item_selctor"
+                android:padding="@dimen/spacing_normal"
+                android:src="@drawable/img_chat_plus_dialog_voice_call"/>
+
+            <TextView
+                style="@style/FC_SmallTextStyle"
+                android:layout_marginTop="@dimen/spacing_tiny"
+                android:text="@string/tv_dialog_chat_plus_label_voice_call"
+                android:textColor="@android:color/black"
+                android:textSize="@dimen/sp_14"/>
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/spacing_normal"
+        android:orientation="horizontal"
+        android:weightSum="3">
+
+        <LinearLayout
+            android:id="@+id/ll_chat_plus_dialog_video_call"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="@dimen/spacing_small"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <ImageView
+                android:layout_width="@dimen/img_dialog_chat_plus_item_size"
+                android:layout_height="@dimen/img_dialog_chat_plus_item_size"
+                android:background="@drawable/bg_chat_plus_dialog_item_selctor"
+                android:padding="@dimen/spacing_normal"
+                android:src="@drawable/img_chat_plus_dialog_video_call"/>
+
+            <TextView
+                style="@style/FC_SmallTextStyle"
+                android:layout_marginTop="@dimen/spacing_tiny"
+                android:text="@string/tv_dialog_chat_plus_label_video_call"
+                android:textColor="@android:color/black"
+                android:textSize="@dimen/sp_14"/>
+        </LinearLayout>
+
+    </LinearLayout>
+
+</LinearLayout>

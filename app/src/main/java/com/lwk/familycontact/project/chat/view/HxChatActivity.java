@@ -56,7 +56,7 @@ public class HxChatActivity extends FCBaseActivity implements HxChatImpl
         , ResizeLayout.OnResizeListener
         , HxChatController.onTextSendListener
         , HxChatController.onCheckModeToVoiceInputListener
-        , IMRecordListener, HeadSetReceiver.onHeadSetStateChangeListener
+        , IMRecordListener, HeadSetReceiver.onHeadSetStateChangeListener, HxChatPlusDialog.onChatPlusItemSelectedListener
 {
     //跳转到该界面Intent键值：userbean(用户资料：单聊时有用)
     private static final String INTENT_KEY_USERBEAN = "userbean";
@@ -295,14 +295,37 @@ public class HxChatActivity extends FCBaseActivity implements HxChatImpl
         switch (id)
         {
             case R.id.fl_common_actionbar_right:
+                //关闭软键盘
+                KeyboradUtils.HideKeyboard(mChatController);
+                //弹出Dialog
+                HxChatPlusDialog dialog = new HxChatPlusDialog(this);
+                dialog.setOnChatPlusItemSelectedListener(this);
+                dialog.show();
+                break;
+        }
+    }
+
+    @Override
+    public void onPlusItemSelected(int position)
+    {
+        switch (position)
+        {
+            case HxChatPlusDialog.ITEM_PHOTO:
                 ImagePicker.getInstance().pickMutilImage(this, 9, new ImagePicker.OnSelectedListener()
                 {
                     @Override
                     public void onSelected(List<ImageBean> list)
                     {
-                        mPresenter.sendImageMessages(mConType, mConversationId, list);
+                        if (list != null && list.size() > 0)
+                            mPresenter.sendImageMessages(mConType, mConversationId, list);
                     }
                 });
+                break;
+            case HxChatPlusDialog.ITEM_VIDEO:
+                break;
+            case HxChatPlusDialog.ITEM_VOICE_CALL:
+                break;
+            case HxChatPlusDialog.ITEM_VIDEO_CALL:
                 break;
         }
     }

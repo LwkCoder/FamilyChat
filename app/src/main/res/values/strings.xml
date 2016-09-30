@@ -181,4 +181,8 @@
     <string name="btn_chat_send">发送</string>
     <string name="dialog_permission_record_audio_message">应用程序需要录音权限，否则无法正常发送语音消息/拨打语音电话</string>
     <string name="dialog_permission_record_audio_nerver_ask_message">应用程序无法获取录音的权限，您可通过系统设置界面打开软件的录音权限。</string>
+    <string name="tv_dialog_chat_plus_label_photo">照片/图片</string>
+    <string name="tv_dialog_chat_plus_label_video">短视频</string>
+    <string name="tv_dialog_chat_plus_label_voice_call">语音通话</string>
+    <string name="tv_dialog_chat_plus_label_video_call">视频通话</string>
 </resources>
