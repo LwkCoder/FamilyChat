@@ -15,7 +15,7 @@ import com.lwk.familycontact.utils.event.RegistEventBean;
 /**
  * 注册界面
  */
-public class RegistActivity extends FCBaseActivity implements RegistImpl
+public class RegistActivity extends FCBaseActivity implements RegistView
 {
 
     private RegistPresenter mPresenter;

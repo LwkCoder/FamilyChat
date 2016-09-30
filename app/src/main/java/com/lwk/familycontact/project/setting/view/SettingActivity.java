@@ -20,7 +20,7 @@ import com.lwk.familycontact.utils.other.AnimationController;
  * 设置界面
  */
 public class SettingActivity extends FCBaseActivity implements CompoundButton.OnCheckedChangeListener
-        , SettingImpl
+        , SettingView
 {
     private SettingPresenter mPresenter;
     private FlatToggleButton mFtgDialFeedBack;

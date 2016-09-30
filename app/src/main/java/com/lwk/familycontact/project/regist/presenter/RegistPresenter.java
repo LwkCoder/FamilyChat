@@ -4,7 +4,7 @@ import com.lib.base.utils.PhoneUtils;
 import com.lib.base.utils.StringUtil;
 import com.lwk.familycontact.im.helper.HxSdkHelper;
 import com.lwk.familycontact.project.common.FCCallBack;
-import com.lwk.familycontact.project.regist.view.RegistImpl;
+import com.lwk.familycontact.project.regist.view.RegistView;
 
 /**
  * Created by LWK
@@ -13,9 +13,9 @@ import com.lwk.familycontact.project.regist.view.RegistImpl;
  */
 public class RegistPresenter
 {
-    private RegistImpl mRegistView;
+    private RegistView mRegistView;
 
-    public RegistPresenter(RegistImpl registView)
+    public RegistPresenter(RegistView registView)
     {
         this.mRegistView = registView;
     }

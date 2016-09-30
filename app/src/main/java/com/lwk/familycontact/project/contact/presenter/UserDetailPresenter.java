@@ -2,7 +2,7 @@ package com.lwk.familycontact.project.contact.presenter;
 
 import com.lib.base.utils.StringUtil;
 import com.lib.imagepicker.bean.ImageBean;
-import com.lwk.familycontact.project.contact.view.UserDetailImpl;
+import com.lwk.familycontact.project.contact.view.UserDetailView;
 import com.lwk.familycontact.storage.db.user.UserBean;
 import com.lwk.familycontact.storage.db.user.UserDao;
 import com.lwk.familycontact.utils.event.EventBusHelper;
@@ -16,9 +16,9 @@ import com.lwk.familycontact.utils.other.ThreadManager;
  */
 public class UserDetailPresenter
 {
-    private UserDetailImpl mUserDetailView;
+    private UserDetailView mUserDetailView;
 
-    public UserDetailPresenter(UserDetailImpl userDetailView)
+    public UserDetailPresenter(UserDetailView userDetailView)
     {
         this.mUserDetailView = userDetailView;
     }

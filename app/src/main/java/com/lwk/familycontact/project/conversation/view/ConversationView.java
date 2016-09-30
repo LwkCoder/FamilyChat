@@ -9,7 +9,7 @@ import java.util.List;
  * TODO 会话片段View实现的接口
  * 2016/9/20
  */
-public interface ConversationImpl
+public interface ConversationView
 {
     void onLoadAllConversationSuccess(List<HxConversation> list);
 

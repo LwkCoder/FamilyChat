@@ -9,7 +9,7 @@ import java.util.List;
  * TODO 查看大图界面Impl
  * 2016/9/28
  */
-public interface HxImageDetailImpl
+public interface HxImageDetailView
 {
     void onScanDataSuccess(List<EMMessage> list, int startPosition);
 }

@@ -23,7 +23,7 @@ import java.util.List;
 /**
  * 查看大图消息界面
  */
-public class HxImageDetailActivity extends FCBaseActivity implements HxImageDetailImpl
+public class HxImageDetailActivity extends FCBaseActivity implements HxImageDetailView
 {
     //会话类型：单聊
     public static final int CON_TYPE_CHAT = 1;

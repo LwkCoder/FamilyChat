@@ -4,7 +4,7 @@ import android.os.Handler;
 
 import com.lwk.familycontact.im.bean.HxConversation;
 import com.lwk.familycontact.project.conversation.model.ConversationModel;
-import com.lwk.familycontact.project.conversation.view.ConversationImpl;
+import com.lwk.familycontact.project.conversation.view.ConversationView;
 import com.lwk.familycontact.utils.event.ComNotifyConfig;
 import com.lwk.familycontact.utils.event.ComNotifyEventBean;
 import com.lwk.familycontact.utils.event.EventBusHelper;
@@ -20,10 +20,10 @@ import java.util.List;
 public class ConverstionPresenter
 {
     private Handler mMainHandler;
-    private ConversationImpl mViewImpl;
+    private ConversationView mViewImpl;
     private ConversationModel mModel;
 
-    public ConverstionPresenter(ConversationImpl viewImpl, Handler handler)
+    public ConverstionPresenter(ConversationView viewImpl, Handler handler)
     {
         this.mViewImpl = viewImpl;
         this.mMainHandler = handler;

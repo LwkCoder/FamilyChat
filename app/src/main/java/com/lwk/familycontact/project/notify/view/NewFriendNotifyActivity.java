@@ -27,7 +27,7 @@ import java.util.List;
 /**
  * 新的好友通知详情界面
  */
-public class NewFriendNotifyActivity extends FCBaseActivity implements NewFriendImpl
+public class NewFriendNotifyActivity extends FCBaseActivity implements NewFriendView
 {
     private NewFriendPresenter mPresenter;
     private RecyclerView mRecyclerView;

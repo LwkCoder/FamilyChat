@@ -1,6 +1,6 @@
 package com.lwk.familycontact.project.contact.presenter;
 
-import com.lwk.familycontact.project.contact.view.AddContactImpl;
+import com.lwk.familycontact.project.contact.view.AddContactView;
 import com.lwk.familycontact.storage.db.user.UserBean;
 import com.lwk.familycontact.storage.db.user.UserDao;
 import com.lwk.familycontact.utils.event.ComNotifyConfig;
@@ -14,9 +14,9 @@ import com.lwk.familycontact.utils.event.EventBusHelper;
  */
 public class AddContactPresenter
 {
-    private AddContactImpl mAddContactView;
+    private AddContactView mAddContactView;
 
-    public AddContactPresenter(AddContactImpl addContactView)
+    public AddContactPresenter(AddContactView addContactView)
     {
         this.mAddContactView = addContactView;
     }

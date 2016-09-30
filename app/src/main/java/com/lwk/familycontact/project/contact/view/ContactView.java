@@ -9,7 +9,7 @@ import java.util.List;
  * TODO 通讯录界面View
  * 2016/8/9
  */
-public interface ContactImpl
+public interface ContactView
 {
     void refreshAllUsersSuccess(boolean isPrtRefresh, List<UserBean> allUserList);
 

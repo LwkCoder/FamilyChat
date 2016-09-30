@@ -8,7 +8,7 @@ import com.lib.rcvadapter.impl.RcvSortSectionImpl;
 import com.lwk.familycontact.project.common.FCCallBack;
 import com.lwk.familycontact.project.contact.model.ContactModel;
 import com.lwk.familycontact.project.contact.task.RefreshContactDataTask;
-import com.lwk.familycontact.project.contact.view.ContactImpl;
+import com.lwk.familycontact.project.contact.view.ContactView;
 import com.lwk.familycontact.storage.db.user.UserBean;
 import com.lwk.familycontact.storage.db.user.UserDao;
 import com.lwk.familycontact.utils.other.ThreadManager;
@@ -24,11 +24,11 @@ import java.util.concurrent.Executors;
  */
 public class ContactPresenter
 {
-    private ContactImpl mContactView;
+    private ContactView mContactView;
     private ContactModel mModel;
     private RefreshContactDataTask mRefreshContactDataTask;
 
-    public ContactPresenter(ContactImpl contactView)
+    public ContactPresenter(ContactView contactView)
     {
         this.mContactView = contactView;
         mModel = new ContactModel();

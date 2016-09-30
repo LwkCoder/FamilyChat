@@ -3,7 +3,7 @@ package com.lwk.familycontact.project.main.presenter;
 import android.os.Handler;
 
 import com.lwk.familycontact.project.main.model.MainModel;
-import com.lwk.familycontact.project.main.view.MainImpl;
+import com.lwk.familycontact.project.main.view.MainView;
 import com.lwk.familycontact.utils.other.ThreadManager;
 
 /**
@@ -13,11 +13,11 @@ import com.lwk.familycontact.utils.other.ThreadManager;
  */
 public class MainPresenter
 {
-    private MainImpl mMainView;
+    private MainView mMainView;
     private MainModel mMainModel;
     private Handler mMainHandler;
 
-    public MainPresenter(MainImpl mainView, Handler handler)
+    public MainPresenter(MainView mainView, Handler handler)
     {
         this.mMainView = mainView;
         this.mMainHandler = handler;

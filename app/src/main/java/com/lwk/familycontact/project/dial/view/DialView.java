@@ -9,7 +9,7 @@ import java.util.List;
  * TODO 拨号器片段View
  * 2016/8/19
  */
-public interface DialImpl
+public interface DialView
 {
     void resetSearchResult();
 

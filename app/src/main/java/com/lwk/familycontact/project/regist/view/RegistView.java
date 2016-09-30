@@ -5,7 +5,7 @@ package com.lwk.familycontact.project.regist.view;
  * TODO 注册界面View
  * 2016/8/5
  */
-public interface RegistImpl
+public interface RegistView
 {
     void showPhoneEmptyWarning();
 

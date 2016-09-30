@@ -5,7 +5,7 @@ package com.lwk.familycontact.project.contact.view;
  * TODO 添加好友界面View
  * 2016/8/26
  */
-public interface AddFriendImpl
+public interface AddFriendView
 {
     void phoneEmptyWarning();
 

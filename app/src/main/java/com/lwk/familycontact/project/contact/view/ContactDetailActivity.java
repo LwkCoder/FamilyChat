@@ -45,7 +45,7 @@ import permissions.dispatcher.RuntimePermissions;
  * 联系人资料详情界面
  */
 @RuntimePermissions
-public class ContactDetailActivity extends FCBaseActivity implements UserDetailImpl
+public class ContactDetailActivity extends FCBaseActivity implements UserDetailView
 {
     private static final String INTENT_KEY = "user_data_key";
     private UserDetailPresenter mPresenter;

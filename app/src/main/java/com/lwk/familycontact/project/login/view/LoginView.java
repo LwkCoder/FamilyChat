@@ -5,7 +5,7 @@ package com.lwk.familycontact.project.login.view;
  * TODO 登录界面View
  * 2016/8/4
  */
-public interface LoginImpl
+public interface LoginView
 {
     void setLastLoginPhone(String phone);
 

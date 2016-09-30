@@ -36,7 +36,7 @@ import java.util.List;
  * TODO 会话片段
  * 2016/8/2
  */
-public class ConversationFragment extends BaseFragment implements ConversationImpl
+public class ConversationFragment extends BaseFragment implements ConversationView
         , RcvMutilAdapter.onItemClickListener<HxConversation>
         , RcvMutilAdapter.onItemLongClickListener<HxConversation>
 {

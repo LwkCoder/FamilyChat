@@ -6,7 +6,7 @@ import android.util.Pair;
 import com.hyphenate.chat.EMConversation;
 import com.hyphenate.chat.EMMessage;
 import com.lwk.familycontact.project.chat.model.HxImageDetailModel;
-import com.lwk.familycontact.project.chat.view.HxImageDetailImpl;
+import com.lwk.familycontact.project.chat.view.HxImageDetailView;
 import com.lwk.familycontact.utils.other.ThreadManager;
 
 import java.util.List;
@@ -18,11 +18,11 @@ import java.util.List;
  */
 public class HxImageDetailPresenter
 {
-    private HxImageDetailImpl mViewImpl;
+    private HxImageDetailView mViewImpl;
     private Handler mMainHandler;
     private HxImageDetailModel mModel;
 
-    public HxImageDetailPresenter(HxImageDetailImpl viewImpl, Handler handler)
+    public HxImageDetailPresenter(HxImageDetailView viewImpl, Handler handler)
     {
         this.mViewImpl = viewImpl;
         this.mMainHandler = handler;

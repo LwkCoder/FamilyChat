@@ -51,7 +51,7 @@ import permissions.dispatcher.RuntimePermissions;
  * 聊天界面
  */
 @RuntimePermissions
-public class HxChatActivity extends FCBaseActivity implements HxChatImpl
+public class HxChatActivity extends FCBaseActivity implements HxChatView
         , CommonPtrLayout.OnRefreshListener
         , ResizeLayout.OnResizeListener
         , HxChatController.onTextSendListener

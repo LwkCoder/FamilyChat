@@ -6,7 +6,7 @@ import com.lib.base.utils.PhoneUtils;
 import com.lib.base.utils.StringUtil;
 import com.lwk.familycontact.im.helper.HxSdkHelper;
 import com.lwk.familycontact.project.common.FCError;
-import com.lwk.familycontact.project.contact.view.AddFriendImpl;
+import com.lwk.familycontact.project.contact.view.AddFriendView;
 
 /**
  * Created by LWK
@@ -15,9 +15,9 @@ import com.lwk.familycontact.project.contact.view.AddFriendImpl;
  */
 public class AddFriendPresenter
 {
-    private AddFriendImpl mAddFriendView;
+    private AddFriendView mAddFriendView;
 
-    public AddFriendPresenter(AddFriendImpl addFriendView)
+    public AddFriendPresenter(AddFriendView addFriendView)
     {
         this.mAddFriendView = addFriendView;
     }

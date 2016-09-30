@@ -5,7 +5,7 @@ package com.lwk.familycontact.project.contact.view;
  * TODO
  * 2016/8/12
  */
-public interface UserDetailImpl
+public interface UserDetailView
 {
     void updateLocalHeadFail();
 }

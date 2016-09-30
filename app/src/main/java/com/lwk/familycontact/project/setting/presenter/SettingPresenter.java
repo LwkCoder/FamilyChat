@@ -6,7 +6,7 @@ import com.lib.base.app.AppManager;
 import com.lwk.familycontact.im.helper.HxSdkHelper;
 import com.lwk.familycontact.project.common.FCCallBack;
 import com.lwk.familycontact.project.login.view.LoginActivity;
-import com.lwk.familycontact.project.setting.view.SettingImpl;
+import com.lwk.familycontact.project.setting.view.SettingView;
 import com.lwk.familycontact.storage.sp.SpSetting;
 
 /**
@@ -16,9 +16,9 @@ import com.lwk.familycontact.storage.sp.SpSetting;
  */
 public class SettingPresenter
 {
-    private SettingImpl mSettingView;
+    private SettingView mSettingView;
 
-    public SettingPresenter(SettingImpl settingView)
+    public SettingPresenter(SettingView settingView)
     {
         this.mSettingView = settingView;
     }

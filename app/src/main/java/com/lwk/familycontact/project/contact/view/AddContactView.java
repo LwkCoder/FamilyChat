@@ -5,7 +5,7 @@ package com.lwk.familycontact.project.contact.view;
  * TODO 添加通讯录界面View
  * 2016/8/24
  */
-public interface AddContactImpl
+public interface AddContactView
 {
     void onUserExist();
 

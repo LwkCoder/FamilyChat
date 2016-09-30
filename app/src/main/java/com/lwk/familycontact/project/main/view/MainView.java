@@ -5,7 +5,7 @@ package com.lwk.familycontact.project.main.view;
  * TODO MainActivity交互接口
  * 2016/8/17
  */
-public interface MainImpl
+public interface MainView
 {
     void onShowFirstBadgeNum(int num);
 

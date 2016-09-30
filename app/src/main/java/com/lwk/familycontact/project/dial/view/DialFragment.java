@@ -46,7 +46,7 @@ import permissions.dispatcher.RuntimePermissions;
  * 2016/8/2
  */
 @RuntimePermissions
-public class DialFragment extends BaseFragment implements DialImpl
+public class DialFragment extends BaseFragment implements DialView
         , DialPadView.onCallListener
         , DialPadView.onTextChangedListener
         , RcvMutilAdapter.onItemClickListener<UserBean>

@@ -9,7 +9,7 @@ import java.util.List;
  * TODO 新的好友通知界面Impl
  * 2016/9/6
  */
-public interface NewFriendImpl
+public interface NewFriendView
 {
     void onRefreshAllNotifySuccess(List<InviteBean> list);
 

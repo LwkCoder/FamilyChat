@@ -14,7 +14,7 @@ import com.lwk.familycontact.project.contact.presenter.AddFriendPresenter;
 /**
  * 查找并添加好友界面
  */
-public class AddFriendActivity extends FCBaseActivity implements AddFriendImpl
+public class AddFriendActivity extends FCBaseActivity implements AddFriendView
 {
     private AddFriendPresenter mPresenter;
     private FlatEditText mFedPhone;

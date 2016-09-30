@@ -5,7 +5,7 @@ import android.os.Handler;
 import com.lwk.familycontact.im.helper.HxSdkHelper;
 import com.lwk.familycontact.project.common.FCCallBack;
 import com.lwk.familycontact.project.notify.model.NewFriendModel;
-import com.lwk.familycontact.project.notify.view.NewFriendImpl;
+import com.lwk.familycontact.project.notify.view.NewFriendView;
 import com.lwk.familycontact.storage.db.invite.InviteBean;
 import com.lwk.familycontact.storage.db.invite.InviteStatus;
 import com.lwk.familycontact.utils.event.ComNotifyConfig;
@@ -23,10 +23,10 @@ import java.util.List;
 public class NewFriendPresenter
 {
     private Handler mMainHandler;
-    private NewFriendImpl mNewFriendView;
+    private NewFriendView mNewFriendView;
     private NewFriendModel mNewFriendModel;
 
-    public NewFriendPresenter(NewFriendImpl newFriendView, Handler handler)
+    public NewFriendPresenter(NewFriendView newFriendView, Handler handler)
     {
         this.mMainHandler = handler;
         this.mNewFriendView = newFriendView;

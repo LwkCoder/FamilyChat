@@ -15,7 +15,7 @@ import com.lwk.familycontact.base.FCApplication;
 import com.lwk.familycontact.im.helper.HxChatHelper;
 import com.lwk.familycontact.project.chat.utils.VoiceMessagePlayUtils;
 import com.lwk.familycontact.project.chat.utils.VoiceMessagePlayListener;
-import com.lwk.familycontact.project.chat.view.HxChatImpl;
+import com.lwk.familycontact.project.chat.view.HxChatView;
 import com.lwk.familycontact.storage.db.user.UserBean;
 import com.lwk.familycontact.storage.sp.SpSetting;
 import com.lwk.familycontact.utils.event.ComNotifyConfig;
@@ -35,12 +35,12 @@ public class HxChatPresenter
 {
     //每页消息数量
     private final int EACH_PAGE_SIZE = 20;
-    private HxChatImpl mViewImpl;
+    private HxChatView mViewImpl;
     private Handler mMainHandler;
     private int mCurPlayVoicePosition = -1;
     private VoiceMessagePlayUtils mVoiceMessagePlayUtils;
 
-    public HxChatPresenter(HxChatImpl viewImpl, Handler handler)
+    public HxChatPresenter(HxChatView viewImpl, Handler handler)
     {
         this.mViewImpl = viewImpl;
         this.mMainHandler = handler;

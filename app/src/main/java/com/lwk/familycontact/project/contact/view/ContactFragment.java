@@ -54,7 +54,7 @@ import permissions.dispatcher.RuntimePermissions;
  */
 
 @RuntimePermissions
-public class ContactFragment extends BaseFragment implements ContactImpl, CommonPtrLayout.OnRefreshListener, OnQuickSideBarTouchListener, RcvMutilAdapter.onItemClickListener<UserBean>
+public class ContactFragment extends BaseFragment implements ContactView, CommonPtrLayout.OnRefreshListener, OnQuickSideBarTouchListener, RcvMutilAdapter.onItemClickListener<UserBean>
 {
     private ContactPresenter mPresenter;
     private RecyclerView mRecyclerView;

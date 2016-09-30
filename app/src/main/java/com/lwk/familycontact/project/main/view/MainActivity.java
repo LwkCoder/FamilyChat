@@ -36,7 +36,7 @@ import org.greenrobot.eventbus.ThreadMode;
  * MainActivity
  * 管理三个主片段
  */
-public class MainActivity extends FCBaseActivity implements MainImpl
+public class MainActivity extends FCBaseActivity implements MainView
         , BottomNavigationBar.OnTabSelectedListener
         , MainMenuPop.onMenuClickListener
 {

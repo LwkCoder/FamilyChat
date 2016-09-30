@@ -6,7 +6,7 @@ import android.util.Pair;
 import com.lib.base.utils.StringUtil;
 import com.lwk.familycontact.project.common.FCCallBack;
 import com.lwk.familycontact.project.dial.task.DialSearchTask;
-import com.lwk.familycontact.project.dial.view.DialImpl;
+import com.lwk.familycontact.project.dial.view.DialView;
 import com.lwk.familycontact.storage.db.user.UserBean;
 
 import java.util.List;
@@ -18,10 +18,10 @@ import java.util.List;
  */
 public class DialPresenter
 {
-    private DialImpl mDialView;
+    private DialView mDialView;
     private DialSearchTask mSearchTask;
 
-    public DialPresenter(DialImpl dialView)
+    public DialPresenter(DialView dialView)
     {
         this.mDialView = dialView;
     }

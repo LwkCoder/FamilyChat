@@ -21,7 +21,7 @@ import org.greenrobot.eventbus.ThreadMode;
 /**
  * 登录界面
  */
-public class LoginActivity extends FCBaseActivity implements LoginImpl
+public class LoginActivity extends FCBaseActivity implements LoginView
 {
     private LoginPresenter mPresenter;
     private FlatEditText mEdPhone;

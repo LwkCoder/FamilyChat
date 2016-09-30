@@ -10,7 +10,7 @@ import java.util.List;
  * TODO 聊天界面View实现的接口
  * 2016/9/20
  */
-public interface HxChatImpl
+public interface HxChatView
 {
     /**
      * 刷新ActionBar

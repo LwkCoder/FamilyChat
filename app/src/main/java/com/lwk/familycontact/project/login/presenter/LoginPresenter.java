@@ -6,7 +6,7 @@ import com.lib.base.utils.PhoneUtils;
 import com.lib.base.utils.StringUtil;
 import com.lwk.familycontact.im.helper.HxSdkHelper;
 import com.lwk.familycontact.project.common.FCCallBack;
-import com.lwk.familycontact.project.login.view.LoginImpl;
+import com.lwk.familycontact.project.login.view.LoginView;
 import com.lwk.familycontact.storage.sp.SpSetting;
 
 /**
@@ -16,9 +16,9 @@ import com.lwk.familycontact.storage.sp.SpSetting;
  */
 public class LoginPresenter
 {
-    private LoginImpl mLoginView;
+    private LoginView mLoginView;
 
-    public LoginPresenter(LoginImpl loginView)
+    public LoginPresenter(LoginView loginView)
     {
         this.mLoginView = loginView;
     }

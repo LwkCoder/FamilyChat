@@ -28,7 +28,7 @@ import java.util.List;
 /**
  * 添加通讯录界面
  */
-public class AddContactActivity extends FCBaseActivity implements AddContactImpl
+public class AddContactActivity extends FCBaseActivity implements AddContactView
 {
     private static final String INTENT_KEY_PHONE = "phone";
     private static final String INTENT_KEY_REGIST = "isRegist";
