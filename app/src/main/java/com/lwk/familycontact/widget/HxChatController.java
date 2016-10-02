@@ -14,6 +14,7 @@ import com.lib.base.utils.StringUtil;
 import com.lib.imrecordbutton.IMRecordButton;
 import com.lib.imrecordbutton.IMRecordListener;
 import com.lwk.familycontact.R;
+import com.lwk.familycontact.project.common.FCCache;
 
 /**
  * Created by LWK
@@ -65,6 +66,7 @@ public class HxChatController extends LinearLayout
         mImgInputModeSwitch = (ImageView) findViewById(R.id.img_chat_controller_input_mode);
         mEdTextInput = (EditText) findViewById(R.id.ed_chat_controller_text_input);
         mIMRecordButton = (IMRecordButton) findViewById(R.id.imbtn_chat_controller_voice_input);
+        mIMRecordButton.setCachePath(FCCache.getInstance().getVoiceCachePath());
         mBtnSend = (Button) findViewById(R.id.btn_chat_controller_send);
 
         mImgInputModeSwitch.setOnClickListener(mInputModeSwitchListener);

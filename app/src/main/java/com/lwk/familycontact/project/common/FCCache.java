@@ -33,6 +33,10 @@ public class FCCache
 
     private String mUserHeadCachePath;
 
+    private String mVoiceMsgCachePath;
+
+    private String mImageCachePath;
+
     /**
      * 获取用户头像缓存地址
      */
@@ -48,4 +52,33 @@ public class FCCache
         return mUserHeadCachePath;
     }
 
+    /**
+     * 获取语音消息缓存地址
+     */
+    public String getVoiceCachePath()
+    {
+        if (mVoiceMsgCachePath == null)
+        {
+            mVoiceMsgCachePath = new StringBuffer().append(ROOT_PATH).append("voicemsg/").toString();
+            File file = new File(mVoiceMsgCachePath);
+            if (!file.exists())
+                file.mkdirs();
+        }
+        return mVoiceMsgCachePath;
+    }
+
+    /**
+     * 获取语音消息缓存地址
+     */
+    public String getImageCachePath()
+    {
+        if (mImageCachePath == null)
+        {
+            mImageCachePath = new StringBuffer().append(ROOT_PATH).append("imgcache/").toString();
+            File file = new File(mImageCachePath);
+            if (!file.exists())
+                file.mkdirs();
+        }
+        return mImageCachePath;
+    }
 }

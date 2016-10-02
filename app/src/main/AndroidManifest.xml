@@ -50,6 +50,10 @@
             </intent-filter>
         </receiver>
 
+        <meta-data
+            android:name="com.lwk.familycontact.project.common.FCGlideModules"
+            android:value="GlideModule"/>
+
         <activity
             android:name=".project.main.view.MainActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
