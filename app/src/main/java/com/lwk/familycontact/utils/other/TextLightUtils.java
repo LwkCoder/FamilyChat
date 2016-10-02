@@ -26,6 +26,8 @@ public class TextLightUtils
     public static SpannableString matcherSearchTitle(int color, String text, String keyword)
     {
         SpannableString s = new SpannableString(text);
+        if (keyword.contains("+"))
+            keyword = Pattern.quote("+");
         Pattern p = Pattern.compile(keyword);
         Matcher m = p.matcher(s);
         while (m.find())
