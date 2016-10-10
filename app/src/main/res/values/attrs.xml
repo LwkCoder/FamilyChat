@@ -4,4 +4,9 @@
         <attr name="resizing_text_min_size" format="dimension"/>
     </declare-styleable>
 
+    <declare-styleable name="ShortVideoRecorder">
+        <attr name="video_width" format="integer"/>
+        <attr name="video_height" format="integer"/>
+        <attr name="video_max_time" format="integer"/>
+    </declare-styleable>
 </resources>

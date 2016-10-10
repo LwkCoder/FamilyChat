@@ -56,7 +56,8 @@ public class HxChatActivity extends FCBaseActivity implements HxChatView
         , ResizeLayout.OnResizeListener
         , HxChatController.onTextSendListener
         , HxChatController.onCheckModeToVoiceInputListener
-        , IMRecordListener, HeadSetReceiver.onHeadSetStateChangeListener, HxChatPlusDialog.onChatPlusItemSelectedListener
+        , IMRecordListener, HeadSetReceiver.onHeadSetStateChangeListener
+        , HxChatPlusDialog.onChatPlusItemSelectedListener
 {
     //跳转到该界面Intent键值：userbean(用户资料：单聊时有用)
     private static final String INTENT_KEY_USERBEAN = "userbean";
@@ -322,6 +323,7 @@ public class HxChatActivity extends FCBaseActivity implements HxChatView
                 });
                 break;
             case HxChatPlusDialog.ITEM_VIDEO:
+                startActivity(new Intent(HxChatActivity.this,HxShortVideoRecordActivity.class));
                 break;
             case HxChatPlusDialog.ITEM_VOICE_CALL:
                 break;

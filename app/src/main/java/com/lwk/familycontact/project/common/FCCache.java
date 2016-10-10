@@ -37,6 +37,8 @@ public class FCCache
 
     private String mImageCachePath;
 
+    private String mVideoCachePath;
+
     /**
      * 获取用户头像缓存地址
      */
@@ -44,7 +46,7 @@ public class FCCache
     {
         if (mUserHeadCachePath == null)
         {
-            mUserHeadCachePath = new StringBuffer().append(ROOT_PATH).append("userhead/").toString();
+            mUserHeadCachePath = new StringBuffer().append(ROOT_PATH).append("userhead_cache/").toString();
             File file = new File(mUserHeadCachePath);
             if (!file.exists())
                 file.mkdirs();
@@ -59,7 +61,7 @@ public class FCCache
     {
         if (mVoiceMsgCachePath == null)
         {
-            mVoiceMsgCachePath = new StringBuffer().append(ROOT_PATH).append("voicemsg/").toString();
+            mVoiceMsgCachePath = new StringBuffer().append(ROOT_PATH).append("voice_cache/").toString();
             File file = new File(mVoiceMsgCachePath);
             if (!file.exists())
                 file.mkdirs();
@@ -74,11 +76,26 @@ public class FCCache
     {
         if (mImageCachePath == null)
         {
-            mImageCachePath = new StringBuffer().append(ROOT_PATH).append("imgcache/").toString();
+            mImageCachePath = new StringBuffer().append(ROOT_PATH).append("img_cache/").toString();
             File file = new File(mImageCachePath);
             if (!file.exists())
                 file.mkdirs();
         }
         return mImageCachePath;
+    }
+
+    /**
+     * 获取短视频消息缓存地址
+     */
+    public String getVideoCachePath()
+    {
+        if (mVideoCachePath == null)
+        {
+            mVideoCachePath = new StringBuffer().append(ROOT_PATH).append("video_cache/").toString();
+            File file = new File(mVideoCachePath);
+            if (!file.exists())
+                file.mkdirs();
+        }
+        return mVideoCachePath;
     }
 }
