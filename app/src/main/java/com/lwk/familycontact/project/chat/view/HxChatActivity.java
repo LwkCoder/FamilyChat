@@ -16,11 +16,13 @@ import android.view.View;
 import com.hyphenate.chat.EMConversation;
 import com.hyphenate.chat.EMMessage;
 import com.lib.base.utils.KeyboradUtils;
+import com.lib.base.utils.ScreenUtils;
 import com.lib.base.widget.CommonActionBar;
 import com.lib.imagepicker.ImagePicker;
 import com.lib.imagepicker.bean.ImageBean;
 import com.lib.imrecordbutton.IMRecordListener;
 import com.lib.ptrview.CommonPtrLayout;
+import com.lib.shortvideo.ShortVideoRecordActivity;
 import com.lwk.familycontact.R;
 import com.lwk.familycontact.base.FCBaseActivity;
 import com.lwk.familycontact.project.chat.adapter.HxChatAdapter;
@@ -28,6 +30,7 @@ import com.lwk.familycontact.project.chat.presenter.HxChatPresenter;
 import com.lwk.familycontact.project.chat.utils.AndroidAdjustResizeBugFix;
 import com.lwk.familycontact.project.chat.utils.HeadSetReceiver;
 import com.lwk.familycontact.project.chat.utils.VoiceMessagePlayInCallWarning;
+import com.lwk.familycontact.project.common.FCCache;
 import com.lwk.familycontact.storage.db.user.UserBean;
 import com.lwk.familycontact.utils.event.ChatActEventBean;
 import com.lwk.familycontact.utils.event.EventBusHelper;
@@ -323,7 +326,9 @@ public class HxChatActivity extends FCBaseActivity implements HxChatView
                 });
                 break;
             case HxChatPlusDialog.ITEM_VIDEO:
-                startActivity(new Intent(HxChatActivity.this,HxShortVideoRecordActivity.class));
+                //                startActivity(new Intent(HxChatActivity.this,HxShortVideoRecordActivity.class));
+                ShortVideoRecordActivity.start(this, ScreenUtils.getScreenWidth(this), ScreenUtils.getScreenHeight(this), FCCache.getInstance().getVideoCachePath(),
+                        1, 10);
                 break;
             case HxChatPlusDialog.ITEM_VOICE_CALL:
                 break;

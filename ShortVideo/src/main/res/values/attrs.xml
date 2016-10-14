@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <declare-styleable name="RecordProgressBar" >
+        <attr name="rpb_backgroundColor" format="color" />
+        <attr name="rpb_runningColor" format="color" />
+        <attr name="rpb_cancelColor" format="color" />
+        <attr name="rpb_timeLength" format="integer" />
+    </declare-styleable>
+
+    <declare-styleable name="CameraPreviewView" >
+        <attr name="cpv_focusDrawable" format="reference" />
+        <attr name="cpv_indicatorDrawable" format="reference" />
+    </declare-styleable>
+
+</resources>

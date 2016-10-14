@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+             xmlns:app="http://schemas.android.com/apk/res-auto"
+             android:layout_width="match_parent"
+             android:layout_height="150dp"
+             android:background="#50000000"
+             android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:gravity="center"
+        android:orientation="vertical">
+
+        <ImageView
+            android:id="@+id/img_short_video_record_controller"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:src="@drawable/img_shortvideo_controller_normal"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:text="@string/tv_shortvideo_press_to_record"
+            android:textColor="@android:color/white"
+            android:textSize="18sp"/>
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/tv_short_video_record_hint"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|center_horizontal"
+        android:layout_marginBottom="4dp"
+        android:text="@string/tv_shortvideo_record_hint"
+        android:textColor="@android:color/darker_gray"
+        android:textSize="13sp"/>
+
+    <Button
+        android:id="@+id/btn_short_video_record_light"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_gravity="right|center_vertical"
+        android:layout_marginRight="25dp"
+        android:background="@drawable/ic_shortvideo_light_normal"/>
+
+    <TextView
+        android:id="@+id/tv_short_video_record_time"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="top|right"
+        android:layout_marginRight="30dp"
+        android:layout_marginTop="15dp"
+        android:background="@drawable/shape_record_time_bg"
+        android:gravity="center"
+        android:paddingBottom="3dp"
+        android:paddingLeft="5dp"
+        android:paddingRight="5dp"
+        android:paddingTop="3dp"
+        android:textColor="@android:color/white"
+        android:textSize="13sp"
+        android:visibility="invisible"/>
+
+    <com.lib.shortvideo.videoview.views.RecordProgressBar
+        android:id="@+id/rpgb_short_video_record"
+        android:layout_width="match_parent"
+        android:layout_height="4dp"
+        android:layout_gravity="top"
+        app:rpb_backgroundColor="@android:color/transparent"
+        app:rpb_cancelColor="@android:color/darker_gray"
+        app:rpb_runningColor="#0099cc"/>
+
+</FrameLayout>

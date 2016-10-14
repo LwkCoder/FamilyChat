@@ -46,4 +46,5 @@ dependencies {
     compile project(':QuickSideBar')
     compile project(':QrCode')
     compile project(':ImRecordButton')
+    compile project(':ShortVideo')
 }

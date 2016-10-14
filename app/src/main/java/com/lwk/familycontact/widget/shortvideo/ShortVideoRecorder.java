@@ -89,13 +89,7 @@ public class ShortVideoRecorder extends LinearLayout implements MediaRecorder.On
         @Override
         public void surfaceCreated(SurfaceHolder holder)
         {
-            try
-            {
-                initCamera();
-            } catch (IOException e)
-            {
-                e.printStackTrace();
-            }
+            initCamera();
         }
 
         @Override
@@ -114,7 +108,7 @@ public class ShortVideoRecorder extends LinearLayout implements MediaRecorder.On
     /**
      * 初始化摄像头
      */
-    private void initCamera() throws IOException
+    private void initCamera()
     {
         if (mCamera != null)
             releaseCamera();
@@ -122,21 +116,20 @@ public class ShortVideoRecorder extends LinearLayout implements MediaRecorder.On
         try
         {
             mCamera = Camera.open();
+            if (mCamera == null)
+                return;
+
+            setCameraParams();
+            mCamera.setDisplayOrientation(90);
+            mCamera.setPreviewDisplay(mSurfaceHolder);
+            mCamera.startPreview();
+            mCamera.autoFocus(null);
+            mCamera.unlock();
         } catch (Exception e)
         {
             Log.e(TAG, "initCamera fail:" + e.toString());
             releaseCamera();
         }
-
-        if (mCamera == null)
-            return;
-
-        setCameraParams();
-        mCamera.setDisplayOrientation(90);
-        mCamera.setPreviewDisplay(mSurfaceHolder);
-        mCamera.startPreview();
-        mCamera.autoFocus(null);
-        mCamera.unlock();
     }
 
     /**
@@ -183,13 +176,14 @@ public class ShortVideoRecorder extends LinearLayout implements MediaRecorder.On
         }
     }
 
+
     /**
      * 初始化
      */
     private void initRecorder()
     {
         mMediaRecorder = new MediaRecorder();
-        mMediaRecorder.reset();
+//        mMediaRecorder.reset();
 
         try
         {
@@ -200,12 +194,12 @@ public class ShortVideoRecorder extends LinearLayout implements MediaRecorder.On
             mMediaRecorder.setOutputFormat(MediaRecorder.OutputFormat.MPEG_4);// 视频输出格式
             mMediaRecorder.setAudioEncoder(MediaRecorder.AudioEncoder.AMR_NB);// 音频格式
             mMediaRecorder.setVideoEncoder(MediaRecorder.VideoEncoder.MPEG_4_SP);// 视频录制格式
-            mMediaRecorder.setOutputFile(mVecordFile.getAbsolutePath());
             mMediaRecorder.setVideoSize(mWidth, mHeight);// 设置分辨率：
             //            mMediaRecorder.setVideoFrameRate(16);// 设置帧率【需要硬件支持，如果不支持就会报错：start fail:-19】
             mMediaRecorder.setVideoEncodingBitRate(1 * 1024 * 1024 * 100);// 设置帧频率，然后就清晰了
-            mMediaRecorder.setPreviewDisplay(mSurfaceHolder.getSurface());
             mMediaRecorder.setOrientationHint(90);// 输出旋转90度，保持竖屏录制
+            mMediaRecorder.setOutputFile(mVecordFile.getAbsolutePath());
+            mMediaRecorder.setPreviewDisplay(mSurfaceHolder.getSurface());
             mMediaRecorder.prepare();
             mMediaRecorder.start();
         } catch (Exception e)

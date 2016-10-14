@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">录制短视频</string>
+    <string name="tv_shortvideo_press_to_record">按住录</string>
+    <string name="tv_shortvideo_record_hint">最短录制时间为%%1秒，最大录制时间为%%2秒</string>
+    <string name="error_short_video_record_open_camera">打开相机失败</string>
+    <string name="error_short_video_record_sdcard">Sd卡不可用!</string>
+    <string name="error_short_video_record_fail">录制失败</string>
+</resources>
