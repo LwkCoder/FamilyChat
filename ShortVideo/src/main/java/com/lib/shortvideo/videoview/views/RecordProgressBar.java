@@ -20,7 +20,7 @@ import java.lang.ref.WeakReference;
 public class RecordProgressBar extends View
 {
 
-    private static final long INVALIDATE_DELAY = 50;
+    private static final long INVALIDATE_DELAY = 16;
 
     // 准备/停止状态
     public static final int STATE_PREPARE = 0;
@@ -50,8 +50,6 @@ public class RecordProgressBar extends View
     private int mCancelColor;
     // 启动时间
     private long mStartTime;
-    // 运行速度
-    private float mRunSpeed;
     // 画笔
     private Paint mPaint;
 
@@ -110,7 +108,6 @@ public class RecordProgressBar extends View
     public void start()
     {
         mStartTime = System.currentTimeMillis();
-        mRunSpeed = getWidth() / 2f / mRunningTime;
         mState = STATE_RUNNING;
         Handler handler = getHandler();
         if (handler != null)
@@ -133,6 +130,11 @@ public class RecordProgressBar extends View
     public void cancel()
     {
         mState = STATE_CANCEL;
+    }
+
+    public void setState(int state)
+    {
+        mState = state;
     }
 
     /**
@@ -175,12 +177,13 @@ public class RecordProgressBar extends View
             if (pastTime > mRunningTime)
             {
                 stop();
+                if (mListener != null)
+                    mListener.onTimeUpdate(pastTime);
                 return;
             }
             mPaint.setColor(color);
-            float left = mRunSpeed * pastTime / 1000;
-            float right = canvas.getWidth() - left;
-            canvas.drawRect(left, 0, right, canvas.getHeight(), mPaint);
+            float r = ((float) pastTime / mRunningTime) * getWidth() / 2;
+            canvas.drawRect(r, 0, getWidth() - r, getHeight(), mPaint);
             if (mListener != null)
                 mListener.onTimeUpdate(pastTime);
         }

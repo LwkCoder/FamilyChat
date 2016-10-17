@@ -6,10 +6,10 @@ import android.hardware.Camera;
 import android.media.AudioFormat;
 import android.media.AudioRecord;
 import android.media.MediaRecorder;
+import android.os.Environment;
 import android.text.TextUtils;
 import android.util.Log;
 
-import com.lib.shortvideo.utils.FileUtil;
 import com.lib.shortvideo.videoview.views.CameraPreviewView;
 
 import org.bytedeco.javacv.FFmpegFrameFilter;
@@ -18,6 +18,7 @@ import org.bytedeco.javacv.Frame;
 import org.bytedeco.javacv.FrameFilter;
 import org.bytedeco.javacv.FrameRecorder;
 
+import java.io.File;
 import java.nio.ByteBuffer;
 import java.nio.ShortBuffer;
 
@@ -30,16 +31,16 @@ public class WXLikeVideoRecorder implements Camera.PreviewCallback, CameraPrevie
 
     private static final String TAG = "WXLikeVideoRecorder";
 
-    // 最长录制时间6秒
-    private static final long MAX_RECORD_TIME = 6000;
     // 帧率
     private static final int FRAME_RATE = 30;
     // 声音采样率
     private static final int SAMPLE_AUDIO_RATE_IN_HZ = 44100;
-
     private final Context mContext;
-    // 输出文件目录
-    private final String mFolder;
+
+    // 最长录制时间
+    private long MAX_RECORD_TIME = 6000;
+    // 输出文件目录,默认sd卡
+    private String mFolder = Environment.getExternalStorageDirectory().getAbsolutePath();
     // 输出文件路径
     private String strFinalPath;
     // 图片帧宽、高
@@ -91,6 +92,11 @@ public class WXLikeVideoRecorder implements Camera.PreviewCallback, CameraPrevie
     {
         mContext = context;
         mFolder = folder;
+    }
+
+    public void setMaxRecordTime(long maxRecordTime)
+    {
+        this.MAX_RECORD_TIME = maxRecordTime;
     }
 
     public boolean isRecording()
@@ -157,24 +163,40 @@ public class WXLikeVideoRecorder implements Camera.PreviewCallback, CameraPrevie
         {
             yuvImage = new Frame(imageWidth, imageHeight, Frame.DEPTH_UBYTE, 2);
         }
-
-        RecorderParameters recorderParameters = RecorderParameters.getRecorderParameter(Constants.RESOLUTION_MEDIUM_VALUE);
-        strFinalPath = FileUtil.createFilePath(mFolder, null, Long.toString(System.currentTimeMillis()));
+        RecorderParameters recorderParameters = RecorderParameters.getRecorderParameter(Constants.RESOLUTION_HIGH_VALUE);
+        //        strFinalPath = FileUtil.createFilePath(mFolder, null, Long.toString(System.currentTimeMillis()));
+        strFinalPath = createFilePath();
         // 初始化时设置录像机的目标视频大小
         recorder = new FFmpegFrameRecorder(strFinalPath, outputWidth, outputHeight, 1);
         recorder.setFormat(recorderParameters.getVideoOutputFormat());
         recorder.setSampleRate(SAMPLE_AUDIO_RATE_IN_HZ);
-        // Set in the surface changed method
         recorder.setFrameRate(FRAME_RATE);
         audioRecordRunnable = new AudioRecordRunnable();
         audioThread = new Thread(audioRecordRunnable);
         runAudioThread = true;
     }
 
+    private String createFilePath()
+    {
+        File floderFile = new File(mFolder);
+        if (!floderFile.exists())
+            floderFile.mkdirs();
+
+        return new File(floderFile, createFileName()).getAbsolutePath();
+    }
+
+    //创建录音文件的名字
+    private String createFileName()
+    {
+        return new StringBuffer()
+                .append(Constants.FILE_START_NAME)
+                .append(System.currentTimeMillis())
+                .append(Constants.VIDEO_EXTENSION)
+                .toString();
+    }
+
     /**
      * 设置帧图像数据处理参数
-     *
-     * @param filters
      */
     public void setFilters(String filters)
     {
@@ -529,16 +551,12 @@ public class WXLikeVideoRecorder implements Camera.PreviewCallback, CameraPrevie
         }
     }
 
-    /**
-     * 录制完成监听器
-     *
-     * @author Martin
-     */
-    public interface OnRecordCompleteListener
+    //重置参数
+    public void resetParams()
     {
-        /**
-         * 录制完成回调
-         */
-        void onRecordComplete();
+        recording = false;
+        strFinalPath = null;
+        startTime = 0;
+        stopTime = 0;
     }
 }

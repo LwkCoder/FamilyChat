@@ -15,8 +15,8 @@ import android.view.View;
 
 import com.hyphenate.chat.EMConversation;
 import com.hyphenate.chat.EMMessage;
+import com.lib.base.log.KLog;
 import com.lib.base.utils.KeyboradUtils;
-import com.lib.base.utils.ScreenUtils;
 import com.lib.base.widget.CommonActionBar;
 import com.lib.imagepicker.ImagePicker;
 import com.lib.imagepicker.bean.ImageBean;
@@ -68,6 +68,10 @@ public class HxChatActivity extends FCBaseActivity implements HxChatView
     private static final String INTENT_KEY_CONID = "conId";
     //跳转到该界面Intent键值：conType（会话类型）
     private static final String INTENT_KEY_CONTYPE = "conType";
+    //跳转到短视频界面的requestCode
+    private static final int REQUEST_CODE_SHORT_VIDEO = 1001;
+    //跳转到短视频界面的resultCode
+    private static final int RESULT_CODE_SHORT_VIDEO = 1002;
     private HxChatPresenter mPresenter;
     private EMConversation.EMConversationType mConType = EMConversation.EMConversationType.Chat;//目前都作为单聊
     private String mConversationId;
@@ -326,9 +330,8 @@ public class HxChatActivity extends FCBaseActivity implements HxChatView
                 });
                 break;
             case HxChatPlusDialog.ITEM_VIDEO:
-                //                startActivity(new Intent(HxChatActivity.this,HxShortVideoRecordActivity.class));
-                ShortVideoRecordActivity.start(this, ScreenUtils.getScreenWidth(this), ScreenUtils.getScreenHeight(this), FCCache.getInstance().getVideoCachePath(),
-                        1, 10);
+                ShortVideoRecordActivity.start(this, REQUEST_CODE_SHORT_VIDEO, RESULT_CODE_SHORT_VIDEO
+                        , 540, 540, FCCache.getInstance().getVideoCachePath(), 1, 10);
                 break;
             case HxChatPlusDialog.ITEM_VOICE_CALL:
                 break;
@@ -415,6 +418,23 @@ public class HxChatActivity extends FCBaseActivity implements HxChatView
     public void onCheckToVoiceInputMode()
     {
         HxChatActivityPermissionsDispatcher.checkVoiceInputModeWithCheck(this);
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data)
+    {
+        super.onActivityResult(requestCode, resultCode, data);
+        switch (requestCode)
+        {
+            case REQUEST_CODE_SHORT_VIDEO:
+                if (resultCode == RESULT_CODE_SHORT_VIDEO)
+                {
+                    String videoPath = data.getStringExtra(ShortVideoRecordActivity.INTENT_KEY_RESULT_PATH);
+                    long time = data.getLongExtra(ShortVideoRecordActivity.INTENT_KEY_RESULT_TIME, 0);
+                    KLog.e("短视频拍摄完成：路径 = " + videoPath + "\n时长 = " + time + "ms");
+                }
+                break;
+        }
     }
 
     @NeedsPermission(Manifest.permission.RECORD_AUDIO)
