@@ -6,6 +6,13 @@
     <string name="error_short_video_record_sdcard">Sd卡不可用!</string>
     <string name="error_short_video_record_fail">录制失败</string>
     <string name="tv_shortvideo_cancel_hint_normal">手指上滑取消录制</string>
-    <string name="tv_shortvideo_cancel_hint_release">放开手指取消录制</string>
+    <string name="tv_shortvideo_cancel_hint_release">松开手指取消录制</string>
     <string name="warning_shortvideo_time_too_short">录制时间太短</string>
+    <string name="dialog_shortvideo_permission_title">权限申明</string>
+    <string name="dialog_shortvideo_permission_message">应用程序需要使用录像、录音和读写SD卡的权限，否则无法正常使用！</string>
+    <string name="dialog_shortvideo_permission_nerver_ask_message">应用程序无法获取录像、录音或读写SD卡的权限，导致无法正常使用，如需继续使用，请先给予上述必须权限！</string>
+    <string name="dialog_shortvideo_positive">我知道了</string>
+    <string name="dialog_shortvideo_nerver_ask_positive">去设置</string>
+    <string name="dialog_shortvideo_negetive">取消</string>
+    <string name="warning_shortvideo_permission_denied">应用程序无法获取必须权限</string>
 </resources>

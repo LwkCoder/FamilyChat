@@ -26,10 +26,10 @@ import java.nio.ShortBuffer;
 /**
  * 仿微信录像机
  */
-public class WXLikeVideoRecorder implements Camera.PreviewCallback, CameraPreviewView.PreviewEventListener
+public class WXVideoRecorder implements Camera.PreviewCallback, CameraPreviewView.PreviewEventListener
 {
 
-    private static final String TAG = "WXLikeVideoRecorder";
+    private static final String TAG = "WXVideoRecorder";
 
     // 帧率
     private static final int FRAME_RATE = 30;
@@ -88,7 +88,7 @@ public class WXLikeVideoRecorder implements Camera.PreviewCallback, CameraPrevie
      */
     private String mFilters;
 
-    public WXLikeVideoRecorder(Context context, String folder)
+    public WXVideoRecorder(Context context, String folder)
     {
         mContext = context;
         mFolder = folder;

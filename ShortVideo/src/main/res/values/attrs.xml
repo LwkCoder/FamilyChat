@@ -1,16 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <declare-styleable name="RecordProgressBar" >
-        <attr name="rpb_backgroundColor" format="color" />
-        <attr name="rpb_runningColor" format="color" />
-        <attr name="rpb_cancelColor" format="color" />
-        <attr name="rpb_timeLength" format="integer" />
+    <declare-styleable name="CameraPreviewView">
+        <attr name="cpv_focusDrawable" format="reference"/>
+        <attr name="cpv_indicatorDrawable" format="reference"/>
     </declare-styleable>
 
-    <declare-styleable name="CameraPreviewView" >
-        <attr name="cpv_focusDrawable" format="reference" />
-        <attr name="cpv_indicatorDrawable" format="reference" />
+    <declare-styleable name="WXProgressBar">
+        <attr name="wx_pgb_normal_color" format="color"/>
+        <attr name="wx_pgb_running_color" format="color"/>
+        <attr name="wx_pgb_cancel_color" format="color"/>
     </declare-styleable>
 
 </resources>

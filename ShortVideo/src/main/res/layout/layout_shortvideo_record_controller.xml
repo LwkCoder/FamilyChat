@@ -45,11 +45,12 @@
         android:layout_marginRight="25dp"
         android:background="@drawable/ic_shortvideo_light_normal"/>
 
-    <com.lib.shortvideo.videoview.views.RecordProgressBar
+    <com.lib.shortvideo.videoview.views.WXProgressBar
         android:id="@+id/rpgb_short_video_record"
         android:layout_width="match_parent"
         android:layout_height="4dp"
-        android:layout_gravity="top"
-        app:rpb_runningColor="#0099cc"/>
+        android:layout_gravity="top|center_horizontal"
+        app:wx_pgb_cancel_color="@color/red_wx_progress_bar"
+        app:wx_pgb_running_color="@color/blue_wx_progress_bar"/>
 
 </FrameLayout>

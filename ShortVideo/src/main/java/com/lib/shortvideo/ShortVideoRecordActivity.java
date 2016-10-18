@@ -1,11 +1,18 @@
 package com.lib.shortvideo;
 
+import android.Manifest;
+import android.annotation.TargetApi;
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.graphics.Color;
 import android.hardware.Camera;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
+import android.provider.Settings;
 import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
@@ -17,16 +24,17 @@ import android.widget.Toast;
 
 import com.lib.shortvideo.utils.FileUtil;
 import com.lib.shortvideo.videoview.camera.CameraHelper;
-import com.lib.shortvideo.videoview.recorder.WXLikeVideoRecorder;
+import com.lib.shortvideo.videoview.recorder.WXVideoRecorder;
 import com.lib.shortvideo.videoview.views.CameraPreviewView;
-import com.lib.shortvideo.videoview.views.RecordProgressBar;
+import com.lib.shortvideo.videoview.views.WXProgressBar;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
  * 短视频录制界面
  */
-public class ShortVideoRecordActivity extends Activity implements View.OnClickListener, View.OnTouchListener, RecordProgressBar.onTimeUpdateListener
+public class ShortVideoRecordActivity extends Activity implements View.OnClickListener, View.OnTouchListener, WXProgressBar.onTimeEndListener
 {
     private final static String TAG = "ShortVideoRecord";
     private static final String INTENT_KEY_OUTPUT_WIDTH = "out_put_width";
@@ -38,6 +46,7 @@ public class ShortVideoRecordActivity extends Activity implements View.OnClickLi
     public static final String INTENT_KEY_RESULT_PATH = "ShortVideoPath";
     public static final String INTENT_KEY_RESULT_TIME = "ShortVideoTime";
 
+    private final int REQUEST_CODE_PERMISSION = 111;
     //输出宽度：默认540
     private int mOutPutWidth = 540;
     //输出高度：默认540
@@ -51,16 +60,17 @@ public class ShortVideoRecordActivity extends Activity implements View.OnClickLi
 
     private int mCameraId;
     private Camera mCamera;
-    private WXLikeVideoRecorder mRecorder;
+    private WXVideoRecorder mRecorder;
     private int CANCEL_RECORD_OFFSET;
     private float mDownX, mDownY;
     private boolean isCancelRecord = false;
-    private RecordProgressBar mPgbRecording;
+    private WXProgressBar mPgbRecording;
     private ImageView mImgController;
     private Button mBtnLight;
     private TextView mTvCancelHint;
     private boolean isFlashLightOn = false;
     private int mResultCode;
+    private boolean mIsRequestPermission;
 
     /**
      * 跳转到录制短视频界面的公共方法
@@ -117,18 +127,64 @@ public class ShortVideoRecordActivity extends Activity implements View.OnClickLi
         String hintEx = getString(R.string.tv_shortvideo_record_hint);
         String hint = hintEx.replaceFirst("%%1", String.valueOf(mMinDuration / 1000)).replaceFirst("%%2", String.valueOf(mMaxDuration / 1000));
         ((TextView) findViewById(R.id.tv_short_video_record_hint)).setText(hint);
-        mPgbRecording = (RecordProgressBar) findViewById(R.id.rpgb_short_video_record);
-        mPgbRecording.setRunningTime(mMaxDuration);
+        mPgbRecording = (WXProgressBar) findViewById(R.id.rpgb_short_video_record);
+        mPgbRecording.setMaxDuration(mMaxDuration);
         mImgController = (ImageView) findViewById(R.id.img_short_video_record_controller);
         mBtnLight = (Button) findViewById(R.id.btn_short_video_record_light);
         mTvCancelHint = (TextView) findViewById(R.id.tv_shortvideo_cancel_hint);
 
-        mPgbRecording.setOnTimeUpdateListener(this);
+        mPgbRecording.setOnTimeEndListener(this);
         mImgController.setOnTouchListener(this);
         mBtnLight.setOnClickListener(this);
 
-        //TODO 进行权限检查
-        initCameraAndRecorder();
+        //sdk23以上需要检查权限:拍照和录音任何一个没有授权都不给使用
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M)
+        {
+            boolean isSdcardGranted = checkSelfPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED;
+            boolean isCameraGranted = checkSelfPermission(Manifest.permission.CAMERA) == PackageManager.PERMISSION_GRANTED;
+            boolean isAudioGranted = checkSelfPermission(Manifest.permission.RECORD_AUDIO) == PackageManager.PERMISSION_GRANTED;
+            if (!isSdcardGranted || !isCameraGranted || !isAudioGranted)
+            {
+                mIsRequestPermission = true;
+                final List<String> permissionList = new ArrayList<>();
+                if (!isSdcardGranted)
+                    permissionList.add(Manifest.permission.WRITE_EXTERNAL_STORAGE);
+                if (!isCameraGranted)
+                    permissionList.add(Manifest.permission.CAMERA);
+                if (!isAudioGranted)
+                    permissionList.add(Manifest.permission.RECORD_AUDIO);
+                //对权限做出解释
+                if (shouldShowRequestPermissionRationale(Manifest.permission.WRITE_EXTERNAL_STORAGE)
+                        || shouldShowRequestPermissionRationale(Manifest.permission.CAMERA)
+                        || shouldShowRequestPermissionRationale(Manifest.permission.RECORD_AUDIO))
+                {
+                    new AlertDialog.Builder(this).setCancelable(false)
+                            .setTitle(R.string.dialog_shortvideo_permission_title)
+                            .setMessage(R.string.dialog_shortvideo_permission_message)
+                            .setPositiveButton(R.string.dialog_shortvideo_positive, new DialogInterface.OnClickListener()
+                            {
+                                @TargetApi(Build.VERSION_CODES.M)
+                                @Override
+                                public void onClick(DialogInterface dialog, int which)
+                                {
+                                    dialog.dismiss();
+                                    requestPermissions(permissionList.toArray(new String[permissionList.size()]), REQUEST_CODE_PERMISSION);
+                                }
+                            }).create().show();
+                } else
+                {
+                    requestPermissions(permissionList.toArray(new String[permissionList.size()]), REQUEST_CODE_PERMISSION);
+                }
+            } else
+            {
+                //有权限直接初始化
+                initCameraAndRecorder();
+            }
+        } else
+        {
+            //sdk23以下直接初始化
+            initCameraAndRecorder();
+        }
     }
 
     // 初始化摄像头和录像机
@@ -142,7 +198,7 @@ public class ShortVideoRecordActivity extends Activity implements View.OnClickLi
             finish();
             return;
         }
-        mRecorder = new WXLikeVideoRecorder(this, mOutPutFloder);
+        mRecorder = new WXVideoRecorder(this, mOutPutFloder);
         mRecorder.setOutputSize(mOutPutWidth, mOutPutHeight);
         mRecorder.setMaxRecordTime(mMaxDuration);
         CameraPreviewView preview = (CameraPreviewView) findViewById(R.id.cpv_shortvideo_record);
@@ -175,7 +231,8 @@ public class ShortVideoRecordActivity extends Activity implements View.OnClickLi
             }
         }
         releaseCamera();              // release the camera immediately on pause event
-        finish();
+        if (!mIsRequestPermission)
+            finish();
     }
 
     private void releaseCamera()
@@ -200,17 +257,24 @@ public class ShortVideoRecordActivity extends Activity implements View.OnClickLi
 
         if (canRecord())
         {
-            // 录制视频
-            if (mRecorder.startRecording())
+            try
             {
-                mPgbRecording.start();
-                mBtnLight.setEnabled(false);
-                mBtnLight.setBackgroundResource(R.drawable.ic_shortvideo_light_disable);
-                mTvCancelHint.setVisibility(View.VISIBLE);
-                setCancelHintNormal();
-            } else
+                // 录制视频
+                if (mRecorder.startRecording())
+                {
+                    mPgbRecording.start();
+                    mBtnLight.setEnabled(false);
+                    mBtnLight.setBackgroundResource(R.drawable.ic_shortvideo_light_disable);
+                    mTvCancelHint.setVisibility(View.VISIBLE);
+                    setCancelHintNormal();
+                } else
+                {
+                    Toast.makeText(this, R.string.error_short_video_record_fail, Toast.LENGTH_SHORT).show();
+                }
+            } catch (Exception e)
             {
                 Toast.makeText(this, R.string.error_short_video_record_fail, Toast.LENGTH_SHORT).show();
+                Log.e(TAG, "启动录制视频失败!");
             }
         }
     }
@@ -238,13 +302,13 @@ public class ShortVideoRecordActivity extends Activity implements View.OnClickLi
         mBtnLight.setBackgroundResource(R.drawable.ic_shortvideo_light_normal);
         mTvCancelHint.setVisibility(View.INVISIBLE);
         mRecorder.stopRecording();
-        mPgbRecording.stop();
+        long time = mPgbRecording.getPastTime();
+        mPgbRecording.reset();
         String videoPath = mRecorder.getFilePath();
         // 没有录制视频
         if (null == videoPath)
             return;
 
-        long time = mRecorder.getStopTime() - mRecorder.getStartTime();
         boolean isTooShort = time <= mMinDuration;
         Log.i(TAG, "短视频录制完成：路径=" + videoPath + ",时长=" + time + "ms");
         // 若取消录制或视频太短，则删除文件
@@ -287,13 +351,13 @@ public class ShortVideoRecordActivity extends Activity implements View.OnClickLi
                     if (!isCancelRecord)
                     {
                         isCancelRecord = true;
-                        mPgbRecording.setState(RecordProgressBar.STATE_CANCEL);
+                        mPgbRecording.setState(WXProgressBar.State.CANCEL);
                         setCancelHintRelease();
                     }
                 } else
                 {
                     isCancelRecord = false;
-                    mPgbRecording.setState(RecordProgressBar.STATE_RUNNING);
+                    mPgbRecording.setState(WXProgressBar.State.RUNNING);
                     setCancelHintNormal();
                 }
                 break;
@@ -311,13 +375,10 @@ public class ShortVideoRecordActivity extends Activity implements View.OnClickLi
     }
 
     @Override
-    public void onTimeUpdate(long time)
+    public void onTimeEnd(long maxDuration)
     {
-        if (time >= mMaxDuration)
-        {
-            Log.w(TAG, "短视频录制超时");
-            stopRecord();
-        }
+        Log.w(TAG, "短视频录制时长已到最大值");
+        stopRecord();
     }
 
     /**
@@ -388,7 +449,7 @@ public class ShortVideoRecordActivity extends Activity implements View.OnClickLi
         }
     }
 
-    //设置取消正常提醒
+    //设置取消录制的正常提醒
     private void setCancelHintNormal()
     {
         if (mTvCancelHint != null)
@@ -398,13 +459,67 @@ public class ShortVideoRecordActivity extends Activity implements View.OnClickLi
         }
     }
 
-    //设置取消释放手指提醒
+    //设置取消录制的松手提醒
     private void setCancelHintRelease()
     {
         if (mTvCancelHint != null)
         {
             mTvCancelHint.setText(R.string.tv_shortvideo_cancel_hint_release);
-            mTvCancelHint.setTextColor(Color.RED);
+            mTvCancelHint.setTextColor(getResources().getColor(R.color.red_wx_progress_bar));
+        }
+    }
+
+    @TargetApi(Build.VERSION_CODES.M)
+    @Override
+    public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults)
+    {
+        switch (requestCode)
+        {
+            case REQUEST_CODE_PERMISSION:
+                //检查权限结果，任何一个权限没有就不给使用
+                boolean allGrant = true;
+                for (int i = 0; i < grantResults.length; i++)
+                {
+                    if (grantResults[i] == PackageManager.PERMISSION_DENIED)
+                        allGrant = false;
+                }
+                if (allGrant)
+                {
+                    initCameraAndRecorder();
+                } else
+                {
+                    Toast.makeText(this, R.string.warning_shortvideo_permission_denied, Toast.LENGTH_LONG).show();
+                    if (!shouldShowRequestPermissionRationale(Manifest.permission.WRITE_EXTERNAL_STORAGE) ||
+                            !shouldShowRequestPermissionRationale(Manifest.permission.CAMERA) ||
+                            !shouldShowRequestPermissionRationale(Manifest.permission.RECORD_AUDIO))
+                        //处理NerverAsk
+                        new AlertDialog.Builder(this).setCancelable(false)
+                                .setTitle(R.string.dialog_shortvideo_permission_title)
+                                .setMessage(R.string.dialog_shortvideo_permission_nerver_ask_message)
+                                .setNegativeButton(R.string.dialog_shortvideo_negetive, new DialogInterface.OnClickListener()
+                                {
+                                    @Override
+                                    public void onClick(DialogInterface dialog, int which)
+                                    {
+                                        dialog.dismiss();
+                                        finish();
+                                    }
+                                })
+                                .setPositiveButton(R.string.dialog_shortvideo_nerver_ask_positive, new DialogInterface.OnClickListener()
+                                {
+                                    @Override
+                                    public void onClick(DialogInterface dialog, int which)
+                                    {
+                                        dialog.dismiss();
+                                        Intent intent = new Intent(Settings.ACTION_APPLICATION_SETTINGS);
+                                        startActivity(intent);
+                                        finish();
+                                    }
+                                }).create().show();
+                }
+                break;
+            default:
+                super.onRequestPermissionsResult(requestCode, permissions, grantResults);
         }
     }
 }
