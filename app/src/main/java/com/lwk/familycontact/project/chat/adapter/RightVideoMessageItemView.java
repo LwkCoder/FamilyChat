@@ -23,7 +23,7 @@ public class RightVideoMessageItemView extends VideoMessageBaseItemView
     @Override
     public int getItemViewLayoutId()
     {
-        return R.layout.layout_chat_left_video_listitem;
+        return R.layout.layout_chat_right_video_listitem;
     }
 
     @Override

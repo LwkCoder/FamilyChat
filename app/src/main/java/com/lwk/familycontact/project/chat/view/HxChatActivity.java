@@ -2,6 +2,7 @@ package com.lwk.familycontact.project.chat.view;
 
 import android.Manifest;
 import android.app.Activity;
+import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
@@ -15,8 +16,8 @@ import android.view.View;
 
 import com.hyphenate.chat.EMConversation;
 import com.hyphenate.chat.EMMessage;
-import com.lib.base.log.KLog;
 import com.lib.base.utils.KeyboradUtils;
+import com.lib.base.utils.ResUtils;
 import com.lib.base.widget.CommonActionBar;
 import com.lib.imagepicker.ImagePicker;
 import com.lib.imagepicker.bean.ImageBean;
@@ -83,6 +84,7 @@ public class HxChatActivity extends FCBaseActivity implements HxChatView
     private HxChatAdapter mAdapter;
     private HxChatController mChatController;
     private ResizeLayout mResizeLayout;
+    private ProgressDialog mProgressDialog;
     //语音消息在播放时如果是听筒模式的提醒
     private VoiceMessagePlayInCallWarning mVoiceMessagePlayInCallWarning = new VoiceMessagePlayInCallWarning(this);
     //耳机插入监听
@@ -292,6 +294,28 @@ public class HxChatActivity extends FCBaseActivity implements HxChatView
     }
 
     @Override
+    public void showHandlingDialog(int msgResId)
+    {
+        if (mProgressDialog == null)
+        {
+            mProgressDialog = new ProgressDialog(this);
+            mProgressDialog.setMessage(ResUtils.getString(this, msgResId));
+            mProgressDialog.setCancelable(false);
+            mProgressDialog.show();
+        }
+    }
+
+    @Override
+    public void closeHandlingDialog()
+    {
+        if (mProgressDialog != null && mProgressDialog.isShowing())
+        {
+            mProgressDialog.dismiss();
+            mProgressDialog = null;
+        }
+    }
+
+    @Override
     public void showError(int errorCode, int errMsgResId)
     {
         showShortToast(errMsgResId);
@@ -431,7 +455,7 @@ public class HxChatActivity extends FCBaseActivity implements HxChatView
                 {
                     String videoPath = data.getStringExtra(ShortVideoRecordActivity.INTENT_KEY_RESULT_PATH);
                     long time = data.getLongExtra(ShortVideoRecordActivity.INTENT_KEY_RESULT_TIME, 0);
-                    KLog.e("短视频拍摄完成：路径 = " + videoPath + "\n时长 = " + time + "ms");
+                    mPresenter.sendVideoMessage(mConType, mConversationId, videoPath, time);
                 }
                 break;
         }

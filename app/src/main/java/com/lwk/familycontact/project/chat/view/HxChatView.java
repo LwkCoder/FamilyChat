@@ -103,6 +103,16 @@ public interface HxChatView
     void closeVoicePlayInCall();
 
     /**
+     * 显示处理数据的Dialog
+     */
+    void showHandlingDialog(int msgResId);
+
+    /**
+     * 关闭处理数据的Dialog
+     */
+    void closeHandlingDialog();
+
+    /**
      * 提示错误
      *
      * @param errorCode   错误码

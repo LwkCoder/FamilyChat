@@ -1,7 +1,10 @@
 package com.lwk.familycontact.project.chat.presenter;
 
 import android.content.Context;
+import android.graphics.Bitmap;
+import android.media.ThumbnailUtils;
 import android.os.Handler;
+import android.provider.MediaStore;
 
 import com.hyphenate.EMCallBack;
 import com.hyphenate.chat.EMConversation;
@@ -9,13 +12,16 @@ import com.hyphenate.chat.EMImageMessageBody;
 import com.hyphenate.chat.EMMessage;
 import com.hyphenate.chat.EMTextMessageBody;
 import com.hyphenate.chat.EMVoiceMessageBody;
+import com.lib.base.utils.BmpUtils;
 import com.lib.base.utils.StringUtil;
 import com.lib.imagepicker.bean.ImageBean;
+import com.lwk.familycontact.R;
 import com.lwk.familycontact.base.FCApplication;
 import com.lwk.familycontact.im.helper.HxChatHelper;
-import com.lwk.familycontact.project.chat.utils.VoiceMessagePlayUtils;
 import com.lwk.familycontact.project.chat.utils.VoiceMessagePlayListener;
+import com.lwk.familycontact.project.chat.utils.VoiceMessagePlayUtils;
 import com.lwk.familycontact.project.chat.view.HxChatView;
+import com.lwk.familycontact.project.common.FCCache;
 import com.lwk.familycontact.storage.db.user.UserBean;
 import com.lwk.familycontact.storage.sp.SpSetting;
 import com.lwk.familycontact.utils.event.ComNotifyConfig;
@@ -212,6 +218,67 @@ public class HxChatPresenter
         emMessage.setMessageStatusCallback(new MessageStatusCallBack(emMessage));
         mViewImpl.addNewMessage(emMessage);
         HxChatHelper.getInstance().sendMessage(emMessage);
+    }
+
+    /**
+     * 发送视频消息
+     */
+    public void sendVideoMessage(final EMConversation.EMConversationType conType, final String conId, final String filePath, final long duration)
+    {
+        mViewImpl.showHandlingDialog(R.string.dialog_chat_pgb_video);
+        //获取缩略图并保存
+        ThreadManager.getInstance().addNewRunnable(new Runnable()
+        {
+            @Override
+            public void run()
+            {
+                Bitmap thumb = createVideoThumbBitmap(filePath, 240, 300, MediaStore.Images.Thumbnails.MINI_KIND);
+                final String thumbPath = BmpUtils.saveBmp(thumb, FCCache.getInstance().getImageCachePath(), createVideoThumbName());
+                //发送消息
+                mMainHandler.post(new Runnable()
+                {
+                    @Override
+                    public void run()
+                    {
+                        mViewImpl.closeHandlingDialog();
+                        EMMessage emMessage = HxChatHelper.getInstance().createVideoMessage(getChatTypeFromConType(conType)
+                                , conId, filePath, thumbPath, (int) (duration / 1000));
+                        emMessage.setMessageStatusCallback(new MessageStatusCallBack(emMessage));
+                        mViewImpl.addNewMessage(emMessage);
+                        HxChatHelper.getInstance().sendMessage(emMessage);
+                    }
+                });
+            }
+        });
+    }
+
+    /**
+     * 获取视频的缩略图
+     * 先通过ThumbnailUtils来创建一个视频的缩略图，然后再利用ThumbnailUtils来生成指定大小的缩略图。
+     * 如果想要的缩略图的宽和高都小于MICRO_KIND，则类型要使用MICRO_KIND作为kind的值，这样会节省内存。
+     *
+     * @param videoPath 视频的路径
+     * @param width     指定输出视频缩略图的宽度
+     * @param height    指定输出视频缩略图的高度度
+     * @param kind      参照MediaStore.Images.Thumbnails类中的常量MINI_KIND和MICRO_KIND。
+     *                  其中，MINI_KIND: 512 x 384，MICRO_KIND: 96 x 96
+     * @return 指定大小的视频缩略图
+     */
+    private Bitmap createVideoThumbBitmap(String videoPath, int width, int height, int kind)
+    {
+        Bitmap bitmap = null;
+        // 获取视频的缩略图
+        bitmap = ThumbnailUtils.createVideoThumbnail(videoPath, kind);
+        bitmap = ThumbnailUtils.extractThumbnail(bitmap, width, height,
+                ThumbnailUtils.OPTIONS_RECYCLE_INPUT);
+        return bitmap;
+    }
+
+    //创建视频缩略图名字
+    private String createVideoThumbName()
+    {
+        return new StringBuffer("VideoThumb").append(String.valueOf(System.currentTimeMillis()))
+                .append(".png").toString();
     }
 
     //消息发送回调
