@@ -43,10 +43,10 @@ public abstract class VideoMessageBaseItemView extends HxChatBaseItemView
         String remoteThumb = messageBody.getThumbnailUrl();
         if (StringUtil.isNotEmpty(localThumb) && new File(localThumb).exists())
             CommonUtils.getInstance().getImageDisplayer()
-                    .display(mContext, imgThumb, localThumb, 120, 150);
+                    .display(mContext, imgThumb, localThumb, 240, 300);
         else
             CommonUtils.getInstance().getImageDisplayer()
-                    .display(mContext, imgThumb, remoteThumb, 120, 150);
+                    .display(mContext, imgThumb, remoteThumb, 240, 300);
         //视频时长
         String durationEx = mContext.getResources().getString(R.string.tv_chat_listitem_video_duration_Ex);
         String duration = durationEx.replaceFirst("%%1", String.valueOf(messageBody.getDuration()));

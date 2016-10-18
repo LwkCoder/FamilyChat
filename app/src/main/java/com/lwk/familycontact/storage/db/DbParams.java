@@ -14,6 +14,6 @@ public class DbParams
     public static String getDbName()
     {
         return new StringBuffer().append(HxSdkHelper.getInstance().getCurLoginUser())
-                .append("_contact.db").toString().trim();
+                .append("_data.db").toString().trim();
     }
 }

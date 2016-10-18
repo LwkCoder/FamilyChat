@@ -10,6 +10,7 @@ import com.j256.ormlite.table.TableUtils;
 import com.lib.base.log.KLog;
 import com.lwk.familycontact.storage.db.invite.InviteBean;
 import com.lwk.familycontact.storage.db.user.UserBean;
+import com.lwk.familycontact.storage.db.video.ShortVideoBean;
 
 import java.sql.SQLException;
 import java.util.HashMap;
@@ -49,6 +50,7 @@ public class DbOpenHelper extends OrmLiteSqliteOpenHelper
         {
             TableUtils.createTable(connectionSource, UserBean.class);
             TableUtils.createTable(connectionSource, InviteBean.class);
+            TableUtils.createTable(connectionSource, ShortVideoBean.class);
         } catch (SQLException e)
         {
             KLog.e("DbOpenHelper.onCreate() fail : " + e.toString());
