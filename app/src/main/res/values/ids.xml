@@ -10,7 +10,7 @@
     <item name="img_chat_listitem_video_content" type="id"/>
     <item name="tv_chat_listitem_video_content_duration" type="id"/>
     <item name="tv_chat_listitem_video_content_filelength" type="id"/>
-    <item name="btn_chat_listitem_video_content" type="id"/>
+    <item name="img_chat_listitem_video_start" type="id"/>
 
     <item name="pgb_chat_listitem_sending" type="id"/>
     <item name="img_chat_listitem_resend" type="id"/>

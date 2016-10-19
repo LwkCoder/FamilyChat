@@ -55,7 +55,7 @@ public abstract class VideoMessageBaseItemView extends HxChatBaseItemView
         tvFileLength.setText(formetFileSize(messageBody.getVideoFileLength()));
 
         //点击播放
-        holder.setClickListener(R.id.btn_chat_listitem_video_content, new View.OnClickListener()
+        holder.setClickListener(R.id.img_chat_listitem_video_start, new View.OnClickListener()
         {
             @Override
             public void onClick(View v)

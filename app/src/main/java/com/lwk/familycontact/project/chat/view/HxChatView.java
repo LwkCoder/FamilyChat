@@ -93,6 +93,13 @@ public interface HxChatView
     void startToImageDetailAct(String firstVisiableMsgId);
 
     /**
+     * 跳转到短视频播放界面
+     *
+     * @param message 短视频消息
+     */
+    void startToShortVideoPlay(EMMessage message);
+
+    /**
      * 当语音消息在听筒播放时提示用户
      */
     void showVoicePlayInCall();

@@ -52,8 +52,8 @@
                     android:layout_gravity="bottom|right"
                     android:layout_marginRight="@dimen/spacing_small"/>
 
-                <Button
-                    style="@style/BtnChatVideoContentStyle"/>
+                <ImageView
+                    style="@style/ImgChatVideoStartStyle"/>
 
             </FrameLayout>
 

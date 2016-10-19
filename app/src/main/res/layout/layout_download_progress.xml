@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+             xmlns:app="http://schemas.android.com/apk/res-auto"
+             android:layout_width="wrap_content"
+             android:layout_height="wrap_content"
+             android:background="#90000000"
+             android:orientation="vertical"
+             android:padding="@dimen/spacing_normal">
+
+    <com.timqi.sectorprogressview.ColorfulRingProgressView
+        android:id="@+id/cpgv_download_progress"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_gravity="center"
+        app:bgColor="#e1e1e1"
+        app:fgColorEnd="@color/blue_download_progress"
+        app:fgColorStart="@color/blue_download_progress"
+        app:percent="0"
+        app:startAngle="0"
+        app:strokeWidth="4dp"/>
+
+    <TextView
+        android:id="@+id/tv_download_progress"
+        style="@style/FC_NormalTextStyle"
+        android:layout_gravity="center"
+        android:text="0%"
+        android:textColor="@color/blue_download_progress"/>
+
+</FrameLayout>

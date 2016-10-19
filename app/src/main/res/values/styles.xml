@@ -133,11 +133,12 @@
         <item name="android:layout_marginBottom">@dimen/spacing_small</item>
     </style>
 
-    <style name="BtnChatVideoContentStyle">
-        <item name="android:id">@id/btn_chat_listitem_video_content</item>
+    <style name="ImgChatVideoStartStyle">
+        <item name="android:id">@id/img_chat_listitem_video_start</item>
         <item name="android:layout_width">@dimen/btn_chat_listitem_video_content_size</item>
         <item name="android:layout_height">@dimen/btn_chat_listitem_video_content_size</item>
-        <item name="android:background">@drawable/btn_chat_video_start_selector</item>
+        <item name="android:src">@drawable/btn_chat_video_start_selector</item>
+        <item name="android:padding">20dp</item>
         <item name="android:layout_gravity">center</item>
     </style>
 

@@ -282,6 +282,12 @@ public class HxChatActivity extends FCBaseActivity implements HxChatView
     }
 
     @Override
+    public void startToShortVideoPlay(EMMessage message)
+    {
+        HxShortVideoPlayActivity.start(this, message);
+    }
+
+    @Override
     public void showVoicePlayInCall()
     {
         mVoiceMessagePlayInCallWarning.showAsDropDown(mActionBar, 0, 0);

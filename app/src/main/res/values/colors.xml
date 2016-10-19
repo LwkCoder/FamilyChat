@@ -30,4 +30,5 @@
     <color name="green_05AE5C">#05AE5C</color>
     <color name="green_089951">#089651</color>
 
+    <color name="blue_download_progress">#0080ff</color>
 </resources>

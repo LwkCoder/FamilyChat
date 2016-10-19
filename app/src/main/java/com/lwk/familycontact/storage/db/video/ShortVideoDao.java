@@ -30,7 +30,7 @@ public class ShortVideoDao extends BaseDao<ShortVideoBean, Integer>
         private static ShortVideoDao instance = new ShortVideoDao(FCApplication.getInstance());
     }
 
-    public ShortVideoDao getInstance()
+    public static ShortVideoDao getInstance()
     {
         return ShortVideoDaoHolder.instance;
     }

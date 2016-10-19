@@ -9,4 +9,5 @@
         <attr name="video_height" format="integer"/>
         <attr name="video_max_time" format="integer"/>
     </declare-styleable>
+
 </resources>

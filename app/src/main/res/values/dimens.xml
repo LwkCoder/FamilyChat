@@ -39,7 +39,7 @@
     <dimen name="img_chat_listitem_voice_content_size">20dp</dimen>
     <dimen name="img_chat_listitem_video_content_width">120dp</dimen>
     <dimen name="img_chat_listitem_video_content_height">150dp</dimen>
-    <dimen name="btn_chat_listitem_video_content_size">45dp</dimen>
+    <dimen name="btn_chat_listitem_video_content_size">85dp</dimen>
     <dimen name="img_chat_listitem_video_content_padding_top">6dp</dimen>
     <dimen name="img_chat_listitem_video_content_padding_bottom">6dp</dimen>
     <dimen name="img_chat_listitem_video_content_padding_left">7dp</dimen>

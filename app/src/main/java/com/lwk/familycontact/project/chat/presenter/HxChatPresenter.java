@@ -440,8 +440,15 @@ public class HxChatPresenter
     }
 
 
+    /**
+     * 点击查看短视频
+     *
+     * @param message
+     * @param position
+     */
     public void clickVideoMessage(EMMessage message, final int position)
     {
+        mViewImpl.startToShortVideoPlay(message);
     }
 
     /**

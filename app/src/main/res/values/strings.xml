@@ -186,4 +186,8 @@
     <string name="tv_dialog_chat_plus_label_voice_call">语音通话</string>
     <string name="tv_dialog_chat_plus_label_video_call">视频通话</string>
     <string name="dialog_chat_pgb_video">正在处理短视频数据</string>
+
+    <!--HxShortVideoPlayActivity-->
+    <string name="error_shortvideo_play">数据异常！无法播放视频！</string>
+    <string name="error_shortvideo_download">无法下载视频</string>
 </resources>
