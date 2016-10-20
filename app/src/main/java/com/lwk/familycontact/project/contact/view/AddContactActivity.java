@@ -2,9 +2,11 @@ package com.lwk.familycontact.project.contact.view;
 
 import android.app.Activity;
 import android.content.Intent;
-import android.graphics.Color;
+import android.content.res.Resources;
 import android.os.Bundle;
-import android.text.SpannableString;
+import android.text.Spannable;
+import android.text.SpannableStringBuilder;
+import android.text.style.ForegroundColorSpan;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -21,7 +23,6 @@ import com.lwk.familycontact.base.FCBaseActivity;
 import com.lwk.familycontact.project.common.CommonUtils;
 import com.lwk.familycontact.project.common.FCCache;
 import com.lwk.familycontact.project.contact.presenter.AddContactPresenter;
-import com.lwk.familycontact.utils.other.TextLightUtils;
 
 import java.util.List;
 
@@ -99,8 +100,7 @@ public class AddContactActivity extends FCBaseActivity implements AddContactView
     public void onUserExist()
     {
         String exDesc = ResUtils.getString(this, R.string.tv_add_contact_warning).replaceFirst("%%1", mPhone);
-        SpannableString desc = TextLightUtils.matcherSearchTitle(Color.BLUE, exDesc, mPhone);
-        mTvDesc.setText(desc);
+        mTvDesc.setText(getSpanStringBuilder(exDesc));
         mLlContent.setVisibility(View.GONE);
     }
 
@@ -108,9 +108,19 @@ public class AddContactActivity extends FCBaseActivity implements AddContactView
     public void onUserNotExist()
     {
         String exDesc = ResUtils.getString(this, R.string.tv_add_contact_desc).replaceFirst("%%1", mPhone);
-        SpannableString desc = TextLightUtils.matcherSearchTitle(Color.BLUE, exDesc, mPhone);
-        mTvDesc.setText(desc);
+        mTvDesc.setText(getSpanStringBuilder(exDesc));
         mLlContent.setVisibility(View.VISIBLE);
+    }
+
+    //获取部分文字更改后的描述
+    private SpannableStringBuilder getSpanStringBuilder(String exDesc)
+    {
+        int start = exDesc.indexOf(mPhone, 0);
+        SpannableStringBuilder builder = new SpannableStringBuilder(exDesc);
+        int color = Resources.getSystem().getColor(android.R.color.holo_blue_dark);
+        ForegroundColorSpan blueSpan = new ForegroundColorSpan(color);
+        builder.setSpan(blueSpan, start, start + mPhone.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+        return builder;
     }
 
     @Override
