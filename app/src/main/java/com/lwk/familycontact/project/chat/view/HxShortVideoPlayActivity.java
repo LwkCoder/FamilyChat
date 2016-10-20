@@ -15,6 +15,7 @@ import com.lwk.familycontact.R;
 import com.lwk.familycontact.base.FCBaseActivity;
 import com.lwk.familycontact.project.chat.presenter.HxShortVideoPlayPresenter;
 import com.timqi.sectorprogressview.ColorfulRingProgressView;
+import com.yqritc.scalablevideoview.ScalableType;
 import com.yqritc.scalablevideoview.ScalableVideoView;
 
 import java.io.IOException;
@@ -77,6 +78,15 @@ public class HxShortVideoPlayActivity extends FCBaseActivity implements HxShortV
     }
 
     @Override
+    protected void onResume()
+    {
+        super.onResume();
+        //部分机型在播放视频的时候跳转到其他地方再回来时，视频会被拉伸，所以在onResume里设置一次
+        if (mVideoView!=null)
+            mVideoView.setScalableType(ScalableType.FIT_CENTER);
+    }
+
+    @Override
     public void showProgressView()
     {
         ViewStub viewStub = findView(R.id.vs_shortvideo_download_progress);
@@ -91,7 +101,7 @@ public class HxShortVideoPlayActivity extends FCBaseActivity implements HxShortV
         if (mPgvDownload != null)
             mPgvDownload.setPercent(progress);
         if (mTvDownload != null)
-            mTvDownload.setText(progress + "%");
+            mTvDownload.setText(new StringBuffer().append(String.valueOf(progress)).append("%"));
     }
 
     @Override
