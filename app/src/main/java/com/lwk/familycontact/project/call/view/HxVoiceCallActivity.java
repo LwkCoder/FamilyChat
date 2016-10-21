@@ -142,10 +142,17 @@ public class HxVoiceCallActivity extends HxBaseCallActivity implements HxVoiceCa
     //接起电话
     private void pickUpComingCall()
     {
-        mHasAnswer = true;
-        if (mViewReceiverPanel != null)
-            mViewReceiverPanel.setVisibility(View.GONE);
-        showCallingPanel();
+        try
+        {
+            HxCallHelper.getInstance().answerCall();
+            mHasAnswer = true;
+            if (mViewReceiverPanel != null)
+                mViewReceiverPanel.setVisibility(View.GONE);
+            showCallingPanel();
+        } catch (EMNoActiveCallException e)
+        {
+            e.printStackTrace();
+        }
     }
 
     //展示接收到来电panel
@@ -207,16 +214,17 @@ public class HxVoiceCallActivity extends HxBaseCallActivity implements HxVoiceCa
     {
         if (mTvDesc != null)
             mTvDesc.setText(R.string.call_state_accpet);
-        //停止铃声或音乐
+        //停止铃声、震动和音乐
         if (mIsComingCall)
         {
             mHasAnswer = true;
             stopInComingRingtong();
+            if (mVibratorMgr != null)
+                mVibratorMgr.cancel();
         } else
         {
             mHasAccept = true;
             stopWaittingRingtong();
-            //接听后前静音可用
             setMuteEnable(true);
         }
         //震动一下

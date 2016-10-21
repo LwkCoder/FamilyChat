@@ -87,7 +87,7 @@ public class HxCallStateChangeListener implements EMCallStateChangeListener
                                 mViewImpl.busy();
                             else if (callError == CallError.ERROR_NORESPONSE)
                                 mViewImpl.noResponse();
-                            else if (callError==CallError.ERROR_UNAVAILABLE)
+                            else if (callError == CallError.ERROR_UNAVAILABLE)
                                 mViewImpl.offline();
                             else
                                 mViewImpl.onDisconnect(callError);

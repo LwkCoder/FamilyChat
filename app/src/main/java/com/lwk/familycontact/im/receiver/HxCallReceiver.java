@@ -48,7 +48,7 @@ public class HxCallReceiver extends BroadcastReceiver
     {
         String from = intent.getStringExtra(FROM);
         String type = intent.getStringExtra(TYPE);
-        KLog.e("收到实时通话请求：from=" + from + ",type=" + type);
+        KLog.i("收到实时通话请求：from=" + from + ",type=" + type);
         if (VOICE_CALL.equals(type))
         {
             //跳转到语音通话
