@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:gravity="center"
+              android:orientation="horizontal"
+              android:padding="@dimen/spacing_normal">
+
+    <FrameLayout
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1">
+
+        <CheckBox
+            android:id="@+id/ck_voicecall_calling_panel_mute"
+            style="@style/CkVoiceCallStyle"
+            android:background="@drawable/ck_voicecall_mute_selector"/>
+
+    </FrameLayout>
+
+    <FrameLayout
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1">
+
+        <Button
+            android:id="@+id/btn_voicecall_calling_panel_endcall"
+            android:layout_width="@dimen/btn_voicecall_panel_size"
+            android:layout_height="@dimen/btn_voicecall_panel_size"
+            android:layout_gravity="center"
+            android:background="@drawable/btn_voice_call_reject_bg_selector"/>
+    </FrameLayout>
+
+    <FrameLayout
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1">
+
+        <CheckBox
+            android:id="@+id/ck_voicecall_calling_panel_handsfree"
+            style="@style/CkVoiceCallStyle"
+            android:background="@drawable/ck_voicecall_handsfree_selector"/>
+    </FrameLayout>
+
+</LinearLayout>

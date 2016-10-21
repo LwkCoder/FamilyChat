@@ -142,4 +142,11 @@
         <item name="android:layout_gravity">center</item>
     </style>
 
+    <style name="CkVoiceCallStyle">
+        <item name="android:layout_width">@dimen/img_voicecall_assist_size</item>
+        <item name="android:layout_height">@dimen/img_voicecall_assist_size</item>
+        <item name="android:button">@null</item>
+        <item name="android:layout_gravity">center</item>
+    </style>
+
 </resources>

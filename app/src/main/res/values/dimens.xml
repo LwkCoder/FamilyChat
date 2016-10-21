@@ -50,4 +50,8 @@
     <dimen name="btn_chat_record_button_height">40dp</dimen>
     <dimen name="ed_chat_controller_text_input_max_height">150dp</dimen>
     <dimen name="img_dialog_chat_plus_item_size">65dp</dimen>
+
+    <!--HxVoiceCallActivity-->
+    <dimen name="btn_voicecall_panel_size">85dp</dimen>
+    <dimen name="img_voicecall_assist_size">70dp</dimen>
 </resources>

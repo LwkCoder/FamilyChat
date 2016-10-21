@@ -35,17 +35,13 @@ public class HxShortVideoPlayPresenter
     {
         String msgId = message.getMsgId();
         EMVideoMessageBody messageBody = (EMVideoMessageBody) message.getBody();
-        EMMessage.Direct direct = message.direct();
-        //本方发送的视频检查文件是否存在
-        if (direct == EMMessage.Direct.SEND)
+        //检查文件是否存在本地文件
+        String localUrl = messageBody.getLocalUrl();
+        if (new File(localUrl).exists())
         {
-            String localUrl = messageBody.getLocalUrl();
-            if (new File(localUrl).exists())
-            {
-                //存在就直接播放
-                mViewImpl.startPlayVideo(localUrl);
-                return;
-            }
+            //存在就直接播放
+            mViewImpl.startPlayVideo(localUrl);
+            return;
         }
 
         //检查是否下载过

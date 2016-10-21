@@ -190,4 +190,15 @@
     <!--HxShortVideoPlayActivity-->
     <string name="error_shortvideo_play">数据异常！无法播放视频！</string>
     <string name="error_shortvideo_download">无法下载视频</string>
+    <string name="call_state_connecting">正在连接对方...</string>
+    <string name="call_state_connected_comingcall">对方来电，等待您接听...</string>
+    <string name="call_state_connected_outgoingcall">等待对方接听...</string>
+    <string name="call_state_accpet">正在通话中...</string>
+    <string name="call_state_be_rejected">对方拒绝接听</string>
+    <string name="call_state_no_response">无人接听</string>
+    <string name="call_state_busy">对方正在通话中</string>
+    <string name="call_state_offline">对方不在线</string>
+    <string name="call_state_endcall">通话结束</string>
+    <string name="call_state_unknow_error">无法拨打语音通话</string>
+    <string name="call_state_network_unstable">当前网络状况不好</string>
 </resources>

@@ -10,10 +10,11 @@ import android.support.annotation.Nullable;
 
 import com.lib.base.log.KLog;
 import com.lwk.familycontact.im.helper.HxChatHelper;
+import com.lwk.familycontact.im.helper.HxSdkHelper;
 import com.lwk.familycontact.im.listener.HxConnectListener;
 import com.lwk.familycontact.im.listener.HxContactListener;
 import com.lwk.familycontact.im.listener.HxMessageListener;
-import com.lwk.familycontact.im.helper.HxSdkHelper;
+import com.lwk.familycontact.im.receiver.HxCallReceiver;
 import com.lwk.familycontact.utils.event.ChatActEventBean;
 import com.lwk.familycontact.utils.event.EventBusHelper;
 
@@ -31,6 +32,7 @@ public class MainService extends Service
     private HxConnectListener mHxConnectListener;
     private HxContactListener mHxContactListener;
     private HxMessageListener mHxMessageListener;
+    private HxCallReceiver mCallReceiver;
 
     public MainService()
     {
@@ -96,6 +98,7 @@ public class MainService extends Service
         HxSdkHelper.getInstance().addContactListener(mHxContactListener);
         mHxMessageListener = new HxMessageListener();
         HxChatHelper.getInstance().addMessageListener(mHxMessageListener);
+        mCallReceiver = HxCallReceiver.regist(this);
     }
 
     /**
@@ -107,6 +110,7 @@ public class MainService extends Service
         HxSdkHelper.getInstance().removeConnectListener(mHxConnectListener);
         HxSdkHelper.getInstance().removeContactListener(mHxContactListener);
         HxChatHelper.getInstance().removeMessageListener(mHxMessageListener);
+        HxCallReceiver.unregist(this, mCallReceiver);
     }
 
     public class MainServiceBinder extends Binder

@@ -21,6 +21,7 @@ import com.lib.imagepicker.bean.ImageBean;
 import com.lib.imagepicker.model.ImagePickerMode;
 import com.lwk.familycontact.R;
 import com.lwk.familycontact.base.FCBaseActivity;
+import com.lwk.familycontact.project.call.view.HxVoiceCallActivity;
 import com.lwk.familycontact.project.chat.view.HxChatActivity;
 import com.lwk.familycontact.project.common.CommonUtils;
 import com.lwk.familycontact.project.common.FCCache;
@@ -151,6 +152,7 @@ public class ContactDetailActivity extends FCBaseActivity implements UserDetailV
                 ContactDetailActivityPermissionsDispatcher.callSystemPhoneWithCheck(this);
                 break;
             case R.id.btn_user_detail_voice_call:
+                HxVoiceCallActivity.start(this, mUserBean.getPhone(), false);
                 break;
             case R.id.btn_user_detail_send_msg:
                 HxChatActivity.start(this, mUserBean.getPhone(), mUserBean);
