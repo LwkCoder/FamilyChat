@@ -221,6 +221,8 @@ public class HxVoiceCallActivity extends HxBaseCallActivity implements HxVoiceCa
         }
         //震动一下
         vibrateByPickUpPhone();
+        if (mAudioMgr != null)
+            mAudioMgr.setMode(AudioManager.MODE_IN_COMMUNICATION);
         //TODO 开始计时
     }
 
@@ -347,7 +349,7 @@ public class HxVoiceCallActivity extends HxBaseCallActivity implements HxVoiceCa
         @Override
         public void onCheckedChanged(CompoundButton buttonView, boolean isChecked)
         {
-            switchQuietMode(isChecked);
+            switchMuteMode(isChecked);
         }
     };
 
@@ -357,7 +359,7 @@ public class HxVoiceCallActivity extends HxBaseCallActivity implements HxVoiceCa
         @Override
         public void onCheckedChanged(CompoundButton buttonView, boolean isChecked)
         {
-            switchHandsFreeMode(isChecked, mIsComingCall, mHasAccept);
+            switchHandsFreeMode(isChecked);
         }
     };
 

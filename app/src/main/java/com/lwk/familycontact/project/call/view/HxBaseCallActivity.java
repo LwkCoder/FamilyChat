@@ -83,22 +83,17 @@ public abstract class HxBaseCallActivity extends FCBaseActivity
     }
 
     //切换免提开关
-    protected void switchHandsFreeMode(boolean isHandsFree, boolean isComingCall, boolean hasAccpet)
+    protected void switchHandsFreeMode(boolean isHandsFree)
     {
         if (mAudioMgr == null)
             return;
 
         mIsHandsFree = isHandsFree;
         mAudioMgr.setSpeakerphoneOn(mIsHandsFree);
-        //接到来电、去电被接起后，切换的模式都为通话模式，反之为铃声模式
-        if (isComingCall || hasAccpet)
-            mAudioMgr.setMode(AudioManager.MODE_IN_COMMUNICATION);
-        else
-            mAudioMgr.setMode(AudioManager.MODE_RINGTONE);
     }
 
     //切换静音开关
-    protected void switchQuietMode(boolean b)
+    protected void switchMuteMode(boolean b)
     {
         mIsMute = b;
         if (mIsMute)
