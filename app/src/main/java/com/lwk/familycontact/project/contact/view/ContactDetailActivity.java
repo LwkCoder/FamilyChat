@@ -117,7 +117,7 @@ public class ContactDetailActivity extends FCBaseActivity implements UserDetailV
             String localHead = mUserBean.getLocalHead();
             if (StringUtil.isNotEmpty(localHead))
                 CommonUtils.getInstance().getImageDisplayer()
-                        .display(this, mImgHead, localHead, 300, 300);
+                        .display(this, mImgHead, localHead, 300, 300, R.drawable.default_avatar, R.drawable.default_avatar);
             else
                 mImgHead.setImageResource(R.drawable.default_avatar);
         }

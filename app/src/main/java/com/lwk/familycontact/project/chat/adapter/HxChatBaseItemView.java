@@ -46,9 +46,10 @@ public abstract class HxChatBaseItemView extends RcvBaseItemView<EMMessage>
         {
             //设置头像
             if (mUserBean != null && StringUtil.isNotEmpty(mUserBean.getLocalHead()))
-                CommonUtils.getInstance().getImageDisplayer()
+                CommonUtils.getInstance()
+                        .getImageDisplayer()
                         .display(mContext, (ImageView) holder.findView(R.id.img_chat_listitem_head),
-                                mUserBean.getLocalHead(), 150, 150);
+                                mUserBean.getLocalHead(), 150, 150, R.drawable.default_avatar, R.drawable.default_avatar);
             else
                 holder.setImgResource(R.id.img_chat_listitem_head, R.drawable.default_avatar);
             //设置名字

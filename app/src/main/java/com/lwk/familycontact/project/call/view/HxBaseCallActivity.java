@@ -27,12 +27,6 @@ public abstract class HxBaseCallActivity extends FCBaseActivity
     protected MediaPlayer mMediaPlayer;
     //忙音流
     protected int mWaitStreamId;
-    //是否插入耳机
-    protected boolean mIsHeadSetMode;
-    //免提是否打开
-    protected boolean mIsHandsFree = false;
-    //静音是否打开
-    protected boolean mIsMute = false;
 
     @Override
     protected void beforeInitUI(Bundle savedInstanceState)
@@ -40,9 +34,11 @@ public abstract class HxBaseCallActivity extends FCBaseActivity
         super.beforeInitUI(savedInstanceState);
         //获取音频管理器
         mAudioMgr = (AudioManager) this.getSystemService(Context.AUDIO_SERVICE);
-        //获取当前是否为耳机模式
-        mIsHeadSetMode = mAudioMgr.isWiredHeadsetOn();
-        mAudioMgr.setSpeakerphoneOn(mIsHandsFree);
+        mAudioMgr.setSpeakerphoneOn(false);
+        if (mAudioMgr.isWiredHeadsetOn())//耳机模式下设置Mode为Communication，否则设置为Ringtong
+            mAudioMgr.setMode(AudioManager.MODE_IN_COMMUNICATION);
+        else
+            mAudioMgr.setMode(AudioManager.MODE_RINGTONE);
         //获取震动管理器
         mVibratorMgr = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
     }
@@ -88,15 +84,13 @@ public abstract class HxBaseCallActivity extends FCBaseActivity
         if (mAudioMgr == null)
             return;
 
-        mIsHandsFree = isHandsFree;
-        mAudioMgr.setSpeakerphoneOn(mIsHandsFree);
+        mAudioMgr.setSpeakerphoneOn(isHandsFree);
     }
 
     //切换静音开关
-    protected void switchMuteMode(boolean b)
+    protected void switchMuteMode(boolean isMute)
     {
-        mIsMute = b;
-        if (mIsMute)
+        if (isMute)
             HxCallHelper.getInstance().pauseVoiceTransfer();
         else
             HxCallHelper.getInstance().resumeVoiceTransfer();

@@ -54,8 +54,9 @@ public class ContactAdapter extends RcvSortSectionAdatper<UserBean>
         ftvPhone.setText(PhoneUtils.formatPhoneNumAsRegular(userBean.getPhone(), " - "));
 
         if (StringUtil.isNotEmpty(userBean.getLocalHead()))
-            CommonUtils.getInstance().getImageDisplayer()
-                    .display(mContext, imgHead, userBean.getLocalHead(), 200, 200);
+            CommonUtils.getInstance()
+                    .getImageDisplayer()
+                    .display(mContext, imgHead, userBean.getLocalHead(), 200, 200, R.drawable.default_avatar, R.drawable.default_avatar);
         else
             imgHead.setImageResource(R.drawable.default_avatar);
     }

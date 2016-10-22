@@ -55,8 +55,9 @@ public class ConversationAdapter extends RcvSingleAdapter<HxConversation>
             String head = userBean.getLocalHead();
             if (StringUtil.isNotEmpty(head))
 
-                CommonUtils.getInstance().getImageDisplayer()
-                        .display(mContext, rImgHead, head, 300, 300);
+                CommonUtils.getInstance()
+                        .getImageDisplayer()
+                        .display(mContext, rImgHead, head, 300, 300, R.drawable.default_avatar, R.drawable.default_avatar);
             else
                 rImgHead.setImageResource(R.drawable.default_avatar);
             fTvName.setText(userBean.getDisplayName());
