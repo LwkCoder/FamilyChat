@@ -7,7 +7,6 @@ import android.media.SoundPool;
 import android.os.Bundle;
 import android.os.Vibrator;
 
-import com.hyphenate.exceptions.HyphenateException;
 import com.lwk.familycontact.base.FCBaseActivity;
 import com.lwk.familycontact.im.helper.HxCallHelper;
 
@@ -91,16 +90,10 @@ public abstract class HxBaseCallActivity extends FCBaseActivity
     //切换静音开关
     protected void switchMuteMode(boolean isMute)
     {
-        try
-        {
-            if (isMute)
-                HxCallHelper.getInstance().pauseVoiceTransfer();
-            else
-                HxCallHelper.getInstance().resumeVoiceTransfer();
-        } catch (HyphenateException e)
-        {
-            e.printStackTrace();
-        }
+        if (isMute)
+            HxCallHelper.getInstance().pauseVoiceTransfer();
+        else
+            HxCallHelper.getInstance().resumeVoiceTransfer();
     }
 
     /**

@@ -261,19 +261,7 @@ public class HxVoiceCallActivity extends HxBaseCallActivity implements HxVoiceCa
     }
 
     @Override
-    public void answering()
-    {
-        if (mTvDesc != null)
-        {
-            if (mIsComingCall)
-                mTvDesc.setText(R.string.call_state_answering_comingcall);
-            else
-                mTvDesc.setText(R.string.call_state_answering_outgoingcall);
-        }
-    }
-
-    @Override
-    public void accepted()
+    public void accept()
     {
         if (mTvDesc != null)
             mTvDesc.setText(R.string.call_state_accpet);

@@ -13,9 +13,7 @@ public interface HxCallView
 
     void connected();
 
-    void answering();
-
-    void accepted();
+    void accept();
 
     void beRejected();
 

@@ -195,8 +195,6 @@
     <string name="call_state_connecting">正在连接对方...</string>
     <string name="call_state_connected_comingcall">对方来电，等待您接听...</string>
     <string name="call_state_connected_outgoingcall">等待对方接听...</string>
-    <string name="call_state_answering_comingcall">已接听，正在建立连接...</string>
-    <string name="call_state_answering_outgoingcall">对方已接听，正在建立连接...</string>
     <string name="call_state_accpet">正在通话中...</string>
     <string name="call_state_be_rejected">对方拒绝接听</string>
     <string name="call_state_no_response">无人接听</string>
