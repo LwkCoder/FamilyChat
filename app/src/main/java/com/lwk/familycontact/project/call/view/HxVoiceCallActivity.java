@@ -284,6 +284,8 @@ public class HxVoiceCallActivity extends HxBaseCallActivity implements HxVoiceCa
         if (mAudioMgr != null)
             mAudioMgr.setMode(AudioManager.MODE_IN_COMMUNICATION);
         //监听距离传感器
+        PowerManager powerManager = (PowerManager) getSystemService(POWER_SERVICE);
+        mWakeLock = powerManager.newWakeLock(PowerManager.PROXIMITY_SCREEN_OFF_WAKE_LOCK, "VoiceCallScreenOff");
         mSensorManager = (SensorManager) getSystemService(SENSOR_SERVICE);
         mSensor = mSensorManager.getDefaultSensor(Sensor.TYPE_PROXIMITY);
         mSensorManager.registerListener(this, mSensor, SensorManager.SENSOR_DELAY_NORMAL);
@@ -458,38 +460,27 @@ public class HxVoiceCallActivity extends HxBaseCallActivity implements HxVoiceCa
         //没用
     }
 
-    //保持屏幕常亮
-    private void setScreenOn()
+    //点亮屏幕
+    private synchronized void setScreenOn()
     {
-        releaseWakeLock();
-
-        mMainHandler.postDelayed(new Runnable()
+        if (mWakeLock != null)
         {
-            @Override
-            public void run()
-            {
-                PowerManager powerManager = (PowerManager) getSystemService(POWER_SERVICE);
-                mWakeLock = powerManager.newWakeLock(PowerManager.ACQUIRE_CAUSES_WAKEUP | PowerManager.SCREEN_DIM_WAKE_LOCK, "VoiceCallScreenOn");
-                mWakeLock.acquire();
-            }
-        }, 300);
+            if (mWakeLock.isHeld())
+                return;
+            mWakeLock.setReferenceCounted(false);
+            mWakeLock.release();
+        }
     }
 
-    //保持屏幕熄灭
-    private void setScreenOff()
+    //熄灭屏幕
+    private synchronized void setScreenOff()
     {
-        releaseWakeLock();
-
-        mMainHandler.postDelayed(new Runnable()
+        if (mWakeLock != null)
         {
-            @Override
-            public void run()
-            {
-                PowerManager powerManager = (PowerManager) getSystemService(POWER_SERVICE);
-                mWakeLock = powerManager.newWakeLock(PowerManager.PROXIMITY_SCREEN_OFF_WAKE_LOCK, "VoiceCallScreenOff");
-                mWakeLock.acquire();
-            }
-        }, 300);
+            if (mWakeLock.isHeld())
+                return;
+            mWakeLock.acquire();
+        }
     }
 
     //释放屏幕锁
@@ -580,9 +571,6 @@ public class HxVoiceCallActivity extends HxBaseCallActivity implements HxVoiceCa
             mChronometer.stop();
         HxCallHelper.getInstance().removeCallStateChangeListener(mStateChangeListener);
         HeadSetReceiver.unregistFromActivity(this, mHeadSetReceiver);
-        //挂机后亮屏再释放锁
-        setScreenOn();
-        releaseWakeLock();
         //释放距离传感器
         if (mSensor != null && mSensorManager != null)
         {
@@ -590,6 +578,9 @@ public class HxVoiceCallActivity extends HxBaseCallActivity implements HxVoiceCa
             mSensor = null;
             mSensorManager = null;
         }
+        //挂机后亮屏再释放锁
+        setScreenOn();
+        releaseWakeLock();
         super.onDestroy();
     }
 }
