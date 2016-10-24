@@ -33,9 +33,6 @@ public class HxCallStateChangeListener implements EMCallStateChangeListener
             case RINGING:
                 KLog.e(TAG + ":Ringing");
                 break;
-            case ANSWERING:
-                KLog.e(TAG + ":Answering");
-                break;
             case CONNECTING: // 正在连接对方
                 KLog.e(TAG + ":Connecting");
                 mMainHandler.post(new Runnable()
@@ -60,6 +57,10 @@ public class HxCallStateChangeListener implements EMCallStateChangeListener
                     }
                 });
                 break;
+            case ANSWERING:
+                KLog.e(TAG + ":Answering");
+                //TODO 回调给界面
+                break;
             case ACCEPTED: // 电话接通成功
                 KLog.e(TAG + ":Accpet");
                 mMainHandler.post(new Runnable()
@@ -68,11 +69,11 @@ public class HxCallStateChangeListener implements EMCallStateChangeListener
                     public void run()
                     {
                         if (mViewImpl != null)
-                            mViewImpl.accept();
+                            mViewImpl.accepted();
                     }
                 });
                 break;
-            case DISCONNNECTED: // 电话断了
+            case DISCONNECTED: // 电话断了
                 KLog.e(TAG + ":Disconnectd callError=" + callError);
                 mMainHandler.post(new Runnable()
                 {
@@ -118,6 +119,9 @@ public class HxCallStateChangeListener implements EMCallStateChangeListener
                             mViewImpl.onNetworkResumed();
                     }
                 });
+                break;
+            case NETWORK_DISCONNECTED:
+                KLog.e(TAG + ":Network disconnected");
                 break;
             case VOICE_PAUSE: //暂停语音传输【静音】
                 KLog.e(TAG + ":Voice pause");

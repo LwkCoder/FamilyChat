@@ -48,8 +48,10 @@ public class FCCache
         {
             mUserHeadCachePath = new StringBuffer().append(ROOT_PATH).append("userhead_cache/").toString();
             File file = new File(mUserHeadCachePath);
-            if (!file.exists())
-                file.mkdirs();
+            if (!file.exists() && file.mkdirs())
+                return mUserHeadCachePath;
+            else
+                return mUserHeadCachePath = ROOT_PATH;
         }
         return mUserHeadCachePath;
     }
@@ -63,8 +65,10 @@ public class FCCache
         {
             mVoiceMsgCachePath = new StringBuffer().append(ROOT_PATH).append("voice_cache/").toString();
             File file = new File(mVoiceMsgCachePath);
-            if (!file.exists())
-                file.mkdirs();
+            if (!file.exists() && file.mkdirs())
+                return mVoiceMsgCachePath;
+            else
+                return mVoiceMsgCachePath = ROOT_PATH;
         }
         return mVoiceMsgCachePath;
     }
@@ -78,8 +82,10 @@ public class FCCache
         {
             mImageCachePath = new StringBuffer().append(ROOT_PATH).append("img_cache/").toString();
             File file = new File(mImageCachePath);
-            if (!file.exists())
-                file.mkdirs();
+            if (!file.exists() && file.mkdirs())
+                return mImageCachePath;
+            else
+                return mImageCachePath = ROOT_PATH;
         }
         return mImageCachePath;
     }
@@ -93,8 +99,10 @@ public class FCCache
         {
             mVideoCachePath = new StringBuffer().append(ROOT_PATH).append("video_cache/").toString();
             File file = new File(mVideoCachePath);
-            if (!file.exists())
-                file.mkdirs();
+            if (!file.exists() && file.mkdirs())
+                return mVideoCachePath;
+            else
+                return mVideoCachePath = ROOT_PATH;
         }
         return mVideoCachePath;
     }
