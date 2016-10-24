@@ -59,15 +59,7 @@ public class HxCallStateChangeListener implements EMCallStateChangeListener
                 break;
             case ANSWERING:
                 KLog.e(TAG + ":Answering");
-                mMainHandler.post(new Runnable()
-                {
-                    @Override
-                    public void run()
-                    {
-                        if (mViewImpl != null)
-                            mViewImpl.answering();
-                    }
-                });
+                //TODO 回调给界面
                 break;
             case ACCEPTED: // 电话接通成功
                 KLog.e(TAG + ":Accpet");
