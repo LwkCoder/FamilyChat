@@ -1,6 +1,8 @@
 package com.lwk.familycontact.project.call.view;
 
+import android.Manifest;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.hardware.Sensor;
 import android.hardware.SensorEvent;
@@ -10,6 +12,9 @@ import android.media.AudioManager;
 import android.os.Bundle;
 import android.os.PowerManager;
 import android.os.SystemClock;
+import android.provider.Settings;
+import android.support.annotation.NonNull;
+import android.support.v7.app.AlertDialog;
 import android.view.View;
 import android.view.ViewStub;
 import android.view.WindowManager;
@@ -20,8 +25,6 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.hyphenate.chat.EMCallStateChangeListener;
-import com.hyphenate.exceptions.EMNoActiveCallException;
-import com.hyphenate.exceptions.EMServiceNotReadyException;
 import com.lib.base.utils.ScreenUtils;
 import com.lib.base.utils.StringUtil;
 import com.lwk.familycontact.R;
@@ -31,9 +34,17 @@ import com.lwk.familycontact.project.call.presenter.HxVoiceCallPresenter;
 import com.lwk.familycontact.project.chat.utils.HeadSetReceiver;
 import com.lwk.familycontact.project.common.CommonUtils;
 
+import permissions.dispatcher.NeedsPermission;
+import permissions.dispatcher.OnNeverAskAgain;
+import permissions.dispatcher.OnPermissionDenied;
+import permissions.dispatcher.OnShowRationale;
+import permissions.dispatcher.PermissionRequest;
+import permissions.dispatcher.RuntimePermissions;
+
 /**
  * 环信实时语音通话界面
  */
+@RuntimePermissions
 public class HxVoiceCallActivity extends HxBaseCallActivity implements HxVoiceCallView
         , HeadSetReceiver.onHeadSetStateChangeListener
         , SensorEventListener
@@ -86,18 +97,30 @@ public class HxVoiceCallActivity extends HxBaseCallActivity implements HxVoiceCa
     protected void beforeOnCreate(Bundle savedInstanceState)
     {
         ScreenUtils.changStatusbarTransparent(this);
-        Intent intent = getIntent();
-        mOpPhone = intent.getStringExtra(INTENT_KEY_PHONE);
-        mIsComingCall = intent.getBooleanExtra(INTENT_KEY_IS_COMING_CALL, false);
-        if (StringUtil.isEmpty(mOpPhone))
-            finish();
 
+        getIntentData();
 
         //保持屏幕常亮
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON
                 | WindowManager.LayoutParams.FLAG_DISMISS_KEYGUARD
                 | WindowManager.LayoutParams.FLAG_SHOW_WHEN_LOCKED
                 | WindowManager.LayoutParams.FLAG_TURN_SCREEN_ON);
+    }
+
+    @Override
+    protected void onNewIntent(Intent intent)
+    {
+        super.onNewIntent(intent);
+        getIntentData();
+    }
+
+    private void getIntentData()
+    {
+        Intent intent = getIntent();
+        mOpPhone = intent.getStringExtra(INTENT_KEY_PHONE);
+        mIsComingCall = intent.getBooleanExtra(INTENT_KEY_IS_COMING_CALL, false);
+        if (StringUtil.isEmpty(mOpPhone))
+            finish();
     }
 
     @Override
@@ -145,30 +168,32 @@ public class HxVoiceCallActivity extends HxBaseCallActivity implements HxVoiceCa
             setMuteEnable(false);
             //播放忙音
             playWaittingRingtong(R.raw.outgoing_call);
-            try
-            {
-                HxCallHelper.getInstance().startVoiceCall(mOpPhone);
-            } catch (EMServiceNotReadyException e)
-            {
-                e.printStackTrace();
-            }
+            //检查权限再打电话
+            HxVoiceCallActivityPermissionsDispatcher.startVoiceCallWithCheck(this);
         }
+    }
+
+    @NeedsPermission(Manifest.permission.RECORD_AUDIO)
+    public void startVoiceCall()
+    {
+        mPresenter.startVoiceCall(mOpPhone);
     }
 
     //接起电话
     private void pickUpComingCall()
     {
-        try
-        {
-            HxCallHelper.getInstance().answerCall();
-            mHasAnswer = true;
-            if (mViewReceiverPanel != null)
-                mViewReceiverPanel.setVisibility(View.GONE);
-            showCallingPanel();
-        } catch (EMNoActiveCallException e)
-        {
-            e.printStackTrace();
-        }
+        //检查权限
+        HxVoiceCallActivityPermissionsDispatcher.answerCallWithCheck(this);
+        mHasAnswer = true;
+        if (mViewReceiverPanel != null)
+            mViewReceiverPanel.setVisibility(View.GONE);
+        showCallingPanel();
+    }
+
+    @NeedsPermission(Manifest.permission.RECORD_AUDIO)
+    public void answerCall()
+    {
+        mPresenter.answerCall();
     }
 
     //展示接收到来电panel
@@ -206,6 +231,14 @@ public class HxVoiceCallActivity extends HxBaseCallActivity implements HxVoiceCa
     {
         if (mTvName != null)
             mTvName.setText(name);
+    }
+
+    @Override
+    public void showError(int errResId)
+    {
+        if (errResId != 0)
+            showLongToast(errResId);
+        finishWithDelay();
     }
 
     @Override
@@ -352,22 +385,10 @@ public class HxVoiceCallActivity extends HxBaseCallActivity implements HxVoiceCa
                 pickUpComingCall();
                 break;
             case R.id.btn_voicecall_receiver_panel_rejectcall:
-                try
-                {
-                    HxCallHelper.getInstance().rejectCall();
-                } catch (EMNoActiveCallException e)
-                {
-                    e.printStackTrace();
-                }
+                mPresenter.rejectCall();
                 break;
             case R.id.btn_voicecall_calling_panel_endcall:
-                try
-                {
-                    HxCallHelper.getInstance().endCall();
-                } catch (EMNoActiveCallException e)
-                {
-                    e.printStackTrace();
-                }
+                mPresenter.endCall();
                 break;
         }
     }
@@ -479,6 +500,77 @@ public class HxVoiceCallActivity extends HxBaseCallActivity implements HxVoiceCa
             mWakeLock.release();
             mWakeLock = null;
         }
+    }
+
+    @OnShowRationale(Manifest.permission.RECORD_AUDIO)
+    public void showRationaleForRecordAudio(final PermissionRequest request)
+    {
+        new AlertDialog.Builder(this).setCancelable(false)
+                .setTitle(R.string.dialog_permission_title)
+                .setMessage(R.string.dialog_permission_voice_call_message)
+                .setPositiveButton(R.string.dialog_permission_confirm, new DialogInterface.OnClickListener()
+                {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which)
+                    {
+                        request.proceed();
+                    }
+                })
+                .create().show();
+    }
+
+    @OnPermissionDenied(Manifest.permission.RECORD_AUDIO)
+    public void onRecordAudioPermissionDenied()
+    {
+        showLongToast(R.string.warning_permission_voice_call_denied);
+        if (mIsComingCall)
+            mPresenter.rejectCall();
+        else
+            mPresenter.endCall();
+        finish();
+    }
+
+    @OnNeverAskAgain(Manifest.permission.RECORD_AUDIO)
+    public void onNeverAskRecordAudio()
+    {
+        new AlertDialog.Builder(this).setCancelable(false)
+                .setTitle(R.string.dialog_permission_title)
+                .setMessage(R.string.dialog_permission_voice_call_nerver_ask_message)
+                .setNegativeButton(R.string.dialog_permission_cancel, new DialogInterface.OnClickListener()
+                {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which)
+                    {
+                        dialog.dismiss();
+                        if (mIsComingCall)
+                            mPresenter.rejectCall();
+                        else
+                            mPresenter.endCall();
+                        finish();
+                    }
+                })
+                .setPositiveButton(R.string.dialog_permission_nerver_ask_confirm, new DialogInterface.OnClickListener()
+                {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which)
+                    {
+                        dialog.dismiss();
+                        Intent intent = new Intent(Settings.ACTION_APPLICATION_SETTINGS);
+                        startActivity(intent);
+                        if (mIsComingCall)
+                            mPresenter.rejectCall();
+                        else
+                            mPresenter.endCall();
+                        finish();
+                    }
+                }).create().show();
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults)
+    {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        HxVoiceCallActivityPermissionsDispatcher.onRequestPermissionsResult(this, requestCode, grantResults);
     }
 
     @Override

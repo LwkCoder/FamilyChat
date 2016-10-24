@@ -42,6 +42,8 @@ public class RefreshContactDataTask extends AsyncTask<Void, Void, List<UserBean>
         {
             for (UserBean userBean : phoneContactList)
             {
+                //这里log会有很多warning，不用管！
+                //warning代表无法保存数据，是因为本地数据库已经存在该条数据，这时只需要更新名字就行了
                 int lineNum = UserDao.getInstance().save(userBean);
                 if (lineNum <= 0)
                     UserDao.getInstance().updateUserName(userBean);
