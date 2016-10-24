@@ -4,6 +4,7 @@ import com.hyphenate.chat.EMCallStateChangeListener;
 import com.hyphenate.chat.EMClient;
 import com.hyphenate.exceptions.EMNoActiveCallException;
 import com.hyphenate.exceptions.EMServiceNotReadyException;
+import com.hyphenate.exceptions.HyphenateException;
 
 /**
  * Created by LWK
@@ -103,7 +104,7 @@ public class HxCallHelper
      * 暂停语音传输
      * 【用于静音】
      */
-    public void pauseVoiceTransfer()
+    public void pauseVoiceTransfer() throws HyphenateException
     {
         EMClient.getInstance().callManager().pauseVoiceTransfer();
     }
@@ -112,7 +113,7 @@ public class HxCallHelper
      * 恢复语音传输
      * 【取消静音】
      */
-    public void resumeVoiceTransfer()
+    public void resumeVoiceTransfer() throws HyphenateException
     {
         EMClient.getInstance().callManager().resumeVoiceTransfer();
     }

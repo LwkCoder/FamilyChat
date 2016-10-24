@@ -4,6 +4,7 @@ import android.os.Handler;
 
 import com.hyphenate.exceptions.EMNoActiveCallException;
 import com.hyphenate.exceptions.EMServiceNotReadyException;
+import com.lib.base.log.KLog;
 import com.lib.base.utils.StringUtil;
 import com.lwk.familycontact.R;
 import com.lwk.familycontact.im.helper.HxCallHelper;
@@ -90,6 +91,7 @@ public class HxVoiceCallPresenter
             HxCallHelper.getInstance().startVoiceCall(phone);
         } catch (EMServiceNotReadyException e)
         {
+            KLog.e("HxCallHelper can not startVoiceCall:" + e.toString());
             mViewImpl.showError(R.string.call_state_unknow_error);
         }
     }
@@ -104,6 +106,7 @@ public class HxVoiceCallPresenter
             HxCallHelper.getInstance().answerCall();
         } catch (EMNoActiveCallException e)
         {
+            KLog.e("HxCallHelper can not answerCall:" + e.toString());
             mViewImpl.showError(R.string.call_state_cannot_answer);
         }
     }
@@ -118,6 +121,7 @@ public class HxVoiceCallPresenter
             HxCallHelper.getInstance().endCall();
         } catch (EMNoActiveCallException e)
         {
+            KLog.e("HxCallHelper can not endCall:" + e.toString());
             mViewImpl.showError(0);
         }
     }
@@ -132,6 +136,7 @@ public class HxVoiceCallPresenter
             HxCallHelper.getInstance().rejectCall();
         } catch (EMNoActiveCallException e)
         {
+            KLog.e("HxCallHelper can not rejectCall:" + e.toString());
             mViewImpl.showError(0);
         }
     }
