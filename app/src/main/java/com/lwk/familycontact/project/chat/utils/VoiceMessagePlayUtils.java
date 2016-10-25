@@ -7,6 +7,7 @@ import android.media.MediaPlayer;
 import com.lib.base.log.KLog;
 import com.lib.base.utils.StringUtil;
 import com.lwk.familycontact.R;
+import com.lwk.familycontact.base.FCApplication;
 import com.lwk.familycontact.project.chat.presenter.HxChatPresenter;
 import com.lwk.familycontact.project.common.FCError;
 import com.lwk.familycontact.storage.sp.SpSetting;
@@ -90,8 +91,7 @@ public class VoiceMessagePlayUtils
                 @Override
                 public void onCompletion(MediaPlayer mp)
                 {
-                    if (listener != null)
-                        listener.endPlay(isHandFree);
+                    playEndSound(isHandFree, listener);
                 }
             });
         } catch (Exception e)
@@ -100,6 +100,26 @@ public class VoiceMessagePlayUtils
             if (listener != null)
                 listener.error(FCError.VOICE_PLAY_ERROR, R.string.error_play_voice_message);
             mPresenter.closeVoicePlayInCallWarning();
+        }
+    }
+
+    //播放语音消息结束后的“滴”
+    private void playEndSound(final boolean isHandFree, final VoiceMessagePlayListener listener)
+    {
+        if (mMediaPlayer != null)
+        {
+            mMediaPlayer.reset();
+            mMediaPlayer = MediaPlayer.create(FCApplication.getInstance(), R.raw.play_end);
+            mMediaPlayer.setOnCompletionListener(new MediaPlayer.OnCompletionListener()
+            {
+                @Override
+                public void onCompletion(MediaPlayer mp)
+                {
+                    if (listener != null)
+                        listener.endPlay(isHandFree);
+                }
+            });
+            mMediaPlayer.start();
         }
     }
 
@@ -125,8 +145,8 @@ public class VoiceMessagePlayUtils
         if (mAudioManager != null)
         {
             mAudioManager.setSpeakerphoneOn(true);
-            mAudioManager.setMode(AudioManager.MODE_NORMAL);
-            mMediaPlayer.setAudioStreamType(AudioManager.STREAM_RING);
+            mAudioManager.setMode(AudioManager.STREAM_MUSIC);
+            mMediaPlayer.setAudioStreamType(AudioManager.STREAM_MUSIC);
         }
     }
 
@@ -140,7 +160,7 @@ public class VoiceMessagePlayUtils
             mAudioManager.setSpeakerphoneOn(false);// 关闭扬声器
             // 把声音设定成Earpiece（听筒）出来，设定为正在通话中
             mAudioManager.setMode(AudioManager.MODE_IN_COMMUNICATION);
-            mMediaPlayer.setAudioStreamType(AudioManager.STREAM_VOICE_CALL);
+            mMediaPlayer.setAudioStreamType(AudioManager.MODE_IN_COMMUNICATION);
         }
     }
 
@@ -177,5 +197,26 @@ public class VoiceMessagePlayUtils
             }
         }
         mIsHeadSetMode = false;
+    }
+
+    /**
+     * 释放资源
+     */
+    public void release()
+    {
+        if (mMediaPlayer != null)
+        {
+            if (mMediaPlayer.isPlaying())
+                mMediaPlayer.stop();
+            mMediaPlayer.reset();
+            mMediaPlayer.release();
+            mMediaPlayer = null;
+        }
+        if (mAudioManager != null)
+        {
+            mAudioManager.setMode(AudioManager.MODE_NORMAL);
+            mAudioManager.setSpeakerphoneOn(false);
+            mAudioManager = null;
+        }
     }
 }

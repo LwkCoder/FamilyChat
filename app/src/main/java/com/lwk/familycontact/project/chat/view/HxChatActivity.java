@@ -440,6 +440,8 @@ public class HxChatActivity extends FCBaseActivity implements HxChatView
         mPresenter.clearConversationUnreadCount(mConversationId);
         //解绑耳机广播监听
         HeadSetReceiver.unregistFromActivity(this, mHeadSetReceiver);
+        //释放资源
+        mPresenter.release();
         //发送离开聊天界面的通知
         EventBusHelper.getInstance().post(new ChatActEventBean(false, mConversationId));
         EventBusHelper.getInstance().unregist(this);

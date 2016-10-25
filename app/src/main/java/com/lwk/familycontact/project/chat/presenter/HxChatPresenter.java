@@ -478,4 +478,13 @@ public class HxChatPresenter
                 break;
         }
     }
+
+    /**
+     * 释放资源
+     */
+    public void release()
+    {
+        if (mVoiceMessagePlayUtils != null)
+            mVoiceMessagePlayUtils.release();
+    }
 }
