@@ -15,23 +15,23 @@
         android:layout_height="match_parent">
 
         <com.lib.base.widget.CommonActionBar
-            android:id="@+id/cab_user_detail"
+            android:id="@+id/cab_contact_detail"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_alignParentTop="true"
             android:background="@color/colorPrimary"/>
 
         <RelativeLayout
-            android:id="@+id/rl_user_detail_profile"
+            android:id="@+id/rl_contact_detail_profile"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/cab_user_detail"
+            android:layout_below="@+id/cab_contact_detail"
             android:layout_marginTop="@dimen/spacing_huge"
             android:background="@color/white_FFFFFF"
             android:padding="@dimen/spacing_normal">
 
             <ImageView
-                android:id="@+id/img_user_detail_head"
+                android:id="@+id/img_contact_detail_head"
                 android:layout_width="80dp"
                 android:layout_height="80dp"
                 android:layout_alignParentLeft="true"
@@ -39,32 +39,33 @@
                 android:layout_marginRight="@dimen/spacing_normal"/>
 
             <com.cengalabs.flatui.views.FlatTextView
-                android:id="@+id/tv_user_detail_name"
+                android:id="@+id/tv_contact_detail_name"
                 style="@style/FC_NormalTextStyle"
-                android:layout_alignTop="@+id/img_user_detail_head"
-                android:layout_toRightOf="@+id/img_user_detail_head"
+                android:layout_alignTop="@+id/img_contact_detail_head"
+                android:layout_toRightOf="@+id/img_contact_detail_head"
                 android:textSize="@dimen/sp_22"/>
 
             <com.cengalabs.flatui.views.FlatTextView
-                android:id="@+id/tv_user_detail_phone"
+                android:id="@+id/tv_contact_detail_phone"
                 style="@style/FC_SmallTextStyle"
-                android:layout_alignBottom="@+id/img_user_detail_head"
-                android:layout_toRightOf="@+id/img_user_detail_head"
+                android:layout_alignBottom="@+id/img_contact_detail_head"
+                android:layout_toRightOf="@+id/img_contact_detail_head"
                 android:textSize="@dimen/sp_18"
                 flatui:fl_textColor="fl_dark"/>
         </RelativeLayout>
 
         <TextView
-            android:layout_width="match_parent"
-            android:layout_height="30dp"
-            android:layout_below="@+id/rl_user_detail_profile"
-            android:gravity="center_vertical"
-            android:paddingLeft="@dimen/spacing_normal"
-            android:text="@string/tv_user_detail_head_hint"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/rl_contact_detail_profile"
+            android:layout_marginLeft="@dimen/spacing_normal"
+            android:layout_marginTop="@dimen/spacing_normal"
+            android:text="@string/tv_contact_detail_head_hint"
             android:textSize="@dimen/sp_14"/>
 
 
         <LinearLayout
+            android:id="@+id/ll_contact_detail_bottom"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
@@ -79,23 +80,23 @@
                 android:orientation="horizontal">
 
                 <com.cengalabs.flatui.views.FlatButton
-                    android:id="@+id/btn_user_detail_system_call"
+                    android:id="@+id/btn_contact_detail_system_call"
                     android:layout_width="match_parent"
                     android:layout_height="50dp"
                     android:layout_marginRight="@dimen/spacing_small"
                     android:layout_weight="1"
-                    android:text="@string/btn_user_detail_sys_call"
+                    android:text="@string/btn_contact_detail_sys_call"
                     android:textSize="@dimen/sp_18"
                     flatui:fl_textAppearance="fl_none"
                     flatui:fl_theme="@array/grass"
                     flatui:fl_touchEffect="fl_ripple"/>
 
                 <com.cengalabs.flatui.views.FlatButton
-                    android:id="@+id/btn_user_detail_voice_call"
+                    android:id="@+id/btn_contact_detail_voice_call"
                     android:layout_width="match_parent"
                     android:layout_height="50dp"
                     android:layout_weight="1"
-                    android:text="@string/btn_user_detail_voice_call"
+                    android:text="@string/btn_contact_detail_voice_call"
                     android:textSize="@dimen/sp_18"
                     flatui:fl_textAppearance="fl_none"
                     flatui:fl_theme="@array/grass"
@@ -110,23 +111,23 @@
                 android:orientation="horizontal">
 
                 <com.cengalabs.flatui.views.FlatButton
-                    android:id="@+id/btn_user_detail_send_msg"
+                    android:id="@+id/btn_contact_detail_send_msg"
                     android:layout_width="match_parent"
                     android:layout_height="50dp"
                     android:layout_marginRight="@dimen/spacing_small"
                     android:layout_weight="1"
-                    android:text="@string/btn_user_detail_send_msg"
+                    android:text="@string/btn_contact_detail_send_msg"
                     android:textSize="@dimen/sp_18"
                     flatui:fl_textAppearance="fl_none"
                     flatui:fl_theme="@array/grass"
                     flatui:fl_touchEffect="fl_ripple"/>
 
                 <com.cengalabs.flatui.views.FlatButton
-                    android:id="@+id/btn_user_detail_video_call"
+                    android:id="@+id/btn_contact_detail_video_call"
                     android:layout_width="match_parent"
                     android:layout_height="50dp"
                     android:layout_weight="1"
-                    android:text="@string/btn_user_detail_video_call"
+                    android:text="@string/btn_contact_detail_video_call"
                     android:textSize="@dimen/sp_18"
                     flatui:fl_textAppearance="fl_none"
                     flatui:fl_theme="@array/grass"
@@ -135,6 +136,18 @@
             </LinearLayout>
 
         </LinearLayout>
+
+        <TextView
+            android:id="@+id/tv_contact_detail_non_friend_hint"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_above="@+id/ll_contact_detail_bottom"
+            android:layout_marginBottom="@dimen/spacing_small"
+            android:layout_marginLeft="@dimen/spacing_normal"
+            android:text="@string/tv_contact_detail_non_friend_hint"
+            android:textColor="@android:color/holo_red_light"
+            android:textSize="@dimen/sp_14"
+            android:visibility="gone"/>
 
     </RelativeLayout>
 

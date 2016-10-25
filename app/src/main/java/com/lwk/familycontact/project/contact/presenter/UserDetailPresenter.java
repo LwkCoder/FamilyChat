@@ -1,10 +1,14 @@
 package com.lwk.familycontact.project.contact.presenter;
 
+import com.lib.base.sp.Sp;
+import com.lib.base.utils.PhoneUtils;
 import com.lib.base.utils.StringUtil;
 import com.lib.imagepicker.bean.ImageBean;
+import com.lwk.familycontact.base.FCApplication;
 import com.lwk.familycontact.project.contact.view.UserDetailView;
 import com.lwk.familycontact.storage.db.user.UserBean;
 import com.lwk.familycontact.storage.db.user.UserDao;
+import com.lwk.familycontact.storage.sp.SpKeys;
 import com.lwk.familycontact.utils.event.EventBusHelper;
 import com.lwk.familycontact.utils.event.ProfileUpdateEventBean;
 import com.lwk.familycontact.utils.other.ThreadManager;
@@ -21,6 +25,37 @@ public class UserDetailPresenter
     public UserDetailPresenter(UserDetailView userDetailView)
     {
         this.mUserDetailView = userDetailView;
+    }
+
+    /**
+     * 初始化数据
+     */
+    public void initData(UserBean userBean)
+    {
+        if (userBean != null && mUserDetailView != null)
+        {
+            mUserDetailView.setName(userBean.getDisplayName());
+            mUserDetailView.setPhone(PhoneUtils.formatPhoneNumAsRegular(userBean.getPhone(), " - "));
+            String localHead = userBean.getLocalHead();
+            if (StringUtil.isNotEmpty(localHead))
+                mUserDetailView.setHead(localHead);
+            else
+                mUserDetailView.setDefaultHead();
+            if (!userBean.isRegist())
+                mUserDetailView.nonFriend();
+        }
+    }
+
+    /**
+     * 检查是否第一次进入该界面
+     */
+    public void checkIfFirstEnter()
+    {
+        if (Sp.getBoolean(FCApplication.getInstance(), SpKeys.IS_FIRST_ENTER_CONTACT_DETAIL, true))
+        {
+            mUserDetailView.showFirstEnterDialog();
+            Sp.putBoolean(FCApplication.getInstance(), SpKeys.IS_FIRST_ENTER_CONTACT_DETAIL, false);
+        }
     }
 
     /**

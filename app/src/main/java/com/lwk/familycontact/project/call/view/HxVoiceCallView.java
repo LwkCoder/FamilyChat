@@ -12,6 +12,4 @@ public interface HxVoiceCallView extends HxCallView
     void setHead(String url);
 
     void setName(String name);
-
-    void showError(int errResId);
 }

@@ -30,4 +30,6 @@ public interface HxCallView
     void onNetworkUnstable(EMCallStateChangeListener.CallError callError);
 
     void onNetworkResumed();
+
+    void showError(int errResId);
 }

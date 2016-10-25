@@ -482,7 +482,7 @@ public class HxChatActivity extends FCBaseActivity implements HxChatView
         new AlertDialog.Builder(this).setCancelable(false)
                 .setTitle(R.string.dialog_permission_title)
                 .setMessage(R.string.dialog_permission_record_audio_message)
-                .setPositiveButton(R.string.dialog_permission_confirm, new DialogInterface.OnClickListener()
+                .setPositiveButton(R.string.dialog_confirm, new DialogInterface.OnClickListener()
                 {
                     @Override
                     public void onClick(DialogInterface dialog, int which)
@@ -505,7 +505,7 @@ public class HxChatActivity extends FCBaseActivity implements HxChatView
         new AlertDialog.Builder(this).setCancelable(false)
                 .setTitle(R.string.dialog_permission_title)
                 .setMessage(R.string.dialog_permission_record_audio_nerver_ask_message)
-                .setNegativeButton(R.string.dialog_permission_cancel, new DialogInterface.OnClickListener()
+                .setNegativeButton(R.string.dialog_cancel, new DialogInterface.OnClickListener()
                 {
                     @Override
                     public void onClick(DialogInterface dialog, int which)

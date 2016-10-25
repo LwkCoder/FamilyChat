@@ -6,8 +6,10 @@ import android.media.MediaPlayer;
 import android.media.SoundPool;
 import android.os.Bundle;
 import android.os.Vibrator;
+import android.view.WindowManager;
 
 import com.hyphenate.exceptions.HyphenateException;
+import com.lib.base.utils.ScreenUtils;
 import com.lwk.familycontact.base.FCBaseActivity;
 import com.lwk.familycontact.im.helper.HxCallHelper;
 
@@ -28,6 +30,18 @@ public abstract class HxBaseCallActivity extends FCBaseActivity
     protected MediaPlayer mMediaPlayer;
     //忙音流
     protected int mWaitStreamId;
+
+    @Override
+    protected void beforeOnCreate(Bundle savedInstanceState)
+    {
+        ScreenUtils.changStatusbarTransparent(this);
+
+        //保持屏幕常亮
+        getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON
+                | WindowManager.LayoutParams.FLAG_DISMISS_KEYGUARD
+                | WindowManager.LayoutParams.FLAG_SHOW_WHEN_LOCKED
+                | WindowManager.LayoutParams.FLAG_TURN_SCREEN_ON);
+    }
 
     @Override
     protected void beforeInitUI(Bundle savedInstanceState)

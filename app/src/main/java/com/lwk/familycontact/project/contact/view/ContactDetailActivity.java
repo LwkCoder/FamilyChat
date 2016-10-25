@@ -10,7 +10,9 @@ import android.support.annotation.NonNull;
 import android.support.v7.app.AlertDialog;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.TextView;
 
+import com.cengalabs.flatui.views.FlatButton;
 import com.cengalabs.flatui.views.FlatTextView;
 import com.lib.base.utils.PhoneUtils;
 import com.lib.base.utils.StringUtil;
@@ -55,6 +57,10 @@ public class ContactDetailActivity extends FCBaseActivity implements UserDetailV
     private ImageView mImgHead;
     private FlatTextView mTvName;
     private FlatTextView mTvPhone;
+    private TextView mTvNonFriendHint;
+    private FlatButton mBtnChat;
+    private FlatButton mBtnVoiceCall;
+    private FlatButton mBtnVideoCall;
 
     /**
      * 跳转到该界面的公用方法
@@ -81,46 +87,79 @@ public class ContactDetailActivity extends FCBaseActivity implements UserDetailV
     @Override
     protected int setContentViewId()
     {
-        return R.layout.activity_user_detail;
+        return R.layout.activity_contact_detail;
     }
 
     @Override
     protected void initUI()
     {
-        mActionBar = findView(R.id.cab_user_detail);
+        mActionBar = findView(R.id.cab_contact_detail);
         mActionBar.setLeftLayoutAsBack(this);
-        mImgHead = findView(R.id.img_user_detail_head);
-        mTvName = findView(R.id.tv_user_detail_name);
-        mTvPhone = findView(R.id.tv_user_detail_phone);
+        mImgHead = findView(R.id.img_contact_detail_head);
+        mTvName = findView(R.id.tv_contact_detail_name);
+        mTvPhone = findView(R.id.tv_contact_detail_phone);
+        mTvNonFriendHint = findView(R.id.tv_contact_detail_non_friend_hint);
+        mBtnChat = findView(R.id.btn_contact_detail_send_msg);
+        mBtnVoiceCall = findView(R.id.btn_contact_detail_voice_call);
+        mBtnVideoCall = findView(R.id.btn_contact_detail_video_call);
 
         addClick(mImgHead);
-        addClick(R.id.btn_user_detail_system_call);
-        addClick(R.id.btn_user_detail_voice_call);
-        addClick(R.id.btn_user_detail_send_msg);
-        addClick(R.id.btn_user_detail_video_call);
+        addClick(mBtnChat);
+        addClick(mBtnVoiceCall);
+        addClick(mBtnVideoCall);
+        addClick(R.id.btn_contact_detail_system_call);
     }
 
     @Override
     protected void initData()
     {
         super.initData();
-        setUserProfile();
+        mPresenter.initData(mUserBean);
+        mPresenter.checkIfFirstEnter();
     }
 
-    private void setUserProfile()
+    @Override
+    public void setDefaultHead()
     {
-        if (mUserBean != null)
-        {
-            mActionBar.setTitleText(mUserBean.getDisplayName());
-            mTvName.setText(mUserBean.getDisplayName());
-            mTvPhone.setText(PhoneUtils.formatPhoneNumAsRegular(mUserBean.getPhone(), " - "));
-            String localHead = mUserBean.getLocalHead();
-            if (StringUtil.isNotEmpty(localHead))
-                CommonUtils.getInstance().getImageDisplayer()
-                        .display(this, mImgHead, localHead, 300, 300, R.drawable.default_avatar, R.drawable.default_avatar);
-            else
-                mImgHead.setImageResource(R.drawable.default_avatar);
-        }
+        if (mImgHead != null)
+            mImgHead.setImageResource(R.drawable.default_avatar);
+    }
+
+    @Override
+    public void setHead(String url)
+    {
+        if (mImgHead != null)
+            CommonUtils.getInstance().getImageDisplayer()
+                    .display(this, mImgHead, url, 300, 300, R.drawable.default_avatar, R.drawable.default_avatar);
+    }
+
+    @Override
+    public void setName(String name)
+    {
+        if (mActionBar != null)
+            mActionBar.setTitleText(name);
+        if (mTvName != null)
+            mTvName.setText(name);
+    }
+
+    @Override
+    public void setPhone(String phone)
+    {
+        if (mTvPhone != null)
+            mTvPhone.setText(phone);
+    }
+
+    @Override
+    public void nonFriend()
+    {
+        if (mTvNonFriendHint != null)
+            mTvNonFriendHint.setVisibility(View.VISIBLE);
+        if (mBtnChat != null)
+            mBtnChat.setEnabled(false);
+        if (mBtnVoiceCall != null)
+            mBtnVoiceCall.setEnabled(false);
+        if (mBtnVideoCall != null)
+            mBtnVideoCall.setEnabled(false);
     }
 
     @Override
@@ -128,7 +167,7 @@ public class ContactDetailActivity extends FCBaseActivity implements UserDetailV
     {
         switch (id)
         {
-            case R.id.img_user_detail_head:
+            case R.id.img_contact_detail_head:
                 if (mUserBean == null)
                     return;
 
@@ -148,16 +187,16 @@ public class ContactDetailActivity extends FCBaseActivity implements UserDetailV
                     }
                 });
                 break;
-            case R.id.btn_user_detail_system_call:
+            case R.id.btn_contact_detail_system_call:
                 ContactDetailActivityPermissionsDispatcher.callSystemPhoneWithCheck(this);
                 break;
-            case R.id.btn_user_detail_voice_call:
+            case R.id.btn_contact_detail_voice_call:
                 HxVoiceCallActivity.start(this, mUserBean.getPhone(), false);
                 break;
-            case R.id.btn_user_detail_send_msg:
+            case R.id.btn_contact_detail_send_msg:
                 HxChatActivity.start(this, mUserBean.getPhone(), mUserBean);
                 break;
-            case R.id.btn_user_detail_video_call:
+            case R.id.btn_contact_detail_video_call:
                 break;
         }
     }
@@ -166,9 +205,7 @@ public class ContactDetailActivity extends FCBaseActivity implements UserDetailV
     public void callSystemPhone()
     {
         if (mUserBean != null && StringUtil.isNotEmpty(mUserBean.getPhone()))
-        {
             PhoneUtils.callPhone(this, mUserBean.getPhone());
-        }
     }
 
     @OnShowRationale(Manifest.permission.CALL_PHONE)
@@ -178,7 +215,7 @@ public class ContactDetailActivity extends FCBaseActivity implements UserDetailV
                 .setCancelable(false)
                 .setTitle(R.string.dialog_permission_title)
                 .setMessage(R.string.dialog_permission_call_phone_message)
-                .setPositiveButton(R.string.dialog_permission_confirm, new DialogInterface.OnClickListener()
+                .setPositiveButton(R.string.dialog_confirm, new DialogInterface.OnClickListener()
                 {
                     @Override
                     public void onClick(DialogInterface dialog, int which)
@@ -236,6 +273,21 @@ public class ContactDetailActivity extends FCBaseActivity implements UserDetailV
     }
 
     @Override
+    public void showFirstEnterDialog()
+    {
+        new AlertDialog.Builder(this)
+                .setMessage(R.string.dialog_contact_detail_first_use_hint)
+                .setPositiveButton(R.string.dialog_confirm, new DialogInterface.OnClickListener()
+                {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which)
+                    {
+                        dialog.dismiss();
+                    }
+                }).create().show();
+    }
+
+    @Override
     public void updateLocalHeadFail()
     {
         showShortToast(R.string.error_unknow);
@@ -249,7 +301,7 @@ public class ContactDetailActivity extends FCBaseActivity implements UserDetailV
                 && StringUtil.isEquals(mUserBean.getPhone(), phone))
         {
             mUserBean = eventBean.getUserBean();
-            setUserProfile();
+            mPresenter.initData(mUserBean);
         }
     }
 }

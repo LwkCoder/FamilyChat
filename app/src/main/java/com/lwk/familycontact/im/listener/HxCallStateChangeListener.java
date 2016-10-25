@@ -28,13 +28,13 @@ public class HxCallStateChangeListener implements EMCallStateChangeListener
         switch (callState)
         {
             case IDLE:
-                KLog.e(TAG + ":Idle");
+                KLog.i(TAG + ":Idle");
                 break;
             case RINGING:
-                KLog.e(TAG + ":Ringing");
+                KLog.i(TAG + ":Ringing");
                 break;
             case CONNECTING: // 正在连接对方
-                KLog.e(TAG + ":Connecting");
+                KLog.i(TAG + ":Connecting");
                 mMainHandler.post(new Runnable()
                 {
                     @Override
@@ -46,7 +46,7 @@ public class HxCallStateChangeListener implements EMCallStateChangeListener
                 });
                 break;
             case CONNECTED: // 双方已经建立连接
-                KLog.e(TAG + ":Connected");
+                KLog.i(TAG + ":Connected");
                 mMainHandler.post(new Runnable()
                 {
                     @Override
@@ -58,7 +58,7 @@ public class HxCallStateChangeListener implements EMCallStateChangeListener
                 });
                 break;
             case ANSWERING:
-                KLog.e(TAG + ":Answering");
+                KLog.i(TAG + ":Answering");
                 mMainHandler.post(new Runnable()
                 {
                     @Override
@@ -70,7 +70,7 @@ public class HxCallStateChangeListener implements EMCallStateChangeListener
                 });
                 break;
             case ACCEPTED: // 电话接通成功
-                KLog.e(TAG + ":Accpet");
+                KLog.i(TAG + ":Accpet");
                 mMainHandler.post(new Runnable()
                 {
                     @Override
@@ -82,7 +82,7 @@ public class HxCallStateChangeListener implements EMCallStateChangeListener
                 });
                 break;
             case DISCONNECTED: // 电话断了
-                KLog.e(TAG + ":Disconnectd callError=" + callError);
+                KLog.i(TAG + ":Disconnectd callError=" + callError);
                 mMainHandler.post(new Runnable()
                 {
                     @Override
@@ -105,7 +105,7 @@ public class HxCallStateChangeListener implements EMCallStateChangeListener
                 });
                 break;
             case NETWORK_UNSTABLE: //网络不稳定
-                KLog.e(TAG + ":Netword Unstable callError=" + callError);
+                KLog.i(TAG + ":Netword Unstable callError=" + callError);
                 mMainHandler.post(new Runnable()
                 {
                     @Override
@@ -117,7 +117,7 @@ public class HxCallStateChangeListener implements EMCallStateChangeListener
                 });
                 break;
             case NETWORK_NORMAL: //网络恢复正常
-                KLog.e(TAG + ":Network resume");
+                KLog.i(TAG + ":Network resume");
                 mMainHandler.post(new Runnable()
                 {
                     @Override
@@ -129,19 +129,19 @@ public class HxCallStateChangeListener implements EMCallStateChangeListener
                 });
                 break;
             case NETWORK_DISCONNECTED:
-                KLog.e(TAG + ":Network disconnected");
+                KLog.i(TAG + ":Network disconnected");
                 break;
             case VOICE_PAUSE: //暂停语音传输【静音】
-                KLog.e(TAG + ":Voice pause");
+                KLog.i(TAG + ":Voice pause");
                 break;
             case VOICE_RESUME://恢复语音传输【取消静音】
-                KLog.e(TAG + ":Voice resume");
+                KLog.i(TAG + ":Voice resume");
                 break;
             case VIDEO_PAUSE:
-                KLog.e(TAG + ":Video pause");
+                KLog.i(TAG + ":Video pause");
                 break;
             case VIDEO_RESUME:
-                KLog.e(TAG + ":Video resume");
+                KLog.i(TAG + ":Video resume");
                 break;
             default:
                 break;

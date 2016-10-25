@@ -17,7 +17,6 @@ import android.support.annotation.NonNull;
 import android.support.v7.app.AlertDialog;
 import android.view.View;
 import android.view.ViewStub;
-import android.view.WindowManager;
 import android.widget.CheckBox;
 import android.widget.Chronometer;
 import android.widget.CompoundButton;
@@ -25,7 +24,6 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.hyphenate.chat.EMCallStateChangeListener;
-import com.lib.base.utils.ScreenUtils;
 import com.lib.base.utils.StringUtil;
 import com.lwk.familycontact.R;
 import com.lwk.familycontact.im.helper.HxCallHelper;
@@ -96,15 +94,8 @@ public class HxVoiceCallActivity extends HxBaseCallActivity implements HxVoiceCa
     @Override
     protected void beforeOnCreate(Bundle savedInstanceState)
     {
-        ScreenUtils.changStatusbarTransparent(this);
-
+        super.beforeOnCreate(savedInstanceState);
         getIntentData();
-
-        //保持屏幕常亮
-        getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON
-                | WindowManager.LayoutParams.FLAG_DISMISS_KEYGUARD
-                | WindowManager.LayoutParams.FLAG_SHOW_WHEN_LOCKED
-                | WindowManager.LayoutParams.FLAG_TURN_SCREEN_ON);
     }
 
     @Override
@@ -263,7 +254,7 @@ public class HxVoiceCallActivity extends HxBaseCallActivity implements HxVoiceCa
     @Override
     public void answering()
     {
-        if (mTvDesc!=null)
+        if (mTvDesc != null)
         {
             if (mIsComingCall)
                 mTvDesc.setText(R.string.call_state_answering_comingcall);
@@ -510,8 +501,8 @@ public class HxVoiceCallActivity extends HxBaseCallActivity implements HxVoiceCa
     {
         new AlertDialog.Builder(this).setCancelable(false)
                 .setTitle(R.string.dialog_permission_title)
-                .setMessage(R.string.dialog_permission_voice_call_message)
-                .setPositiveButton(R.string.dialog_permission_confirm, new DialogInterface.OnClickListener()
+                .setMessage(R.string.dialog_permission_record_audio_real_time_call_message)
+                .setPositiveButton(R.string.dialog_confirm, new DialogInterface.OnClickListener()
                 {
                     @Override
                     public void onClick(DialogInterface dialog, int which)
@@ -525,7 +516,7 @@ public class HxVoiceCallActivity extends HxBaseCallActivity implements HxVoiceCa
     @OnPermissionDenied(Manifest.permission.RECORD_AUDIO)
     public void onRecordAudioPermissionDenied()
     {
-        showLongToast(R.string.warning_permission_voice_call_denied);
+        showLongToast(R.string.warning_permission_record_audio_real_time_voice_call_denied);
         if (mIsComingCall)
             mPresenter.rejectCall();
         else
@@ -538,8 +529,8 @@ public class HxVoiceCallActivity extends HxBaseCallActivity implements HxVoiceCa
     {
         new AlertDialog.Builder(this).setCancelable(false)
                 .setTitle(R.string.dialog_permission_title)
-                .setMessage(R.string.dialog_permission_voice_call_nerver_ask_message)
-                .setNegativeButton(R.string.dialog_permission_cancel, new DialogInterface.OnClickListener()
+                .setMessage(R.string.dialog_permission_record_audio_real_time_call_nerver_ask_message)
+                .setNegativeButton(R.string.dialog_cancel, new DialogInterface.OnClickListener()
                 {
                     @Override
                     public void onClick(DialogInterface dialog, int which)
