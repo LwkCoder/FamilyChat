@@ -189,7 +189,7 @@ public class VoiceMessagePlayUtils
             if (isHandFree)
             {
                 mAudioManager.setSpeakerphoneOn(true);
-                mAudioManager.setMode(AudioManager.MODE_NORMAL);
+                mAudioManager.setMode(AudioManager.STREAM_MUSIC);
             } else
             {
                 mAudioManager.setSpeakerphoneOn(false);

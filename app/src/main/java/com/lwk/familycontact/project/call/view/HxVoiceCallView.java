@@ -1,7 +1,5 @@
 package com.lwk.familycontact.project.call.view;
 
-import com.lwk.familycontact.im.listener.HxCallView;
-
 /**
  * Created by LWK
  * TODO 实时语音通话界面接口

@@ -7,7 +7,7 @@ import com.hyphenate.exceptions.EMServiceNotReadyException;
 import com.lib.base.log.KLog;
 import com.lwk.familycontact.R;
 import com.lwk.familycontact.im.helper.HxCallHelper;
-import com.lwk.familycontact.im.listener.HxCallView;
+import com.lwk.familycontact.project.call.view.HxCallView;
 
 /**
  * Created by LWK
