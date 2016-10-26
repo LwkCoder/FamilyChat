@@ -38,10 +38,6 @@ public class IMRecordAudioManager
             mRecorder = new MediaRecorder();
         //设置默认缓存路径
         mCachePath = getDefCachePath();
-        //检查路径是否存在，不存在就创建
-        File dir = new File(mCachePath);
-        if (!dir.exists())
-            dir.mkdirs();
     }
 
     public interface onRecorderPreparedListener
@@ -96,6 +92,8 @@ public class IMRecordAudioManager
         {
             //检查路径是否存在，不存在就创建
             File dir = new File(mCachePath);
+            if (!dir.exists())
+                dir.mkdirs();
             //生成文件名
             String fileName = createFileName();
             //生成保存文件的file
