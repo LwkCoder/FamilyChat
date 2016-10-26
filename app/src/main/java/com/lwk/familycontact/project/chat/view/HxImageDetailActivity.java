@@ -1,6 +1,7 @@
 package com.lwk.familycontact.project.chat.view;
 
 import android.app.Activity;
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
@@ -49,6 +50,7 @@ public class HxImageDetailActivity extends FCBaseActivity implements HxImageDeta
     private CommonActionBar mActionBar;
     private ParallaxViewPager mViewPager;
     private HxImageDetailAdapter mAdapter;
+    private ProgressDialog mDialog;
 
     /**
      * 跳转到大图消息界面的公共方法
@@ -125,6 +127,8 @@ public class HxImageDetailActivity extends FCBaseActivity implements HxImageDeta
     {
         mActionBar = findView(R.id.cab_chat_image_detail);
         mActionBar.setLeftLayoutAsBack(this);
+        mActionBar.setRightImgResource(R.drawable.ic_file_download);
+        mActionBar.setRightLayoutClickListener(this);
         mViewContent = findView(R.id.fl_chat_image_detail_root);
         mViewPager = findView(R.id.vp_chat_image_detail);
 
@@ -157,9 +161,61 @@ public class HxImageDetailActivity extends FCBaseActivity implements HxImageDeta
     }
 
     @Override
+    public void showDownloadDialog()
+    {
+        closeDownloadDialog();
+
+        mMainHandler.post(new Runnable()
+        {
+            @Override
+            public void run()
+            {
+                mDialog = new ProgressDialog(HxImageDetailActivity.this);
+                mDialog.setMessage(getString(R.string.dialog_image_detail_download_bitmap_message));
+                mDialog.show();
+            }
+        });
+    }
+
+    @Override
+    public void closeDownloadDialog()
+    {
+        if (mDialog != null)
+        {
+            mMainHandler.post(new Runnable()
+            {
+                @Override
+                public void run()
+                {
+                    mDialog.dismiss();
+                    mDialog = null;
+                }
+            });
+        }
+    }
+
+    @Override
+    public void showDownloadSuccessToast(String msg)
+    {
+        showLongToast(msg);
+    }
+
+    @Override
+    public void showDownliadFailToast()
+    {
+        showShortToast(R.string.toast_image_detail_download_bitmal_fail);
+    }
+
+    @Override
     protected void onClick(int id, View v)
     {
-
+        switch (id)
+        {
+            case R.id.fl_common_actionbar_right:
+                int p = mViewPager.getCurrentItem();
+                mPresenter.savePic(this, mAdapter.getDataByPosition(p));
+                break;
+        }
     }
 
     //ViewPager滑动监听

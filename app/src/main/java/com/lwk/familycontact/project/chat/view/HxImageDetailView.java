@@ -12,4 +12,12 @@ import java.util.List;
 public interface HxImageDetailView
 {
     void onScanDataSuccess(List<EMMessage> list, int startPosition);
+
+    void showDownloadDialog();
+
+    void closeDownloadDialog();
+
+    void showDownloadSuccessToast(String msg);
+
+    void showDownliadFailToast();
 }

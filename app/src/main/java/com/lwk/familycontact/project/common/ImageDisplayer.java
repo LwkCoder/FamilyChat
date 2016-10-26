@@ -33,4 +33,13 @@ public interface ImageDisplayer
      * @param errorImgResId  错误图资源id
      */
     void display(Context context, ImageView imageView, String url, int maxWidth, int maxHeight, int holderImgResId, int errorImgResId);
+
+    /**
+     * 下载位图
+     *
+     * @param context  上下文环境
+     * @param url      图片地址
+     * @param listener 下载完成回调监听
+     */
+    void downloadBitmap(Context context, String url, OnBitmapDownloadListener listener);
 }

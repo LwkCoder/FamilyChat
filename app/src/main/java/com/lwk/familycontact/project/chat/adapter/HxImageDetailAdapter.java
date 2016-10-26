@@ -56,6 +56,11 @@ public class HxImageDetailAdapter extends PagerAdapter
         return mDataList.size();
     }
 
+    public EMMessage getDataByPosition(int p)
+    {
+        return mDataList != null && mDataList.size() > 0 ? mDataList.get(p) : null;
+    }
+
     @Override
     public Object instantiateItem(ViewGroup container, int position)
     {
