@@ -3,17 +3,13 @@ package com.lwk.familycontact.project.contact.presenter;
 import android.content.Context;
 import android.os.AsyncTask;
 
-import com.lib.base.utils.StringUtil;
-import com.lib.rcvadapter.impl.RcvSortSectionImpl;
 import com.lwk.familycontact.project.common.FCCallBack;
 import com.lwk.familycontact.project.contact.model.ContactModel;
 import com.lwk.familycontact.project.contact.task.RefreshContactDataTask;
 import com.lwk.familycontact.project.contact.view.ContactView;
 import com.lwk.familycontact.storage.db.user.UserBean;
-import com.lwk.familycontact.storage.db.user.UserDao;
 import com.lwk.familycontact.utils.other.ThreadManager;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.Executors;
 
@@ -89,22 +85,7 @@ public class ContactPresenter
             @Override
             public void run()
             {
-                //查询数据库所有数据并排序，将#开头的数据放在最后
-                List<UserBean> resultList = UserDao.getInstance().queryAllUsersSortByFirstChar();
-                List<UserBean> defCharList = new ArrayList<>();
-                for (UserBean userBean : resultList)
-                {
-                    if (StringUtil.isEquals(userBean.getFirstChar(), RcvSortSectionImpl.DEF_SECTION))
-                        defCharList.add(userBean);
-                }
-
-                if (defCharList.size() > 0)
-                {
-                    resultList.removeAll(defCharList);
-                    resultList.addAll(defCharList);
-                }
-
-                mContactView.refreshAllUsersSuccess(isPtrRefresh, resultList);
+                mContactView.refreshAllUsersSuccess(isPtrRefresh, mModel.getContactDataInDb());
                 mContactView.refreshContactNum();
             }
         });

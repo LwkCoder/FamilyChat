@@ -7,10 +7,13 @@ import android.provider.ContactsContract;
 
 import com.lib.base.log.KLog;
 import com.lib.base.sp.Sp;
+import com.lib.base.utils.StringUtil;
+import com.lib.rcvadapter.impl.RcvSortSectionImpl;
 import com.lwk.familycontact.base.FCApplication;
 import com.lwk.familycontact.im.helper.HxSdkHelper;
 import com.lwk.familycontact.storage.db.invite.InviteDao;
 import com.lwk.familycontact.storage.db.user.UserBean;
+import com.lwk.familycontact.storage.db.user.UserDao;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -27,6 +30,7 @@ public class ContactModel
     //允许不自动刷新的最大间隔时间【一周】
     private final long MAX_REFRESH_DURATION = 604800000;
     private String mSpkey;
+    private final String regEx = "[`~!@#$%^&*()=|{}':;',\\[\\].<>/?~！@#￥%……& amp;*（）——|{}【】‘；：”“’。，、？-]";
 
     public ContactModel()
     {
@@ -70,8 +74,6 @@ public class ContactModel
         return resultList;
     }
 
-    private final String regEx = "[`~!@#$%^&*()=|{}':;',\\[\\].<>/?~！@#￥%……& amp;*（）——|{}【】‘；：”“’。，、？-]";
-
     //去除手机号中所有特殊字符和空格
     private String formatPhoneNum(String phone)
     {
@@ -106,5 +108,26 @@ public class ContactModel
     public void syncAutoRefreshTime()
     {
         Sp.putLong(FCApplication.getInstance(), mSpkey, System.currentTimeMillis());
+    }
+
+    //获取数据库中联系人数据，并按照字母排序，将#开头的放在最后
+    public List<UserBean> getContactDataInDb()
+    {
+        //查询数据库所有数据并排序，将#开头的数据放在最后
+        //因为"#"字符的ASCII值比字母小，在查询数据库的时候#开头的排序在最前，不知道该怎么做，所以暂时用这种最笨的方式将#开头的数据排到最后去
+        List<UserBean> resultList = UserDao.getInstance().queryAllUsersSortByFirstChar();
+        List<UserBean> defCharList = new ArrayList<>();
+        for (UserBean userBean : resultList)
+        {
+            if (StringUtil.isEquals(userBean.getFirstChar(), RcvSortSectionImpl.DEF_SECTION))
+                defCharList.add(userBean);
+        }
+
+        if (defCharList.size() > 0)
+        {
+            resultList.removeAll(defCharList);
+            resultList.addAll(defCharList);
+        }
+        return resultList;
     }
 }
