@@ -54,7 +54,10 @@ import permissions.dispatcher.RuntimePermissions;
  */
 
 @RuntimePermissions
-public class ContactFragment extends BaseFragment implements ContactView, CommonPtrLayout.OnRefreshListener, OnQuickSideBarTouchListener, RcvMutilAdapter.onItemClickListener<UserBean>
+public class ContactFragment extends BaseFragment implements ContactView
+        , CommonPtrLayout.OnRefreshListener
+        , OnQuickSideBarTouchListener
+        , RcvMutilAdapter.onItemClickListener<UserBean>
 {
     private ContactPresenter mPresenter;
     private RecyclerView mRecyclerView;
@@ -121,8 +124,8 @@ public class ContactFragment extends BaseFragment implements ContactView, Common
         super.initData();
         //刷新好友通知
         mPresenter.refreshFriendNotify();
-        //主动同步通讯录
-        mPtrLayout.autoRefresh();
+        //初始化数据
+        mPresenter.initData();
     }
 
     @Override
@@ -212,6 +215,12 @@ public class ContactFragment extends BaseFragment implements ContactView, Common
     protected void onClick(int id, View v)
     {
 
+    }
+
+    @Override
+    public void autoRefresh()
+    {
+        mPtrLayout.autoRefresh();
     }
 
     @Override

@@ -11,6 +11,8 @@ import java.util.List;
  */
 public interface ContactView
 {
+    void autoRefresh();
+
     void refreshAllUsersSuccess(boolean isPrtRefresh, List<UserBean> allUserList);
 
     void refreshAllUsersFail(int errorMsgId);

@@ -35,6 +35,17 @@ public class ContactPresenter
     }
 
     /**
+     * 初始化数据
+     */
+    public void initData()
+    {
+        if (mModel.needAutoRefresh())
+            mContactView.autoRefresh();
+        else
+            refreshContactDataInDb(false);
+    }
+
+    /**
      * 刷新所有通讯录数据[环信好友+本机通讯录]
      *
      * @param context 上下文环境
@@ -59,6 +70,7 @@ public class ContactPresenter
             @Override
             public void onSuccess(List<UserBean> resultList)
             {
+                mModel.syncAutoRefreshTime();
                 mContactView.refreshAllUsersSuccess(true, resultList);
                 mContactView.refreshContactNum();
             }

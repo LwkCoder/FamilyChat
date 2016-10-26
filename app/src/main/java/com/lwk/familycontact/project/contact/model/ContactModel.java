@@ -6,6 +6,9 @@ import android.database.Cursor;
 import android.provider.ContactsContract;
 
 import com.lib.base.log.KLog;
+import com.lib.base.sp.Sp;
+import com.lwk.familycontact.base.FCApplication;
+import com.lwk.familycontact.im.helper.HxSdkHelper;
 import com.lwk.familycontact.storage.db.invite.InviteDao;
 import com.lwk.familycontact.storage.db.user.UserBean;
 
@@ -21,8 +24,14 @@ import java.util.regex.Pattern;
  */
 public class ContactModel
 {
+    //允许不自动刷新的最大间隔时间【一周】
+    private final long MAX_REFRESH_DURATION = 604800000;
+    private String mSpkey;
+
     public ContactModel()
     {
+        mSpkey = new StringBuffer().append(HxSdkHelper.getInstance().getCurLoginUser())
+                .append("refresh").toString();
     }
 
     /**
@@ -75,5 +84,27 @@ public class ContactModel
     public int getUnreadFriendNotifyNum()
     {
         return InviteDao.getInstance().getUnreadNotifyNum();
+    }
+
+    /**
+     * 是否需要自动刷新
+     * [判断条件：该账号从未刷新过就必须刷新，否则判断距离上次刷新时间是否大于一周时间间隔]
+     */
+    public boolean needAutoRefresh()
+    {
+        long lastRefreshTime = Sp.getLong(FCApplication.getInstance(), mSpkey, 0L);
+        if (lastRefreshTime == 0L)
+            return true;
+        long cha = System.currentTimeMillis() - lastRefreshTime;
+        if (cha >= MAX_REFRESH_DURATION)
+            return true;
+        else
+            return false;
+    }
+
+    //同步刷新时间
+    public void syncAutoRefreshTime()
+    {
+        Sp.putLong(FCApplication.getInstance(), mSpkey, System.currentTimeMillis());
     }
 }
