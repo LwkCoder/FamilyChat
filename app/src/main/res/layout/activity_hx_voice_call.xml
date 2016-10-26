@@ -8,12 +8,22 @@
     android:fitsSystemWindows="true"
     tools:context=".project.call.view.HxVoiceCallActivity">
 
+
+    <TextView
+        android:id="@+id/tv_voicecall_label"
+        style="@style/FC_LargeTextStyle"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="35dp"
+        android:text="@string/tv_voice_call_label"
+        android:textColor="@android:color/white"/>
+
     <Chronometer
         android:id="@+id/chm_voicecall_time"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_below="@+id/tv_voicecall_label"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="60dp"
+        android:layout_marginTop="@dimen/spacing_normal"
         android:textColor="@android:color/white"
         android:textSize="18sp"
         android:visibility="invisible"/>

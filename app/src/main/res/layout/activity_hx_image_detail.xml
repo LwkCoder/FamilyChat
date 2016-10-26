@@ -2,6 +2,7 @@
 <RelativeLayout
     android:id="@+id/fl_chat_image_detail_root"
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -9,10 +10,14 @@
     android:fitsSystemWindows="true"
     tools:context="com.lwk.familycontact.project.chat.view.HxImageDetailActivity">
 
-    <com.lib.imagepicker.view.widget.ViewPagerFixed
+    <com.lwk.familycontact.widget.viewpager.ParallaxViewPager
         android:id="@+id/vp_chat_image_detail"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"/>
+        android:layout_height="match_parent"
+        app:interpolator="@anim/vp_decelerate_interpolator"
+        app:mode="left_overlay"
+        app:outset="62%"
+        app:shadow_width="30dp"/>
 
     <com.lib.base.widget.CommonActionBar
         android:id="@+id/cab_chat_image_detail"

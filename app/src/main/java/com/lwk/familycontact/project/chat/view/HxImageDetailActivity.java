@@ -12,11 +12,11 @@ import com.hyphenate.chat.EMConversation;
 import com.hyphenate.chat.EMMessage;
 import com.lib.base.utils.ScreenUtils;
 import com.lib.base.widget.CommonActionBar;
-import com.lib.imagepicker.view.widget.ViewPagerFixed;
 import com.lwk.familycontact.R;
 import com.lwk.familycontact.base.FCBaseActivity;
 import com.lwk.familycontact.project.chat.adapter.HxImageDetailAdapter;
 import com.lwk.familycontact.project.chat.presenter.HxImageDetailPresenter;
+import com.lwk.familycontact.widget.viewpager.ParallaxViewPager;
 
 import java.util.List;
 
@@ -47,7 +47,7 @@ public class HxImageDetailActivity extends FCBaseActivity implements HxImageDeta
     private String mFirstMsgId;
     private View mViewContent;
     private CommonActionBar mActionBar;
-    private ViewPagerFixed mViewPager;
+    private ParallaxViewPager mViewPager;
     private HxImageDetailAdapter mAdapter;
 
     /**

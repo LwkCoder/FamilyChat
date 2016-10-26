@@ -1,6 +1,7 @@
 package com.lwk.familycontact.project.chat.adapter;
 
 import android.app.Activity;
+import android.graphics.Color;
 import android.support.v4.view.PagerAdapter;
 import android.view.View;
 import android.view.ViewGroup;
@@ -59,17 +60,18 @@ public class HxImageDetailAdapter extends PagerAdapter
     public Object instantiateItem(ViewGroup container, int position)
     {
         PhotoView photoView = new PhotoView(mActivity);
+        photoView.setBackgroundColor(Color.BLACK);
         photoView.setScaleType(ImageView.ScaleType.FIT_CENTER);
         photoView.setEnabled(true);
         EMImageMessageBody messageBody = (EMImageMessageBody) mDataList.get(position).getBody();
         String localUrl = messageBody.getLocalUrl();
         String remoteUrl = messageBody.getRemoteUrl();
         if (StringUtil.isNotEmpty(localUrl) && new File(localUrl).exists())
-                        CommonUtils.getInstance().getImageDisplayer().display(mActivity, photoView, localUrl, mScreenWidth, mScreenHeight
-                                , R.drawable.pic_image_detail_place_holder, R.drawable.pic_image_detail_fail);
+            CommonUtils.getInstance().getImageDisplayer().display(mActivity, photoView, localUrl, mScreenWidth, mScreenHeight
+                    , R.drawable.pic_image_detail_place_holder, R.drawable.pic_image_detail_fail);
         else
-                    CommonUtils.getInstance().getImageDisplayer().display(mActivity, photoView, remoteUrl, mScreenWidth, mScreenHeight
-                            , R.drawable.pic_image_detail_place_holder, R.drawable.pic_image_detail_fail);
+            CommonUtils.getInstance().getImageDisplayer().display(mActivity, photoView, remoteUrl, mScreenWidth, mScreenHeight
+                    , R.drawable.pic_image_detail_place_holder, R.drawable.pic_image_detail_fail);
 
         photoView.setOnPhotoTapListener(new PhotoViewAttacher.OnPhotoTapListener()
         {

@@ -88,7 +88,7 @@
     <string name="tv_contact_detail_head_hint">点击头像可以设置备注头像</string>
     <string name="btn_contact_detail_sys_call">系统电话</string>
     <string name="btn_contact_detail_voice_call">语音通话</string>
-    <string name="btn_contact_detail_send_msg">发送消息</string>
+    <string name="btn_contact_detail_send_msg">发起聊天</string>
     <string name="btn_contact_detail_video_call">视频通话</string>
     <string name="tv_contact_detail_non_friend_hint">尚未添加该联系人为好友，只可拨打系统电话</string>
     <string name="dialog_contact_detail_first_use_hint">如果未添加对方为好友，则无法给对方发送消息以及拨打语音通话或视频通话（对方如果未注册，可邀请对方注册后再添加好友）</string>
@@ -194,6 +194,7 @@
     <string name="error_shortvideo_download">无法下载视频</string>
 
     <!--HxVoiceCallActivity-->
+    <string name="tv_voice_call_label">实时语音通话</string>
     <string name="call_state_connecting">正在连接对方...</string>
     <string name="call_state_connected_comingcall">对方来电，等待您接听...</string>
     <string name="call_state_connected_outgoingcall">等待对方接听...</string>
