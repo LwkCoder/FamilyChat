@@ -174,7 +174,7 @@ public class HxChatPresenter
     {
         EMMessage emMessage = HxChatHelper.getInstance().createTextMessage(getChatTypeFromConType(conType), conId, message);
         emMessage.setMessageStatusCallback(new MessageStatusCallBack(emMessage));
-        mViewImpl.addNewMessage(emMessage);
+        mViewImpl.addNewMessage(emMessage, true);
         HxChatHelper.getInstance().sendMessage(emMessage);
     }
 
@@ -185,7 +185,7 @@ public class HxChatPresenter
     {
         EMMessage emMessage = HxChatHelper.getInstance().createVoiceMessage(getChatTypeFromConType(conType), conId, filePath, seconds);
         emMessage.setMessageStatusCallback(new MessageStatusCallBack(emMessage));
-        mViewImpl.addNewMessage(emMessage);
+        mViewImpl.addNewMessage(emMessage, true);
         HxChatHelper.getInstance().sendMessage(emMessage);
     }
 
@@ -216,7 +216,7 @@ public class HxChatPresenter
     {
         EMMessage emMessage = HxChatHelper.getInstance().createImageMessage(getChatTypeFromConType(conType), conId, filePath, sendOriginFile);
         emMessage.setMessageStatusCallback(new MessageStatusCallBack(emMessage));
-        mViewImpl.addNewMessage(emMessage);
+        mViewImpl.addNewMessage(emMessage, true);
         HxChatHelper.getInstance().sendMessage(emMessage);
     }
 
@@ -244,7 +244,7 @@ public class HxChatPresenter
                         EMMessage emMessage = HxChatHelper.getInstance().createVideoMessage(getChatTypeFromConType(conType)
                                 , conId, filePath, thumbPath, (int) (duration / 1000));
                         emMessage.setMessageStatusCallback(new MessageStatusCallBack(emMessage));
-                        mViewImpl.addNewMessage(emMessage);
+                        mViewImpl.addNewMessage(emMessage, true);
                         HxChatHelper.getInstance().sendMessage(emMessage);
                     }
                 });
@@ -334,7 +334,7 @@ public class HxChatPresenter
         for (EMMessage message : messageList)
         {
             if (StringUtil.isEquals(message.getFrom(), conId))
-                mViewImpl.addNewMessage(message);
+                mViewImpl.addNewMessage(message, false);
         }
     }
 

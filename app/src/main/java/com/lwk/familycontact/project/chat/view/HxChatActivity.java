@@ -246,16 +246,23 @@ public class HxChatActivity extends FCBaseActivity implements HxChatView
     }
 
     @Override
-    public void addNewMessage(EMMessage message)
+    public void addNewMessage(EMMessage message, boolean forceScrollToBottom)
     {
         if (mAdapter != null)
         {
-            //判断当前添加消息前最后一条可见消息的位置是不是为最底部的消息，是就在添加新消息后将会话拉到底部
-            int curLastVisiablePosition = mLayoutManager.findLastVisibleItemPosition();
-            boolean needScrollToBottom = curLastVisiablePosition == mAdapter.getDatas().size() - 1;
-            mAdapter.addData(message);
-            if (needScrollToBottom)
+            if (forceScrollToBottom)
+            {
+                mAdapter.addData(message);
                 scrollToBottom();
+            } else
+            {
+                //判断当前添加消息前最后一条可见消息的位置是不是为最底部的消息，是就在添加新消息后将会话拉到底部
+                int curLastVisiablePosition = mLayoutManager.findLastVisibleItemPosition();
+                boolean needScrollToBottom = curLastVisiablePosition == mAdapter.getDatas().size() - 1;
+                mAdapter.addData(message);
+                if (needScrollToBottom)
+                    scrollToBottom();
+            }
         }
     }
 

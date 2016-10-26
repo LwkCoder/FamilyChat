@@ -73,7 +73,7 @@ public interface HxChatView
     /**
      * 添加新消息
      */
-    void addNewMessage(EMMessage message);
+    void addNewMessage(EMMessage message, boolean forceScrollToBottom);
 
     /**
      * 某条消息的状态更改
