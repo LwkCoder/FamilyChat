@@ -1,10 +1,13 @@
 package com.lwk.familycontact.im.helper;
 
+import com.hyphenate.chat.EMCallManager;
 import com.hyphenate.chat.EMCallStateChangeListener;
 import com.hyphenate.chat.EMClient;
 import com.hyphenate.exceptions.EMNoActiveCallException;
 import com.hyphenate.exceptions.EMServiceNotReadyException;
 import com.hyphenate.exceptions.HyphenateException;
+import com.hyphenate.media.EMLocalSurfaceView;
+import com.hyphenate.media.EMOppositeSurfaceView;
 
 /**
  * Created by LWK
@@ -116,5 +119,44 @@ public class HxCallHelper
     public void resumeVoiceTransfer() throws HyphenateException
     {
         EMClient.getInstance().callManager().resumeVoiceTransfer();
+    }
+
+    /**
+     * 获取EMVideoCallHelper对象
+     */
+    public EMCallManager.EMVideoCallHelper getVideoCallHelper()
+    {
+        return EMClient.getInstance().callManager().getVideoCallHelper();
+    }
+
+    /**
+     * 设置双方SurfaceView
+     *
+     * @param localSurfaceView 本方
+     * @param opSurfaceView    对方
+     */
+    public void setSurfaceView(EMLocalSurfaceView localSurfaceView, EMOppositeSurfaceView opSurfaceView)
+    {
+        EMClient.getInstance().callManager().setSurfaceView(localSurfaceView, opSurfaceView);
+    }
+
+    /**
+     * 暂停视频传输
+     *
+     * @throws HyphenateException
+     */
+    public void pauseVideoTransfer() throws HyphenateException
+    {
+        EMClient.getInstance().callManager().pauseVideoTransfer();
+    }
+
+    /**
+     * 恢复视频传输
+     *
+     * @throws HyphenateException
+     */
+    public void resumeSurfaceView() throws HyphenateException
+    {
+        EMClient.getInstance().callManager().resumeVideoTransfer();
     }
 }

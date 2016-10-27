@@ -26,6 +26,7 @@ import com.lib.ptrview.CommonPtrLayout;
 import com.lib.shortvideo.ShortVideoRecordActivity;
 import com.lwk.familycontact.R;
 import com.lwk.familycontact.base.FCBaseActivity;
+import com.lwk.familycontact.project.call.view.HxVideoCallActivity;
 import com.lwk.familycontact.project.call.view.HxVoiceCallActivity;
 import com.lwk.familycontact.project.chat.adapter.HxChatAdapter;
 import com.lwk.familycontact.project.chat.presenter.HxChatPresenter;
@@ -375,6 +376,7 @@ public class HxChatActivity extends FCBaseActivity implements HxChatView
                 HxVoiceCallActivity.start(this, mUserBean.getPhone(), false);
                 break;
             case HxChatPlusDialog.ITEM_VIDEO_CALL:
+                HxVideoCallActivity.start(this, mUserBean.getPhone(), false);
                 break;
         }
     }

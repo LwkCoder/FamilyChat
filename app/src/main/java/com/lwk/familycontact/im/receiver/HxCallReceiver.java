@@ -7,6 +7,7 @@ import android.content.IntentFilter;
 
 import com.hyphenate.chat.EMClient;
 import com.lib.base.log.KLog;
+import com.lwk.familycontact.project.call.view.HxVideoCallActivity;
 import com.lwk.familycontact.project.call.view.HxVoiceCallActivity;
 
 /**
@@ -55,7 +56,8 @@ public class HxCallReceiver extends BroadcastReceiver
             HxVoiceCallActivity.start(context, from, true);
         } else if (VIDEO_CALL.equals(type))
         {
-            //TODO 跳转到视频通话
+            //跳转到视频通话
+            HxVideoCallActivity.start(context, from, true);
         }
     }
 }

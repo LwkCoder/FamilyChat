@@ -12,7 +12,7 @@
         android:textColor="@android:color/white"/>
 
     <ImageView
-        android:id="@+id/img_call_avatar"
+        android:id="@id/img_call_avatar"
         android:layout_width="120dp"
         android:layout_height="120dp"
         android:layout_below="@+id/tv_videocall_label"
@@ -21,7 +21,7 @@
         android:src="@drawable/default_avatar"/>
 
     <TextView
-        android:id="@+id/tv_call_name"
+        android:id="@id/tv_call_name"
         style="@style/FC_LargerTextStyle"
         android:layout_below="@+id/img_call_avatar"
         android:layout_centerHorizontal="true"
@@ -29,7 +29,7 @@
         android:textColor="@android:color/white"/>
 
     <TextView
-        android:id="@+id/tv_call_desc"
+        android:id="@id/tv_call_desc"
         style="@style/FC_LargeTextStyle"
         android:layout_below="@+id/tv_call_name"
         android:layout_centerHorizontal="true"

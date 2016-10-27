@@ -4,7 +4,64 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/colorPrimaryDark"
     android:fitsSystemWindows="true"
     tools:context="com.lwk.familycontact.project.call.view.HxVideoCallActivity">
+
+    <com.hyphenate.media.EMOppositeSurfaceView
+        android:id="@+id/sfv_videocall_opposite"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
+
+    <include
+        android:id="@+id/rl_videocall_header"
+        layout="@layout/layout_video_call_header"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"/>
+
+    <com.hyphenate.media.EMLocalSurfaceView
+        android:id="@+id/sfv_videocall_local"
+        android:layout_width="100dp"
+        android:layout_height="120dp"
+        android:layout_alignParentRight="true"
+        android:layout_below="@+id/rl_videocall_header"
+        android:layout_marginRight="@dimen/spacing_normal"/>
+
+    <TextView
+        android:id="@id/tv_call_network_unstable"
+        style="@style/FC_NormalTextStyle"
+        android:layout_below="@+id/rl_videocall_header"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="@dimen/dp_40"
+        android:background="#70000000"
+        android:gravity="center"
+        android:paddingBottom="@dimen/spacing_tiny"
+        android:paddingLeft="@dimen/spacing_small"
+        android:paddingRight="@dimen/spacing_small"
+        android:paddingTop="@dimen/spacing_tiny"
+        android:text="@string/call_state_network_unstable"
+        android:textColor="@android:color/holo_red_light"
+        android:visibility="gone"/>
+
+    <ViewStub
+        android:id="@id/vs_voicecall_calling_panel"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginLeft="@dimen/spacing_normal"
+        android:layout_marginRight="@dimen/spacing_normal"
+        android:layout="@layout/layout_voice_call_calling_panel"/>
+
+    <ViewStub
+        android:id="@id/vs_voicecall_receiver_panel"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginLeft="@dimen/spacing_normal"
+        android:layout_marginRight="@dimen/spacing_normal"
+        android:layout="@layout/layout_voice_call_receiver_panel"/>
 
 </RelativeLayout>

@@ -8,7 +8,6 @@ import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
-import android.media.AudioManager;
 import android.os.PowerManager;
 import android.os.SystemClock;
 import android.provider.Settings;
@@ -17,12 +16,9 @@ import android.support.v7.app.AlertDialog;
 import android.view.View;
 import android.widget.Chronometer;
 
-import com.hyphenate.chat.EMCallStateChangeListener;
 import com.lwk.familycontact.R;
 import com.lwk.familycontact.im.helper.HxCallHelper;
-import com.lwk.familycontact.im.listener.HxCallStateChangeListener;
 import com.lwk.familycontact.project.call.presenter.HxVoiceCallPresenter;
-import com.lwk.familycontact.project.common.CommonUtils;
 
 import permissions.dispatcher.NeedsPermission;
 import permissions.dispatcher.OnNeverAskAgain;
@@ -78,36 +74,15 @@ public class HxVoiceCallActivity extends HxBaseCallActivity implements HxVoiceCa
     }
 
     @Override
-    protected void initData()
+    public void setOpUserData()
     {
-        super.initData();
-        //添加状态监听
-        mStateChangeListener = new HxCallStateChangeListener(mMainHandler, this);
-        HxCallHelper.getInstance().addCallStateChangeListener(mStateChangeListener);
-
-        //设置对方用户数据
         mPresenter.setOpData(mOpPhone);
+    }
 
-        //接收到来电时
-        if (mIsComingCall)
-        {
-            showComingCallPanel();
-            //播放音乐
-            playInComingRingtong(R.raw.incoming_call);
-            //震动
-            vibrateWithRingtong();
-        }
-        //主动去电
-        else
-        {
-            showCallingPanel();
-            //未接听前静音不可用
-            setMuteEnable(false);
-            //播放忙音
-            playWaittingRingtong(R.raw.outgoing_call);
-            //检查权限再打电话
-            HxVoiceCallActivityPermissionsDispatcher.startVoiceCallWithCheck(this);
-        }
+    @Override
+    public void doOutgoingCall()
+    {
+        HxVoiceCallActivityPermissionsDispatcher.startVoiceCallWithCheck(this);
     }
 
     @NeedsPermission(Manifest.permission.RECORD_AUDIO)
@@ -116,101 +91,9 @@ public class HxVoiceCallActivity extends HxBaseCallActivity implements HxVoiceCa
         mPresenter.startVoiceCall(mOpPhone);
     }
 
-    //接起电话
-    private void pickUpComingCall()
-    {
-        //检查权限
-        HxVoiceCallActivityPermissionsDispatcher.answerCallWithCheck(this);
-        mHasAnswer = true;
-        if (mViewReceiverPanel != null)
-            mViewReceiverPanel.setVisibility(View.GONE);
-        showCallingPanel();
-    }
-
-    @NeedsPermission(Manifest.permission.RECORD_AUDIO)
-    public void answerCall()
-    {
-        mPresenter.answerCall();
-    }
-
     @Override
-    public void setHead(String url)
+    public void doAfterAccepted()
     {
-        if (mImgHead != null)
-            CommonUtils.getInstance()
-                    .getImageDisplayer()
-                    .display(this, mImgHead, url, 360, 360, R.drawable.default_avatar, R.drawable.default_avatar);
-    }
-
-    @Override
-    public void setName(String name)
-    {
-        if (mTvName != null)
-            mTvName.setText(name);
-    }
-
-    @Override
-    public void showError(int errResId)
-    {
-        if (errResId != 0)
-            showLongToast(errResId);
-        finishWithDelay();
-    }
-
-    @Override
-    public void connecting()
-    {
-        if (mTvDesc != null)
-            mTvDesc.setText(R.string.call_state_connecting);
-    }
-
-    @Override
-    public void connected()
-    {
-        if (mTvDesc != null)
-        {
-            if (mIsComingCall)
-                mTvDesc.setText(R.string.call_state_connected_comingcall);
-            else
-                mTvDesc.setText(R.string.call_state_connected_outgoingcall);
-        }
-    }
-
-    @Override
-    public void answering()
-    {
-        if (mTvDesc != null)
-        {
-            if (mIsComingCall)
-                mTvDesc.setText(R.string.call_state_answering_comingcall);
-            else
-                mTvDesc.setText(R.string.call_state_answering_outgoingcall);
-        }
-    }
-
-    @Override
-    public void accepted()
-    {
-        if (mTvDesc != null)
-            mTvDesc.setText(R.string.call_state_accpet);
-        //停止铃声、震动和音乐
-        if (mIsComingCall)
-        {
-            mHasAnswer = true;
-            stopInComingRingtong();
-            if (mVibratorMgr != null)
-                mVibratorMgr.cancel();
-        } else
-        {
-            mHasAccept = true;
-            stopWaittingRingtong();
-            setMuteEnable(true);
-        }
-        //震动一下
-        vibrateByPickUpPhone();
-        //将Mode设为Communication
-        if (mAudioMgr != null)
-            mAudioMgr.setMode(AudioManager.MODE_IN_COMMUNICATION);
         //监听距离传感器
         PowerManager powerManager = (PowerManager) getSystemService(POWER_SERVICE);
         mWakeLock = powerManager.newWakeLock(PowerManager.PROXIMITY_SCREEN_OFF_WAKE_LOCK, "VoiceCallScreenOff");
@@ -224,83 +107,27 @@ public class HxVoiceCallActivity extends HxBaseCallActivity implements HxVoiceCa
     }
 
     @Override
-    public void beRejected()
+    public void doAnswercall()
     {
-        if (mTvDesc != null)
-            mTvDesc.setText(R.string.call_state_be_rejected);
-        finishWithDelay();
+        HxVoiceCallActivityPermissionsDispatcher.answerCallWithCheck(this);
+    }
+
+    @NeedsPermission(Manifest.permission.RECORD_AUDIO)
+    public void answerCall()
+    {
+        mPresenter.answerCall();
     }
 
     @Override
-    public void noResponse()
+    public void doRejectCall()
     {
-        if (mTvDesc != null)
-            mTvDesc.setText(R.string.call_state_no_response);
-        finishWithDelay();
+        mPresenter.rejectCall();
     }
 
     @Override
-    public void busy()
+    public void doEndCall()
     {
-        if (mTvDesc != null)
-            mTvDesc.setText(R.string.call_state_busy);
-        finishWithDelay();
-    }
-
-    @Override
-    public void offline()
-    {
-        if (mTvDesc != null)
-            mTvDesc.setText(R.string.call_state_offline);
-        finishWithDelay();
-    }
-
-    @Override
-    public void onDisconnect(EMCallStateChangeListener.CallError callError)
-    {
-        if (mTvDesc != null)
-        {
-            if (callError == EMCallStateChangeListener.CallError.ERROR_NO_DATA
-                    || callError == EMCallStateChangeListener.CallError.ERROR_TRANSPORT
-                    || callError == EMCallStateChangeListener.CallError.ERROR_LOCAL_SDK_VERSION_OUTDATED
-                    || callError == EMCallStateChangeListener.CallError.ERROR_REMOTE_SDK_VERSION_OUTDATED)
-                mTvDesc.setText(R.string.call_state_unknow_error);
-            else
-                mTvDesc.setText(R.string.call_state_endcall);
-        }
-
-        finishWithDelay();
-    }
-
-    @Override
-    public void onNetworkUnstable(EMCallStateChangeListener.CallError callError)
-    {
-        if (mTvNetworkUnstable != null)
-            mTvNetworkUnstable.setVisibility(View.VISIBLE);
-    }
-
-    @Override
-    public void onNetworkResumed()
-    {
-        if (mTvNetworkUnstable != null && mTvNetworkUnstable.getVisibility() == View.VISIBLE)
-            mTvNetworkUnstable.setVisibility(View.GONE);
-    }
-
-    @Override
-    protected void onClick(int id, View v)
-    {
-        switch (id)
-        {
-            case R.id.btn_call_receiver_panel_answercall:
-                pickUpComingCall();
-                break;
-            case R.id.btn_call_receiver_panel_rejectcall:
-                mPresenter.rejectCall();
-                break;
-            case R.id.btn_call_calling_panel_endcall:
-                mPresenter.endCall();
-                break;
-        }
+        mPresenter.endCall();
     }
 
     @Override
@@ -357,7 +184,7 @@ public class HxVoiceCallActivity extends HxBaseCallActivity implements HxVoiceCa
     {
         new AlertDialog.Builder(this).setCancelable(false)
                 .setTitle(R.string.dialog_permission_title)
-                .setMessage(R.string.dialog_permission_record_audio_real_time_call_message)
+                .setMessage(R.string.dialog_permission_voice_call_message)
                 .setPositiveButton(R.string.dialog_confirm, new DialogInterface.OnClickListener()
                 {
                     @Override
@@ -372,7 +199,7 @@ public class HxVoiceCallActivity extends HxBaseCallActivity implements HxVoiceCa
     @OnPermissionDenied(Manifest.permission.RECORD_AUDIO)
     public void onRecordAudioPermissionDenied()
     {
-        showLongToast(R.string.warning_permission_record_audio_real_time_voice_call_denied);
+        showLongToast(R.string.warning_permission_voice_call_denied);
         if (mIsComingCall)
             mPresenter.rejectCall();
         else
@@ -385,7 +212,7 @@ public class HxVoiceCallActivity extends HxBaseCallActivity implements HxVoiceCa
     {
         new AlertDialog.Builder(this).setCancelable(false)
                 .setTitle(R.string.dialog_permission_title)
-                .setMessage(R.string.dialog_permission_record_audio_real_time_call_nerver_ask_message)
+                .setMessage(R.string.dialog_permission_voice_call_nerver_ask_message)
                 .setNegativeButton(R.string.dialog_cancel, new DialogInterface.OnClickListener()
                 {
                     @Override

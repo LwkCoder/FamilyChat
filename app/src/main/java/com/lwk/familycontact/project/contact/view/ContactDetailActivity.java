@@ -23,6 +23,7 @@ import com.lib.imagepicker.bean.ImageBean;
 import com.lib.imagepicker.model.ImagePickerMode;
 import com.lwk.familycontact.R;
 import com.lwk.familycontact.base.FCBaseActivity;
+import com.lwk.familycontact.project.call.view.HxVideoCallActivity;
 import com.lwk.familycontact.project.call.view.HxVoiceCallActivity;
 import com.lwk.familycontact.project.chat.view.HxChatActivity;
 import com.lwk.familycontact.project.common.CommonUtils;
@@ -197,6 +198,7 @@ public class ContactDetailActivity extends FCBaseActivity implements UserDetailV
                 HxChatActivity.start(this, mUserBean.getPhone(), mUserBean);
                 break;
             case R.id.btn_contact_detail_video_call:
+                HxVideoCallActivity.start(this, mUserBean.getPhone(), false);
                 break;
         }
     }
