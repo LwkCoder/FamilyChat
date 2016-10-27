@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+    <TextView
+        android:id="@+id/tv_videocall_label"
+        style="@style/FC_LargeTextStyle"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="35dp"
+        android:text="@string/tv_video_call_label"
+        android:textColor="@android:color/white"/>
+
+    <ImageView
+        android:id="@+id/img_call_avatar"
+        android:layout_width="120dp"
+        android:layout_height="120dp"
+        android:layout_below="@+id/tv_videocall_label"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="@dimen/dp_40"
+        android:src="@drawable/default_avatar"/>
+
+    <TextView
+        android:id="@+id/tv_call_name"
+        style="@style/FC_LargerTextStyle"
+        android:layout_below="@+id/img_call_avatar"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="@dimen/spacing_large"
+        android:textColor="@android:color/white"/>
+
+    <TextView
+        android:id="@+id/tv_call_desc"
+        style="@style/FC_LargeTextStyle"
+        android:layout_below="@+id/tv_call_name"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="@dimen/spacing_small"
+        android:textColor="@android:color/darker_gray"/>
+
+</RelativeLayout>

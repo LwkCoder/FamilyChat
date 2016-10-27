@@ -9,27 +9,19 @@ import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
 import android.media.AudioManager;
-import android.os.Bundle;
 import android.os.PowerManager;
 import android.os.SystemClock;
 import android.provider.Settings;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AlertDialog;
 import android.view.View;
-import android.view.ViewStub;
-import android.widget.CheckBox;
 import android.widget.Chronometer;
-import android.widget.CompoundButton;
-import android.widget.ImageView;
-import android.widget.TextView;
 
 import com.hyphenate.chat.EMCallStateChangeListener;
-import com.lib.base.utils.StringUtil;
 import com.lwk.familycontact.R;
 import com.lwk.familycontact.im.helper.HxCallHelper;
 import com.lwk.familycontact.im.listener.HxCallStateChangeListener;
 import com.lwk.familycontact.project.call.presenter.HxVoiceCallPresenter;
-import com.lwk.familycontact.project.chat.utils.HeadSetReceiver;
 import com.lwk.familycontact.project.common.CommonUtils;
 
 import permissions.dispatcher.NeedsPermission;
@@ -44,31 +36,11 @@ import permissions.dispatcher.RuntimePermissions;
  */
 @RuntimePermissions
 public class HxVoiceCallActivity extends HxBaseCallActivity implements HxVoiceCallView
-        , HeadSetReceiver.onHeadSetStateChangeListener
         , SensorEventListener
 {
-    private static final String INTENT_KEY_PHONE = "opPhone";
-    private static final String INTENT_KEY_IS_COMING_CALL = "isComingCall";
-    private String mOpPhone;
-    private boolean mIsComingCall;
     private HxVoiceCallPresenter mPresenter;
-    private ImageView mImgHead;
-    private TextView mTvName;
-    private TextView mTvDesc;
-    private View mViewReceiverPanel;
-    private CheckBox mCkMute;
-    private CheckBox mCkHandsFree;
-    private TextView mTvNetworkUnstable;
+    //计时器
     private Chronometer mChronometer;
-    private HxCallStateChangeListener mStateChangeListener;
-    //是否主动接听电话
-    private boolean mHasAnswer = false;
-    //主动去电是否被接听
-    private boolean mHasAccept = false;
-    //挂断后结束界面的延迟时长
-    private static final long sDELAY_TIME = 1500L;
-    //耳机监听
-    private HeadSetReceiver mHeadSetReceiver;
     //距离传感器控制对象
     private SensorManager mSensorManager;
     private Sensor mSensor;
@@ -92,29 +64,6 @@ public class HxVoiceCallActivity extends HxBaseCallActivity implements HxVoiceCa
     }
 
     @Override
-    protected void beforeOnCreate(Bundle savedInstanceState)
-    {
-        super.beforeOnCreate(savedInstanceState);
-        getIntentData();
-    }
-
-    @Override
-    protected void onNewIntent(Intent intent)
-    {
-        super.onNewIntent(intent);
-        getIntentData();
-    }
-
-    private void getIntentData()
-    {
-        Intent intent = getIntent();
-        mOpPhone = intent.getStringExtra(INTENT_KEY_PHONE);
-        mIsComingCall = intent.getBooleanExtra(INTENT_KEY_IS_COMING_CALL, false);
-        if (StringUtil.isEmpty(mOpPhone))
-            finish();
-    }
-
-    @Override
     protected int setContentViewId()
     {
         mPresenter = new HxVoiceCallPresenter(this, mMainHandler);
@@ -124,10 +73,7 @@ public class HxVoiceCallActivity extends HxBaseCallActivity implements HxVoiceCa
     @Override
     protected void initUI()
     {
-        mImgHead = findView(R.id.img_voicecall_avatar);
-        mTvName = findView(R.id.tv_voicecall_name);
-        mTvDesc = findView(R.id.tv_voicecall_desc);
-        mTvNetworkUnstable = findView(R.id.tv_voicecall_network_unstable);
+        super.initUI();
         mChronometer = findView(R.id.chm_voicecall_time);
     }
 
@@ -139,8 +85,8 @@ public class HxVoiceCallActivity extends HxBaseCallActivity implements HxVoiceCa
         mStateChangeListener = new HxCallStateChangeListener(mMainHandler, this);
         HxCallHelper.getInstance().addCallStateChangeListener(mStateChangeListener);
 
+        //设置对方用户数据
         mPresenter.setOpData(mOpPhone);
-        mHeadSetReceiver = HeadSetReceiver.registInActivity(this, this);
 
         //接收到来电时
         if (mIsComingCall)
@@ -185,27 +131,6 @@ public class HxVoiceCallActivity extends HxBaseCallActivity implements HxVoiceCa
     public void answerCall()
     {
         mPresenter.answerCall();
-    }
-
-    //展示接收到来电panel
-    private void showComingCallPanel()
-    {
-        ViewStub vs = findView(R.id.vs_voicecall_receiver_panel);
-        mViewReceiverPanel = vs.inflate();
-        addClick(R.id.btn_voicecall_receiver_panel_rejectcall);
-        addClick(R.id.btn_voicecall_receiver_panel_answercall);
-    }
-
-    //展示通话中/去电等待panel
-    private void showCallingPanel()
-    {
-        ViewStub vs = findView(R.id.vs_voicecall_calling_panel);
-        vs.inflate();
-        mCkHandsFree = findView(R.id.ck_voicecall_calling_panel_handsfree);
-        mCkMute = findView(R.id.ck_voicecall_calling_panel_mute);
-        mCkHandsFree.setOnCheckedChangeListener(mHandsFreeListener);
-        mCkMute.setOnCheckedChangeListener(mMuteListener);
-        addClick(R.id.btn_voicecall_calling_panel_endcall);
     }
 
     @Override
@@ -361,89 +286,20 @@ public class HxVoiceCallActivity extends HxBaseCallActivity implements HxVoiceCa
             mTvNetworkUnstable.setVisibility(View.GONE);
     }
 
-    //设置静音是否可用
-    private void setMuteEnable(boolean enable)
-    {
-        if (mCkMute != null)
-            mCkMute.setEnabled(enable);
-    }
-
-    //延迟关闭界面
-    private void finishWithDelay()
-    {
-        mMainHandler.postDelayed(new Runnable()
-        {
-            @Override
-            public void run()
-            {
-                finish();
-            }
-        }, sDELAY_TIME);
-    }
-
     @Override
     protected void onClick(int id, View v)
     {
         switch (id)
         {
-            case R.id.btn_voicecall_receiver_panel_answercall:
+            case R.id.btn_call_receiver_panel_answercall:
                 pickUpComingCall();
                 break;
-            case R.id.btn_voicecall_receiver_panel_rejectcall:
+            case R.id.btn_call_receiver_panel_rejectcall:
                 mPresenter.rejectCall();
                 break;
-            case R.id.btn_voicecall_calling_panel_endcall:
+            case R.id.btn_call_calling_panel_endcall:
                 mPresenter.endCall();
                 break;
-        }
-    }
-
-    //静音开关切换
-    private CompoundButton.OnCheckedChangeListener mMuteListener = new CompoundButton.OnCheckedChangeListener()
-    {
-        @Override
-        public void onCheckedChanged(CompoundButton buttonView, boolean isChecked)
-        {
-            switchMuteMode(isChecked);
-        }
-    };
-
-    //免提开关切换
-    private CompoundButton.OnCheckedChangeListener mHandsFreeListener = new CompoundButton.OnCheckedChangeListener()
-    {
-        @Override
-        public void onCheckedChanged(CompoundButton buttonView, boolean isChecked)
-        {
-            switchHandsFreeMode(isChecked);
-        }
-    };
-
-
-    @Override
-    public void onHeadSetStateChanged(boolean headSetIn)
-    {
-        if (headSetIn)
-        {
-            //插入耳机后免提关闭且设置为不可更改
-            if (mCkHandsFree != null)
-            {
-                mCkHandsFree.setChecked(false);
-                mCkHandsFree.setEnabled(false);
-            }
-            if (mAudioMgr != null)
-                mAudioMgr.setMode(AudioManager.MODE_IN_COMMUNICATION);
-        } else
-        {
-            if (mCkHandsFree != null)
-                mCkHandsFree.setEnabled(true);
-            //耳机拔出后，还未接通通话时设置Mode为Ringtong，否则设置为Communication
-            if (mAudioMgr != null)
-            {
-                if (!mHasAccept && !mHasAnswer)
-                    mAudioMgr.setMode(AudioManager.MODE_RINGTONE);
-                else
-                    mAudioMgr.setMode(AudioManager.MODE_IN_COMMUNICATION);
-            }
         }
     }
 
@@ -573,7 +429,6 @@ public class HxVoiceCallActivity extends HxBaseCallActivity implements HxVoiceCa
         if (mChronometer != null)
             mChronometer.stop();
         HxCallHelper.getInstance().removeCallStateChangeListener(mStateChangeListener);
-        HeadSetReceiver.unregistFromActivity(this, mHeadSetReceiver);
         //释放距离传感器
         if (mSensor != null && mSensorManager != null)
         {

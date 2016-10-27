@@ -12,7 +12,7 @@
         android:layout_weight="1">
 
         <CheckBox
-            android:id="@+id/ck_voicecall_calling_panel_mute"
+            android:id="@id/ck_call_calling_panel_mute"
             style="@style/CkVoiceCallStyle"
             android:background="@drawable/ck_voicecall_mute_selector"/>
 
@@ -24,7 +24,7 @@
         android:layout_weight="1">
 
         <Button
-            android:id="@+id/btn_voicecall_calling_panel_endcall"
+            android:id="@id/btn_call_calling_panel_endcall"
             android:layout_width="@dimen/btn_voicecall_panel_size"
             android:layout_height="@dimen/btn_voicecall_panel_size"
             android:layout_gravity="center"
@@ -37,7 +37,7 @@
         android:layout_weight="1">
 
         <CheckBox
-            android:id="@+id/ck_voicecall_calling_panel_handsfree"
+            android:id="@id/ck_call_calling_panel_handsfree"
             style="@style/CkVoiceCallStyle"
             android:background="@drawable/ck_voicecall_handsfree_selector"/>
     </FrameLayout>

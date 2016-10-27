@@ -12,7 +12,7 @@
         android:layout_weight="1">
 
         <Button
-            android:id="@+id/btn_voicecall_receiver_panel_rejectcall"
+            android:id="@id/btn_call_receiver_panel_rejectcall"
             android:layout_width="@dimen/btn_voicecall_panel_size"
             android:layout_height="@dimen/btn_voicecall_panel_size"
             android:layout_gravity="center"
@@ -30,7 +30,7 @@
         android:layout_weight="1">
 
         <Button
-            android:id="@+id/btn_voicecall_receiver_panel_answercall"
+            android:id="@id/btn_call_receiver_panel_answercall"
             android:layout_width="@dimen/btn_voicecall_panel_size"
             android:layout_height="@dimen/btn_voicecall_panel_size"
             android:layout_gravity="center"

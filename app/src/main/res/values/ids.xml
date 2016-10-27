@@ -14,4 +14,16 @@
 
     <item name="pgb_chat_listitem_sending" type="id"/>
     <item name="img_chat_listitem_resend" type="id"/>
+
+    <item name="img_call_avatar" type="id"/>
+    <item name="tv_call_name" type="id"/>
+    <item name="tv_call_desc" type="id"/>
+    <item name="tv_call_network_unstable" type="id"/>
+    <item name="ck_call_calling_panel_mute" type="id"/>
+    <item name="btn_call_calling_panel_endcall" type="id"/>
+    <item name="ck_call_calling_panel_handsfree" type="id"/>
+    <item name="btn_call_receiver_panel_rejectcall" type="id"/>
+    <item name="btn_call_receiver_panel_answercall" type="id"/>
+    <item name="vs_voicecall_calling_panel" type="id"/>
+    <item name="vs_voicecall_receiver_panel" type="id"/>
 </resources>

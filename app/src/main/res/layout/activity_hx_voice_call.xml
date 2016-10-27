@@ -29,7 +29,7 @@
         android:visibility="invisible"/>
 
     <ImageView
-        android:id="@+id/img_voicecall_avatar"
+        android:id="@id/img_call_avatar"
         android:layout_width="120dp"
         android:layout_height="120dp"
         android:layout_below="@+id/chm_voicecall_time"
@@ -38,25 +38,25 @@
         android:src="@drawable/default_avatar"/>
 
     <TextView
-        android:id="@+id/tv_voicecall_name"
+        android:id="@id/tv_call_name"
         style="@style/FC_LargerTextStyle"
-        android:layout_below="@+id/img_voicecall_avatar"
+        android:layout_below="@id/img_call_avatar"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="@dimen/spacing_large"
         android:textColor="@android:color/white"/>
 
     <TextView
-        android:id="@+id/tv_voicecall_desc"
+        android:id="@id/tv_call_desc"
         style="@style/FC_LargeTextStyle"
-        android:layout_below="@+id/tv_voicecall_name"
+        android:layout_below="@id/tv_call_name"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="@dimen/spacing_small"
         android:textColor="@android:color/darker_gray"/>
 
     <TextView
-        android:id="@+id/tv_voicecall_network_unstable"
+        android:id="@id/tv_call_network_unstable"
         style="@style/FC_NormalTextStyle"
-        android:layout_below="@+id/tv_voicecall_desc"
+        android:layout_below="@+id/tv_call_desc"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="@dimen/dp_48"
         android:background="#70000000"
@@ -70,7 +70,7 @@
         android:visibility="gone"/>
 
     <ViewStub
-        android:id="@+id/vs_voicecall_calling_panel"
+        android:id="@id/vs_voicecall_calling_panel"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
@@ -80,7 +80,7 @@
         android:layout="@layout/layout_voice_call_calling_panel"/>
 
     <ViewStub
-        android:id="@+id/vs_voicecall_receiver_panel"
+        android:id="@id/vs_voicecall_receiver_panel"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"

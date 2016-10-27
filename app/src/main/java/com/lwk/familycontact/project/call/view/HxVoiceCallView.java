@@ -7,7 +7,5 @@ package com.lwk.familycontact.project.call.view;
  */
 public interface HxVoiceCallView extends HxCallView
 {
-    void setHead(String url);
 
-    void setName(String name);
 }

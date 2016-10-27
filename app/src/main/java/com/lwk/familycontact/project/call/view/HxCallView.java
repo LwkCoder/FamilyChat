@@ -9,6 +9,10 @@ import com.hyphenate.chat.EMCallStateChangeListener;
  */
 public interface HxCallView
 {
+    void setHead(String url);
+
+    void setName(String name);
+
     void connecting();
 
     void connected();
