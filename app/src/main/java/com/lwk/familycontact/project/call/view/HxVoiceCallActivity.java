@@ -17,7 +17,6 @@ import android.view.View;
 import android.widget.Chronometer;
 
 import com.lwk.familycontact.R;
-import com.lwk.familycontact.im.helper.HxCallHelper;
 import com.lwk.familycontact.project.call.presenter.HxVoiceCallPresenter;
 
 import permissions.dispatcher.NeedsPermission;
@@ -253,9 +252,9 @@ public class HxVoiceCallActivity extends HxBaseCallActivity implements HxVoiceCa
     @Override
     protected void onDestroy()
     {
+        super.onDestroy();
         if (mChronometer != null)
             mChronometer.stop();
-        HxCallHelper.getInstance().removeCallStateChangeListener(mStateChangeListener);
         //释放距离传感器
         if (mSensor != null && mSensorManager != null)
         {
@@ -266,6 +265,5 @@ public class HxVoiceCallActivity extends HxBaseCallActivity implements HxVoiceCa
         //挂机后亮屏再释放锁
         setScreenOn();
         releaseWakeLock();
-        super.onDestroy();
     }
 }

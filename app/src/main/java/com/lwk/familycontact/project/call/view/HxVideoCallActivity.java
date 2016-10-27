@@ -12,7 +12,6 @@ import android.view.View;
 import com.hyphenate.media.EMLocalSurfaceView;
 import com.hyphenate.media.EMOppositeSurfaceView;
 import com.lwk.familycontact.R;
-import com.lwk.familycontact.im.helper.HxCallHelper;
 import com.lwk.familycontact.project.call.presenter.HxVideoCallPrenter;
 import com.superrtc.sdk.VideoView;
 
@@ -198,6 +197,7 @@ public class HxVideoCallActivity extends HxBaseCallActivity implements HxVideoCa
     @Override
     protected void onDestroy()
     {
+        super.onDestroy();
         mPresenter.stopVideoRecord();
         if (mSfvLocal != null)
         {
@@ -209,7 +209,5 @@ public class HxVideoCallActivity extends HxBaseCallActivity implements HxVideoCa
             mSfvOpposite.getRenderer().dispose();
             mSfvOpposite = null;
         }
-        HxCallHelper.getInstance().removeCallStateChangeListener(mStateChangeListener);
-        super.onDestroy();
     }
 }

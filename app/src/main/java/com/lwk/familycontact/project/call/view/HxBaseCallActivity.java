@@ -559,6 +559,7 @@ public abstract class HxBaseCallActivity extends FCBaseActivity implements HeadS
     protected void onDestroy()
     {
         HeadSetReceiver.unregistFromActivity(this, mHeadSetReceiver);
+        HxCallHelper.getInstance().removeCallStateChangeListener(mStateChangeListener);
         stopWaittingRingtong();
         stopInComingRingtong();
         if (mAudioMgr != null)
