@@ -26,7 +26,7 @@ import permissions.dispatcher.RuntimePermissions;
  * 实时视频通话界面
  */
 @RuntimePermissions
-public class HxVideoCallActivity extends HxBaseCallActivity implements HxVideoCallView
+public class HxVideoCallActivity extends HxCallBaseActivity implements HxVideoCallView
 {
     private HxVideoCallPrenter mPresenter;
     private View mViewHeader;

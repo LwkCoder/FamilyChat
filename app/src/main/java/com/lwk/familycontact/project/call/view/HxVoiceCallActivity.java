@@ -30,7 +30,7 @@ import permissions.dispatcher.RuntimePermissions;
  * 环信实时语音通话界面
  */
 @RuntimePermissions
-public class HxVoiceCallActivity extends HxBaseCallActivity implements HxVoiceCallView
+public class HxVoiceCallActivity extends HxCallBaseActivity implements HxVoiceCallView
         , SensorEventListener
 {
     private HxVoiceCallPresenter mPresenter;

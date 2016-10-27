@@ -32,7 +32,7 @@ import com.lwk.familycontact.project.common.CommonUtils;
  * TODO 实时通话界面基类
  * 2016/10/21
  */
-public abstract class HxBaseCallActivity extends FCBaseActivity implements HeadSetReceiver.onHeadSetStateChangeListener, HxCallView
+public abstract class HxCallBaseActivity extends FCBaseActivity implements HeadSetReceiver.onHeadSetStateChangeListener, HxCallView
 {
 
     protected static final String INTENT_KEY_PHONE = "opPhone";
@@ -329,7 +329,9 @@ public abstract class HxBaseCallActivity extends FCBaseActivity implements HeadS
         }
     }
 
-    //接起电话
+    /**
+     * 接起通话
+     */
     protected void pickUpComingCall()
     {
         doAnswercall();
@@ -392,7 +394,9 @@ public abstract class HxBaseCallActivity extends FCBaseActivity implements HeadS
         }
     }
 
-    //切换免提开关
+    /**
+     * 切换免提开关
+     */
     protected void switchHandsFreeMode(boolean isHandsFree)
     {
         if (mAudioMgr == null)
@@ -401,7 +405,9 @@ public abstract class HxBaseCallActivity extends FCBaseActivity implements HeadS
         mAudioMgr.setSpeakerphoneOn(isHandsFree);
     }
 
-    //切换静音开关
+    /**
+     * 切换静音开关
+     */
     protected void switchMuteMode(boolean isMute)
     {
         try
@@ -412,7 +418,7 @@ public abstract class HxBaseCallActivity extends FCBaseActivity implements HeadS
                 HxCallHelper.getInstance().resumeVoiceTransfer();
         } catch (HyphenateException e)
         {
-            KLog.e("HxBaseCallActivity switchMuteMode fail:" + e.toString());
+            KLog.e("HxCallBaseActivity switchMuteMode fail:" + e.toString());
         }
     }
 
@@ -486,7 +492,9 @@ public abstract class HxBaseCallActivity extends FCBaseActivity implements HeadS
         }
     }
 
-    //展示接收到来电panel
+    /**
+     * 显示接收到来电panel
+     */
     protected void showComingCallPanel()
     {
         ViewStub vs = findView(R.id.vs_voicecall_receiver_panel);
@@ -495,7 +503,9 @@ public abstract class HxBaseCallActivity extends FCBaseActivity implements HeadS
         addClick(R.id.btn_call_receiver_panel_answercall);
     }
 
-    //展示通话中/去电等待panel
+    /**
+     * 显示通话中/去电等待panel
+     */
     protected void showCallingPanel()
     {
         ViewStub vs = findView(R.id.vs_voicecall_calling_panel);
@@ -535,14 +545,18 @@ public abstract class HxBaseCallActivity extends FCBaseActivity implements HeadS
         }
     }
 
-    //设置静音是否可用
+    /**
+     * 设置静音是否可用
+     */
     protected void setMuteEnable(boolean enable)
     {
         if (mCkMute != null)
             mCkMute.setEnabled(enable);
     }
 
-    //延迟关闭界面
+    /**
+     * 延迟关闭界面
+     */
     protected void finishWithDelay()
     {
         mMainHandler.postDelayed(new Runnable()
