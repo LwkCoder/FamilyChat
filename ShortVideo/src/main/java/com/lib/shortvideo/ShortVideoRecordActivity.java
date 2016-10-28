@@ -31,6 +31,7 @@ import com.lib.shortvideo.videoview.views.WXProgressBar;
 import java.util.ArrayList;
 import java.util.List;
 
+
 /**
  * 短视频录制界面
  */
