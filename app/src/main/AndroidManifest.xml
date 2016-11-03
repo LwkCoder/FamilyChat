@@ -56,7 +56,7 @@
         </receiver>
 
         <meta-data
-            android:name="com.lwk.familycontact.project.common.FCGlideModules"
+            android:name="com.lwk.familycontact.project.common.image.FCGlideModules"
             android:value="GlideModule"/>
 
         <activity

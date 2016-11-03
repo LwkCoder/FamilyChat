@@ -5,9 +5,13 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/colorPrimaryDark"
-    android:fitsSystemWindows="true"
     tools:context=".project.call.view.HxVoiceCallActivity">
 
+    <ImageView
+        android:id="@+id/img_voicecall_blur"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scaleType="centerCrop"/>
 
     <TextView
         android:id="@+id/tv_voicecall_label"

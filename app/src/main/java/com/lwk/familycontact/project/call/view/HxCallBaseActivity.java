@@ -2,6 +2,7 @@ package com.lwk.familycontact.project.call.view;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
 import android.media.AudioManager;
 import android.media.MediaPlayer;
 import android.media.SoundPool;
@@ -13,6 +14,7 @@ import android.view.WindowManager;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.hyphenate.chat.EMCallStateChangeListener;
@@ -82,6 +84,7 @@ public abstract class HxCallBaseActivity extends FCBaseActivity implements HeadS
     protected void beforeOnCreate(Bundle savedInstanceState)
     {
         ScreenUtils.changStatusbarTransparent(this);
+        ScreenUtils.changeNavigationBarColor(this, Color.TRANSPARENT);
 
         //保持屏幕常亮
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON
@@ -279,7 +282,6 @@ public abstract class HxCallBaseActivity extends FCBaseActivity implements HeadS
         if (mTvDesc != null)
         {
             if (callError == EMCallStateChangeListener.CallError.ERROR_NO_DATA
-                    || callError == EMCallStateChangeListener.CallError.ERROR_TRANSPORT
                     || callError == EMCallStateChangeListener.CallError.ERROR_LOCAL_SDK_VERSION_OUTDATED
                     || callError == EMCallStateChangeListener.CallError.ERROR_REMOTE_SDK_VERSION_OUTDATED)
                 mTvDesc.setText(R.string.call_state_unknow_error);
@@ -499,6 +501,7 @@ public abstract class HxCallBaseActivity extends FCBaseActivity implements HeadS
     {
         ViewStub vs = findView(R.id.vs_voicecall_receiver_panel);
         mViewReceiverPanel = vs.inflate();
+        setMarginFromBottom(mViewReceiverPanel);
         addClick(R.id.btn_call_receiver_panel_rejectcall);
         addClick(R.id.btn_call_receiver_panel_answercall);
     }
@@ -510,11 +513,23 @@ public abstract class HxCallBaseActivity extends FCBaseActivity implements HeadS
     {
         ViewStub vs = findView(R.id.vs_voicecall_calling_panel);
         mViewCallingPanel = vs.inflate();
+        setMarginFromBottom(mViewCallingPanel);
         mCkHandsFree = findView(R.id.ck_call_calling_panel_handsfree);
         mCkMute = findView(R.id.ck_call_calling_panel_mute);
         mCkHandsFree.setOnCheckedChangeListener(mHandsFreeListener);
         mCkMute.setOnCheckedChangeListener(mMuteListener);
         addClick(R.id.btn_call_calling_panel_endcall);
+    }
+
+    //设置panel和底部的边距【因为透明状态栏会导致虚拟导航键盖住panel】
+    private void setMarginFromBottom(View view)
+    {
+        if (view == null)
+            return;
+
+        RelativeLayout.LayoutParams layoutParams = (RelativeLayout.LayoutParams) view.getLayoutParams();
+        layoutParams.bottomMargin += ScreenUtils.getNavigationBarHeight(this);
+        view.setLayoutParams(layoutParams);
     }
 
     @Override

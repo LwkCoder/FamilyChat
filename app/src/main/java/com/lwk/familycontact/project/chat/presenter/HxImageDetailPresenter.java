@@ -16,7 +16,7 @@ import com.lwk.familycontact.base.FCApplication;
 import com.lwk.familycontact.project.chat.model.HxImageDetailModel;
 import com.lwk.familycontact.project.chat.view.HxImageDetailView;
 import com.lwk.familycontact.project.common.CommonUtils;
-import com.lwk.familycontact.project.common.OnBitmapDownloadListener;
+import com.lwk.familycontact.project.common.image.OnBitmapDownloadListener;
 import com.lwk.familycontact.utils.other.ThreadManager;
 
 import java.io.File;

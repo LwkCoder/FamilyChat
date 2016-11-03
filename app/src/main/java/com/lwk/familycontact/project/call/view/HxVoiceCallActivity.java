@@ -15,9 +15,12 @@ import android.support.annotation.NonNull;
 import android.support.v7.app.AlertDialog;
 import android.view.View;
 import android.widget.Chronometer;
+import android.widget.ImageView;
 
+import com.lib.base.utils.StringUtil;
 import com.lwk.familycontact.R;
 import com.lwk.familycontact.project.call.presenter.HxVoiceCallPresenter;
+import com.lwk.familycontact.project.common.CommonUtils;
 
 import permissions.dispatcher.NeedsPermission;
 import permissions.dispatcher.OnNeverAskAgain;
@@ -41,6 +44,8 @@ public class HxVoiceCallActivity extends HxCallBaseActivity implements HxVoiceCa
     private Sensor mSensor;
     //亮度控制
     private PowerManager.WakeLock mWakeLock;
+    //背景模糊图
+    private ImageView mImgBlurBg;
 
     /**
      * 跳转到该界面的公共方法
@@ -70,12 +75,21 @@ public class HxVoiceCallActivity extends HxCallBaseActivity implements HxVoiceCa
     {
         super.initUI();
         mChronometer = findView(R.id.chm_voicecall_time);
+        mImgBlurBg = findView(R.id.img_voicecall_blur);
     }
 
     @Override
     public void setOpUserData()
     {
         mPresenter.setOpData(mOpPhone);
+    }
+
+    @Override
+    public void setHead(String url)
+    {
+        super.setHead(url);
+        if (StringUtil.isNotEmpty(url) && mImgBlurBg != null)
+            CommonUtils.getInstance().getImageDisplayer().displayBlurImage(this, mImgBlurBg, url, 25, 6);
     }
 
     @Override

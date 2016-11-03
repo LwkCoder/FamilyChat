@@ -1,4 +1,4 @@
-package com.lwk.familycontact.project.common;
+package com.lwk.familycontact.project.common.image;
 
 import android.content.Context;
 import android.graphics.Bitmap;
@@ -34,6 +34,15 @@ public class GlideImageDisplayer implements ImageDisplayer
                 .placeholder(holderImgResId)
                 .error(errorImgResId)
                 .override(maxWidth, maxHeight)
+                .into(imageView);
+    }
+
+    @Override
+    public void displayBlurImage(Context context, ImageView imageView, String url, int radius, int sampling)
+    {
+        Glide.with(context)
+                .load(url)
+                .bitmapTransform(new BlurTransformation(context, radius, sampling))
                 .into(imageView);
     }
 

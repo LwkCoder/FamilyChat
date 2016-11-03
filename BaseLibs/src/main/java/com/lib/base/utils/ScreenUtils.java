@@ -227,7 +227,7 @@ public class ScreenUtils
                     | View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
                     | View.SYSTEM_UI_FLAG_LAYOUT_STABLE);
             window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
-            window.setNavigationBarColor(Color.GREEN);//切换导航栏颜色
+            window.setNavigationBarColor(color);//切换导航栏颜色
         }
     }
 

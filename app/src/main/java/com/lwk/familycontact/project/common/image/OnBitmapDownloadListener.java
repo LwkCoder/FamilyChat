@@ -1,4 +1,4 @@
-package com.lwk.familycontact.project.common;
+package com.lwk.familycontact.project.common.image;
 
 import android.graphics.Bitmap;
 

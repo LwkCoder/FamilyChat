@@ -1,4 +1,4 @@
-package com.lwk.familycontact.project.common;
+package com.lwk.familycontact.project.common.image;
 
 import android.content.Context;
 
@@ -10,6 +10,7 @@ import com.bumptech.glide.load.engine.cache.LruResourceCache;
 import com.bumptech.glide.load.engine.cache.MemorySizeCalculator;
 import com.bumptech.glide.module.GlideModule;
 import com.lib.base.utils.SdUtils;
+import com.lwk.familycontact.project.common.FCCache;
 
 /**
  * GlideModule:指定Glide的缓存参数
