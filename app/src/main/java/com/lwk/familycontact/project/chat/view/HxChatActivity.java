@@ -23,7 +23,7 @@ import com.lib.imagepicker.ImagePicker;
 import com.lib.imagepicker.bean.ImageBean;
 import com.lib.imrecordbutton.IMRecordListener;
 import com.lib.ptrview.CommonPtrLayout;
-import com.lib.shortvideo.ShortVideoRecordActivity;
+import com.lib.shortvideo.RecordShortVideoActivity;
 import com.lwk.familycontact.R;
 import com.lwk.familycontact.base.FCBaseActivity;
 import com.lwk.familycontact.project.call.view.HxVideoCallActivity;
@@ -369,8 +369,8 @@ public class HxChatActivity extends FCBaseActivity implements HxChatView
                 });
                 break;
             case HxChatPlusDialog.ITEM_VIDEO:
-                ShortVideoRecordActivity.start(this, REQUEST_CODE_SHORT_VIDEO, RESULT_CODE_SHORT_VIDEO
-                        , 540, 540, FCCache.getInstance().getVideoCachePath(), 1, 10);
+                RecordShortVideoActivity.start(this, 10, 1, 1.0f, FCCache.getInstance().getVideoCachePath()
+                        , REQUEST_CODE_SHORT_VIDEO, RESULT_CODE_SHORT_VIDEO);
                 break;
             case HxChatPlusDialog.ITEM_VOICE_CALL:
                 HxVoiceCallActivity.start(this, mUserBean.getPhone(), false);
@@ -472,9 +472,10 @@ public class HxChatActivity extends FCBaseActivity implements HxChatView
             case REQUEST_CODE_SHORT_VIDEO:
                 if (resultCode == RESULT_CODE_SHORT_VIDEO)
                 {
-                    String videoPath = data.getStringExtra(ShortVideoRecordActivity.INTENT_KEY_RESULT_PATH);
-                    long time = data.getLongExtra(ShortVideoRecordActivity.INTENT_KEY_RESULT_TIME, 0);
-                    mPresenter.sendVideoMessage(mConType, mConversationId, videoPath, time);
+                    String videoPath = data.getStringExtra(RecordShortVideoActivity.INTENT_KEY_RESULT_PATH);
+                    long time = data.getLongExtra(RecordShortVideoActivity.INTENT_KEY_RESULT_DURATION, 0);
+                    if (videoPath != null && time > 0)
+                        mPresenter.sendVideoMessage(mConType, mConversationId, videoPath, time);
                 }
                 break;
         }

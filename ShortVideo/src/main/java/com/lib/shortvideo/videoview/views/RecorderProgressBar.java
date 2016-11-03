@@ -14,12 +14,11 @@ import com.lib.shortvideo.R;
 
 /**
  * Created by LWK
- * TODO
+ * TODO 两边逐渐变短的ProgressBar
  * 2016/10/18
  */
-public class WXProgressBar extends View
+public class RecorderProgressBar extends View
 {
-
     //默认常规状态的颜色
     private static final int DEFAULT_NORMAL_COLOR = Color.TRANSPARENT;
     // 默认运行中颜色
@@ -35,19 +34,19 @@ public class WXProgressBar extends View
     private int mRunningColor;
     private int mCancelColor;
 
-    public WXProgressBar(Context context)
+    public RecorderProgressBar(Context context)
     {
         super(context);
         init(context, null, 0);
     }
 
-    public WXProgressBar(Context context, AttributeSet attrs)
+    public RecorderProgressBar(Context context, AttributeSet attrs)
     {
         super(context, attrs);
         init(context, attrs, 0);
     }
 
-    public WXProgressBar(Context context, AttributeSet attrs, int defStyleAttr)
+    public RecorderProgressBar(Context context, AttributeSet attrs, int defStyleAttr)
     {
         super(context, attrs, defStyleAttr);
         init(context, attrs, defStyleAttr);
@@ -55,10 +54,10 @@ public class WXProgressBar extends View
 
     private void init(Context context, AttributeSet attrs, int defStyleAttr)
     {
-        TypedArray ta = context.obtainStyledAttributes(attrs, R.styleable.WXProgressBar);
-        mNormalColor = ta.getColor(R.styleable.WXProgressBar_wx_pgb_normal_color, DEFAULT_NORMAL_COLOR);
-        mRunningColor = ta.getColor(R.styleable.WXProgressBar_wx_pgb_running_color, DEFAULT_RUNNING_COLOR);
-        mCancelColor = ta.getColor(R.styleable.WXProgressBar_wx_pgb_cancel_color, DEFAULT_CANCEL_COLOR);
+        TypedArray ta = context.obtainStyledAttributes(attrs, R.styleable.RecorderProgressBar);
+        mNormalColor = ta.getColor(R.styleable.RecorderProgressBar_wx_pgb_normal_color, DEFAULT_NORMAL_COLOR);
+        mRunningColor = ta.getColor(R.styleable.RecorderProgressBar_wx_pgb_running_color, DEFAULT_RUNNING_COLOR);
+        mCancelColor = ta.getColor(R.styleable.RecorderProgressBar_wx_pgb_cancel_color, DEFAULT_CANCEL_COLOR);
         ta.recycle();
         setState(State.NORMAL);
     }
@@ -127,7 +126,7 @@ public class WXProgressBar extends View
      */
     public long getPastTime()
     {
-        return System.currentTimeMillis() - mStartTime;
+        return mStartTime != 0 ? System.currentTimeMillis() - mStartTime : 0;
     }
 
     //取消动画

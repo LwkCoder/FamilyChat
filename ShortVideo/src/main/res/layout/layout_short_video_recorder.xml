@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@android:color/black"
+                android:orientation="vertical">
+
+    <com.lib.shortvideo.videoview.views.CameraSurfaceView
+        android:id="@+id/sfv_shortvideo_record"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"/>
+
+    <TextView
+        android:id="@+id/tv_shortvideo_cancel_hint"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/sfv_shortvideo_record"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="4dp"
+        android:background="#80000000"
+        android:padding="4dp"
+        android:text="@string/tv_shortvideo_cancel_hint_normal"
+        android:textColor="@android:color/white"
+        android:textSize="15sp"
+        android:visibility="invisible"/>
+
+    <include
+        layout="@layout/layout_shortvideo_record_controller"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_alignParentBottom="true"
+        android:layout_below="@+id/sfv_shortvideo_record"/>
+
+</RelativeLayout>

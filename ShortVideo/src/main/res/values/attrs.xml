@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <declare-styleable name="CameraPreviewView">
-        <attr name="cpv_focusDrawable" format="reference"/>
-        <attr name="cpv_indicatorDrawable" format="reference"/>
-    </declare-styleable>
-
-    <declare-styleable name="WXProgressBar">
+    <declare-styleable name="RecorderProgressBar">
         <attr name="wx_pgb_normal_color" format="color"/>
         <attr name="wx_pgb_running_color" format="color"/>
         <attr name="wx_pgb_cancel_color" format="color"/>
     </declare-styleable>
 
+    <declare-styleable name="ShortVideoRecorder">
+        <attr name="max_duration" format="integer"/>
+        <attr name="min_duration" format="integer"/>
+        <attr name="video_height_width_rate" format="float"/>
+    </declare-styleable>
 </resources>

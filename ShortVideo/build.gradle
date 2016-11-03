@@ -23,6 +23,4 @@ android {
 
 dependencies {
     compile fileTree(include: ['*.jar'], dir: 'libs')
-    compile files('libs/ffmpeg.jar')
-    compile files('libs/javacpp.jar')
 }

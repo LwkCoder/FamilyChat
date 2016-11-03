@@ -2,9 +2,6 @@
     <string name="app_name">录制短视频</string>
     <string name="tv_shortvideo_press_to_record">按住录</string>
     <string name="tv_shortvideo_record_hint">最短录制时间为%%1秒，最大录制时间为%%2秒</string>
-    <string name="error_short_video_record_open_camera">打开相机失败</string>
-    <string name="error_short_video_record_sdcard">Sd卡不可用!</string>
-    <string name="error_short_video_record_fail">录制失败</string>
     <string name="tv_shortvideo_cancel_hint_normal">手指上滑取消录制</string>
     <string name="tv_shortvideo_cancel_hint_release">松开手指取消录制</string>
     <string name="warning_shortvideo_time_too_short">录制时间太短</string>
@@ -15,4 +12,10 @@
     <string name="dialog_shortvideo_nerver_ask_positive">去设置</string>
     <string name="dialog_shortvideo_negetive">取消</string>
     <string name="warning_shortvideo_permission_denied">应用程序无法获取必须权限</string>
+
+    <string name="error_camera_can_not_access">无法打开相机</string>
+    <string name="error_camera_can_not_open_light">无法打开闪光灯</string>
+    <string name="error_sdcard_not_exist">SD卡不存在，无法录像</string>
+    <string name="error_sdcard_not_enough">SD卡存储空间不足,无法录像</string>
+    <string name="error_camera_start_record_fail">无法录制视频</string>
 </resources>

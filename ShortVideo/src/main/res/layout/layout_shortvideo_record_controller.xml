@@ -45,7 +45,7 @@
         android:layout_marginRight="25dp"
         android:background="@drawable/ic_shortvideo_light_normal"/>
 
-    <com.lib.shortvideo.videoview.views.WXProgressBar
+    <com.lib.shortvideo.videoview.views.RecorderProgressBar
         android:id="@+id/rpgb_short_video_record"
         android:layout_width="match_parent"
         android:layout_height="4dp"
