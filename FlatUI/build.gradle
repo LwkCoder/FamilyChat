@@ -1,13 +1,12 @@
 apply plugin: 'com.android.library'
 
 android {
-    compileSdkVersion java.lang.Integer.valueOf(project.ANDROID_COMPILE_SDK_VERSION);
-    buildToolsVersion project.ANDROID_BUILD_TOOLS_VERSION;
-
+    compileSdkVersion COMPILE_SDK_VERSION as int
+    buildToolsVersion BUILD_TOOLS_VERSION
 
     defaultConfig {
-        minSdkVersion java.lang.Integer.valueOf(project.ANDROID_MIN_SDK_VERSION);
-        targetSdkVersion java.lang.Integer.valueOf(project.ANDROID_TARGET_SDK_VERSION);
+        minSdkVersion MIN_SDK_VERSION as int
+        targetSdkVersion TARGET_SDK_VERSION as int
     }
 
     buildTypes {
