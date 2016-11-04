@@ -41,4 +41,33 @@ public class ViewFinder
         }
         return (T) view;
     }
+
+    /**
+     * 通过控件Id设置其对应的点击事件
+     *
+     * @param viewId   控件id
+     * @param listener 点击事件
+     * @return 该控件
+     */
+    public View addClick(int viewId, View.OnClickListener listener)
+    {
+        View view = findView(viewId);
+        if (view != null)
+            view.setOnClickListener(listener);
+        return view;
+    }
+
+    /**
+     * 设置控件点击事件
+     *
+     * @param view     控件对象
+     * @param listener 点击事件
+     * @return 该控件
+     */
+    public View addClick(View view, View.OnClickListener listener)
+    {
+        if (view != null)
+            view.setOnClickListener(listener);
+        return view;
+    }
 }
