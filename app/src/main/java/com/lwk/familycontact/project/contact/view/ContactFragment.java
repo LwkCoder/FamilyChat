@@ -309,9 +309,19 @@ public class ContactFragment extends BaseFragment implements ContactView
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void userProfileUpdated(ProfileUpdateEventBean eventBean)
     {
-        UserBean userBean = eventBean.getUserBean();
-        if (userBean != null)
-            mAdapter.updateUserProfile(userBean);
+        int flag = eventBean.getFlag();
+        //如果是头像更新只需要找到对应的那条数据即可
+        if (flag == ProfileUpdateEventBean.FLAG_UPDATE_HEAD)
+        {
+            UserBean userBean = eventBean.getUserBean();
+            if (userBean != null)
+                mAdapter.updateUserProfile(userBean);
+        }
+        //如果是姓名更新需要全刷数据
+        else
+        {
+            mPresenter.refreshContactDataInDb(false);
+        }
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)

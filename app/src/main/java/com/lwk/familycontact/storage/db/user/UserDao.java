@@ -6,6 +6,7 @@ import com.j256.ormlite.dao.Dao;
 import com.j256.ormlite.stmt.QueryBuilder;
 import com.j256.ormlite.stmt.UpdateBuilder;
 import com.lib.base.log.KLog;
+import com.lib.base.utils.StringUtil;
 import com.lwk.familycontact.base.FCApplication;
 import com.lwk.familycontact.im.helper.HxSdkHelper;
 import com.lwk.familycontact.project.common.FCCallBack;
@@ -118,7 +119,7 @@ public class UserDao extends BaseDao<UserBean, Integer>
     }
 
     /**
-     * 更新某个用户的昵称[不包含app内备注名]
+     * 更新某个用户的昵称
      *
      * @param userBean 更新数据
      * @return 更新成功后返回表中对应的行数，失败代表不存在该phone的数据
@@ -129,11 +130,40 @@ public class UserDao extends BaseDao<UserBean, Integer>
         try
         {
             UpdateBuilder<UserBean, Integer> updateBuilder = getDao().updateBuilder();
-            updateBuilder.updateColumnValue(UserDbConfig.NAME_SYSTEM, userBean.getNameSystem());
-            updateBuilder.updateColumnValue(UserDbConfig.DISPLAY_NAME, userBean.getDisplayName());
-            updateBuilder.updateColumnValue(UserDbConfig.FIRST_CHAR, userBean.getFirstChar());
-            updateBuilder.updateColumnValue(UserDbConfig.SIMPLE_SPELL, userBean.getSimpleSpell());
-            updateBuilder.updateColumnValue(UserDbConfig.FULL_SPELL, userBean.getFullSpell());
+            String nameApp = userBean.getNameApp();
+            String nameSystem = userBean.getNameSystem();
+            //新数据对象中如果app备注名不为空，则所有姓名相关字段都需要更新
+            if (StringUtil.isNotEmpty(nameApp))
+            {
+                updateBuilder.updateColumnValue(UserDbConfig.NAME_APP, userBean.getNameApp());
+                updateBuilder.updateColumnValue(UserDbConfig.NAME_SYSTEM, userBean.getNameSystem());
+                updateBuilder.updateColumnValue(UserDbConfig.DISPLAY_NAME, userBean.getDisplayName());
+                updateBuilder.updateColumnValue(UserDbConfig.FIRST_CHAR, userBean.getFirstChar());
+                updateBuilder.updateColumnValue(UserDbConfig.SIMPLE_SPELL, userBean.getSimpleSpell());
+                updateBuilder.updateColumnValue(UserDbConfig.FULL_SPELL, userBean.getFullSpell());
+            }
+            //新数据对象中系统备注名不为空，需要对比老数据
+            else if (StringUtil.isNotEmpty(nameSystem))
+            {
+                UserBean localBean = queryUserByPhone(userBean.getPhone());
+                if (localBean != null)
+                {
+                    //老数据中app备注名不为空，则只需更新系统备注名
+                    if (StringUtil.isNotEmpty(localBean.getNameApp()))
+                    {
+                        updateBuilder.updateColumnValue(UserDbConfig.NAME_SYSTEM, userBean.getNameSystem());
+                    }
+                    //除了app备注名其余都更新
+                    else
+                    {
+                        updateBuilder.updateColumnValue(UserDbConfig.NAME_SYSTEM, userBean.getNameSystem());
+                        updateBuilder.updateColumnValue(UserDbConfig.DISPLAY_NAME, userBean.getDisplayName());
+                        updateBuilder.updateColumnValue(UserDbConfig.FIRST_CHAR, userBean.getFirstChar());
+                        updateBuilder.updateColumnValue(UserDbConfig.SIMPLE_SPELL, userBean.getSimpleSpell());
+                        updateBuilder.updateColumnValue(UserDbConfig.FULL_SPELL, userBean.getFullSpell());
+                    }
+                }
+            }
 
             updateBuilder.where().eq(UserDbConfig.PHONE, userBean.getPhone());
             lineNum = getDao().update(updateBuilder.prepare());

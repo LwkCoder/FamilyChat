@@ -12,16 +12,28 @@ import com.lwk.familycontact.storage.db.user.UserBean;
  */
 public class ProfileUpdateEventBean implements Parcelable
 {
+    /**
+     * 更新姓名
+     */
+    public static final int FLAG_UPDATE_NAME = 100;
+
+    /**
+     * 更新头像
+     */
+    public static final int FLAG_UPDATE_HEAD = 101;
+
     private UserBean userBean;
-
     private String phone;
+    private int flag;
 
-    public ProfileUpdateEventBean(UserBean userBean)
+    public ProfileUpdateEventBean(UserBean userBean, int flag)
     {
         this.userBean = userBean;
         if (userBean != null)
             this.phone = userBean.getPhone();
+        this.flag = flag;
     }
+
 
     public UserBean getUserBean()
     {
@@ -43,12 +55,23 @@ public class ProfileUpdateEventBean implements Parcelable
         this.phone = phone;
     }
 
+    public int getFlag()
+    {
+        return flag;
+    }
+
+    public void setFlag(int flag)
+    {
+        this.flag = flag;
+    }
+
     @Override
     public String toString()
     {
         return "ProfileUpdateEventBean{" +
                 "userBean=" + userBean +
                 ", phone='" + phone + '\'' +
+                ", flag=" + flag +
                 '}';
     }
 
@@ -63,15 +86,17 @@ public class ProfileUpdateEventBean implements Parcelable
     {
         dest.writeParcelable(this.userBean, flags);
         dest.writeString(this.phone);
+        dest.writeInt(this.flag);
     }
 
     protected ProfileUpdateEventBean(Parcel in)
     {
         this.userBean = in.readParcelable(UserBean.class.getClassLoader());
         this.phone = in.readString();
+        this.flag = in.readInt();
     }
 
-    public static final Parcelable.Creator<ProfileUpdateEventBean> CREATOR = new Parcelable.Creator<ProfileUpdateEventBean>()
+    public static final Creator<ProfileUpdateEventBean> CREATOR = new Creator<ProfileUpdateEventBean>()
     {
         @Override
         public ProfileUpdateEventBean createFromParcel(Parcel source)

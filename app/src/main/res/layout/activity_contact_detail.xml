@@ -43,6 +43,7 @@
                 style="@style/FC_NormalTextStyle"
                 android:layout_alignTop="@+id/img_contact_detail_head"
                 android:layout_toRightOf="@+id/img_contact_detail_head"
+                android:drawablePadding="@dimen/spacing_normal"
                 android:textSize="@dimen/sp_22"/>
 
             <com.cengalabs.flatui.views.FlatTextView

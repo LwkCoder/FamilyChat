@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              xmlns:flatui="http://schemas.android.com/apk/res-auto"
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:layout_margin="@dimen/spacing_normal"
+              android:background="@drawable/shape_rect_dialog_bg"
+              android:orientation="vertical"
+              android:padding="@dimen/spacing_normal">
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/spacing_huge"
+        android:minWidth="250dp">
+
+        <com.cengalabs.flatui.views.FlatTextView
+            style="@style/FC_NormalTextStyle"
+            android:layout_gravity="center_vertical|left"
+            android:text="@string/dialog_update_nameapp_title"
+            android:textColor="@color/colorPrimaryDark"/>
+
+        <ImageView
+            android:id="@+id/img_dialog_update_nameapp_close"
+            android:layout_width="@dimen/dp_40"
+            android:layout_height="@dimen/dp_40"
+            android:layout_gravity="center_vertical|right"
+            android:padding="@dimen/spacing_small"
+            android:src="@drawable/ic_close_black"/>
+    </FrameLayout>
+
+
+    <EditText
+        android:id="@+id/ed_dialog_update_nameapp_content"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:textColor="@color/colorPrimaryDark"
+        android:textSize="@dimen/sp_18"/>
+
+    <com.cengalabs.flatui.views.FlatButton
+        android:id="@+id/btn_dialog_update_nameapp_confirm"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_48"
+        android:layout_marginTop="@dimen/spacing_huge"
+        android:text="@string/confrim"
+        android:textSize="@dimen/sp_20"
+        flatui:fl_textAppearance="fl_none"
+        flatui:fl_theme="@array/grass"
+        flatui:fl_touchEffect="fl_ripple"/>
+
+</LinearLayout>

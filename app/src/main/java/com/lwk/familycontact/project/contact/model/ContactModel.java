@@ -58,8 +58,8 @@ public class ContactModel
             {
                 String oriPhone = cursor.getString(cursor.getColumnIndex(ContactsContract.CommonDataKinds.Phone.NUMBER));
                 String phone = formatPhoneNum(oriPhone);
-                String name = cursor.getString(cursor.getColumnIndex(ContactsContract.CommonDataKinds.Phone.DISPLAY_NAME)).trim();
-                UserBean userBean = new UserBean(name, phone, null, false);
+                String nameSystem = cursor.getString(cursor.getColumnIndex(ContactsContract.CommonDataKinds.Phone.DISPLAY_NAME)).trim();
+                UserBean userBean = new UserBean(nameSystem, phone, null, false);
                 if (resultList == null)
                     resultList = new ArrayList<>();
                 resultList.add(userBean);

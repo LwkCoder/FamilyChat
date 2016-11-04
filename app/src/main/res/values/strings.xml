@@ -94,6 +94,8 @@
     <string name="dialog_contact_detail_first_use_hint">如果未添加对方为好友，则无法给对方发送消息以及拨打语音通话或视频通话（对方如果未注册，可邀请对方注册后再添加好友）</string>
     <string name="dialog_permission_call_phone_message">应用程序需要获取拨打系统电话的权限，否则无法继续呼叫该号码</string>
     <string name="dialog_permission_call_phone_nerver_ask_message">应用程序无法获取拨打系统电话的权限，您可通过系统设置界面打开软件的电话权限。</string>
+    <string name="dialog_update_nameapp_title">修改备注名</string>
+    <string name="warning_dialog_update_nameapp_can_not_empty">备注名不能为空</string>
 
     <!--UserProfileActivity-->
     <string name="tv_user_profile_title">我的资料</string>

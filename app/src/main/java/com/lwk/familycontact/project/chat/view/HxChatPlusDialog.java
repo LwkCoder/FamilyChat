@@ -1,18 +1,17 @@
 package com.lwk.familycontact.project.chat.view;
 
 import android.app.Activity;
-import android.app.Dialog;
 import android.view.View;
-import android.view.ViewGroup;
 
 import com.lwk.familycontact.R;
+import com.lwk.familycontact.utils.dialog.FCBaseDialog;
 
 /**
  * Created by LWK
  * TODO 聊天界面更多种类消息的入口Dialog
  * 2016/9/30
  */
-public class HxChatPlusDialog implements View.OnClickListener
+public class HxChatPlusDialog extends FCBaseDialog implements View.OnClickListener
 {
     //照片/图片
     public static final int ITEM_PHOTO = 1;
@@ -22,55 +21,39 @@ public class HxChatPlusDialog implements View.OnClickListener
     public static final int ITEM_VOICE_CALL = 3;
     //视频通话
     public static final int ITEM_VIDEO_CALL = 4;
-    private Activity mContext;
-    private Dialog mDialog;
+
     private onChatPlusItemSelectedListener mListener;
 
-    public HxChatPlusDialog(Activity activity)
+    public HxChatPlusDialog(Activity context)
     {
-        this.mContext = activity;
+        super(context);
     }
 
-    public void show()
+    @Override
+    public int getContentViewId()
     {
-        if (mDialog == null)
-        {
-            mDialog = new Dialog(mContext, R.style.BaseMyDialog);
-            mDialog.setCancelable(true);
-            mDialog.setCanceledOnTouchOutside(true);
-            View layout =
-                    //                    mContext.getLayoutInflater().inflate(R.layout.dialog_chat_plus, null);
-                    mContext.getLayoutInflater().inflate(R.layout.dialog_chat_plus, (ViewGroup) mContext.findViewById(android.R.id.content), false);
-            mDialog.setContentView(layout);
-            //            Window window = mDialog.getWindow();
-            //            WindowManager.LayoutParams lp = window.getAttributes();
-            //            lp.width = WindowManager.LayoutParams.MATCH_PARENT;
-            //            lp.height = WindowManager.LayoutParams.WRAP_CONTENT;
-            //            lp.gravity = Gravity.CENTER;
-            //            window.setAttributes(lp);
-
-            layout.findViewById(R.id.ll_chat_plus_dialog_pic).setOnClickListener(this);
-            layout.findViewById(R.id.ll_chat_plus_dialog_video).setOnClickListener(this);
-            layout.findViewById(R.id.ll_chat_plus_dialog_voice_call).setOnClickListener(this);
-            layout.findViewById(R.id.ll_chat_plus_dialog_video_call).setOnClickListener(this);
-        }
-
-        if (!mDialog.isShowing())
-            mDialog.show();
+        return R.layout.dialog_chat_plus;
     }
 
-    public void dismiss()
+    @Override
+    public boolean isCancelable()
     {
-        if (isDialogShowing())
-        {
-            mDialog.dismiss();
-            mDialog = null;
-        }
+        return true;
     }
 
-    private boolean isDialogShowing()
+    @Override
+    public boolean isCanceledOnTouchOutside()
     {
-        return mDialog != null && mDialog.isShowing();
+        return true;
+    }
+
+    @Override
+    public void initUI(View contentView)
+    {
+        addClick(R.id.ll_chat_plus_dialog_pic, this);
+        addClick(R.id.ll_chat_plus_dialog_video, this);
+        addClick(R.id.ll_chat_plus_dialog_voice_call, this);
+        addClick(R.id.ll_chat_plus_dialog_video_call, this);
     }
 
     @Override

@@ -15,14 +15,14 @@ import com.lwk.familycontact.utils.other.ThreadManager;
 
 /**
  * Created by LWK
- * TODO 用户资料界面Presenter
+ * TODO 联系人资料详情界面Presenter
  * 2016/8/12
  */
-public class UserDetailPresenter
+public class ContactDetailPresenter
 {
     private UserDetailView mUserDetailView;
 
-    public UserDetailPresenter(UserDetailView userDetailView)
+    public ContactDetailPresenter(UserDetailView userDetailView)
     {
         this.mUserDetailView = userDetailView;
     }
@@ -59,7 +59,7 @@ public class UserDetailPresenter
     }
 
     /**
-     * 更新用户头像
+     * 更新联系人头像
      *
      * @param phone     手机号
      * @param imageBean 头像图片数据
@@ -85,7 +85,39 @@ public class UserDetailPresenter
                 {
                     //发送用户资料更新事件
                     UserBean userBean = UserDao.getInstance().queryUserByPhone(phone);
-                    ProfileUpdateEventBean eventBean = new ProfileUpdateEventBean(userBean);
+                    ProfileUpdateEventBean eventBean = new ProfileUpdateEventBean(userBean, ProfileUpdateEventBean.FLAG_UPDATE_HEAD);
+                    EventBusHelper.getInstance().post(eventBean);
+                }
+            }
+        });
+    }
+
+    /**
+     * 更新联系人app内备注名
+     */
+    public void updateUserNameApp(final UserBean userBean)
+    {
+        if (userBean == null)
+        {
+            mUserDetailView.updateNameFail();
+            return;
+        }
+
+        final String phone = userBean.getPhone();
+        ThreadManager.getInstance().addNewRunnable(new Runnable()
+        {
+            @Override
+            public void run()
+            {
+                int lineNum = UserDao.getInstance().updateUserName(userBean);
+                if (lineNum <= 0)
+                {
+                    mUserDetailView.updateNameFail();
+                } else
+                {
+                    //发送用户资料更新事件
+                    UserBean userBean = UserDao.getInstance().queryUserByPhone(phone);
+                    ProfileUpdateEventBean eventBean = new ProfileUpdateEventBean(userBean, ProfileUpdateEventBean.FLAG_UPDATE_NAME);
                     EventBusHelper.getInstance().post(eventBean);
                 }
             }

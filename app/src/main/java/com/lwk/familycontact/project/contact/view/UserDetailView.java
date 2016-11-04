@@ -20,4 +20,6 @@ public interface UserDetailView
     void showFirstEnterDialog();
 
     void updateLocalHeadFail();
+
+    void updateNameFail();
 }

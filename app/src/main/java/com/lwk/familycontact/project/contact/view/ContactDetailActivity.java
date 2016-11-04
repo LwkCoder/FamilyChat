@@ -4,6 +4,7 @@ import android.Manifest;
 import android.app.Activity;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.provider.Settings;
 import android.support.annotation.NonNull;
@@ -28,7 +29,7 @@ import com.lwk.familycontact.project.call.view.HxVoiceCallActivity;
 import com.lwk.familycontact.project.chat.view.HxChatActivity;
 import com.lwk.familycontact.project.common.CommonUtils;
 import com.lwk.familycontact.project.common.FCCache;
-import com.lwk.familycontact.project.contact.presenter.UserDetailPresenter;
+import com.lwk.familycontact.project.contact.presenter.ContactDetailPresenter;
 import com.lwk.familycontact.storage.db.user.UserBean;
 import com.lwk.familycontact.utils.event.EventBusHelper;
 import com.lwk.familycontact.utils.event.ProfileUpdateEventBean;
@@ -49,10 +50,10 @@ import permissions.dispatcher.RuntimePermissions;
  * 联系人资料详情界面
  */
 @RuntimePermissions
-public class ContactDetailActivity extends FCBaseActivity implements UserDetailView
+public class ContactDetailActivity extends FCBaseActivity implements UserDetailView, UpdateNameAppDialog.onNameAppUpdateListener
 {
     private static final String INTENT_KEY = "user_data_key";
-    private UserDetailPresenter mPresenter;
+    private ContactDetailPresenter mPresenter;
     private UserBean mUserBean;
     private CommonActionBar mActionBar;
     private ImageView mImgHead;
@@ -81,7 +82,7 @@ public class ContactDetailActivity extends FCBaseActivity implements UserDetailV
     {
         super.beforeOnCreate(savedInstanceState);
         mUserBean = getIntent().getParcelableExtra(INTENT_KEY);
-        mPresenter = new UserDetailPresenter(this);
+        mPresenter = new ContactDetailPresenter(this);
         EventBusHelper.getInstance().regist(this);
     }
 
@@ -104,7 +105,13 @@ public class ContactDetailActivity extends FCBaseActivity implements UserDetailV
         mBtnVoiceCall = findView(R.id.btn_contact_detail_voice_call);
         mBtnVideoCall = findView(R.id.btn_contact_detail_video_call);
 
+        Drawable drawable = getResources().getDrawable(R.drawable.ic_update);
+        int size = getResources().getDimensionPixelSize(R.dimen.dp_25);
+        drawable.setBounds(0, 0, size, size);
+        mTvName.setCompoundDrawables(null, null, drawable, null);
+
         addClick(mImgHead);
+        addClick(mTvName);
         addClick(mBtnChat);
         addClick(mBtnVoiceCall);
         addClick(mBtnVideoCall);
@@ -188,6 +195,12 @@ public class ContactDetailActivity extends FCBaseActivity implements UserDetailV
                     }
                 });
                 break;
+            case R.id.tv_contact_detail_name:
+                //修改的是app内备注名,所以传入的是原始app备注名
+                UpdateNameAppDialog dialog = new UpdateNameAppDialog(this, mUserBean.getNameApp());
+                dialog.setOnNameAppUpdateListener(this);
+                dialog.show();
+                break;
             case R.id.btn_contact_detail_system_call:
                 ContactDetailActivityPermissionsDispatcher.callSystemPhoneWithCheck(this);
                 break;
@@ -200,6 +213,19 @@ public class ContactDetailActivity extends FCBaseActivity implements UserDetailV
             case R.id.btn_contact_detail_video_call:
                 HxVideoCallActivity.start(this, mUserBean.getPhone(), false);
                 break;
+        }
+    }
+
+    @Override
+    public void onNameAppUpdated(String name)
+    {
+        if (mUserBean != null)
+        {
+            if (StringUtil.isEquals(name, mUserBean.getNameApp()))
+                return;
+
+            mUserBean.setNameApp(name);
+            mPresenter.updateUserNameApp(mUserBean);
         }
     }
 
@@ -291,6 +317,12 @@ public class ContactDetailActivity extends FCBaseActivity implements UserDetailV
 
     @Override
     public void updateLocalHeadFail()
+    {
+        showShortToast(R.string.error_unknow);
+    }
+
+    @Override
+    public void updateNameFail()
     {
         showShortToast(R.string.error_unknow);
     }
