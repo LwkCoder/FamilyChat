@@ -32,7 +32,10 @@ public class AddContactPresenter
 
     public void saveNewData(String phone, String name, String localHead, boolean isRegist)
     {
-        UserBean userBean = new UserBean(name, phone, localHead, isRegist);
+        UserBean userBean = new UserBean(phone);
+        userBean.setNameApp(name);
+        userBean.setLocalHead(localHead);
+        userBean.setRegist(isRegist);
         int lineNum = UserDao.getInstance().save(userBean);
         if (lineNum != -1)
         {

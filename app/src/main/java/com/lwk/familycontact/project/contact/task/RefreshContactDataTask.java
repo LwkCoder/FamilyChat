@@ -51,6 +51,7 @@ public class RefreshContactDataTask extends AsyncTask<Void, Void, List<UserBean>
         }
 
         //查询数据库所有数据并排序，将#开头的数据放在最后
+        //因为#字符的ASCII码值比字母小，所以用这种最笨的方式实现...
         List<UserBean> resultList = UserDao.getInstance().queryAllUsersSortByFirstChar();
         List<UserBean> defCharList = new ArrayList<>();
         for (UserBean userBean : resultList)

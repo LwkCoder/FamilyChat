@@ -118,7 +118,7 @@ public class UserDao extends BaseDao<UserBean, Integer>
     }
 
     /**
-     * 更新某个用户的昵称
+     * 更新某个用户的昵称[不包含app内备注名]
      *
      * @param userBean 更新数据
      * @return 更新成功后返回表中对应的行数，失败代表不存在该phone的数据
@@ -129,7 +129,7 @@ public class UserDao extends BaseDao<UserBean, Integer>
         try
         {
             UpdateBuilder<UserBean, Integer> updateBuilder = getDao().updateBuilder();
-            updateBuilder.updateColumnValue(UserDbConfig.NAME, userBean.getName());
+            updateBuilder.updateColumnValue(UserDbConfig.NAME_SYSTEM, userBean.getNameSystem());
             updateBuilder.updateColumnValue(UserDbConfig.DISPLAY_NAME, userBean.getDisplayName());
             updateBuilder.updateColumnValue(UserDbConfig.FIRST_CHAR, userBean.getFirstChar());
             updateBuilder.updateColumnValue(UserDbConfig.SIMPLE_SPELL, userBean.getSimpleSpell());

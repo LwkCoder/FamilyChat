@@ -17,8 +17,11 @@ import com.lwk.familycontact.utils.other.PinYin;
 @DatabaseTable(tableName = UserDbConfig.TABLE_NAME)
 public class UserBean implements Parcelable, RcvSortSectionImpl
 {
-    @DatabaseField(columnName = UserDbConfig.NAME)
-    private String name;
+    @DatabaseField(columnName = UserDbConfig.NAME_SYSTEM)
+    private String nameSystem;
+
+    @DatabaseField(columnName = UserDbConfig.NAME_APP)
+    private String nameApp;
 
     @DatabaseField(columnName = UserDbConfig.PHONE, id = true)
     private String phone;
@@ -52,23 +55,35 @@ public class UserBean implements Parcelable, RcvSortSectionImpl
         updateDisplayNameAndSpell();
     }
 
-    public UserBean(String name, String phone, String localHead, boolean isRegist)
+    public UserBean(String nameSystem, String phone, String localHead, boolean isRegist)
     {
-        this.name = name;
+        this.nameSystem = nameSystem;
         this.phone = phone;
         this.localHead = localHead;
         this.isRegist = isRegist;
         updateDisplayNameAndSpell();
     }
 
-    public String getName()
+    public String getNameSystem()
     {
-        return name;
+        return nameSystem;
     }
 
-    public void setName(String name)
+    public void setNameSystem(String nameSystem)
     {
-        this.name = name;
+        this.nameSystem = nameSystem;
+        updateDisplayNameAndSpell();
+    }
+
+    public String getNameApp()
+    {
+        return nameApp;
+    }
+
+    public void setNameApp(String nameApp)
+    {
+        this.nameApp = nameApp;
+        updateDisplayNameAndSpell();
     }
 
     public String getPhone()
@@ -79,6 +94,7 @@ public class UserBean implements Parcelable, RcvSortSectionImpl
     public void setPhone(String phone)
     {
         this.phone = phone;
+        updateDisplayNameAndSpell();
     }
 
     public String getLocalHead()
@@ -145,7 +161,8 @@ public class UserBean implements Parcelable, RcvSortSectionImpl
     public String toString()
     {
         return "UserBean{" +
-                "name='" + name + '\'' +
+                "nameSystem='" + nameSystem + '\'' +
+                ", nameApp='" + nameApp + '\'' +
                 ", phone='" + phone + '\'' +
                 ", localHead='" + localHead + '\'' +
                 ", displayName='" + displayName + '\'' +
@@ -156,60 +173,16 @@ public class UserBean implements Parcelable, RcvSortSectionImpl
                 '}';
     }
 
-    @Override
-    public int describeContents()
-    {
-        return 0;
-    }
-
-    @Override
-    public void writeToParcel(Parcel dest, int flags)
-    {
-        dest.writeString(this.name);
-        dest.writeString(this.phone);
-        dest.writeString(this.localHead);
-        dest.writeString(this.displayName);
-        dest.writeString(this.firstChar);
-        dest.writeString(this.simpleSpell);
-        dest.writeString(this.fullSpell);
-        dest.writeByte(this.isRegist ? (byte) 1 : (byte) 0);
-    }
-
-    protected UserBean(Parcel in)
-    {
-        this.name = in.readString();
-        this.phone = in.readString();
-        this.localHead = in.readString();
-        this.displayName = in.readString();
-        this.firstChar = in.readString();
-        this.simpleSpell = in.readString();
-        this.fullSpell = in.readString();
-        this.isRegist = in.readByte() != 0;
-    }
-
-    public static final Creator<UserBean> CREATOR = new Creator<UserBean>()
-    {
-        @Override
-        public UserBean createFromParcel(Parcel source)
-        {
-            return new UserBean(source);
-        }
-
-        @Override
-        public UserBean[] newArray(int size)
-        {
-            return new UserBean[size];
-        }
-    };
-
     /**
      * 更新内部显示名、简拼、全拼、首字母
      */
     public void updateDisplayNameAndSpell()
     {
-        //设置显示名：用户名不为空就设置为用户名，否则设置为手机号码
-        if (StringUtil.isNotEmpty(name))
-            setDisplayName(name);
+        //设置显示名：有备注名就显示备注名，没有备注名显示系统通讯录中的名字，否则显示手机号
+        if (StringUtil.isNotEmpty(nameApp))
+            setDisplayName(nameApp);
+        else if (StringUtil.isNotEmpty(nameSystem))
+            setDisplayName(nameSystem);
         else if (StringUtil.isNotEmpty(phone))
             setDisplayName(phone);
 
@@ -239,4 +212,52 @@ public class UserBean implements Parcelable, RcvSortSectionImpl
     {
         return firstChar;
     }
+
+    @Override
+    public int describeContents()
+    {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags)
+    {
+        dest.writeString(this.nameSystem);
+        dest.writeString(this.nameApp);
+        dest.writeString(this.phone);
+        dest.writeString(this.localHead);
+        dest.writeString(this.displayName);
+        dest.writeString(this.firstChar);
+        dest.writeString(this.simpleSpell);
+        dest.writeString(this.fullSpell);
+        dest.writeByte(this.isRegist ? (byte) 1 : (byte) 0);
+    }
+
+    protected UserBean(Parcel in)
+    {
+        this.nameSystem = in.readString();
+        this.nameApp = in.readString();
+        this.phone = in.readString();
+        this.localHead = in.readString();
+        this.displayName = in.readString();
+        this.firstChar = in.readString();
+        this.simpleSpell = in.readString();
+        this.fullSpell = in.readString();
+        this.isRegist = in.readByte() != 0;
+    }
+
+    public static final Creator<UserBean> CREATOR = new Creator<UserBean>()
+    {
+        @Override
+        public UserBean createFromParcel(Parcel source)
+        {
+            return new UserBean(source);
+        }
+
+        @Override
+        public UserBean[] newArray(int size)
+        {
+            return new UserBean[size];
+        }
+    };
 }

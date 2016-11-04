@@ -72,7 +72,7 @@ public class ContactAdapter extends RcvSortSectionAdatper<UserBean>
             if (eachUserBean != null && StringUtil.isEquals(userBean.getPhone(), eachUserBean.getPhone()))
             {
                 eachUserBean.setRegist(userBean.isRegist());
-                eachUserBean.setName(userBean.getName());
+                eachUserBean.setNameSystem(userBean.getNameSystem());
                 eachUserBean.setLocalHead(userBean.getLocalHead());
                 eachUserBean.updateDisplayNameAndSpell();
                 notifyDataSetChanged();

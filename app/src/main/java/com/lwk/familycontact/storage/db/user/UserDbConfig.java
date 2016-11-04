@@ -10,8 +10,11 @@ public class UserDbConfig
     //表名
     public static final String TABLE_NAME = "user";
 
-    //姓名
-    public static final String NAME = "name";
+    //本机通讯录姓名
+    public static final String NAME_SYSTEM = "name_sys";
+
+    //app内备注姓名
+    public static final String NAME_APP = "name_app";
 
     //号码
     public static final String PHONE = "phone";
