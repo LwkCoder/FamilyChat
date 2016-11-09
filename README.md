@@ -15,4 +15,4 @@
 2.通讯录：可获取系统通讯录，和环信好友关系整合。<br/>
 3.拨号器：自定义的简单拨号盘，方便老人直接拨打电话<br/>
 ###项目截图：<br/>
-![](https://github.com/Vanish136/FamilyChat/screenshoot/FC01.png)
+![](https://github.com/Vanish136/FamilyChat/raw/master/screenshoot/FC01.png)
