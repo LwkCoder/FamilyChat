@@ -32,10 +32,12 @@
 7.Android-ScalableVideoView:https://github.com/yqritc/Android-ScalableVideoView<br/>
 8.FlatUI:https://github.com/eluleci/FlatUI<br/>
 9.Glide:https://github.com/bumptech/glide<br/>
+10.Android-Crop:https://github.com/jdamcd/android-crop<br/>
+11.https://github.com/chrisbanes/PhotoView<br/>
 项目中某些库也有引用到一些别人的代码片段（例如PtrView、QrCode库中部分代码是参考网上资料），但是由于无法找到具体出处，在此暂不贴出引用链接，如果有人能提供详细出处，还请联系我，谢谢！
 <br/>
 ####联系作者
-如果发现项目bug或者对项目有好的建议，欢迎提交issue，或者通过下面的联系方式联系我.
-*QQ:505515031
-*邮箱：505515031@qq.com
+如果发现项目bug或者对项目有好的建议，欢迎提交issue，或者通过下面的联系方式联系我.<br/>
+*QQ:505515031<br/>
+*邮箱：505515031@qq.com<br/>
 *微信：Vanish520136
