@@ -176,7 +176,6 @@
     <string name="tv_chat_listitem_voice_length_Ex">%%1秒</string>
     <string name="tv_chat_listitem_voice_unlisten">未听</string>
     <string name="tv_chat_listitem_video_duration_Ex">%%1秒</string>
-    <string name="tv_chat_listitem_video_filelength_Ex">%%1Mb</string>
     <string name="ptr_chat_reset">下拉加载历史消息</string>
     <string name="ptr_chat_pulling">松开后加载历史消息</string>
     <string name="ptr_chat_release">正在加载历史消息...</string>

@@ -29,7 +29,6 @@ android {
 dependencies {
     compile fileTree(include: ['*.jar'], dir: 'libs')
     compile "com.ashokvarma.android:bottom-navigation-bar:${LIB_BOTTOM_NAVIGATION_BAR_VERSION}"
-    compile "com.alibaba:fastjson:${LIB_FAST_JSON_VERSION}"
     compile "org.greenrobot:eventbus:${LIB_EVENTBUS_VERSION}"
     compile "com.j256.ormlite:ormlite-android:${LIB_ORMLITE_VRESION}"
     compile "com.j256.ormlite:ormlite-core:${LIB_ORMLITE_VRESION}"
