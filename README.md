@@ -16,3 +16,7 @@
 3.拨号器：自定义的简单拨号盘，方便老人直接拨打电话<br/>
 ###项目截图：<br/>
 ![](https://github.com/Vanish136/FamilyChat/raw/master/screenshoot/FC01.png)
+![](https://github.com/Vanish136/FamilyChat/raw/master/screenshoot/FC02.png)
+![](https://github.com/Vanish136/FamilyChat/raw/master/screenshoot/FC03.png)
+![](https://github.com/Vanish136/FamilyChat/raw/master/screenshoot/FC04.png)
+![](https://github.com/Vanish136/FamilyChat/raw/master/screenshoot/FC05.png)
