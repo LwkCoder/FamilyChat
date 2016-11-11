@@ -111,8 +111,11 @@ public class HxVoiceCallActivity extends HxCallBaseActivity implements HxVoiceCa
         PowerManager powerManager = (PowerManager) getSystemService(POWER_SERVICE);
         mWakeLock = powerManager.newWakeLock(PowerManager.PROXIMITY_SCREEN_OFF_WAKE_LOCK, "VoiceCallScreenOff");
         mSensorManager = (SensorManager) getSystemService(SENSOR_SERVICE);
-        mSensor = mSensorManager.getDefaultSensor(Sensor.TYPE_PROXIMITY);
-        mSensorManager.registerListener(this, mSensor, SensorManager.SENSOR_DELAY_NORMAL);
+        if (mSensor != null)
+        {
+            mSensor = mSensorManager.getDefaultSensor(Sensor.TYPE_PROXIMITY);
+            mSensorManager.registerListener(this, mSensor, SensorManager.SENSOR_DELAY_NORMAL);
+        }
         //开始计时
         mChronometer.setVisibility(View.VISIBLE);
         mChronometer.setBase(SystemClock.elapsedRealtime());
@@ -270,10 +273,13 @@ public class HxVoiceCallActivity extends HxCallBaseActivity implements HxVoiceCa
         if (mChronometer != null)
             mChronometer.stop();
         //释放距离传感器
-        if (mSensor != null && mSensorManager != null)
+        if (mSensorManager != null)
         {
-            mSensorManager.unregisterListener(this, mSensor);
-            mSensor = null;
+            if (mSensor != null)
+            {
+                mSensorManager.unregisterListener(this, mSensor);
+                mSensor = null;
+            }
             mSensorManager = null;
         }
         //挂机后亮屏再释放锁
