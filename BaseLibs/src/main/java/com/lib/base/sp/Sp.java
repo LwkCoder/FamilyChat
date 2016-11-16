@@ -11,7 +11,7 @@ public class Sp
 {
     public static boolean putString(Context context, String key, String value)
     {
-        SharedPreferences settings = context.getSharedPreferences(context.getPackageName(), Context.MODE_WORLD_READABLE);
+        SharedPreferences settings = context.getSharedPreferences(context.getPackageName(), Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = settings.edit();
         editor.putString(key, value);
         return editor.commit();
