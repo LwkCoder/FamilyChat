@@ -35,9 +35,17 @@ public class SdUtils
     public static String getDefaultCachePath(Context context)
     {
         File defCacheFile = context.getExternalCacheDir();
+        //部分机型获取不到，手动进行设置
+        if (defCacheFile == null)
+            defCacheFile = new File(new StringBuffer()
+                    .append(SdUtils.getSdPath())
+                    .append("/Android/data/")
+                    .append(AppUtil.getMyPackageName(context))
+                    .append("/")
+                    .toString());
         if (!defCacheFile.exists())
             defCacheFile.mkdirs();
-        return defCacheFile.getAbsolutePath() + "/";
+        return defCacheFile.getAbsolutePath();
     }
 
     /**

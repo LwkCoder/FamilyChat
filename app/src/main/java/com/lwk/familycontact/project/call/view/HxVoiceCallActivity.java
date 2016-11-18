@@ -111,7 +111,7 @@ public class HxVoiceCallActivity extends HxCallBaseActivity implements HxVoiceCa
         PowerManager powerManager = (PowerManager) getSystemService(POWER_SERVICE);
         mWakeLock = powerManager.newWakeLock(PowerManager.PROXIMITY_SCREEN_OFF_WAKE_LOCK, "VoiceCallScreenOff");
         mSensorManager = (SensorManager) getSystemService(SENSOR_SERVICE);
-        if (mSensor != null)
+        if (mSensorManager != null)
         {
             mSensor = mSensorManager.getDefaultSensor(Sensor.TYPE_PROXIMITY);
             mSensorManager.registerListener(this, mSensor, SensorManager.SENSOR_DELAY_NORMAL);
