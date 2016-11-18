@@ -2,6 +2,7 @@ apply plugin: 'com.android.application'
 apply plugin: 'android-apt'
 
 android {
+
     compileSdkVersion COMPILE_SDK_VERSION as int
     buildToolsVersion BUILD_TOOLS_VERSION
 
@@ -12,18 +13,25 @@ android {
 
         versionCode VERSION_CODE as int
         versionName VERSION_NAME
+
+        manifestPlaceholders = [UMENG_APPKEY  : UMENG_APPKEY,
+                                UMENG_CHANNEL : UMENG_CHANNEL,
+                                EASEMOB_APPKEY: EASEMOB_APPKEY]
     }
+
     buildTypes {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
+
     sourceSets {
         main {
             jniLibs.srcDirs('libs')
         }
     }
+
 }
 
 dependencies {
@@ -38,6 +46,7 @@ dependencies {
     apt "com.github.hotchemi:permissionsdispatcher-processor:${LIB_PERMISSION_DISPATCHER_VERSION}"
     compile "com.timqi.sectorprogressview:library:${LIB_SECTOR_PROGRESSBAR_VERSION}"
     compile "com.yqritc:android-scalablevideoview:${LIB_SCALABLE_VIDEOVIEW_VERSION}"
+    compile 'com.umeng.analytics:analytics:latest.integration'
     compile project(':BaseLibs')
     compile project(':FlatUI')
     compile project(':ComRcvAdapter')

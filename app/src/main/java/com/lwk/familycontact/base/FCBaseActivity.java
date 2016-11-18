@@ -6,6 +6,7 @@ import com.lib.base.app.BaseActivity;
 import com.lib.base.utils.ScreenUtils;
 import com.lwk.familycontact.R;
 import com.lwk.familycontact.utils.notify.FCNotifyUtils;
+import com.umeng.analytics.MobclickAgent;
 
 /**
  * Created by LWK
@@ -18,7 +19,9 @@ public abstract class FCBaseActivity extends BaseActivity
     protected void beforeOnCreate(Bundle savedInstanceState)
     {
         super.beforeOnCreate(savedInstanceState);
+        //修改状态栏和导航栏颜色
         ScreenUtils.changeStatusBarColor(this, getResources().getColor(R.color.colorPrimaryDark));
+        ScreenUtils.changeNavigationBarColor(this, getResources().getColor(R.color.colorPrimaryDark));
     }
 
     @Override
@@ -26,5 +29,19 @@ public abstract class FCBaseActivity extends BaseActivity
     {
         super.onStart();
         FCNotifyUtils.getInstance().resetNotification();
+    }
+
+    @Override
+    protected void onResume()
+    {
+        super.onResume();
+        MobclickAgent.onResume(this);
+    }
+
+    @Override
+    protected void onPause()
+    {
+        super.onPause();
+        MobclickAgent.onPause(this);
     }
 }

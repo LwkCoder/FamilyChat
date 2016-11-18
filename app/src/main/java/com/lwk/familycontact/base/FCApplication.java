@@ -3,8 +3,10 @@ package com.lwk.familycontact.base;
 import android.app.Application;
 
 import com.cengalabs.flatui.FlatUI;
+import com.lib.base.BuildConfig;
 import com.lib.base.log.KLog;
 import com.lwk.familycontact.im.helper.HxSdkHelper;
+import com.umeng.analytics.MobclickAgent;
 
 /**
  * Created by LWK
@@ -27,6 +29,8 @@ public class FCApplication extends Application
         FlatUI.setDefaultTheme(FlatUI.DEEP);
         //初始化环信sdk
         HxSdkHelper.getInstance().initSdkOptions(this);
+        //初始化友盟
+        MobclickAgent.setDebugMode(BuildConfig.DEBUG);
     }
 
     public static FCApplication getInstance()

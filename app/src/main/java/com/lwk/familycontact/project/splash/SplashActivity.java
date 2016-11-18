@@ -98,19 +98,19 @@ public class SplashActivity extends FCBaseActivity
         }
     }
 
-    @NeedsPermission(Manifest.permission.READ_EXTERNAL_STORAGE)
+    @NeedsPermission({Manifest.permission.READ_EXTERNAL_STORAGE,Manifest.permission.READ_PHONE_STATE})
     public void skipToActivity(Class clazz)
     {
         startActivity(new Intent(SplashActivity.this, clazz));
         finish();
     }
 
-    @OnShowRationale(Manifest.permission.READ_EXTERNAL_STORAGE)
+    @OnShowRationale({Manifest.permission.READ_EXTERNAL_STORAGE,Manifest.permission.READ_PHONE_STATE})
     public void showRationaleForSdcard(final PermissionRequest request)
     {
         new AlertDialog.Builder(this).setCancelable(false)
                 .setTitle(R.string.dialog_permission_title)
-                .setMessage(R.string.dialog_permission_sdcard_message)
+                .setMessage(R.string.dialog_permission_splash_message)
                 .setPositiveButton(R.string.dialog_confirm, new DialogInterface.OnClickListener()
                 {
                     @Override
@@ -121,12 +121,12 @@ public class SplashActivity extends FCBaseActivity
                 }).create().show();
     }
 
-    @OnPermissionDenied(Manifest.permission.READ_EXTERNAL_STORAGE)
+    @OnPermissionDenied({Manifest.permission.READ_EXTERNAL_STORAGE,Manifest.permission.READ_PHONE_STATE})
     public void onSdcardPermissionDenied()
     {
         final AlertDialog dialog = new AlertDialog.Builder(this)
                 .setCancelable(false)
-                .setMessage(R.string.dialog_permission_sdcard_denied)
+                .setMessage(R.string.dialog_permission_splash_denied)
                 .create();
         dialog.show();
         mMainHandler.postDelayed(new Runnable()
@@ -140,12 +140,12 @@ public class SplashActivity extends FCBaseActivity
         }, 1500);
     }
 
-    @OnNeverAskAgain(Manifest.permission.READ_EXTERNAL_STORAGE)
+    @OnNeverAskAgain({Manifest.permission.READ_EXTERNAL_STORAGE,Manifest.permission.READ_PHONE_STATE})
     public void onSdcardPermissionNerverAsk()
     {
         new AlertDialog.Builder(this).setCancelable(false)
                 .setTitle(R.string.dialog_permission_title)
-                .setMessage(R.string.dialog_permission_sdcard_nerver_ask_message)
+                .setMessage(R.string.dialog_permission_splash_nerver_ask_message)
                 .setNegativeButton(R.string.dialog_cancel, new DialogInterface.OnClickListener()
                 {
                     @Override
