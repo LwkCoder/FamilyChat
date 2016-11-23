@@ -117,7 +117,7 @@ public class HxChatHelper
      * @param startMsgId 起始消息id
      * @param size       消息数量
      */
-    public List<EMMessage> loadMessageFormDB(EMConversation.EMConversationType conType, String conId, String startMsgId, int size)
+    public List<EMMessage> loadMessageFromDB(EMConversation.EMConversationType conType, String conId, String startMsgId, int size)
     {
         EMConversation conversation = getConversation(conId, conType);
         return conversation != null ? conversation.loadMoreMsgFromDB(startMsgId, size) : null;

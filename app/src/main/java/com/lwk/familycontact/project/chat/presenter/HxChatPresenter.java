@@ -124,7 +124,7 @@ public class HxChatPresenter
         //当适配器消息数量小于该会话所有消息数量就去数据库拉取
         if (cacheMsgCount < conversation.getAllMsgCount())
         {
-            final List<EMMessage> messages = HxChatHelper.getInstance().loadMessageFormDB(conType, conId, startMsgId, EACH_PAGE_SIZE);
+            final List<EMMessage> messages = HxChatHelper.getInstance().loadMessageFromDB(conType, conId, startMsgId, EACH_PAGE_SIZE);
             //第一次加载直接拉到底部
             if (isFirstLoad)
             {

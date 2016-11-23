@@ -20,8 +20,8 @@ public abstract class FCBaseActivity extends BaseActivity
     {
         super.beforeOnCreate(savedInstanceState);
         //修改状态栏和导航栏颜色
+        ScreenUtils.changeNavigationBarColor(this , getResources().getColor(R.color.colorPrimaryDark));
         ScreenUtils.changeStatusBarColor(this, getResources().getColor(R.color.colorPrimaryDark));
-        ScreenUtils.changeNavigationBarColor(this, getResources().getColor(R.color.colorPrimaryDark));
     }
 
     @Override

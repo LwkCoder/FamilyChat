@@ -11,6 +11,7 @@ import com.hyphenate.chat.EMOptions;
 import com.hyphenate.exceptions.HyphenateException;
 import com.lib.base.BuildConfig;
 import com.lib.base.log.KLog;
+import com.lwk.familycontact.base.BuildParams;
 import com.lwk.familycontact.base.FCApplication;
 import com.lwk.familycontact.im.listener.HxContactListener;
 import com.lwk.familycontact.project.common.FCCallBack;
@@ -64,6 +65,8 @@ public class HxSdkHelper
             return;
 
         EMOptions options = new EMOptions();
+        //设置AppKey
+        options.setAppKey(BuildParams.EASEMOB_APPKEY);
         //添加好友需要验证
         options.setAcceptInvitationAlways(false);
         //不需要阅读回执
@@ -72,6 +75,12 @@ public class HxSdkHelper
         options.setRequireDeliveryAck(false);
         //可以自动登录
         options.setAutoLogin(true);
+        //设置小米推送
+        options.setMipushConfig(BuildParams.MIPUSH_APPID, BuildParams.MIPUSH_APPKEY);
+        KLog.i("--------MiPushAppId=" + BuildParams.MIPUSH_APPID + ",MiPushAppkey=" + BuildParams.MIPUSH_APPKEY + "---------");
+        //设置华为推送
+        options.setHuaweiPushAppId(BuildParams.HWPUSH_APPID);
+        KLog.i("--------HuaWeiPushAppId=" + BuildParams.HWPUSH_APPID+"--------");
 
         EMClient.getInstance().init(mAppContext, options);
         EMClient.getInstance().setDebugMode(BuildConfig.DEBUG);

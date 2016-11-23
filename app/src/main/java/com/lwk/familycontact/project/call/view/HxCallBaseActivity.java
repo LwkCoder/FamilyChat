@@ -83,8 +83,8 @@ public abstract class HxCallBaseActivity extends FCBaseActivity implements HeadS
     @Override
     protected void beforeOnCreate(Bundle savedInstanceState)
     {
-        ScreenUtils.changStatusbarTransparent(this);
         ScreenUtils.changeNavigationBarColor(this, Color.TRANSPARENT);
+        ScreenUtils.changStatusbarTransparent(this);
 
         //保持屏幕常亮
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON

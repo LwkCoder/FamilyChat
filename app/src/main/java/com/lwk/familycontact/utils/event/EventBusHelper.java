@@ -32,13 +32,13 @@ public class EventBusHelper
     {
         mEventBus = EventBus.builder()
                 //当调用事件处理函数异常时是否打印异常信息
-                .logSubscriberExceptions(BuildParams.DEBUG)
+                .logSubscriberExceptions(BuildParams.IS_DEBUG)
                 //当没有订阅者订阅该事件时是否打印日志
-                .logNoSubscriberMessages(BuildParams.DEBUG)
+                .logNoSubscriberMessages(BuildParams.IS_DEBUG)
                 //当没有事件处理函数时是否发送事件
                 .sendNoSubscriberEvent(false)
                 //是否要抛出异常，建议debug开启
-                .throwSubscriberException(BuildParams.DEBUG)
+                .throwSubscriberException(BuildParams.IS_DEBUG)
                 .build();
     }
 

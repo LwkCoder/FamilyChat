@@ -14,15 +14,53 @@ android {
         versionCode VERSION_CODE as int
         versionName VERSION_NAME
 
-        manifestPlaceholders = [UMENG_APPKEY  : UMENG_APPKEY,
-                                UMENG_CHANNEL : UMENG_CHANNEL,
-                                EASEMOB_APPKEY: EASEMOB_APPKEY]
+//        manifestPlaceholders = [UMENG_APPKEY  : UMENG_APPKEY,
+//                                UMENG_CHANNEL : UMENG_CHANNEL,
+//                                EASEMOB_APPKEY: EASEMOB_APPKEY]
+    }
+
+    signingConfigs {
+        debug {
+            storeFile file("../keystore/fckeystore.jks")
+            storePassword STORE_PWD
+            keyAlias ALIAS
+            keyPassword KEY_PWD
+        }
+        release {
+            storeFile file("../keystore/fckeystore.jks")
+            storePassword STORE_PWD
+            keyAlias ALIAS
+            keyPassword KEY_PWD
+        }
     }
 
     buildTypes {
-        release {
+        debug {
+            buildConfigField("boolean", "IS_DEBUG", IS_DEBUG);
+            buildConfigField("String", "UMENG_APPKEY", UMENG_APPKEY);
+            buildConfigField("String", "UMENG_CHANNEL", UMENG_CHANNEL);
+            buildConfigField("String", "EASEMOB_APPKEY", EASEMOB_APPKEY);
+            buildConfigField("String", "MIPUSH_APPID", MIPUSH_APPID);
+            buildConfigField("String", "MIPUSH_APPKEY", MIPUSH_APPKEY);
+            buildConfigField("String", "HWPUSH_APPID", HWPUSH_APPID);
+
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            signingConfig signingConfigs.debug
+        }
+
+        release {
+            buildConfigField("boolean", "IS_DEBUG", IS_DEBUG);
+            buildConfigField("String", "UMENG_APPKEY", UMENG_APPKEY);
+            buildConfigField("String", "UMENG_CHANNEL", UMENG_CHANNEL);
+            buildConfigField("String", "EASEMOB_APPKEY", EASEMOB_APPKEY);
+            buildConfigField("String", "MIPUSH_APPID", MIPUSH_APPID);
+            buildConfigField("String", "MIPUSH_APPKEY", MIPUSH_APPKEY);
+            buildConfigField("String", "HWPUSH_APPID", HWPUSH_APPID);
+
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            signingConfig signingConfigs.release
         }
     }
 
@@ -31,7 +69,6 @@ android {
             jniLibs.srcDirs('libs')
         }
     }
-
 }
 
 dependencies {

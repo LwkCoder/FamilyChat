@@ -20,11 +20,10 @@ public abstract class FCCallBack<T>
     static Type getSuperclassTypeParameter(Class<?> subclass)
     {
         Type superclass = subclass.getGenericSuperclass();
-        if (superclass instanceof Class)
-        {
+        if (superclass instanceof ParameterizedType)
+            return ((ParameterizedType) superclass).getActualTypeArguments()[0];
+        else
             return String.class;
-        }
-        return ((ParameterizedType) superclass).getActualTypeArguments()[0];
     }
 
     //失败回调
