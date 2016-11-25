@@ -3,7 +3,7 @@
 轻量级IM开源项目，基于环信Sdk
 ------
 
-想直接体验项目运行效果的可[点击这里下载apk](http://ogqrscjjw.bkt.clouddn.com/familychat_debug_v1.2.apk)
+想直接体验项目运行效果的可[点击这里下载apk](http://ogqrscjjw.bkt.clouddn.com/FamilyChat_debugV1.2.apk)
 <br/>
 ###更新日志：
 ####V1.2:
