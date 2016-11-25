@@ -151,8 +151,8 @@ public class IMRecordAudioManager
     {
         if (mRecorder != null)
         {
-            mIsRecording = true;
             mRecorder.start();
+            mIsRecording = true;
         }
     }
 
