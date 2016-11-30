@@ -2,7 +2,6 @@ package com.lwk.familycontact.project.common;
 
 import android.content.Context;
 
-import com.lib.base.log.KLog;
 import com.lib.base.utils.SdUtils;
 import com.lwk.familycontact.base.FCApplication;
 
@@ -18,7 +17,6 @@ public class FCCache
     private FCCache(Context context)
     {
         ROOT_PATH = SdUtils.getDefaultCachePath(context);
-        KLog.e("RootPath=" + ROOT_PATH);
     }
 
     private static final class FCCacheHolder
