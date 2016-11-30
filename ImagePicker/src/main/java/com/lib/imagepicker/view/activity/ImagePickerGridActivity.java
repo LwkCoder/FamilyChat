@@ -12,6 +12,7 @@ import android.os.Bundle;
 import android.os.Message;
 import android.provider.MediaStore;
 import android.provider.Settings;
+import android.support.v4.content.FileProvider;
 import android.util.Pair;
 import android.view.Gravity;
 import android.view.View;
@@ -244,7 +245,42 @@ public class ImagePickerGridActivity extends ImagePickerBaseActivity implements 
         //自己指定保存路径
         File tempPicFile = mPresenter.getTakePhotoPath();
         mCurTakePhotoPath = tempPicFile.getAbsolutePath();
-        intent.putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(tempPicFile));
+        if (getAndroidSDKVersion() < 24)
+            doTakePhotoBeforeSdk24(intent, tempPicFile);
+        else
+            doTakePhotoAfterSdk24(intent, tempPicFile);
+    }
+
+    //获取当前sdk版本
+    public int getAndroidSDKVersion()
+    {
+        int version = 0;
+        try
+        {
+            version = Integer.valueOf(android.os.Build.VERSION.SDK);
+        } catch (NumberFormatException e)
+        {
+        }
+        return version;
+    }
+
+    /**
+     * sdk24之前拍照
+     */
+    private void doTakePhotoBeforeSdk24(Intent intent, File tempPicFile)
+    {
+        intent.putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(tempPicFile));//将拍取的照片保存到指定URI
+        startActivityForResult(intent, sREQUESTCODE_TAKE_PHOTO);
+    }
+
+    /**
+     * sdk24之后拍照
+     */
+    private void doTakePhotoAfterSdk24(Intent intent, File tempPicFile)
+    {
+        Uri imageUri = FileProvider.getUriForFile(this, "com.lib.imagepicker.fileprovider", tempPicFile);
+        intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION); //添加这一句表示对目标应用临时授权该Uri所代表的文件
+        intent.putExtra(MediaStore.EXTRA_OUTPUT, imageUri);//将拍取的照片保存到指定URI
         startActivityForResult(intent, sREQUESTCODE_TAKE_PHOTO);
     }
 
