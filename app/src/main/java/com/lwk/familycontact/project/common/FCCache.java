@@ -2,6 +2,7 @@ package com.lwk.familycontact.project.common;
 
 import android.content.Context;
 
+import com.lib.base.log.KLog;
 import com.lib.base.utils.SdUtils;
 import com.lwk.familycontact.base.FCApplication;
 
@@ -17,6 +18,7 @@ public class FCCache
     private FCCache(Context context)
     {
         ROOT_PATH = SdUtils.getDefaultCachePath(context);
+        KLog.e("RootPath=" + ROOT_PATH);
     }
 
     private static final class FCCacheHolder
@@ -28,6 +30,11 @@ public class FCCache
     {
         return FCCacheHolder.instance;
     }
+
+    private final String USER_HEAD_FLODER_NAME = "userhead";
+    private final String VOICE_MSG_FLODER_NAME = "voice";
+    private final String IMAGE_FLODER_NAME = "image";
+    private final String VIDEO_FLODER_NAME = "video";
 
     private String ROOT_PATH;
 
@@ -46,15 +53,10 @@ public class FCCache
     {
         if (mUserHeadCachePath == null)
         {
-            mUserHeadCachePath = new StringBuffer().append(ROOT_PATH).append("userhead_cache/").toString();
-            File file = new File(mUserHeadCachePath);
-            if (!file.exists())
-            {
-                if (file.mkdirs())
-                    return mUserHeadCachePath;
-                else
-                    return mUserHeadCachePath = ROOT_PATH;
-            }
+            File file = new File(ROOT_PATH, USER_HEAD_FLODER_NAME);
+            mUserHeadCachePath = file.getAbsolutePath();
+            if (!file.exists() && !file.mkdirs())
+                mUserHeadCachePath = ROOT_PATH;
         }
         return mUserHeadCachePath;
     }
@@ -66,15 +68,10 @@ public class FCCache
     {
         if (mVoiceMsgCachePath == null)
         {
-            mVoiceMsgCachePath = new StringBuffer().append(ROOT_PATH).append("voice_cache/").toString();
-            File file = new File(mVoiceMsgCachePath);
-            if (!file.exists())
-            {
-                if (file.mkdirs())
-                    return mVoiceMsgCachePath;
-                else
-                    return mVoiceMsgCachePath = ROOT_PATH;
-            }
+            File file = new File(ROOT_PATH, VOICE_MSG_FLODER_NAME);
+            mVoiceMsgCachePath = file.getAbsolutePath();
+            if (!file.exists() && !file.mkdirs())
+                mVoiceMsgCachePath = ROOT_PATH;
         }
         return mVoiceMsgCachePath;
     }
@@ -86,15 +83,10 @@ public class FCCache
     {
         if (mImageCachePath == null)
         {
-            mImageCachePath = new StringBuffer().append(ROOT_PATH).append("img_cache/").toString();
-            File file = new File(mImageCachePath);
-            if (!file.exists())
-            {
-                if (file.mkdirs())
-                    return mImageCachePath;
-                else
-                    return mImageCachePath = ROOT_PATH;
-            }
+            File file = new File(ROOT_PATH, IMAGE_FLODER_NAME);
+            mImageCachePath = file.getAbsolutePath();
+            if (!file.exists() && !file.mkdirs())
+                mImageCachePath = ROOT_PATH;
         }
         return mImageCachePath;
     }
@@ -106,15 +98,10 @@ public class FCCache
     {
         if (mVideoCachePath == null)
         {
-            mVideoCachePath = new StringBuffer().append(ROOT_PATH).append("video_cache/").toString();
-            File file = new File(mVideoCachePath);
-            if (!file.exists())
-            {
-                if (file.mkdirs())
-                    return mVideoCachePath;
-                else
-                    return mVideoCachePath = ROOT_PATH;
-            }
+            File file = new File(ROOT_PATH, VIDEO_FLODER_NAME);
+            mVideoCachePath = file.getAbsolutePath();
+            if (!file.exists() && !file.mkdirs())
+                mVideoCachePath = ROOT_PATH;
         }
         return mVideoCachePath;
     }

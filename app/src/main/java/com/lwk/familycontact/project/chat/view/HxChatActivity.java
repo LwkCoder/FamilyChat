@@ -20,7 +20,9 @@ import com.lib.base.utils.KeyboradUtils;
 import com.lib.base.utils.ResUtils;
 import com.lib.base.widget.CommonActionBar;
 import com.lib.imagepicker.ImagePicker;
+import com.lib.imagepicker.ImagePickerOptions;
 import com.lib.imagepicker.bean.ImageBean;
+import com.lib.imagepicker.model.ImagePickerMode;
 import com.lib.imrecordbutton.IMRecordListener;
 import com.lib.ptrview.CommonPtrLayout;
 import com.lib.shortvideo.RecordShortVideoActivity;
@@ -358,7 +360,12 @@ public class HxChatActivity extends FCBaseActivity implements HxChatView
         switch (position)
         {
             case HxChatPlusDialog.ITEM_PHOTO:
-                ImagePicker.getInstance().pickMutilImage(this, 9, new ImagePicker.OnSelectedListener()
+                ImagePickerOptions options = new ImagePickerOptions.Builder()
+                        .cachePath(FCCache.getInstance().getImageCachePath())
+                        .pickMode(ImagePickerMode.MUTIL)
+                        .limitNum(9)
+                        .build();
+                ImagePicker.getInstance().pickWithOptions(this, options, new ImagePicker.OnSelectedListener()
                 {
                     @Override
                     public void onSelected(List<ImageBean> list)
