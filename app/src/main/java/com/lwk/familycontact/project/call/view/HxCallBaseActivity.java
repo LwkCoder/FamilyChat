@@ -7,17 +7,22 @@ import android.media.AudioManager;
 import android.media.MediaPlayer;
 import android.media.SoundPool;
 import android.os.Bundle;
+import android.os.SystemClock;
 import android.os.Vibrator;
 import android.view.View;
 import android.view.ViewStub;
 import android.view.WindowManager;
 import android.widget.CheckBox;
+import android.widget.Chronometer;
 import android.widget.CompoundButton;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.hyphenate.chat.EMCallStateChangeListener;
+import com.hyphenate.chat.EMClient;
+import com.hyphenate.chat.EMMessage;
+import com.hyphenate.chat.EMTextMessageBody;
 import com.hyphenate.exceptions.HyphenateException;
 import com.lib.base.log.KLog;
 import com.lib.base.utils.ScreenUtils;
@@ -27,7 +32,12 @@ import com.lwk.familycontact.base.FCBaseActivity;
 import com.lwk.familycontact.im.helper.HxCallHelper;
 import com.lwk.familycontact.im.listener.HxCallStateChangeListener;
 import com.lwk.familycontact.project.chat.utils.HeadSetReceiver;
+import com.lwk.familycontact.project.chat.utils.HxMsgAttrConstant;
 import com.lwk.familycontact.project.common.CommonUtils;
+import com.lwk.familycontact.utils.event.EventBusHelper;
+import com.lwk.familycontact.utils.event.NewCallRecordEventBean;
+
+import java.util.UUID;
 
 /**
  * Created by LWK
@@ -39,6 +49,7 @@ public abstract class HxCallBaseActivity extends FCBaseActivity implements HeadS
 
     protected static final String INTENT_KEY_PHONE = "opPhone";
     protected static final String INTENT_KEY_IS_COMING_CALL = "isComingCall";
+    protected static final String INTENT_KEY_CALL_TYPE = "callType";
     //震动管理器
     protected Vibrator mVibratorMgr;
     //音频AudioManager
@@ -63,6 +74,8 @@ public abstract class HxCallBaseActivity extends FCBaseActivity implements HeadS
     protected String mOpPhone;
     //是否为来电
     protected boolean mIsComingCall;
+    //通话类型
+    protected int mCallType;
     //接收方待操作区域
     protected View mViewReceiverPanel;
     //接通后控制板
@@ -71,14 +84,20 @@ public abstract class HxCallBaseActivity extends FCBaseActivity implements HeadS
     protected CheckBox mCkMute;
     //免提CheckBox
     protected CheckBox mCkHandsFree;
+    //计时器
+    protected Chronometer mChronometer;
     //是否主动接听电话
     protected boolean mHasAnswer = false;
     //主动去电是否被接听
     protected boolean mHasAccept = false;
+    //是否主动挂断来电
+    protected boolean mHasReject = false;
     //挂断后结束界面的延迟时长
     protected static final long sDELAY_TIME = 1500L;
     //耳机监听
     protected HeadSetReceiver mHeadSetReceiver;
+    //挂断时通话状态
+    protected EMCallStateChangeListener.CallError mCallError;
 
     @Override
     protected void beforeOnCreate(Bundle savedInstanceState)
@@ -107,6 +126,7 @@ public abstract class HxCallBaseActivity extends FCBaseActivity implements HeadS
         Intent intent = getIntent();
         mOpPhone = intent.getStringExtra(INTENT_KEY_PHONE);
         mIsComingCall = intent.getBooleanExtra(INTENT_KEY_IS_COMING_CALL, false);
+        mCallType = intent.getIntExtra(INTENT_KEY_CALL_TYPE, HxMsgAttrConstant.VOICE_CALL_RECORD);
         if (StringUtil.isEmpty(mOpPhone))
             finish();
     }
@@ -133,6 +153,7 @@ public abstract class HxCallBaseActivity extends FCBaseActivity implements HeadS
         mTvName = findView(R.id.tv_call_name);
         mTvDesc = findView(R.id.tv_call_desc);
         mTvNetworkUnstable = findView(R.id.tv_call_network_unstable);
+        mChronometer = findView(R.id.chm_call_time);
     }
 
     @Override
@@ -242,11 +263,17 @@ public abstract class HxCallBaseActivity extends FCBaseActivity implements HeadS
             mAudioMgr.setMode(AudioManager.MODE_IN_COMMUNICATION);
 
         doAfterAccepted();
+        //开始计时
+        mChronometer.setVisibility(View.VISIBLE);
+        mChronometer.setBase(SystemClock.elapsedRealtime());
+        mChronometer.setFormat(getResources().getString(R.string.chrm_call_ex));
+        mChronometer.start();
     }
 
     @Override
     public void beRejected()
     {
+        mCallError = EMCallStateChangeListener.CallError.REJECTED;
         if (mTvDesc != null)
             mTvDesc.setText(R.string.call_state_be_rejected);
         finishWithDelay();
@@ -255,6 +282,7 @@ public abstract class HxCallBaseActivity extends FCBaseActivity implements HeadS
     @Override
     public void noResponse()
     {
+        mCallError = EMCallStateChangeListener.CallError.ERROR_NORESPONSE;
         if (mTvDesc != null)
             mTvDesc.setText(R.string.call_state_no_response);
         finishWithDelay();
@@ -263,6 +291,7 @@ public abstract class HxCallBaseActivity extends FCBaseActivity implements HeadS
     @Override
     public void busy()
     {
+        mCallError = EMCallStateChangeListener.CallError.ERROR_BUSY;
         if (mTvDesc != null)
             mTvDesc.setText(R.string.call_state_busy);
         finishWithDelay();
@@ -271,6 +300,7 @@ public abstract class HxCallBaseActivity extends FCBaseActivity implements HeadS
     @Override
     public void offline()
     {
+        mCallError = EMCallStateChangeListener.CallError.ERROR_UNAVAILABLE;
         if (mTvDesc != null)
             mTvDesc.setText(R.string.call_state_offline);
         finishWithDelay();
@@ -279,8 +309,13 @@ public abstract class HxCallBaseActivity extends FCBaseActivity implements HeadS
     @Override
     public void onDisconnect(EMCallStateChangeListener.CallError callError)
     {
+        mCallError = callError;
+        //停止计时
+        mChronometer.stop();
+
         if (mTvDesc != null)
         {
+            //正常通话结束callError是ERROR_NONE，但ERROR_NONE不仅仅代表正常通话结束！
             if (callError == EMCallStateChangeListener.CallError.ERROR_NO_DATA
                     || callError == EMCallStateChangeListener.CallError.ERROR_LOCAL_SDK_VERSION_OUTDATED
                     || callError == EMCallStateChangeListener.CallError.ERROR_REMOTE_SDK_VERSION_OUTDATED)
@@ -323,6 +358,7 @@ public abstract class HxCallBaseActivity extends FCBaseActivity implements HeadS
                 pickUpComingCall();
                 break;
             case R.id.btn_call_receiver_panel_rejectcall:
+                mHasReject = true;
                 doRejectCall();
                 break;
             case R.id.btn_call_calling_panel_endcall:
@@ -579,9 +615,78 @@ public abstract class HxCallBaseActivity extends FCBaseActivity implements HeadS
             @Override
             public void run()
             {
+                //保存通话记录
+                saveCallRecord();
                 finish();
             }
         }, sDELAY_TIME);
+    }
+
+    //保存通话记录
+    protected void saveCallRecord()
+    {
+        EMMessage recordMsg = null;
+        EMTextMessageBody msgBody = null;
+        if (mIsComingCall)
+        {
+            recordMsg = EMMessage.createReceiveMessage(EMMessage.Type.TXT);
+            recordMsg.setFrom(mOpPhone);
+            if (mCallError == EMCallStateChangeListener.CallError.ERROR_NONE)
+            {
+                //未接听
+                if (!mHasAnswer)
+                {
+                    //主动挂断
+                    if (mHasReject)
+                        msgBody = new EMTextMessageBody(getResources().getString(R.string.call_record_incoming_rejected));
+                    else
+                        msgBody = new EMTextMessageBody(getResources().getString(R.string.call_record_incoming_donothing));
+                } else
+                {
+                    //正常通话后挂断
+                    msgBody = new EMTextMessageBody(mChronometer.getText().toString());
+                }
+            }
+
+        } else
+        {
+            recordMsg = EMMessage.createSendMessage(EMMessage.Type.TXT);
+            recordMsg.setReceipt(mOpPhone);
+            if (mCallError == EMCallStateChangeListener.CallError.ERROR_NONE)
+            {
+                //主动去电，对方尚未操作时主动挂断
+                if (!mHasAccept)
+                    msgBody = new EMTextMessageBody(getResources().getString(R.string.call_record_outgoing_cancel));
+                else
+                    //正常通话后挂断
+                    msgBody = new EMTextMessageBody(mChronometer.getText().toString());
+            }
+            //对方拒绝接听
+            else if (mCallError == EMCallStateChangeListener.CallError.REJECTED)
+                msgBody = new EMTextMessageBody(getResources().getString(R.string.call_record_outgoing_berejected));
+                //对方正在通话中
+            else if (mCallError == EMCallStateChangeListener.CallError.ERROR_BUSY)
+                msgBody = new EMTextMessageBody(getResources().getString(R.string.call_record_outgoing_busy));
+                //对方未接听
+            else if (mCallError == EMCallStateChangeListener.CallError.ERROR_NORESPONSE)
+                msgBody = new EMTextMessageBody(getResources().getString(R.string.call_record_outgoing_no_response));
+                //对方不在线
+            else if (mCallError == EMCallStateChangeListener.CallError.ERROR_UNAVAILABLE ||
+                    mCallError == EMCallStateChangeListener.CallError.ERROR_TRANSPORT)
+                msgBody = new EMTextMessageBody(getResources().getString(R.string.call_record_outgoing_offline));
+        }
+
+        //未捕捉的情况
+        if (msgBody == null)
+            msgBody = new EMTextMessageBody(getResources().getString(R.string.call_record_default));
+
+        recordMsg.addBody(msgBody);
+        recordMsg.setMsgId(UUID.randomUUID().toString());
+        recordMsg.setAttribute(HxMsgAttrConstant.TXT_ATTR_KEY, mCallType);
+        recordMsg.setStatus(EMMessage.Status.SUCCESS);
+        EMClient.getInstance().chatManager().saveMessage(recordMsg);
+        //发送EventBus通知
+        EventBusHelper.getInstance().post(new NewCallRecordEventBean(recordMsg));
     }
 
     @Override

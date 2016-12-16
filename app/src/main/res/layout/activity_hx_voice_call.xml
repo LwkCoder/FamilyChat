@@ -22,21 +22,21 @@
         android:textColor="@android:color/white"/>
 
     <Chronometer
-        android:id="@+id/chm_voicecall_time"
+        android:id="@+id/chm_call_time"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/tv_voicecall_label"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="@dimen/spacing_normal"
         android:textColor="@android:color/white"
-        android:textSize="18sp"
+        android:textSize="15sp"
         android:visibility="invisible"/>
 
     <ImageView
         android:id="@id/img_call_avatar"
         android:layout_width="120dp"
         android:layout_height="120dp"
-        android:layout_below="@+id/chm_voicecall_time"
+        android:layout_below="@+id/chm_call_time"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="@dimen/dp_40"
         android:src="@drawable/default_avatar"/>

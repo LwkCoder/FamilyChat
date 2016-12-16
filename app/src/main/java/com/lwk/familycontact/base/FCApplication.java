@@ -55,7 +55,7 @@ public class FCApplication extends Application
         FlatUI.initDefaultValues(this);
         FlatUI.setDefaultTheme(FlatUI.DEEP);
         //初始化环信sdk
-        HxSdkHelper.getInstance().initSdkOptions(this);
+        HxSdkHelper.getInstance().initSdkOptions(this, BuildParams.IS_DEBUG);
         //初始化友盟
         MobclickAgent.UMAnalyticsConfig umAnalyticsConfig
                 = new MobclickAgent.UMAnalyticsConfig(this, BuildParams.UMENG_APPKEY, BuildParams.UMENG_CHANNEL, MobclickAgent.EScenarioType.E_UM_NORMAL);

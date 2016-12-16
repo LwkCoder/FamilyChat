@@ -3,9 +3,14 @@
 轻量级IM开源项目，基于环信Sdk
 ------
 
-想直接体验项目运行效果的可[点击这里下载apk](http://ogqrscjjw.bkt.clouddn.com/FamilyChat_debugV1.2.apk)
+<font color=#B22222 size=32>由于项目中集成了友盟统计，是为了方便搜集崩溃日志，还请fork该项目的朋友在进行二次开发的时候删除友盟或者更换渠道名</font><br/>
+想直接体验项目运行效果的可[点击这里下载apk](http://ogqrscjjw.bkt.clouddn.com/FamilyChat_debugV1.3.apk)
 <br/>
 ###更新日志：
+####V1.3:
+①更新环信库到最新版本3.2.2<br/>
+②添加实时通话记录<br/>
+③修复小bug<br/>
 ####V1.2:
 ①修复部分机型启动崩溃、无法发起实时通话的bug<br/>
 ②集成小米推送和华为推送<br/>

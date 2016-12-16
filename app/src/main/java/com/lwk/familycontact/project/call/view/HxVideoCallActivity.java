@@ -13,6 +13,7 @@ import com.hyphenate.media.EMLocalSurfaceView;
 import com.hyphenate.media.EMOppositeSurfaceView;
 import com.lwk.familycontact.R;
 import com.lwk.familycontact.project.call.presenter.HxVideoCallPrenter;
+import com.lwk.familycontact.project.chat.utils.HxMsgAttrConstant;
 import com.superrtc.sdk.VideoView;
 
 import permissions.dispatcher.NeedsPermission;
@@ -45,6 +46,7 @@ public class HxVideoCallActivity extends HxCallBaseActivity implements HxVideoCa
         Intent intent = new Intent(context, HxVideoCallActivity.class);
         intent.putExtra(INTENT_KEY_PHONE, phone);
         intent.putExtra(INTENT_KEY_IS_COMING_CALL, isComingCall);
+        intent.putExtra(INTENT_KEY_CALL_TYPE, HxMsgAttrConstant.VIDEO_CALL_RECORD);
         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         context.startActivity(intent);
     }

@@ -18,6 +18,7 @@ import com.lib.imagepicker.bean.ImageBean;
 import com.lwk.familycontact.R;
 import com.lwk.familycontact.base.FCApplication;
 import com.lwk.familycontact.im.helper.HxChatHelper;
+import com.lwk.familycontact.project.chat.utils.HxMsgAttrConstant;
 import com.lwk.familycontact.project.chat.utils.VoiceMessagePlayListener;
 import com.lwk.familycontact.project.chat.utils.VoiceMessagePlayUtils;
 import com.lwk.familycontact.project.chat.view.HxChatView;
@@ -28,6 +29,7 @@ import com.lwk.familycontact.utils.event.ComNotifyConfig;
 import com.lwk.familycontact.utils.event.ComNotifyEventBean;
 import com.lwk.familycontact.utils.event.EventBusHelper;
 import com.lwk.familycontact.utils.event.HxMessageEventBean;
+import com.lwk.familycontact.utils.event.NewCallRecordEventBean;
 import com.lwk.familycontact.utils.other.ThreadManager;
 
 import java.util.List;
@@ -173,6 +175,7 @@ public class HxChatPresenter
     public void sendTextMessage(EMConversation.EMConversationType conType, String conId, String message)
     {
         EMMessage emMessage = HxChatHelper.getInstance().createTextMessage(getChatTypeFromConType(conType), conId, message);
+        emMessage.setAttribute(HxMsgAttrConstant.TXT_ATTR_KEY, HxMsgAttrConstant.NORMAL_TEXT_MSG);
         emMessage.setMessageStatusCallback(new MessageStatusCallBack(emMessage));
         mViewImpl.addNewMessage(emMessage, true);
         HxChatHelper.getInstance().sendMessage(emMessage);
@@ -477,6 +480,17 @@ public class HxChatPresenter
                 sendImageMessage(conType, conId, imageMessageBody.getLocalUrl(), imageMessageBody.isSendOriginalImage());
                 break;
         }
+    }
+
+    /**
+     * 判断收到的通话记录
+     *
+     * @param eventBean
+     */
+    public void receiveNewCallRecord(NewCallRecordEventBean eventBean)
+    {
+        if (StringUtil.isEquals(eventBean.getConId(), mViewImpl.getConversationId()))
+            mViewImpl.addNewMessage(eventBean.getMessage(), true);
     }
 
     /**

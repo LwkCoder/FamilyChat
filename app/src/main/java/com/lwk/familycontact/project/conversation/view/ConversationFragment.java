@@ -24,6 +24,7 @@ import com.lwk.familycontact.utils.event.ComNotifyConfig;
 import com.lwk.familycontact.utils.event.ComNotifyEventBean;
 import com.lwk.familycontact.utils.event.ConnectEventBean;
 import com.lwk.familycontact.utils.event.EventBusHelper;
+import com.lwk.familycontact.utils.event.NewCallRecordEventBean;
 import com.lwk.familycontact.utils.event.ProfileUpdateEventBean;
 
 import org.greenrobot.eventbus.Subscribe;
@@ -211,5 +212,11 @@ public class ConversationFragment extends BaseFragment implements ConversationVi
         }
 
         mIsConnected = isConnect;
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void onNewCallRecordReceived(NewCallRecordEventBean eventBean)
+    {
+        mPresenter.loadAllConversations();
     }
 }

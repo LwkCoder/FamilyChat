@@ -9,7 +9,6 @@ import com.hyphenate.EMConnectionListener;
 import com.hyphenate.chat.EMClient;
 import com.hyphenate.chat.EMOptions;
 import com.hyphenate.exceptions.HyphenateException;
-import com.lib.base.BuildConfig;
 import com.lib.base.log.KLog;
 import com.lwk.familycontact.base.BuildParams;
 import com.lwk.familycontact.base.FCApplication;
@@ -52,7 +51,7 @@ public class HxSdkHelper
      * 初始化环信sdk
      * 放在Application的onCreate()
      */
-    public void initSdkOptions(Context context)
+    public void initSdkOptions(Context context, boolean isDebug)
     {
         if (mIsSdkInited)
             return;
@@ -80,10 +79,13 @@ public class HxSdkHelper
         KLog.i("--------MiPushAppId=" + BuildParams.MIPUSH_APPID + ",MiPushAppkey=" + BuildParams.MIPUSH_APPKEY + "---------");
         //设置华为推送
         options.setHuaweiPushAppId(BuildParams.HWPUSH_APPID);
-        KLog.i("--------HuaWeiPushAppId=" + BuildParams.HWPUSH_APPID+"--------");
+        KLog.i("--------HuaWeiPushAppId=" + BuildParams.HWPUSH_APPID + "--------");
 
         EMClient.getInstance().init(mAppContext, options);
-        EMClient.getInstance().setDebugMode(BuildConfig.DEBUG);
+        //设置拨打实时通话时，对方不在线是否推送提醒【华为、小米在后台时能接收提醒】
+        //TODO 目前版本sdk无法区分推送的消息和普通文本消息的区别，且没有扩展字段标识到底是语音通话还是视频通话，暂时不启用这个功能！
+        EMClient.getInstance().callManager().getCallOptions().setIsSendPushIfOffline(false);
+        EMClient.getInstance().setDebugMode(isDebug);
         mIsSdkInited = true;
         KLog.i("HxSdk has inited");
     }

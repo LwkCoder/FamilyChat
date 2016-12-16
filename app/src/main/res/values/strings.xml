@@ -218,6 +218,15 @@
     <string name="dialog_permission_voice_call_message">应用程序需要录音权限，否则无法正常发起实时语音通话</string>
     <string name="dialog_permission_voice_call_nerver_ask_message">应用程序无法获取录音的权限，导致无法使用实时通话，您可通过系统设置界面打开软件的录音权限。</string>
     <string name="warning_permission_voice_call_denied">无法获取应用的录音权限，导致无法使用实时通话</string>
+    <string name="chrm_call_ex">通话时长 %s</string>
+    <string name="call_record_default">实时通话</string>
+    <string name="call_record_outgoing_cancel">已取消通话</string>
+    <string name="call_record_outgoing_berejected">对方拒绝接听</string>
+    <string name="call_record_outgoing_busy">对方正在通话中</string>
+    <string name="call_record_outgoing_no_response">对方未接听</string>
+    <string name="call_record_outgoing_offline">对方不在线</string>
+    <string name="call_record_incoming_donothing">未接听对方通话</string>
+    <string name="call_record_incoming_rejected">拒绝接听对方通话</string>
 
     <!--HxVideoCallActivity-->
     <string name="tv_video_call_label">实时视频通话</string>

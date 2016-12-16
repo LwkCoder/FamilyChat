@@ -9,17 +9,15 @@ import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
 import android.os.PowerManager;
-import android.os.SystemClock;
 import android.provider.Settings;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AlertDialog;
-import android.view.View;
-import android.widget.Chronometer;
 import android.widget.ImageView;
 
 import com.lib.base.utils.StringUtil;
 import com.lwk.familycontact.R;
 import com.lwk.familycontact.project.call.presenter.HxVoiceCallPresenter;
+import com.lwk.familycontact.project.chat.utils.HxMsgAttrConstant;
 import com.lwk.familycontact.project.common.CommonUtils;
 
 import permissions.dispatcher.NeedsPermission;
@@ -37,8 +35,6 @@ public class HxVoiceCallActivity extends HxCallBaseActivity implements HxVoiceCa
         , SensorEventListener
 {
     private HxVoiceCallPresenter mPresenter;
-    //计时器
-    private Chronometer mChronometer;
     //距离传感器控制对象
     private SensorManager mSensorManager;
     private Sensor mSensor;
@@ -59,6 +55,7 @@ public class HxVoiceCallActivity extends HxCallBaseActivity implements HxVoiceCa
         Intent intent = new Intent(context, HxVoiceCallActivity.class);
         intent.putExtra(INTENT_KEY_PHONE, phone);
         intent.putExtra(INTENT_KEY_IS_COMING_CALL, isComingCall);
+        intent.putExtra(INTENT_KEY_CALL_TYPE, HxMsgAttrConstant.VOICE_CALL_RECORD);
         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         context.startActivity(intent);
     }
@@ -74,7 +71,6 @@ public class HxVoiceCallActivity extends HxCallBaseActivity implements HxVoiceCa
     protected void initUI()
     {
         super.initUI();
-        mChronometer = findView(R.id.chm_voicecall_time);
         mImgBlurBg = findView(R.id.img_voicecall_blur);
     }
 
@@ -116,10 +112,6 @@ public class HxVoiceCallActivity extends HxCallBaseActivity implements HxVoiceCa
             mSensor = mSensorManager.getDefaultSensor(Sensor.TYPE_PROXIMITY);
             mSensorManager.registerListener(this, mSensor, SensorManager.SENSOR_DELAY_NORMAL);
         }
-        //开始计时
-        mChronometer.setVisibility(View.VISIBLE);
-        mChronometer.setBase(SystemClock.elapsedRealtime());
-        mChronometer.start();
     }
 
     @Override
@@ -270,8 +262,6 @@ public class HxVoiceCallActivity extends HxCallBaseActivity implements HxVoiceCa
     protected void onDestroy()
     {
         super.onDestroy();
-        if (mChronometer != null)
-            mChronometer.stop();
         //释放距离传感器
         if (mSensorManager != null)
         {

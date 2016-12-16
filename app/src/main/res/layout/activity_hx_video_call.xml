@@ -19,6 +19,17 @@
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"/>
 
+    <Chronometer
+        android:id="@+id/chm_call_time"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="@dimen/spacing_large"
+        android:textColor="@android:color/white"
+        android:textSize="15sp"
+        android:visibility="invisible"/>
+
     <com.hyphenate.media.EMLocalSurfaceView
         android:id="@+id/sfv_videocall_local"
         android:layout_width="100dp"

@@ -40,6 +40,7 @@ import com.lwk.familycontact.storage.db.user.UserBean;
 import com.lwk.familycontact.utils.event.ChatActEventBean;
 import com.lwk.familycontact.utils.event.EventBusHelper;
 import com.lwk.familycontact.utils.event.HxMessageEventBean;
+import com.lwk.familycontact.utils.event.NewCallRecordEventBean;
 import com.lwk.familycontact.widget.HxChatController;
 import com.lwk.familycontact.widget.ResizeLayout;
 
@@ -415,6 +416,12 @@ public class HxChatActivity extends FCBaseActivity implements HxChatView
                 mPresenter.addNewReceivedMessages(eventBean);
                 break;
         }
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void onNewCallRecordReceived(NewCallRecordEventBean eventBean)
+    {
+        mPresenter.receiveNewCallRecord(eventBean);
     }
 
     @Override

@@ -34,6 +34,10 @@ public class HxChatAdapter extends RcvMutilAdapter<EMMessage>
         addItemView(new RightVoiceMessageItemView(context, presenter, userBean));
         addItemView(new LeftVideoMessageItemView(context, presenter, userBean));
         addItemView(new RightVideoMessageItemView(context, presenter, userBean));
+        addItemView(new LeftVoiceRecordItemView(context, presenter, userBean));
+        addItemView(new LeftVideoRecordItemView(context, presenter, userBean));
+        addItemView(new RightVoiceRecordItemView(context, presenter, userBean));
+        addItemView(new RightVideoRecordItemView(context, presenter, userBean));
     }
 
     @Override
