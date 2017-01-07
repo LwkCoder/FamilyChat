@@ -84,6 +84,7 @@ dependencies {
     compile "com.timqi.sectorprogressview:library:${LIB_SECTOR_PROGRESSBAR_VERSION}"
     compile "com.yqritc:android-scalablevideoview:${LIB_SCALABLE_VIDEOVIEW_VERSION}"
     compile 'com.umeng.analytics:analytics:latest.integration'
+    compile "com.alibaba:fastjson:${LIB_FAST_JSON_VERSION}"
     compile project(':BaseLibs')
     compile project(':FlatUI')
     compile project(':ComRcvAdapter')
@@ -93,4 +94,5 @@ dependencies {
     compile project(':QrCode')
     compile project(':ImRecordButton')
     compile project(':ShortVideo')
+    compile project(':OkHttp')
 }

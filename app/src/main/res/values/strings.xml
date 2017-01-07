@@ -23,6 +23,10 @@
     <string name="warning_no_more_message_history">没有更多聊天记录</string>
     <string name="warning_voice_play_in_call">当前为听筒播放模式</string>
     <string name="warning_permission_record_audio_denied">无法获取应用的录音权限，将导致无法正常发送语音消息和拨打语音通话</string>
+    <string name="error_userbean_null">用户资料为空，无法执行操作</string>
+    <string name="error_version_data_unavailable">无法获取更新信息</string>
+    <string name="error_lastest_apk_path_unavailable">新版本下载路径异常</string>
+    <string name="toast_apk_downloading">后台开始下载新版本apk</string>
 
     <!--环信相关-->
     <string name="dialog_user_relogin_title">账号在其他设备登录</string>
@@ -117,6 +121,10 @@
     <string name="dialog_setting_logout_confirm_title">退出登录提醒</string>
     <string name="dialog_setting_logout_confirm_message">您确定要退出当前登录的账号？</string>
     <string name="dialog_setting_logout_message">正在退出...</string>
+    <string name="tv_setting_check_version">检查更新</string>
+    <string name="toast_version_is_lastest">当前版本已是最新</string>
+    <string name="dialog_version_download">现在更新</string>
+    <string name="dialog_version_cancel">以后再说</string>
 
     <!--DialPad-->
     <string name="digist_0">0</string>

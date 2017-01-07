@@ -381,10 +381,16 @@ public class HxChatActivity extends FCBaseActivity implements HxChatView
                         , REQUEST_CODE_SHORT_VIDEO, RESULT_CODE_SHORT_VIDEO);
                 break;
             case HxChatPlusDialog.ITEM_VOICE_CALL:
-                HxVoiceCallActivity.start(this, mUserBean.getPhone(), false);
+                if (mUserBean != null)
+                    HxVoiceCallActivity.start(this, mUserBean.getPhone(), false);
+                else
+                    showShortToast(R.string.error_userbean_null);
                 break;
             case HxChatPlusDialog.ITEM_VIDEO_CALL:
-                HxVideoCallActivity.start(this, mUserBean.getPhone(), false);
+                if (mUserBean != null)
+                    HxVideoCallActivity.start(this, mUserBean.getPhone(), false);
+                else
+                    showShortToast(R.string.error_userbean_null);
                 break;
         }
     }

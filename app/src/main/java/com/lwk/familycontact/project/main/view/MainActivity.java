@@ -17,6 +17,8 @@ import com.ashokvarma.bottomnavigation.BottomNavigationItem;
 import com.lib.base.widget.CommonActionBar;
 import com.lwk.familycontact.R;
 import com.lwk.familycontact.base.FCBaseActivity;
+import com.lwk.familycontact.project.common.version.CheckVersionUtils;
+import com.lwk.familycontact.project.common.version.VersionBean;
 import com.lwk.familycontact.project.contact.view.AddFriendActivity;
 import com.lwk.familycontact.project.contact.view.ContactFragment;
 import com.lwk.familycontact.project.conversation.view.ConversationFragment;
@@ -117,6 +119,14 @@ public class MainActivity extends FCBaseActivity implements MainView
         mPresenter.refreshMiddleTabBadge();
         //绑定Service实现环信各种监听
         bindService(new Intent(MainActivity.this, MainService.class), mServiceConnection, Context.BIND_AUTO_CREATE);
+    }
+
+    @Override
+    protected void onStart()
+    {
+        super.onStart();
+        //检查版本更新
+        mPresenter.checkVersion();
     }
 
     private ServiceConnection mServiceConnection = new ServiceConnection()
@@ -288,6 +298,12 @@ public class MainActivity extends FCBaseActivity implements MainView
     {
         if (mBadge02 != null)
             mBadge02.hide();
+    }
+
+    @Override
+    public void showVersionDialog(VersionBean versionBean)
+    {
+        CheckVersionUtils.getInstance().showVersionDialog(this, versionBean);
     }
 
 

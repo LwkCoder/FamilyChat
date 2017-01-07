@@ -6,7 +6,14 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@android:color/black"
+    android:fitsSystemWindows="true"
     tools:context="com.lwk.familycontact.project.chat.view.HxShortVideoPlayActivity">
+
+    <com.lib.base.widget.CommonActionBar
+        android:id="@+id/cab_shortvideo"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/transblack_50000000"/>
 
     <ViewStub
         android:id="@+id/vs_shortvideo_videoview"

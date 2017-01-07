@@ -11,6 +11,7 @@ import android.widget.TextView;
 
 import com.hyphenate.chat.EMMessage;
 import com.lib.base.utils.ScreenUtils;
+import com.lib.base.widget.CommonActionBar;
 import com.lwk.familycontact.R;
 import com.lwk.familycontact.base.FCBaseActivity;
 import com.lwk.familycontact.project.chat.presenter.HxShortVideoPlayPresenter;
@@ -68,6 +69,8 @@ public class HxShortVideoPlayActivity extends FCBaseActivity implements HxShortV
     @Override
     protected void initUI()
     {
+        CommonActionBar actionBar = findView(R.id.cab_shortvideo);
+        actionBar.setLeftLayoutAsBack(this);
     }
 
     @Override
@@ -82,7 +85,7 @@ public class HxShortVideoPlayActivity extends FCBaseActivity implements HxShortV
     {
         super.onResume();
         //部分机型在播放视频的时候跳转到其他地方再回来时，视频会被拉伸，所以在onResume里设置一次
-        if (mVideoView!=null)
+        if (mVideoView != null)
             mVideoView.setScalableType(ScalableType.FIT_CENTER);
     }
 

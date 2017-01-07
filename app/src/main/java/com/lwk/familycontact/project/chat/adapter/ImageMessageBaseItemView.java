@@ -59,7 +59,7 @@ public abstract class ImageMessageBaseItemView extends HxChatBaseItemView
         } else
         {
             mLayoutWidth = imgWidth >= MIN_IMAGE_SIZE ? imgWidth : MIN_IMAGE_SIZE;
-            mLayoutHeight = imgHeight >= MIN_IMAGE_SIZE ? imgWidth : MIN_IMAGE_SIZE;
+            mLayoutHeight = imgHeight >= MIN_IMAGE_SIZE ? imgHeight : MIN_IMAGE_SIZE;
         }
 
         SelectableRoundedImageView imageView = holder.findView(R.id.img_chat_listitem_img_content);

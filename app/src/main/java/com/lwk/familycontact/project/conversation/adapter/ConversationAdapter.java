@@ -1,6 +1,7 @@
 package com.lwk.familycontact.project.conversation.adapter;
 
 import android.content.Context;
+import android.graphics.drawable.Drawable;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
@@ -17,6 +18,7 @@ import com.lib.rcvadapter.RcvSingleAdapter;
 import com.lib.rcvadapter.holder.RcvHolder;
 import com.lwk.familycontact.R;
 import com.lwk.familycontact.im.bean.HxConversation;
+import com.lwk.familycontact.project.chat.utils.HxMsgAttrConstant;
 import com.lwk.familycontact.project.common.CommonUtils;
 import com.lwk.familycontact.storage.db.user.UserBean;
 
@@ -86,6 +88,7 @@ public class ConversationAdapter extends RcvSingleAdapter<HxConversation>
         tvTime.setText(DateUtils.getTimeDescribe(mContext, new Date(timeStamp)));
         //设置最后消息的描述
         EMMessage.Type lastMsgType = lastMessage.getType();
+        Drawable drawable = null;
         if (lastMsgType == EMMessage.Type.VOICE)
         {
             tvLastMsg.setText(R.string.msg_type_desc_voice);
@@ -105,7 +108,14 @@ public class ConversationAdapter extends RcvSingleAdapter<HxConversation>
         {
             EMTextMessageBody txtBody = (EMTextMessageBody) lastMessage.getBody();
             tvLastMsg.setText(txtBody.getMessage());
+            //如果是通话记录，设置drawableLeft
+            int textType = lastMessage.getIntAttribute(HxMsgAttrConstant.TXT_ATTR_KEY, HxMsgAttrConstant.NORMAL_TEXT_MSG);
+            if (textType == HxMsgAttrConstant.VOICE_CALL_RECORD)
+                drawable = getDrawableIcon(R.drawable.ic_voicecall_record_gray);
+            else if (textType == HxMsgAttrConstant.VIDEO_CALL_RECORD)
+                drawable = getDrawableIcon(R.drawable.ic_videocall_record_gray);
         }
+        tvLastMsg.setCompoundDrawables(drawable, null, null, null);
         //设置最后消息的状态
         EMMessage.Status status = lastMessage.status();
         if (status == EMMessage.Status.CREATE || status == EMMessage.Status.INPROGRESS)
@@ -121,5 +131,13 @@ public class ConversationAdapter extends RcvSingleAdapter<HxConversation>
             pgbSending.setVisibility(View.GONE);
             imgSendFail.setVisibility(View.GONE);
         }
+    }
+
+    private Drawable getDrawableIcon(int resId)
+    {
+        Drawable drawable = mContext.getResources().getDrawable(resId);
+        int bound = mContext.getResources().getDimensionPixelSize(R.dimen.dp_16);
+        drawable.setBounds(0, 0, bound, bound);
+        return drawable;
     }
 }

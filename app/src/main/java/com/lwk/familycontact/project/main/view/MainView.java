@@ -1,5 +1,7 @@
 package com.lwk.familycontact.project.main.view;
 
+import com.lwk.familycontact.project.common.version.VersionBean;
+
 /**
  * Created by LWK
  * TODO MainActivity交互接口
@@ -14,4 +16,6 @@ public interface MainView
     void onShowMiddleBadgeNum(int num);
 
     void onHideMiddleBadgeNum();
+
+    void showVersionDialog(VersionBean versionBean);
 }

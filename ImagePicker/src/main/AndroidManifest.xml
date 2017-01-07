@@ -9,15 +9,16 @@
     <application
         android:allowBackup="true"
         android:supportsRtl="true">
-        <provider
-            android:name="android.support.v4.content.FileProvider"
-            android:authorities="com.lib.imagepicker.fileprovider"
-            android:exported="false"
-            android:grantUriPermissions="true">
-            <meta-data
-                android:name="android.support.FILE_PROVIDER_PATHS"
-                android:resource="@xml/take_photo_path"/>
-        </provider>
+        <!--主工程Moudel的清单文件申明过，此处无需重复申明-->
+        <!--<provider-->
+        <!--android:name="android.support.v4.content.FileProvider"-->
+        <!--android:authorities="com.lib.imagepicker.fileprovider"-->
+        <!--android:exported="false"-->
+        <!--android:grantUriPermissions="true">-->
+        <!--<meta-data-->
+        <!--android:name="android.support.FILE_PROVIDER_PATHS"-->
+        <!--android:resource="@xml/take_photo_path"/>-->
+        <!--</provider>-->
 
         <activity
             android:name=".view.activity.ImagePickerGridActivity"

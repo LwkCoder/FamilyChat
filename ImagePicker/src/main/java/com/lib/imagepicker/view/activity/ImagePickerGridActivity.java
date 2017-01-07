@@ -278,7 +278,8 @@ public class ImagePickerGridActivity extends ImagePickerBaseActivity implements 
      */
     private void doTakePhotoAfterSdk24(Intent intent, File tempPicFile)
     {
-        Uri imageUri = FileProvider.getUriForFile(this, "com.lib.imagepicker.fileprovider", tempPicFile);
+//        Uri imageUri = FileProvider.getUriForFile(this, "com.lib.imagepicker.fileprovider", tempPicFile);
+        Uri imageUri = FileProvider.getUriForFile(this, "com.lwk.familycontact.fileprovider", tempPicFile);//要和主项目Moudel申明的authorities一致
         intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION); //添加这一句表示对目标应用临时授权该Uri所代表的文件
         intent.putExtra(MediaStore.EXTRA_OUTPUT, imageUri);//将拍取的照片保存到指定URI
         startActivityForResult(intent, sREQUESTCODE_TAKE_PHOTO);

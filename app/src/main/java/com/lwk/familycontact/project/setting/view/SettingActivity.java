@@ -12,6 +12,8 @@ import com.lib.base.utils.ResUtils;
 import com.lib.base.widget.CommonActionBar;
 import com.lwk.familycontact.R;
 import com.lwk.familycontact.base.FCBaseActivity;
+import com.lwk.familycontact.project.common.version.CheckVersionUtils;
+import com.lwk.familycontact.project.common.version.VersionBean;
 import com.lwk.familycontact.project.login.view.LoginActivity;
 import com.lwk.familycontact.project.setting.presenter.SettingPresenter;
 import com.lwk.familycontact.utils.other.AnimationController;
@@ -49,6 +51,8 @@ public class SettingActivity extends FCBaseActivity implements CompoundButton.On
         CommonActionBar actionBar = findView(R.id.cab_setting);
         actionBar.setLeftLayoutAsBack(this);
         actionBar.setTitleText(R.string.tv_setting_title);
+        actionBar.setRightTvText(R.string.tv_setting_check_version);
+        actionBar.setRightLayoutClickListener(this);
 
         mFtgDialFeedBack = findView(R.id.ftg_setting_dial_feedback);
         mFtgMsgNotice = findView(R.id.ftg_setting_msg_notice);
@@ -107,6 +111,9 @@ public class SettingActivity extends FCBaseActivity implements CompoundButton.On
                                 dialog.dismiss();
                             }
                         }).create().show();
+                break;
+            case R.id.fl_common_actionbar_right:
+                mPresenter.checkVersion();
                 break;
         }
     }
@@ -180,5 +187,11 @@ public class SettingActivity extends FCBaseActivity implements CompoundButton.On
                     mDialog.dismiss();
             }
         });
+    }
+
+    @Override
+    public void showVersionDialog(final VersionBean versionBean)
+    {
+        CheckVersionUtils.getInstance().showVersionDialog(this, versionBean);
     }
 }

@@ -1,5 +1,7 @@
 package com.lwk.familycontact.project.setting.view;
 
+import com.lwk.familycontact.project.common.version.VersionBean;
+
 /**
  * Created by LWK
  * TODO 设置界面View
@@ -16,4 +18,6 @@ public interface SettingView
     void showLogoutDialog();
 
     void closeLogoutDialog();
+
+    void showVersionDialog(VersionBean versionBean);
 }

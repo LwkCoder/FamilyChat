@@ -10,6 +10,7 @@ import android.content.pm.PackageManager;
 import android.os.Build;
 import android.os.Bundle;
 import android.provider.Settings;
+import android.util.Log;
 import android.view.ViewStub;
 import android.view.WindowManager;
 import android.widget.Toast;
@@ -151,6 +152,7 @@ public class RecordShortVideoActivity extends Activity
         mRecorder.setMaxDuration(mMaxDuration);
         mRecorder.setMinDuration(mMinDuration);
         mRecorder.setCacheFolder(mOutPutFolder);
+        Log.e("sss","短视频缓存文件夹："+mOutPutFolder);
         mRecorder.setHWRate(mHWRate);
         mRecorder.setOnRecordListener(new ShortVideoRecorder.OnRecordListener()
         {

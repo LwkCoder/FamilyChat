@@ -33,6 +33,7 @@ public class FCCache
     private final String VOICE_MSG_FLODER_NAME = "voice";
     private final String IMAGE_FLODER_NAME = "image";
     private final String VIDEO_FLODER_NAME = "video";
+    private final String VERSION_FLODER_NAME = "version";
 
     private String ROOT_PATH;
 
@@ -43,6 +44,8 @@ public class FCCache
     private String mImageCachePath;
 
     private String mVideoCachePath;
+
+    private String mVersionCachePath;
 
     /**
      * 获取用户头像缓存地址
@@ -102,5 +105,20 @@ public class FCCache
                 mVideoCachePath = ROOT_PATH;
         }
         return mVideoCachePath;
+    }
+
+    /**
+     * 获取版本信息缓存地址
+     */
+    public String getVersionCachePath()
+    {
+        if (mVersionCachePath == null)
+        {
+            File file = new File(ROOT_PATH, VERSION_FLODER_NAME);
+            mVersionCachePath = file.getAbsolutePath();
+            if (!file.exists() && !file.mkdirs())
+                mVersionCachePath = ROOT_PATH;
+        }
+        return mVersionCachePath;
     }
 }

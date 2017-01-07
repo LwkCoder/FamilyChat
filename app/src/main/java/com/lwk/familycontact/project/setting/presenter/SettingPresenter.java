@@ -5,6 +5,8 @@ import android.content.Context;
 import com.lib.base.app.AppManager;
 import com.lwk.familycontact.im.helper.HxSdkHelper;
 import com.lwk.familycontact.project.common.FCCallBack;
+import com.lwk.familycontact.project.common.version.CheckVersionUtils;
+import com.lwk.familycontact.project.common.version.VersionBean;
 import com.lwk.familycontact.project.login.view.LoginActivity;
 import com.lwk.familycontact.project.setting.view.SettingView;
 import com.lwk.familycontact.storage.sp.SpSetting;
@@ -112,4 +114,22 @@ public class SettingPresenter
         mSettingView.logoutSuccess();
         AppManager.getInstance().finishAllActivityExceptOne(LoginActivity.class);
     }
+
+    /**
+     * 检查版本更新
+     */
+    public void checkVersion()
+    {
+        CheckVersionUtils.getInstance().checkVersion(true, new CheckVersionUtils.onCheckVersionListener()
+        {
+
+            @Override
+            public void onNewVersionAvaiable(VersionBean versionBean)
+            {
+                if (mSettingView != null)
+                    mSettingView.showVersionDialog(versionBean);
+            }
+        });
+    }
+
 }

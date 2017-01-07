@@ -48,7 +48,7 @@
                 android:id="@+id/imbtn_chat_controller_voice_input"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/btn_chat_record_button_height"
-                android:textColor="@color/colorPrimaryDark"
+                android:textColor="@color/gray_727272"
                 android:textSize="@dimen/sp_17"
                 android:visibility="gone"
                 app:backgrount_resId_normal="@drawable/shape_rect_chat_record_button_bg_normal"

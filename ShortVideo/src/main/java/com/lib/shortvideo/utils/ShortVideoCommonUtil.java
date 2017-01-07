@@ -76,6 +76,7 @@ public class ShortVideoCommonUtil
         if (!file.exists())
             file.exists();
         return new StringBuffer().append(folderPath)
+                .append("/")
                 .append("VID_")
                 .append(String.valueOf(System.currentTimeMillis()))
                 .append(".mp4").toString();

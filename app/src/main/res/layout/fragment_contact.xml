@@ -22,7 +22,8 @@
             app:ptr_def_view_label_pulldown_pulling="@string/tv_pull_down_pulling"
             app:ptr_def_view_label_pulldown_released="@string/tv_pull_down_released"
             app:ptr_def_view_label_pulldown_reset="@string/tv_pull_down_reset"
-            app:ptr_def_view_label_pulldown_success="@string/tv_pull_down_success"/>
+            app:ptr_def_view_label_pulldown_success="@string/tv_pull_down_success"
+            app:ptr_def_view_icon_pull_down_arrow="@drawable/ic_pull_down_arrow_white"/>
 
         <!--被包装的View：id请严格按照预设的设置-->
         <android.support.v7.widget.RecyclerView

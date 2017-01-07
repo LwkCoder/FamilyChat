@@ -1,1 +1,1 @@
-include ':app', ':BaseLibs', ':FlatUI', ':ComRcvAdapter', ':PtrView', ':QuickSideBar', ':ImagePicker', ':QrCode', ':ImRecordButton', ':ShortVideo'
+include ':app', ':BaseLibs', ':FlatUI', ':ComRcvAdapter', ':PtrView', ':QuickSideBar', ':ImagePicker', ':QrCode', ':ImRecordButton', ':ShortVideo', ':OkHttp'

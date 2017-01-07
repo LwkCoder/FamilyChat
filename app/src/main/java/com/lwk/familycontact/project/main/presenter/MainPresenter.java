@@ -2,6 +2,8 @@ package com.lwk.familycontact.project.main.presenter;
 
 import android.os.Handler;
 
+import com.lwk.familycontact.project.common.version.CheckVersionUtils;
+import com.lwk.familycontact.project.common.version.VersionBean;
 import com.lwk.familycontact.project.main.model.MainModel;
 import com.lwk.familycontact.project.main.view.MainView;
 import com.lwk.familycontact.utils.other.ThreadManager;
@@ -63,5 +65,21 @@ public class MainPresenter
             mMainView.onHideMiddleBadgeNum();
         else
             mMainView.onShowMiddleBadgeNum(num);
+    }
+
+    /**
+     * 检查版本更新
+     */
+    public void checkVersion()
+    {
+        CheckVersionUtils.getInstance().checkVersion(false, new CheckVersionUtils.onCheckVersionListener()
+        {
+            @Override
+            public void onNewVersionAvaiable(VersionBean versionBean)
+            {
+                if (mMainView != null)
+                    mMainView.showVersionDialog(versionBean);
+            }
+        });
     }
 }
