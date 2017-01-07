@@ -33,7 +33,7 @@ public class CheckVersionUtils
     private String BASE_URL = "http://ogqrscjjw.bkt.clouddn.com/fcverison";
     private boolean isDownloading;
     private final String SP_KEY_CHECK_DATE = "check_version_date";
-    private final int MIN_DATE_INTERVAL = 86400;
+    private final int MIN_DATE_INTERVAL = 86400000;
 
     private CheckVersionUtils()
     {
