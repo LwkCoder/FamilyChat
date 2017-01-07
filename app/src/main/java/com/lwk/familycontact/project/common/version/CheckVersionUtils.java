@@ -7,6 +7,7 @@ import android.net.Uri;
 import android.support.v4.content.FileProvider;
 import android.support.v7.app.AlertDialog;
 
+import com.lib.base.app.AppManager;
 import com.lib.base.log.KLog;
 import com.lib.base.sp.Sp;
 import com.lib.base.toast.ToastUtils;
@@ -139,8 +140,9 @@ public class CheckVersionUtils
         if (isDownloading)
             return;
 
+        KLog.i("新版本下载路径：" + versionBean.getPath());
         OkHttpUtils.get().url(versionBean.getPath())
-                .build().execute(new OkDownLoadFileCallBack(FCCache.getInstance().getVersionCachePath(), createApkName(versionBean.getCode()))
+                .build().execute(new OkDownLoadFileCallBack(FCCache.getInstance().getVersionCachePath(), createApkName(versionBean))
         {
             @Override
             public void onBefore(Request request, int id)
@@ -191,7 +193,9 @@ public class CheckVersionUtils
         Intent intent = new Intent(Intent.ACTION_VIEW);
         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         intent.setDataAndType(Uri.fromFile(file), "application/vnd.android.package-archive");
-        FCApplication.getInstance().startActivity(intent);
+        Activity activity = AppManager.getInstance().getPopActivity();
+        if (activity!=null)
+            activity.startActivity(intent);
     }
 
     //sdk24之后唤起apk安装的方法
@@ -200,16 +204,20 @@ public class CheckVersionUtils
         Uri apkUri = FileProvider.getUriForFile(FCApplication.getInstance()
                 , "com.lwk.familycontact.fileprovider", file);
         Intent intent = new Intent(Intent.ACTION_VIEW);
+        intent.setFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         intent.setDataAndType(apkUri, "application/vnd.android.package-archive");
-        FCApplication.getInstance().startActivity(intent);
+        Activity activity = AppManager.getInstance().getPopActivity();
+        if (activity!=null)
+            activity.startActivity(intent);
     }
 
     //创建新apk本地缓存名字
-    private String createApkName(int newVersionCode)
+    private String createApkName(VersionBean versionBean)
     {
         return new StringBuffer().append("FamilyChat")
-                .append(newVersionCode)
+                .append(versionBean.getCode())
+                .append(String.valueOf(System.currentTimeMillis()))
                 .append(".apk").toString();
     }
 
