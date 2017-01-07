@@ -4,7 +4,7 @@
 ------
 
 **由于项目中集成了友盟统计，是为了方便搜集崩溃日志，还请fork该项目的朋友在进行二次开发的时候删除友盟或者更换渠道名，以免和我的项目混淆，谢谢配合**<br/>
-想直接体验项目运行效果的可[点击这里下载apk](http://ogqrscjjw.bkt.clouddn.com/FCDebugV1.4.apk)<br/>编译项目需要Android Studio2.2以上!
+想直接体验项目运行效果的可[点击这里下载apk](http://ogqrscjjw.bkt.clouddn.com/FC_DebugV1.4.apk)<br/>编译项目需要Android Studio2.2以上!
 <br/>
 ###更新日志：
 ####V1.4:
