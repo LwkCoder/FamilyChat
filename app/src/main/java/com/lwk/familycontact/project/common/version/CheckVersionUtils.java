@@ -189,6 +189,7 @@ public class CheckVersionUtils
     private void startInstallBeforeSdk24(File file)
     {
         Intent intent = new Intent(Intent.ACTION_VIEW);
+        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         intent.setDataAndType(Uri.fromFile(file), "application/vnd.android.package-archive");
         FCApplication.getInstance().startActivity(intent);
     }
@@ -199,6 +200,7 @@ public class CheckVersionUtils
         Uri apkUri = FileProvider.getUriForFile(FCApplication.getInstance()
                 , "com.lwk.familycontact.fileprovider", file);
         Intent intent = new Intent(Intent.ACTION_VIEW);
+        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         intent.setDataAndType(apkUri, "application/vnd.android.package-archive");
         FCApplication.getInstance().startActivity(intent);
     }
