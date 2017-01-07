@@ -30,7 +30,7 @@ import okhttp3.Request;
  */
 public class CheckVersionUtils
 {
-    private String BASE_URL = "http://ogqrscjjw.bkt.clouddn.com/fcverison";
+    private String URL = "http://ogqrscjjw.bkt.clouddn.com/fcverison";
     private boolean isDownloading;
     private final String SP_KEY_CHECK_DATE = "check_version_date";
     private final int MIN_DATE_INTERVAL = 86400000;
@@ -58,14 +58,9 @@ public class CheckVersionUtils
         if (!forceCheck && !isTimeEnough())
             return;
 
-        final int curVersion = AppUtil.getAppVersionCode(FCApplication.getInstance());
-        int nextVersion = curVersion + 1;
-        String url = BASE_URL + nextVersion;
-        KLog.i("检查版本信息URL： " + url);
-
         OkHttpUtils
                 .get()
-                .url(url)
+                .url(URL)
                 .build()
                 .execute(new OkVersionResultCallBack()
                 {
@@ -73,6 +68,7 @@ public class CheckVersionUtils
                     public void onSuccess(VersionBean versionBean)
                     {
                         updateCheckDate();
+                        int curVersion = AppUtil.getAppVersionCode(FCApplication.getInstance());
                         int lastestVersionCode = versionBean.getCode();
                         if (lastestVersionCode > curVersion)
                         {
