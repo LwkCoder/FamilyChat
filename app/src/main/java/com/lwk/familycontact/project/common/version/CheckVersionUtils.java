@@ -84,16 +84,8 @@ public class CheckVersionUtils
                     @Override
                     public void onError(int errorCode)
                     {
-                        //404代表没有网络请求的URL不存在，也就是没有更新版本的信息，所以当前版本就是最新的
-                        if (errorCode == 404)
-                        {
-                            if (forceCheck)
-                                ToastUtils.showShortMsg(FCApplication.getInstance(), R.string.toast_version_is_lastest);
-                        } else
-                        {
-                            if (forceCheck)
-                                ToastUtils.showShortMsg(FCApplication.getInstance(), R.string.error_version_data_unavailable);
-                        }
+                        if (forceCheck)
+                            ToastUtils.showShortMsg(FCApplication.getInstance(), R.string.error_version_data_unavailable);
                     }
                 });
     }
