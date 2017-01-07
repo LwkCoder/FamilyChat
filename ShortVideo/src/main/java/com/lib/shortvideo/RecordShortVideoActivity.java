@@ -152,7 +152,6 @@ public class RecordShortVideoActivity extends Activity
         mRecorder.setMaxDuration(mMaxDuration);
         mRecorder.setMinDuration(mMinDuration);
         mRecorder.setCacheFolder(mOutPutFolder);
-        Log.e("sss","短视频缓存文件夹："+mOutPutFolder);
         mRecorder.setHWRate(mHWRate);
         mRecorder.setOnRecordListener(new ShortVideoRecorder.OnRecordListener()
         {
