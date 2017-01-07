@@ -4,7 +4,7 @@
 ------
 
 **由于项目中集成了友盟统计，是为了方便搜集崩溃日志，还请fork该项目的朋友在进行二次开发的时候删除友盟或者更换渠道名，以免和我的项目混淆，谢谢配合**<br/>
-想直接体验项目运行效果的可[点击这里下载apk](http://ogqrscjjw.bkt.clouddn.com/FamilyChat_debugV1.3.apk)
+想直接体验项目运行效果的可[点击这里下载apk](http://ogqrscjjw.bkt.clouddn.com/FamilyChat_debugV1.4.apk)<br/>编译项目需要Android Studio2.2以上!
 <br/>
 ###更新日志：
 ####V1.3:
@@ -60,4 +60,5 @@
 如果发现项目bug或者对项目有好的建议，欢迎提交issue，或者通过下面的联系方式联系我.<br/>
 *QQ：505515031  746604151<br/>
 *邮箱：505515031@qq.com<br/>
-*微信：Vanish520136
+*微信：Vanish520136<br/>
+######注：联系我时请注明来意！！！
