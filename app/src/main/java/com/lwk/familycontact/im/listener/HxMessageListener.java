@@ -74,14 +74,14 @@ public class HxMessageListener implements EMMessageListener
 
     //收到已读回执
     @Override
-    public void onMessageReadAckReceived(List<EMMessage> list)
+    public void onMessageRead(List<EMMessage> list)
     {
         KLog.i("HxMessageListener onMessageReadAckReceived : " + list);
     }
 
     //收到已送达回执
     @Override
-    public void onMessageDeliveryAckReceived(List<EMMessage> list)
+    public void onMessageDelivered(List<EMMessage> list)
     {
         KLog.i("HxMessageListener onMessageDeliveryAckReceived : " + list);
     }

@@ -21,7 +21,8 @@ public class HxVideoCallPrenter extends HxCallPresenter
     {
         super(viewImpl, handler);
         mVideoCallHelper = HxCallHelper.getInstance().getVideoCallHelper();
-        mVideoCallHelper.setResolution(540, 960);
+        HxCallHelper.getInstance().enableFixedVideoResolution(true);
+        HxCallHelper.getInstance().setVideoCallResolution(540, 960);
     }
 
     /**

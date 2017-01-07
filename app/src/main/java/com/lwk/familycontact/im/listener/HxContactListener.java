@@ -49,7 +49,7 @@ public class HxContactListener implements EMContactListener
     }
 
     @Override
-    public void onContactAgreed(String phone)
+    public void onFriendRequestAccepted(String phone)
     {
         //好友请求被同意
         KLog.i("HxContactListener onContactAgreed: phone=" + phone);
@@ -66,7 +66,7 @@ public class HxContactListener implements EMContactListener
     }
 
     @Override
-    public void onContactRefused(String phone)
+    public void onFriendRequestDeclined(String phone)
     {
         //好友请求被拒绝
         KLog.i("HxContactListener onContactRefused: phone=" + phone);

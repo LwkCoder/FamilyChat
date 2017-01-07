@@ -651,7 +651,7 @@ public abstract class HxCallBaseActivity extends FCBaseActivity implements HeadS
         } else
         {
             recordMsg = EMMessage.createSendMessage(EMMessage.Type.TXT);
-            recordMsg.setReceipt(mOpPhone);
+            recordMsg.setTo(mOpPhone);
             if (mCallError == EMCallStateChangeListener.CallError.ERROR_NONE)
             {
                 //主动去电，对方尚未操作时主动挂断

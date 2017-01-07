@@ -66,7 +66,7 @@ public class ConversationAdapter extends RcvSingleAdapter<HxConversation>
         } else
         {
             rImgHead.setImageResource(R.drawable.default_avatar);
-            fTvName.setText(emConversation.getUserName());
+            fTvName.setText(emConversation.conversationId());
         }
         //设置未读消息数量
         int unreadCount = emConversation.getUnreadMsgCount();

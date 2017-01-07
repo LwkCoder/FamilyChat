@@ -159,4 +159,22 @@ public class HxCallHelper
     {
         EMClient.getInstance().callManager().resumeVideoTransfer();
     }
+
+    /**
+     * 设置视频通话是否自动调节分辨率
+     *
+     * @param b
+     */
+    public void enableFixedVideoResolution(boolean b)
+    {
+        EMClient.getInstance().callManager().getCallOptions().enableFixedVideoResolution(b);
+    }
+
+    /**
+     * 设置视频通话默认分辨率
+     */
+    public void setVideoCallResolution(int w, int h)
+    {
+        EMClient.getInstance().callManager().getCallOptions().setVideoResolution(w, h);
+    }
 }
