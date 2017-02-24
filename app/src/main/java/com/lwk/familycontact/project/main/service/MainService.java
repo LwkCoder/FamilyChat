@@ -89,7 +89,7 @@ public class MainService extends Service
     /**
      * 注册环信监听
      */
-    private void registHxListener()
+    public void registHxListener()
     {
         KLog.i("MainService--->registHxListener()");
         mHxConnectListener = new HxConnectListener();
@@ -102,15 +102,19 @@ public class MainService extends Service
     }
 
     /**
-     * 解绑换新监听
+     * 解绑环信监听
      */
-    private void unRegistHxListener()
+    public void unRegistHxListener()
     {
         KLog.i("MainService--->unRegistHxListener()");
-        HxSdkHelper.getInstance().removeConnectListener(mHxConnectListener);
-        HxSdkHelper.getInstance().removeContactListener(mHxContactListener);
-        HxChatHelper.getInstance().removeMessageListener(mHxMessageListener);
-        HxCallReceiver.unregist(this, mCallReceiver);
+        if (mHxConnectListener != null)
+            HxSdkHelper.getInstance().removeConnectListener(mHxConnectListener);
+        if (mHxContactListener != null)
+            HxSdkHelper.getInstance().removeContactListener(mHxContactListener);
+        if (mHxMessageListener != null)
+            HxChatHelper.getInstance().removeMessageListener(mHxMessageListener);
+        if (mCallReceiver != null)
+            HxCallReceiver.unregist(this, mCallReceiver);
     }
 
     public class MainServiceBinder extends Binder

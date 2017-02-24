@@ -1,11 +1,7 @@
 package com.lwk.familycontact.project.main.view;
 
-import android.content.ComponentName;
-import android.content.Context;
 import android.content.Intent;
-import android.content.ServiceConnection;
 import android.graphics.Color;
-import android.os.IBinder;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.view.Gravity;
@@ -24,7 +20,6 @@ import com.lwk.familycontact.project.contact.view.ContactFragment;
 import com.lwk.familycontact.project.conversation.view.ConversationFragment;
 import com.lwk.familycontact.project.dial.view.DialFragment;
 import com.lwk.familycontact.project.main.presenter.MainPresenter;
-import com.lwk.familycontact.project.main.service.MainService;
 import com.lwk.familycontact.project.profile.UserProfileActivity;
 import com.lwk.familycontact.project.setting.view.SettingActivity;
 import com.lwk.familycontact.utils.event.ComNotifyConfig;
@@ -52,7 +47,6 @@ public class MainActivity extends FCBaseActivity implements MainView
     private ContactFragment mFragment02;
     private DialFragment mFragment03;
     private MainMenuPop mMenuPop;
-    private MainService mMainService;
 
     @Override
     protected int setContentViewId()
@@ -117,8 +111,6 @@ public class MainActivity extends FCBaseActivity implements MainView
         //刷新各Tab的角标
         mPresenter.refreshLeftTabBadge();
         mPresenter.refreshMiddleTabBadge();
-        //绑定Service实现环信各种监听
-        bindService(new Intent(MainActivity.this, MainService.class), mServiceConnection, Context.BIND_AUTO_CREATE);
     }
 
     @Override
@@ -128,20 +120,6 @@ public class MainActivity extends FCBaseActivity implements MainView
         //检查版本更新
         mPresenter.checkVersion();
     }
-
-    private ServiceConnection mServiceConnection = new ServiceConnection()
-    {
-        @Override
-        public void onServiceConnected(ComponentName name, IBinder service)
-        {
-            mMainService = ((MainService.MainServiceBinder) service).getService();
-        }
-
-        @Override
-        public void onServiceDisconnected(ComponentName name)
-        {
-        }
-    };
 
     @Override
     protected void onClick(int id, View v)
@@ -261,7 +239,6 @@ public class MainActivity extends FCBaseActivity implements MainView
     @Override
     protected void onDestroy()
     {
-        unbindService(mServiceConnection);
         EventBusHelper.getInstance().unregist(this);
         super.onDestroy();
     }
