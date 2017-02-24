@@ -59,25 +59,24 @@ public abstract class VoiceMessageBaseItemView extends HxChatBaseItemView
                     * (voiceLength - MIN_VOICE_LENGTH) / 5;//5=MAX_VOICE_LENGTH-MIN_VOICE_LENGTH
         vLayout.setLayoutParams(layoutParams);
 
-        //设置播放动画
-        AnimationDrawable animationDrawable = null;
-        if (mPresenter.getCurPlayVoicePosition() == position)
+        AnimationDrawable mAnimDrawable = null;
+        if (mPresenter.getCurPlayVoicePosition() == position && mAnimDrawable == null)
         {
-            if (emMessage.direct()== EMMessage.Direct.SEND)
+            if (emMessage.direct() == EMMessage.Direct.SEND)
                 imgLabel.setImageResource(R.drawable.anim_voice_play_right);
             else
                 imgLabel.setImageResource(R.drawable.anim_voice_play_left);
-            animationDrawable = (AnimationDrawable) imgLabel.getDrawable();
-            animationDrawable.start();
+            mAnimDrawable = (AnimationDrawable) imgLabel.getDrawable();
+            mAnimDrawable.start();
         } else
         {
-            if (animationDrawable != null && animationDrawable.isRunning())
+            if (mAnimDrawable != null && mAnimDrawable.isRunning())
             {
-                animationDrawable.stop();
-                animationDrawable = null;
+                mAnimDrawable.stop();
+                mAnimDrawable = null;
             }
 
-            if (emMessage.direct()== EMMessage.Direct.SEND)
+            if (emMessage.direct() == EMMessage.Direct.SEND)
                 imgLabel.setImageResource(R.drawable.ic_voice_right03);
             else
                 imgLabel.setImageResource(R.drawable.ic_voice_left03);
@@ -99,6 +98,7 @@ public abstract class VoiceMessageBaseItemView extends HxChatBaseItemView
         }
 
         //设置点击事件
+        holder.setClickListener(R.id.fl_chat_listitem_voice_content, null);
         holder.setClickListener(R.id.fl_chat_listitem_voice_content, new View.OnClickListener()
         {
             @Override

@@ -5,6 +5,7 @@ import android.os.Handler;
 import com.hyphenate.chat.EMCallManager;
 import com.hyphenate.media.EMLocalSurfaceView;
 import com.hyphenate.media.EMOppositeSurfaceView;
+import com.lib.base.log.KLog;
 import com.lwk.familycontact.im.helper.HxCallHelper;
 import com.lwk.familycontact.project.call.view.HxCallView;
 
@@ -38,7 +39,15 @@ public class HxVideoCallPrenter extends HxCallPresenter
      */
     public void stopVideoRecord()
     {
-        mVideoCallHelper.stopVideoRecord();
+        if (mVideoCallHelper != null)
+        {
+            try
+            {
+                mVideoCallHelper.stopVideoRecord();
+            } catch (Exception e)
+            {
+                KLog.e("HxVideoCallPresenter", "Can not stop video record:" + e);
+            }
+        }
     }
-
 }

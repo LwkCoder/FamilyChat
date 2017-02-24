@@ -361,13 +361,11 @@ public class HxChatPresenter
         if (mCurPlayVoicePosition == position)
         {
             stopPlayVoiceMessage();
-            mViewImpl.refershAdapterStatus();
             return;
         }
 
         stopPlayVoiceMessage();
         message.setListened(true);
-        mViewImpl.refershAdapterStatus();
         mVoiceMessagePlayUtils.playVoice(filePath, new VoiceMessagePlayListener()
         {
             @Override
@@ -381,7 +379,6 @@ public class HxChatPresenter
             public void endPlay(boolean isHandFree)
             {
                 stopPlayVoiceMessage();
-                mViewImpl.refershAdapterStatus();
             }
 
             @Override
@@ -397,6 +394,7 @@ public class HxChatPresenter
     {
         mVoiceMessagePlayUtils.stopVoice();
         mCurPlayVoicePosition = -1;
+        mViewImpl.refershAdapterStatus();
     }
 
     /**
