@@ -32,6 +32,8 @@
             android:id="@+id/common_ptrview_refresh_view"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            app:ptr_def_view_icon_status_fail="@drawable/icon_pull_status_fail_dark"
+            app:ptr_def_view_icon_status_success="@drawable/icon_pull_status_success_dark"
             app:ptr_def_view_label_pulldown_fail="@string/ptr_chat_fail"
             app:ptr_def_view_label_pulldown_pulling="@string/ptr_chat_pulling"
             app:ptr_def_view_label_pulldown_released="@string/ptr_chat_release"
