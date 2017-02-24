@@ -357,6 +357,7 @@ public class IMRecordButton extends Button implements IMRecordAudioManager.onRec
 
                     vibrate();
                     mAudioManager.start();
+                    mHandler.sendEmptyMessage(MSG_RECORDING);
                     if (mViewImpl != null)
                     {
                         mViewImpl.showView(IMRecordButton.this);
