@@ -1,10 +1,8 @@
 package com.lwk.familycontact.project.chat.adapter;
 
 import android.content.Context;
-import android.graphics.drawable.AnimationDrawable;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.hyphenate.chat.EMMessage;
@@ -15,6 +13,7 @@ import com.lwk.familycontact.R;
 import com.lwk.familycontact.base.FCApplication;
 import com.lwk.familycontact.project.chat.presenter.HxChatPresenter;
 import com.lwk.familycontact.storage.db.user.UserBean;
+import com.lwk.familycontact.widget.FrameAnimImageView;
 
 import java.io.File;
 
@@ -34,6 +33,10 @@ public abstract class VoiceMessageBaseItemView extends HxChatBaseItemView
     //布局最窄距离
     private final int MIN_LAYOUT_WIDTH = FCApplication.getInstance().getResources().getDimensionPixelSize(R.dimen.fl_chat_listitem_voice_content_min_width);
 
+    private final int ANIM_DURATION = 350;
+    private final Integer[] mAnimLeft = new Integer[]{R.drawable.ic_voice_left01, R.drawable.ic_voice_left02, R.drawable.ic_voice_left03};
+    private final Integer[] mAnimRight = new Integer[]{R.drawable.ic_voice_right01, R.drawable.ic_voice_right02, R.drawable.ic_voice_right03};
+
     public VoiceMessageBaseItemView(Context mContext, HxChatPresenter mPresenter, UserBean mUserBean)
     {
         super(mContext, mPresenter, mUserBean);
@@ -43,7 +46,7 @@ public abstract class VoiceMessageBaseItemView extends HxChatBaseItemView
     public void setMessageData(RcvHolder holder, final EMMessage emMessage, final int position)
     {
         final EMVoiceMessageBody messageBody = (EMVoiceMessageBody) emMessage.getBody();
-        ImageView imgLabel = holder.findView(R.id.img_chat_listitem_voice_content);
+        final FrameAnimImageView imgLabel = holder.findView(R.id.img_chat_listitem_voice_content);
         TextView tvLength = holder.findView(R.id.tv_chat_listitem_voice_content);
         View vLayout = holder.findView(R.id.fl_chat_listitem_voice_content);
 
@@ -59,23 +62,15 @@ public abstract class VoiceMessageBaseItemView extends HxChatBaseItemView
                     * (voiceLength - MIN_VOICE_LENGTH) / 5;//5=MAX_VOICE_LENGTH-MIN_VOICE_LENGTH
         vLayout.setLayoutParams(layoutParams);
 
-        AnimationDrawable mAnimDrawable = null;
-        if (mPresenter.getCurPlayVoicePosition() == position && mAnimDrawable == null)
+        if (mPresenter.getCurPlayVoicePosition() == position)
         {
             if (emMessage.direct() == EMMessage.Direct.SEND)
-                imgLabel.setImageResource(R.drawable.anim_voice_play_right);
+                imgLabel.start(mAnimRight, true, ANIM_DURATION);
             else
-                imgLabel.setImageResource(R.drawable.anim_voice_play_left);
-            mAnimDrawable = (AnimationDrawable) imgLabel.getDrawable();
-            mAnimDrawable.start();
+                imgLabel.start(mAnimLeft, true, ANIM_DURATION);
         } else
         {
-            if (mAnimDrawable != null && mAnimDrawable.isRunning())
-            {
-                mAnimDrawable.stop();
-                mAnimDrawable = null;
-            }
-
+            imgLabel.stop();
             if (emMessage.direct() == EMMessage.Direct.SEND)
                 imgLabel.setImageResource(R.drawable.ic_voice_right03);
             else
@@ -98,21 +93,49 @@ public abstract class VoiceMessageBaseItemView extends HxChatBaseItemView
         }
 
         //设置点击事件
-        holder.setClickListener(R.id.fl_chat_listitem_voice_content, null);
-        holder.setClickListener(R.id.fl_chat_listitem_voice_content, new View.OnClickListener()
-        {
-            @Override
-            public void onClick(View v)
-            {
-                String localUrl = messageBody.getLocalUrl();
-                if (StringUtil.isNotEmpty(localUrl) && new File(localUrl).exists())
-                    mPresenter.clickVoiceMessage(emMessage, localUrl, position);
-                else
-                    mPresenter.clickVoiceMessage(emMessage, messageBody.getRemoteUrl(), position);
-            }
-        });
+        holder.setClickListener(R.id.fl_chat_listitem_voice_content, new VoiceClickListener(imgLabel, emMessage, position));
 
         setMessage(holder, emMessage, position);
+    }
+
+    private class VoiceClickListener implements View.OnClickListener
+    {
+        private FrameAnimImageView mImageView;
+        private EMMessage mMessage;
+        private int mPosition;
+        private EMVoiceMessageBody mBody;
+
+        VoiceClickListener(FrameAnimImageView imageView, EMMessage message, int position)
+        {
+            this.mImageView = imageView;
+            this.mMessage = message;
+            this.mPosition = position;
+            this.mBody = (EMVoiceMessageBody) mMessage.getBody();
+        }
+
+        @Override
+        public void onClick(View v)
+        {
+            if (mPresenter.getCurPlayVoicePosition() == mPosition)
+            {
+                mPresenter.stopPlayVoiceMessage();
+                return;
+            }
+
+            mPresenter.stopPlayVoiceMessage();
+            mMessage.setListened(true);
+            mPresenter.setCurVoicePlayPosition(mPosition);
+            if (mMessage.direct() == EMMessage.Direct.SEND)
+                mImageView.start(mAnimRight, true, ANIM_DURATION);
+            else
+                mImageView.start(mAnimLeft, true, ANIM_DURATION);
+
+            String localUrl = mBody.getLocalUrl();
+            if (StringUtil.isNotEmpty(localUrl) && new File(localUrl).exists())
+                mPresenter.clickVoiceMessage(localUrl);
+            else
+                mPresenter.clickVoiceMessage(mBody.getRemoteUrl());
+        }
     }
 
     public abstract void setMessage(RcvHolder holder, EMMessage emMessage, int position);

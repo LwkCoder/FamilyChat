@@ -49,7 +49,7 @@
                         android:layout_marginRight="@dimen/spacing_tiny"
                         android:textColor="@android:color/white"/>
 
-                    <ImageView
+                    <com.lwk.familycontact.widget.FrameAnimImageView
                         style="@style/ImgChatVoiceContentStyle"
                         android:src="@drawable/ic_voice_right03"/>
 

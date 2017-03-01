@@ -39,7 +39,7 @@
                     android:gravity="center_vertical"
                     android:orientation="horizontal">
 
-                    <ImageView
+                    <com.lwk.familycontact.widget.FrameAnimImageView
                         style="@style/ImgChatVoiceContentStyle"
                         android:src="@drawable/ic_voice_left03"/>
 
