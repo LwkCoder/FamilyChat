@@ -1,8 +1,8 @@
 apply plugin: 'com.android.application'
 apply plugin: 'android-apt'
 
-Properties properties = new Properties()
-properties.load(project.rootProject.file('local.properties').newDataInputStream())
+//Properties properties = new Properties()
+//properties.load(project.rootProject.file('local.properties').newDataInputStream())
 
 android {
 
@@ -25,15 +25,15 @@ android {
     signingConfigs {
         debug {
             storeFile file("../keystore/fckeystore.jks")
-            storePassword properties.getProperty("STORE_PWD")
-            keyAlias properties.getProperty("ALIAS")
-            keyPassword properties.getProperty("KEY_PWD")
+            storePassword STORE_PWD
+            keyAlias ALIAS
+            keyPassword KEY_PWD
         }
         release {
             storeFile file("../keystore/fckeystore.jks")
-            storePassword properties.getProperty("STORE_PWD")
-            keyAlias properties.getProperty("ALIAS")
-            keyPassword properties.getProperty("KEY_PWD")
+            storePassword STORE_PWD
+            keyAlias ALIAS
+            keyPassword KEY_PWD
         }
     }
 

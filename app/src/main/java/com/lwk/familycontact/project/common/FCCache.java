@@ -78,7 +78,7 @@ public class FCCache
     }
 
     /**
-     * 获取语音消息缓存地址
+     * 获取图片消息缓存地址
      */
     public String getImageCachePath()
     {
