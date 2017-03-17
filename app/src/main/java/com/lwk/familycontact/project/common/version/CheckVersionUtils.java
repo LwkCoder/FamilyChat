@@ -202,7 +202,7 @@ public class CheckVersionUtils
     private void startInstallAfterSdk24(File file)
     {
         Uri apkUri = FileProvider.getUriForFile(FCApplication.getInstance()
-                , "com.lwk.familycontact.fileprovider", file);
+                , FCApplication.getInstance().getString(R.string.app_fileprovider_authorities), file);
         Intent intent = new Intent(Intent.ACTION_VIEW);
         intent.setFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);

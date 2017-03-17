@@ -1,6 +1,7 @@
 <resources>
     <string name="app_name">家聊</string>
     <string name="AuthorDesc">Produced by WK.Luo</string>
+    <string name="app_fileprovider_authorities">com.lwk.familycontact.fileprovider</string>
 
     <!--提示汇总-->
     <string name="error_unknow">数据异常</string>

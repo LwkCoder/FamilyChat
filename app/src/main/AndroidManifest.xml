@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest package="com.lwk.familycontact"
-          xmlns:android="http://schemas.android.com/apk/res/android">
+          xmlns:android="http://schemas.android.com/apk/res/android"
+          xmlns:tools="http://schemas.android.com/tools">
 
     <uses-permission android:name="android.permission.VIBRATE"/>
     <uses-permission android:name="android.permission.INTERNET"/>
@@ -36,12 +37,14 @@
 
         <provider
             android:name="android.support.v4.content.FileProvider"
-            android:authorities="com.lwk.familycontact.fileprovider"
+            android:authorities="@string/app_fileprovider_authorities"
             android:exported="false"
-            android:grantUriPermissions="true">
+            android:grantUriPermissions="true"
+            tools:replace="android:authorities">
             <meta-data
                 android:name="android.support.FILE_PROVIDER_PATHS"
-                android:resource="@xml/fileprovider_path"/>
+                android:resource="@xml/fileprovider_path"
+                tools:replace="android:resource"/>
         </provider>
 
         <!--&lt;!&ndash;友盟统计&ndash;&gt;-->
