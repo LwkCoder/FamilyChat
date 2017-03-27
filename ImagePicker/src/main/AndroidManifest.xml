@@ -10,8 +10,8 @@
         android:allowBackup="true"
         android:supportsRtl="true">
         <provider
-            android:name="android.support.v4.content.FileProvider"
-            android:authorities="@string/app_fileprovider_authorities"
+            android:name=".utils.ImagePickerProvider"
+            android:authorities="${applicationId}.provider"
             android:exported="false"
             android:grantUriPermissions="true">
             <meta-data

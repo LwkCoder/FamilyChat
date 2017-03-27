@@ -28,6 +28,7 @@ import com.lib.imagepicker.bean.ImageFloderBean;
 import com.lib.imagepicker.model.ImagePickerMode;
 import com.lib.imagepicker.presenter.ImagePickerGridPresenter;
 import com.lib.imagepicker.utils.CropHelper;
+import com.lib.imagepicker.utils.ImagePickerProvider;
 import com.lib.imagepicker.utils.OtherUtils;
 import com.lib.imagepicker.view.adapter.ImageGridAdapter;
 import com.lib.imagepicker.view.base.ImagePickerBaseActivity;
@@ -278,7 +279,7 @@ public class ImagePickerGridActivity extends ImagePickerBaseActivity implements 
      */
     private void doTakePhotoAfterSdk24(Intent intent, File tempPicFile)
     {
-        Uri imageUri = FileProvider.getUriForFile(this, getResources().getString(R.string.app_fileprovider_authorities), tempPicFile);
+        Uri imageUri = FileProvider.getUriForFile(this, ImagePickerProvider.getAuthorities(this), tempPicFile);
         intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION); //添加这一句表示对目标应用临时授权该Uri所代表的文件
         intent.putExtra(MediaStore.EXTRA_OUTPUT, imageUri);//将拍取的照片保存到指定URI
         startActivityForResult(intent, sREQUESTCODE_TAKE_PHOTO);
@@ -289,7 +290,7 @@ public class ImagePickerGridActivity extends ImagePickerBaseActivity implements 
     {
         if (ImagePicker.getInstance().getOptions().getPickerMode() != ImagePickerMode.SINGLE)
         {
-            mBtnOk.setText(getString(R.string.btn_imagepicker_ok, curNum, maxNum));
+            mBtnOk.setText(getString(R.string.btn_imagepicker_ok, String.valueOf(curNum), String.valueOf(maxNum)));
             if (curNum == 0)
                 mBtnOk.setEnabled(false);
             else
@@ -300,7 +301,7 @@ public class ImagePickerGridActivity extends ImagePickerBaseActivity implements 
     @Override
     public void onNumLimited(int maxNum)
     {
-        showToast(getString(R.string.warning_imagepicker_limit_num, maxNum));
+        showToast(getString(R.string.warning_imagepicker_limit_num, String.valueOf(maxNum)));
     }
 
     @Override
