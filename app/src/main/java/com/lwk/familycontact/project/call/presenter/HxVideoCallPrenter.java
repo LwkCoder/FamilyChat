@@ -3,8 +3,7 @@ package com.lwk.familycontact.project.call.presenter;
 import android.os.Handler;
 
 import com.hyphenate.chat.EMCallManager;
-import com.hyphenate.media.EMLocalSurfaceView;
-import com.hyphenate.media.EMOppositeSurfaceView;
+import com.hyphenate.media.EMCallSurfaceView;
 import com.lib.base.log.KLog;
 import com.lwk.familycontact.im.helper.HxCallHelper;
 import com.lwk.familycontact.project.call.view.HxCallView;
@@ -29,7 +28,7 @@ public class HxVideoCallPrenter extends HxCallPresenter
     /**
      * 设置双方SurfaceView
      */
-    public void setSurfaceView(EMLocalSurfaceView localSurfaceView, EMOppositeSurfaceView opSurfaceView)
+    public void setSurfaceView(EMCallSurfaceView localSurfaceView, EMCallSurfaceView opSurfaceView)
     {
         HxCallHelper.getInstance().setSurfaceView(localSurfaceView, opSurfaceView);
     }

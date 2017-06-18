@@ -7,7 +7,7 @@
     android:background="@color/colorPrimaryDark"
     tools:context="com.lwk.familycontact.project.call.view.HxVideoCallActivity">
 
-    <com.hyphenate.media.EMOppositeSurfaceView
+    <com.hyphenate.media.EMCallSurfaceView
         android:id="@+id/sfv_videocall_opposite"
         android:layout_width="match_parent"
         android:layout_height="match_parent"/>
@@ -30,7 +30,7 @@
         android:textSize="15sp"
         android:visibility="invisible"/>
 
-    <com.hyphenate.media.EMLocalSurfaceView
+    <com.hyphenate.media.EMCallSurfaceView
         android:id="@+id/sfv_videocall_local"
         android:layout_width="100dp"
         android:layout_height="120dp"

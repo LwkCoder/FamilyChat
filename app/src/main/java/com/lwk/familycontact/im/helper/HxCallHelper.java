@@ -6,8 +6,7 @@ import com.hyphenate.chat.EMClient;
 import com.hyphenate.exceptions.EMNoActiveCallException;
 import com.hyphenate.exceptions.EMServiceNotReadyException;
 import com.hyphenate.exceptions.HyphenateException;
-import com.hyphenate.media.EMLocalSurfaceView;
-import com.hyphenate.media.EMOppositeSurfaceView;
+import com.hyphenate.media.EMCallSurfaceView;
 
 /**
  * Created by LWK
@@ -135,7 +134,7 @@ public class HxCallHelper
      * @param localSurfaceView 本方
      * @param opSurfaceView    对方
      */
-    public void setSurfaceView(EMLocalSurfaceView localSurfaceView, EMOppositeSurfaceView opSurfaceView)
+    public void setSurfaceView(EMCallSurfaceView localSurfaceView, EMCallSurfaceView opSurfaceView)
     {
         EMClient.getInstance().callManager().setSurfaceView(localSurfaceView, opSurfaceView);
     }

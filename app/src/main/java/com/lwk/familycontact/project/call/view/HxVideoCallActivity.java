@@ -9,8 +9,7 @@ import android.support.annotation.NonNull;
 import android.support.v7.app.AlertDialog;
 import android.view.View;
 
-import com.hyphenate.media.EMLocalSurfaceView;
-import com.hyphenate.media.EMOppositeSurfaceView;
+import com.hyphenate.media.EMCallSurfaceView;
 import com.lwk.familycontact.R;
 import com.lwk.familycontact.project.call.presenter.HxVideoCallPrenter;
 import com.lwk.familycontact.project.chat.utils.HxMsgAttrConstant;
@@ -31,8 +30,8 @@ public class HxVideoCallActivity extends HxCallBaseActivity implements HxVideoCa
 {
     private HxVideoCallPrenter mPresenter;
     private View mViewHeader;
-    private EMOppositeSurfaceView mSfvOpposite;
-    private EMLocalSurfaceView mSfvLocal;
+    private EMCallSurfaceView mSfvOpposite;
+    private EMCallSurfaceView mSfvLocal;
 
     /**
      * 跳转到该界面的公共方法
