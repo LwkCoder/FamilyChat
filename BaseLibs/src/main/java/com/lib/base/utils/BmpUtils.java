@@ -173,6 +173,9 @@ public class BmpUtils
      */
     public static String saveBmp(Bitmap bitmap, String savePath, String saveName)
     {
+        if (bitmap == null)
+            return null;
+
         String resultPath = null;
         try
         {
@@ -188,7 +191,7 @@ public class BmpUtils
             bitmap = null;
             System.gc();
             resultPath = file.getAbsolutePath();
-        } catch (IOException e)
+        } catch (Exception e)
         {
             KLog.e("BmpUtils.saveBmp(): savePath = " + savePath + "\nsaveName = " + saveName + "\n保存图片失败：" + e.toString());
         }

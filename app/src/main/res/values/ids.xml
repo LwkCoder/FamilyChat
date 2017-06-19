@@ -26,4 +26,5 @@
     <item name="btn_call_receiver_panel_answercall" type="id"/>
     <item name="vs_voicecall_calling_panel" type="id"/>
     <item name="vs_voicecall_receiver_panel" type="id"/>
+    <item name="chm_call_time" type="id"/>
 </resources>
